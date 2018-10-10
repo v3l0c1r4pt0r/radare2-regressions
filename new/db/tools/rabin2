@@ -578,3 +578,36 @@ stripped false
 subsys   linux
 va       true
 RUN
+
+NAME=rabin2 -I apple-blocks-ext
+FILE=../bins/mach0/mach0-blocks-ext
+CMDS=!rabin2 -I ${R2_FILE}
+EXPECT=<<RUN
+arch     x86
+baddr    0x100000000
+binsz    9828
+bintype  mach0
+bits     64
+canary   false
+sanitiz  false
+class    MACH064
+crypto   false
+endian   little
+havecode true
+intrp    /usr/lib/dyld
+lang     c++ blocks ext.
+linenum  false
+lsyms    false
+machine  x86 64 all
+maxopsz  16
+minopsz  1
+nx       false
+os       darwin
+pcalign  0
+pic      true
+relocs   false
+static   false
+stripped false
+subsys   darwin
+va       true
+RUN
