@@ -1,3 +1,13 @@
+NAME=cyclomatic
+FILE=../bins/pe/rabin2.exe
+CMDS64=cyAweDE0MDAwMjUxMDthZjthZml+Y29tcGxleFsxXQo=
+EXPECT64=MTIK
+RUN
+NAME=cyclomatic endsize
+FILE=../bins/pe/rabin2.exe
+CMDS64=cyAweDE0MDAwMjUxMDthZjthZml+Y29tcGxleFsxXQo=
+EXPECT64=MTIK
+RUN
 NAME=t.anal/x86/aap
 FILE=../bins/mach0/ls-osx-x86_64
 EXPECT64=cHVzaCByYnAKbW92IHJicCwgcnNwCgo=
