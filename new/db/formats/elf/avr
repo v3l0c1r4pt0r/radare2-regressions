@@ -1,8 +1,10 @@
 NAME=avr entrypoint
 FILE=../bins/elf/analysis/bugurtos-avr.elf
-EXPECT64=dmFkZHI9MHgwMDAwMDAwMCBwYWRkcj0weDAwMDAwMDc0IGJhZGRyPTB4MDAwMDAwMDAgbGFkZHI9MHgwMDAwMDAwMCBoYWRkcj0weDAwMDAwMDE4IGh2YWRkcj0weDAwMDAwMDE4IHR5cGU9cHJvZ3JhbQo=
-CMDS64=aWV+YWRkcgoK
+CMDS=ie~addr
+EXPECT=<<RUN
+vaddr=0x00000000 paddr=0x00000074 baddr=0x00000000 laddr=0x00000000 haddr=0x00000018 hvaddr=0x00000018 type=program
 RUN
+
 NAME=avr baddr
 FILE=../bins/elf/analysis/bugurtos-avr.elf
 EXPECT64=MHgwMDAwMDAwMAoK
