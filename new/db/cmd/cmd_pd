@@ -492,6 +492,20 @@ pdJ 1
 '
 RUN
 
+NAME=pdJ asm.xrefs.fold asm.xrefs.max
+FILE=-
+EXPECT64=W3sib2Zmc2V0IjowLCJ0ZXh0IjoiICAgICAgICAgICAgOyBYUkVGUzogQ09ERSAweDAwMDAwMDAxICAifSx7Im9mZnNldCI6MCwidGV4dCI6IiAgICAgICAgICAgIDB4MDAwMDAwMDAgICAgICAwMDAwICAgICAgICAgICBhZGQgYnl0ZSBbcmF4XSwgYWwifV0KW3sib2Zmc2V0IjowLCJ0ZXh0IjoiICAgICAgICAgICAgOyBYUkVGUygxKSJ9LHsib2Zmc2V0IjowLCJ0ZXh0IjoiICAgICAgICAgICAgMHgwMDAwMDAwMCAgICAgIDAwMDAgICAgICAgICAgIGFkZCBieXRlIFtyYXhdLCBhbCJ9XQo=
+CMDS='s 0
+axc 0 1
+e asm.xrefs.fold=0
+e asm.xrefs.max=5
+pdJ 1
+e asm.xrefs.fold=5
+e asm.xrefs.max=0
+pdJ 1
+'
+RUN
+
 NAME=pd0~{} - crash
 FILE=-
 EXPECT64=Cg==
