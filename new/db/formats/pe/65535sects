@@ -1,5 +1,6 @@
 NAME=PE: corkami 65535sects.exe - section list, entrypoint, open and analyze
 FILE=../bins/pe/65535sects.exe
-EXPECT64=NjU1MzUKMHgyOTExMjAKbW92IGVkaSwgMHg3MDI3YWZmOQoK
-CMDS64=CmFhClN+PwpzCnBpIDEKcSEKCg==
+EXPECT64=NjU1MzYKMHgyOTExMjAKbW92IGVkaSwgMHg3MDI3YWZmOQo=
+CMDS64=CmFhCm9tfj8KcwpwaSAxCnEhCg==
+
 RUN

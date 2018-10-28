@@ -11,33 +11,33 @@ CMDS64=IXJhYmluMiAtUyAuLi9iaW5zL3BlL2NtMDEuZXhlCg==
 RUN
 NAME=PE: corkami cm01.exe - section seek 1
 FILE=../bins/pe/cm01.exe
-EXPECT64=Q09ERQoK
-CMDS64=cyAweDAwNDAxMDAwClMuflsyXQo=
+EXPECT64=Zm1hcC5DT0RFCg==
+CMDS64=cyAweDAwNDAxMDAwCm9tLn5bMTBdCg==
 RUN
 NAME=PE: corkami cm01.exe - section seek 2
 FILE=../bins/pe/cm01.exe
-EXPECT64=REFUQQoK
-CMDS64=cyAweDAwNDAyMDAwClMuflsyXQo=
+EXPECT64=Zm1hcC5EQVRBCg==
+CMDS64=cyAweDAwNDAyMDAwCm9tLn5bMTBdCg==
 RUN
 NAME=PE: corkami cm01.exe - section seek 3
 FILE=../bins/pe/cm01.exe
-EXPECT64=LmlkYXRhCgo=
-CMDS64=cyAweDAwNDAzMDAwClMuflsyXQo=
+EXPECT64=Zm1hcC4uaWRhdGEK
+CMDS64=cyAweDAwNDAzMDAwCm9tLn5bMTBdCg==
 RUN
 NAME=PE: corkami cm01.exe - section seek 4
 FILE=../bins/pe/cm01.exe
-EXPECT64=LmVkYXRhCgo=
-CMDS64=cyAweDAwNDA0MDAwClMuflsyXQo=
+EXPECT64=Zm1hcC4uZWRhdGEK
+CMDS64=cyAweDAwNDA0MDAwCm9tLn5bMTBdCg==
 RUN
 NAME=PE: corkami cm01.exe - section seek 5
 FILE=../bins/pe/cm01.exe
-EXPECT64=LnJlbG9jCgo=
-CMDS64=cyAweDAwNDA1MDAwClMuflsyXQo=
+EXPECT64=Zm1hcC4ucmVsb2MK
+CMDS64=cyAweDAwNDA1MDAwCm9tLn5bMTBdCg==
 RUN
 NAME=PE: corkami cm01.exe - section seek 6
 FILE=../bins/pe/cm01.exe
-EXPECT64=LnJzcmMKCg==
-CMDS64=cyAweDAwNDA2MDAwClMuflsyXQo=
+EXPECT64=Zm1hcC4ucnNyYwo=
+CMDS64=cyAweDAwNDA2MDAwCm9tLn5bMTBdCg==
 RUN
 NAME=PE: corkami cm01.exe - section refs 1
 FILE=../bins/pe/cm01.exe

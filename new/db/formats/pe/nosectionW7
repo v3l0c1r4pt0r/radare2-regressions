@@ -5,8 +5,8 @@ CMDS64=cSEK
 RUN
 NAME=1: PE: nosectionW7 - entrypoint
 FILE=../bins/pe/nosectionW7.exe
-EXPECT64=WzAwOjAwXSAqIHBhPTB4MDAwMDAxMzggcnd4IHZhPTB4MDA0MDAxMzggc3o9MHgwMTA4IHZzej0weDAxMDggYmxvYgoK
-CMDS64=Uwo=
+EXPECT64=IDEgZmQ6IDMgKzB4MDAwMDAxMzggMHgwMDQwMDEzOCAtIDB4MDA0MDAyM2Ygci14IGZtYXAuYmxvYgo=
+CMDS64=b20K
 RUN
 NAME=2: PE: nosectionW7 - entrypoint
 FILE=../bins/pe/nosectionW7.exe
