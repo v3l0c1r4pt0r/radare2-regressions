@@ -3,13 +3,13 @@ FILE=../bins/pe/nosectionXP.exe
 EXPECT64=Cg==
 CMDS64=cSEK
 RUN
-NAME=PE: nosectionXP - entrypoint
+NAME=PE: nosectionXP - section
 FILE=../bins/pe/nosectionXP.exe
 EXPECT64=IDEgZmQ6IDMgKzB4MDAwMDAxMzggMHgwMDQwMDEzOCAtIDB4MDA0MDAyMzYgci14IGZtYXAuYmxvYgo=
 CMDS64=b20K
 RUN
-NAME=PE: nosectionXP - entrypoint
+NAME=PE: nosectionXP - entrypoint 2
 FILE=../bins/pe/nosectionXP.exe
-EXPECT64=IDEgZmQ6IDMgKzB4MDAwMDAxMzggMHgwMDQwMDEzOCAtIDB4MDA0MDAyMzYgci14IGZtYXAuYmxvYgo=
+EXPECT64=cHVzaCAweDQwMDE1MApjYWxsIGR3b3JkIFtzeW0uaW1wLm1zdmNydC5kbGxfcHJpbnRmXQphZGQgZXNwLCA0Cm5vcApwdXNoIDAK
 CMDS64=cGkgNQo=
 RUN
