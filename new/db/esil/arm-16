@@ -1,3 +1,40 @@
+NAME=adr emulation
+FILE=malloc://0x200
+CMDS=<<EXPECT
+e io.cache=true
+e asm.bits=16
+e asm.arch=arm
+s 0x0008735c
+wx 30a1
+w radare_emulation\x00 @ 0x87420
+aei
+aeim
+aeip
+aes
+ps @ r1
+EXPECT=<<RUN
+radare_emulation
+RUN
+
+
+NAME=addw emulation
+FILE=malloc://0x200
+CMDS=<<EXPECT
+e io.cache=true
+e asm.bits=16
+e asm.arch=arm
+s 0x00088a1c 
+wx 0ff26c71
+w addw_emulation\x00 @ 0x8918c
+aei
+aeim
+aeip
+aes
+ps @ r1
+EXPECT=<<RUN
+addw_emulation
+RUN
+
 NAME=cmp neq unchanged zf
 FILE=malloc://0x200
 CMDS=<<EXPECT
