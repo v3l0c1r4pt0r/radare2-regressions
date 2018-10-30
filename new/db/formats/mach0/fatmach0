@@ -130,7 +130,7 @@ NAME=fatmach0 sections
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-a x86 -b 64
 EXPECT64=MTAKCg==
-CMDS64=Uz1+Pwo=
+CMDS64=b21+Pwo=
 RUN
 NAME=fatmach0 rebase
 FILE=../bins/mach0/fatmach0-3true

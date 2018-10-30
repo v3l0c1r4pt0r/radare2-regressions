@@ -81,21 +81,13 @@ FILE=../bins/elf/analysis/x86-helloworld-gcc
 CMDS=<<EXPECT
 !rabin2 -S ${R2_FILE}|wc -l|awk "{print \$1}"
 !rabin2 -SS ${R2_FILE}|wc -l|awk "{print \$1}"
-!rabin2 -rS ${R2_FILE}|wc -l|awk "{print \$1}"
-!rabin2 -rSS ${R2_FILE}|wc -l|awk "{print \$1}"
 !env RABIN2_PREFIX=prixfixe rabin2 -S ${R2_FILE} |grep prixfixe. |wc -l |awk "{print \$1}"
 !env RABIN2_PREFIX=prixfixe rabin2 -SS ${R2_FILE} |grep prixfixe. |wc -l |awk "{print \$1}"
-!env RABIN2_PREFIX=prixfixe rabin2 -rS ${R2_FILE} |grep prixfixe. |wc -l |awk "{print \$1}"
-!env RABIN2_PREFIX=prixfixe rabin2 -rSS ${R2_FILE} |grep prixfixe. |wc -l |awk "{print \$1}"
 EXPECT=<<RUN
 32
 11
-91
-28
 30
 9
-90
-27
 RUN
 
 NAME=rabin2 -z pe
