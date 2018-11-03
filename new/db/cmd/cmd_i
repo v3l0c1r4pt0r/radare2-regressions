@@ -111,6 +111,13 @@ EXPECT='lang     rust
 '
 RUN
 
+NAME=iI-msvc
+FILE=../bins/pe/libzmq-v100-mt-4_0_4.dll
+CMDS=iI~lang
+EXPECT='lang     msvc
+'
+RUN
+
 NAME=im
 FILE=../bins/nes/Pong.nes
 EXPECT64=MQoK

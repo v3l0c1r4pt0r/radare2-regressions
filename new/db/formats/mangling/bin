@@ -15,3 +15,8 @@ ARGS=-e bin.demangle=true
 EXPECT64=Y2FsbCBzeW0uaW1wLnB1dHMKCg==
 CMDS64=cGkgMSBAIDB4MDgwNDgyMzAK
 RUN
+NAME=MSVC import symbol demangling
+FILE=../bins/pe/libzmq-v100-mt-4_0_4.dll
+CMDS=f~0x1004e0f4[2]
+EXPECT=sym.public:_void___thiscall_std::basic_ostream_char__struct_std::char_traits_char__::_Osfx_void
+RUN
