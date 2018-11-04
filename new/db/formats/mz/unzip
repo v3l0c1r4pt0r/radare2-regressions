@@ -6,7 +6,7 @@ CMDS64=cSEK
 RUN
 NAME=MZ: unzip.exe - entrypoint
 FILE=../bins/mz/unzip.exe
-EXPECT64=MHgxNThhMAoK
+EXPECT64=MHgxNTZhMAo=
 CMDS64=CnMKCg==
 RUN
 NAME=MZ: unzip.exe - pi 1
@@ -16,6 +16,6 @@ CMDS64=CnBpIDEKCg==
 RUN
 NAME=MZ: unzip.exe segments
 FILE=../bins/mz/unzip.exe
-EXPECT64=ZnMgc2VjdGlvbnMKCg==
+EXPECT64=ZnMgc2VjdGlvbnMKMDAgMHgwMDAwMDIwMCA5MDA2MiAweDAwMDAwMDAwIDkwMDYyIC1yd3ggc2VnXzAwMAo=
 CMDS64=aVMqCg==
 RUN

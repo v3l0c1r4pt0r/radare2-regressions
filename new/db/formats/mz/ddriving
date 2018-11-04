@@ -5,7 +5,7 @@ CMDS64=cQo=
 RUN
 NAME=MZ: corkami ddriving.exe - entrypoint
 FILE=../bins/mz/ddriving.exe
-EXPECT64=MHgyNTQKCg==
+EXPECT64=MHg1NAo=
 CMDS64=CnMKCg==
 RUN
 NAME=MZ: corkami ddriving.exe - pi 1

@@ -6,12 +6,12 @@ CMDS64=cSEK
 RUN
 NAME=MZ: corkami cdogs.exe - entrypoint
 FILE=../bins/mz/cdogs.exe
-EXPECT64=MHg0MWMKCg==
+EXPECT64=MHgzYmMK
 CMDS64=CnMKCg==
 RUN
 NAME=MZ: corkami cdogs.exe - pi 1
 FILE=../bins/mz/cdogs.exe
-EXPECT64=am1wIDB4NGM1Cgo=
+EXPECT64=am1wIDB4NDY1Cg==
 CMDS64=CnBpIDEKCg==
 RUN
 NAME=MZ: cdogs.exe segments

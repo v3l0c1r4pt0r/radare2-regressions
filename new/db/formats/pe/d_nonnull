@@ -5,6 +5,6 @@ CMDS64=cSEK
 RUN
 NAME=PE: corkami d_nonnull.dll - entrypoint
 FILE=../bins/pe/d_nonnull.dll
-EXPECT64=MHgyMTIxCgo=
+EXPECT64=MHgxMTExCg==
 CMDS64=CnMKCg==
 RUN

@@ -6,7 +6,7 @@ CMDS64=cSEK
 RUN
 NAME=MZ: chkdsk.exe - entrypoint
 FILE=../bins/mz/chkdsk.exe
-EXPECT64=MHgyMAoK
+EXPECT64=MHgwCg==
 CMDS64=CnMKCg==
 RUN
 NAME=MZ: chkdsk.exe - pi 1

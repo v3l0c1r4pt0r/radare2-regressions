@@ -6,7 +6,7 @@ CMDS64=cSEK
 RUN
 NAME=MZ: blocks.exe - entrypoint
 FILE=../bins/mz/blocks.exe
-EXPECT64=MHg3MAoK
+EXPECT64=MHgwCg==
 CMDS64=CnMKCg==
 RUN
 NAME=MZ: blocks.exe - pi 1
