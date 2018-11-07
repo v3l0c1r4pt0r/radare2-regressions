@@ -370,6 +370,14 @@ izzj
 '
 EXPECT='[{"vaddr":762,"paddr":762,"ordinal":4,"size":5,"length":4,"section":"","type":"ascii","string":"cHV0cw=="},{"vaddr":6483,"paddr":6483,"ordinal":65,"size":18,"length":17,"section":"","type":"ascii","string":"cHV0c0BAR0xJQkNfMi4yLjU="}]'
 RUN
+NAME=izzj 2 (no rbin - file x86_64)
+FILE=../bins/elf/analysis/hello-linux-x86_64
+ARGS=
+CMDS='e bin.strpurge=all,!0x4002fa,!0x15b
+izzj
+'
+EXPECT='[{"vaddr":4195066,"paddr":762,"ordinal":4,"size":5,"length":4,"section":".dynstr","type":"ascii","string":"cHV0cw=="},{"vaddr":347,"paddr":6483,"ordinal":65,"size":18,"length":17,"section":".strtab","type":"ascii","string":"cHV0c0BAR0xJQkNfMi4yLjU="}]'
+RUN
 NAME=i (no rbin - file x86_64)
 FILE=../bins/elf/analysis/hello-linux-x86_64
 EXPECT64=Ymxrc3ogICAgMHgwCmJsb2NrICAgIDB4MTAwCmZkICAgICAgIDMKaW9ydyAgICAgZmFsc2UKbW9kZSAgICAgci14CnNpemUgICAgIDB4MWEzNgpodW1hbnN6ICA2LjZLCg==
