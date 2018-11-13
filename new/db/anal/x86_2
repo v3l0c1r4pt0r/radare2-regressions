@@ -45,6 +45,7 @@ e io.cache=true
 ?e
 .(show_fcn b8210000c1ebfdbb2c000000ebf7)
 ?e
+# e anal.nopskip=false  # TODO: why not needed?
 .(show_fcn 0f1f440000b8210000c1ebfdbb2c000000ebf0)
 EXPECT=<<RUN
 size: 13
