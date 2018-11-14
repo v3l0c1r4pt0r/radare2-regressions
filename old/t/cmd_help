@@ -290,7 +290,7 @@ ARGS=
 CMDS="? -1"
 EXPECT='hex     0xffffffffffffffff
 octal   01777777777777777777777
-unit    17179869184.0G
+unit    16.0E
 segment fffff000:0fff
 int64   -1
 string  "\xff\xff\xff\xff\xff\xff\xff\xff"

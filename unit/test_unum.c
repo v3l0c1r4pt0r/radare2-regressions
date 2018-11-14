@@ -4,14 +4,43 @@
 static RNum *num;
 
 bool test_r_num_units() {
-	char *buf[32];
-	//1200 / 1024 = 1.171875
-	mu_assert_streq (r_num_units ((char *)buf, 1024), "1K", "K");
-	mu_assert_streq (r_num_units ((char *)buf, 1200), "1.2K", "K");
-	mu_assert_streq (r_num_units ((char *)buf, 1024 * 1024), "1M", "M");
-	mu_assert_streq (r_num_units ((char *)buf, 1200 * 1024), "1.2M", "M");
-	mu_assert_streq (r_num_units ((char *)buf, 1024 * 1024 * 1024), "1G", "G");
-	mu_assert_streq (r_num_units ((char *)buf, 1200 * 1024 * 1024), "1.2G", "G");
+	char humansz[8];
+	const struct {
+		const char *expected_res;
+		const char *message;
+		ut64 num;
+	} test_cases[] = {
+		{ "0",        "B", 0ULL },
+		{ "512",      "B", 512ULL },
+		{ "1K",       "K", 1ULL << 10 },
+		{ "1M",       "M", 1ULL << 20 },
+		{ "1G",       "G", 1ULL << 30 },
+		{ "1T",       "T", 1ULL << 40 },
+		{ "1P",       "P", 1ULL << 50 },
+		{ "1E",       "E", 1ULL << 60 },
+		/* Decimal test */
+		{ "1.0K",     "K", 1025 },
+		{ "994K",     "K", 994 * (1ULL << 10) },
+		{ "999K",     "K", 999 * (1ULL << 10) },
+		{ "1.0M",     "M", 1025 * (1ULL << 10) },
+		{ "1.5M",     "M", 1536 * (1ULL << 10) },
+		{ "1.9M",     "M", 1996 * (1ULL << 10) },
+		{ "2.0M",     "M", 1997 * (1ULL << 10) },
+		{ "2.0M",     "M", 2047 * (1ULL << 10) },
+		{ "2M",       "M", 2048 * (1ULL << 10) },
+		{ "2.0M",     "M", 2099 * (1ULL << 10) },
+		{ "2.1M",     "M", 2100 * (1ULL << 10) },
+		{ "9.9G",     "G", 10188 * (1ULL << 20) },
+		/* Biggest units */
+		{ "82P",      "P", 82 * (1ULL << 50) },
+		{ "16.0E",    "E", UT64_MAX }
+	};
+	size_t nitems = sizeof (test_cases) / sizeof (test_cases[0]);
+	size_t i;
+	for (i = 0; i < nitems; ++i) {
+		r_num_units (humansz, sizeof (humansz), test_cases[i].num);
+		mu_assert_streq (humansz, test_cases[i].expected_res, test_cases[i].message);
+	}
 	mu_end;
 }
 
