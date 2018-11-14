@@ -1,7 +1,7 @@
 NAME=pd call sym bug
 FILE=../bins/mach0/hello-objc-arm
 EXPECT64=MQoxCgo=
-CMDS64=CmUgYXNtLmxpbmVzLmJiPTAKZSBhc20uYnl0ZXM9MAplIGFzbS5jb21tZW50cz0wCnMgc3ltLl9fVGVzdF9jYWxsTWVOb3QKcGQgMjB+P05TTG9nCmFmCnBkIDIwfj9OU0xvZwoK
+CMDS64=CmUgYXNtLmxpbmVzLmJiPTAKZSBhc20uYnl0ZXM9MAplIGFzbS5jb21tZW50cz0wCnMgc3ltLnN0YXRpY19pbnRfVGVzdDo6Y2FsbE1lTm90CnBkIDIwfj9OU0xvZwphZgpwZCAyMH4/TlNMb2cKCg==
 RUN
 NAME=pd arm cortex 0
 FILE=-
@@ -24,7 +24,7 @@ RUN
 NAME=pd call sym bug
 FILE=../bins/mach0/hello-objc-arm
 EXPECT64=cHVzaCB7cjcsIGxyfQptb3YgcjcsIHNwCgo=
-CMDS64=CmUgYXNtLmxpbmVzLmJiPTAKZSBhc20uYnl0ZXM9MAplIGFzbS5jb21tZW50cz0wCnMgc3ltLl9fVGVzdF9jYWxsTWVOb3QKIyBzKzIKcGkgMgoK
+CMDS64=CmUgYXNtLmxpbmVzLmJiPTAKZSBhc20uYnl0ZXM9MAplIGFzbS5jb21tZW50cz0wCnMgc3ltLnN0YXRpY19pbnRfVGVzdDo6Y2FsbE1lTm90CiMgcysyCnBpIDIKCg==
 RUN
 NAME=call fcn eip 32bit
 FILE=../bins/elf/analysis/ls-alxchk
