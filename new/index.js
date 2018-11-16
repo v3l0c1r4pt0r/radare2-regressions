@@ -820,7 +820,7 @@ function parseTestAsm (source, line) {
     r2args.push('e asm.cpu=' + filename[1]);
     r2args.push('e asm.bits=' + filename[2]);
   }
-  r2args.push('e asm.arch=' + filename[0]);
+  r2args.unshift('e asm.arch=' + filename[0]);
 
   let type = args[0];
   let asm = args[1].split('"').join('');
