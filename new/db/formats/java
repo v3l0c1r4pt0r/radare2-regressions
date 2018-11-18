@@ -1,6 +1,5 @@
 NAME=Java class parsing errors
 FILE=../bins/java/TryWithResources.class
-BROKEN=1
 EXPECT64=bm9wCgo=
 CMDS64=P2Ugbm9wCgo=
 RUN
