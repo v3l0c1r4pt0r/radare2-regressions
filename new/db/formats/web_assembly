@@ -5,7 +5,7 @@ CMDS64=cSEK
 RUN
 NAME=WASM: Wasm - detection
 FILE=../bins/wasm/basic.wasm
-EXPECT64=b3MgICAgICAgV2FzbQoK
+EXPECT64=b3MgICAgICAgV2ViQXNzZW1ibHkK
 CMDS64=aUl+b3MK
 RUN
 NAME=WASM: Wasm - entrypoint
