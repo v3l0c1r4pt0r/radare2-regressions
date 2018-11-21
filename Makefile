@@ -33,10 +33,7 @@ all:
 	-$(MAKE) overlay-apply
 	$(MAKE) alltargets
 
-alltargets: js-tests radare2 commands formats io archos unit_tests
-
-radare2:
-	@if [ -f ../binr/radare2/radare2 ]; then $(SHELL) run_tests.sh ./old/t ; fi
+alltargets: js-tests commands formats io archos unit_tests
 
 archos:
 	@$(MAKE) -C old/t.archos
@@ -44,7 +41,7 @@ dbg.linux:
 	$(SHELL) run_tests.sh old/t.archos/Linux
 
 commands:
-	$(SHELL) run_tests.sh
+	$(SHELL) run_tests.sh old/t
 
 io:
 	$(SHELL) run_tests.sh old/t.io
