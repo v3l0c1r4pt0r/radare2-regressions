@@ -60,11 +60,13 @@ EXPECT64=NAoK
 CMDS64=YWFjCmFmbH4/Cgo=
 RUN
 NAME=raw aac (using a PIC bin)
+BROKEN=1
 FILE=../bins/elf/libmagic.so
 EXPECT64=MjAyCg==
 CMDS64=YWFjCmFmbH4/Cgo=
 RUN
 NAME=raw aac with maps (using a PIC bin)
+BROKEN=1
 FILE=../bins/elf/libmagic.so
 ARGS=-n -m 0x80000 -a arm -b 16 -e cfg.bigendian=false
 EXPECT64=OTYKCg==
