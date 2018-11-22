@@ -163,6 +163,6 @@ size: 12
 | 0x004017cb      72             invalid
 | ----------- true: 0x004017dd  false: 0x004017cd
 EXPECT_ERR=<<RUN
-Invalid instruction (possibly truncated) at 0x4017c6
-Invalid instruction (possibly truncated) at 0x4017cb
+Truncated instruction of 3 bytes at 0x4017c6
+Truncated instruction of 1 bytes at 0x4017cb
 RUN
