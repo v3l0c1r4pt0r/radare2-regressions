@@ -757,4 +757,3 @@ EXPECT=<<EOF
 pf zp y obj
 EOF
 RUN
-
