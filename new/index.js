@@ -252,6 +252,9 @@ class NewRegressions {
             }
             args.push('-c', test.cmds.join(';'));
           }
+          if (!test.file) {
+            test.file='-';
+          }
           // append testfile
           args.push(...test.file.split(' '));
 
@@ -704,6 +707,7 @@ class NewRegressions {
         if (showHeaders) {
           console.log('--> stderr\n');
         }
+        // DEBUG console.log("((((", test.expectErr, ")))(((", test.stderr, ")))");
         common.showDiff(test.expectErr, test.stderr);
       }
       /*
