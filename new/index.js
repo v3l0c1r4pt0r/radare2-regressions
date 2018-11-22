@@ -524,7 +524,7 @@ class NewRegressions {
           test.file = v;
           break;
         default:
-          throw new Error('Invalid database, key =(', k, ')');
+          throw new Error('Invalid database, key = (' + k + ')');
       }
     }
     function complete (x) {

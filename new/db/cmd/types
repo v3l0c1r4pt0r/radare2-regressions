@@ -1,9 +1,7 @@
-#!/bin/sh
-# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
-[ -e tests.sh ] && . ./tests.sh || . ../../tests.sh
-NAME='typelinks'
+NAME=typelinks
 FILE=-
-CMDS="wx 41574156415541544989f4555389fd4881eca8030000488b3e64488b042528000000488984249803000031c0e82fb30000488d35d54e0100bf0600000 
+CMDS=<<EOF
+wx 41574156415541544989f4555389fd4881eca8030000488b3e64488b042528000000488984249803000031c0e82fb30000488d35d54e0100bf0600000 
 e asm.comments=false
 s 2
 tl short
@@ -11,8 +9,9 @@ s +6
 tl int
 s 0
 pd 8
-"
-EXPECT="            0x00000000      4157           push r15
+EOF
+EXPECT=<<EOF
+            0x00000000      4157           push r15
 (short)
 0x00000002 = 0x5641
             0x00000006      4154           push r12
@@ -22,12 +21,13 @@ EXPECT="            0x00000000      4157           push r15
             0x0000000f      4881eca80300.  sub rsp, 0x3a8
             0x00000016      488b3e         mov rdi, qword [rsi]
             0x00000019      64488b042528.  mov rax, qword fs:[0x28]
-"
-run_test
+EOF
+RUN
 
-NAME='typelinks 2'
+NAME=typelinks 2
 FILE=-
-CMDS="wx 48656c6c341248656c6c6f00000000000000000048656c6c6f0000000000000000009090
+CMDS=<<EOF
+wx 48656c6c341248656c6c6f00000000000000000048656c6c6f0000000000000000009090
 tk WORD=type
 tk type.WORD=w
 tk type.WORD.size=16
@@ -39,28 +39,44 @@ tk struct.VbHeader.szLangDll=char,6,14
 tk struct.VbHeader.szSecLangDll=char,20,14
 tl VbHeader @ 0x00
 pd 3
-"
-EXPECT="(VbHeader)
+EOF
+EXPECT=<<EOF
+(VbHeader)
      szVbMagic : 0x00000000 = Hell
  wRuntimeBuild : 0x00000004 = 0x1234
      szLangDll : 0x00000006 = Hello
   szSecLangDll : 0x00000014 = Hello
             0x00000022      90             nop
             0x00000023      90             nop
-"
-run_test
+EOF
+RUN
 
-NAME='t?'
-FILE=-
-CMDS='t?~?Usage'
-EXPECT="1
-"
-run_test
+NAME=jni and SoP
+FILE=../bins/elf/libverifyPass.so
+CMDS=<<EOF
+e asm.lines.bb = false
+aa
+s sym.Java_com_app_ndh_NDHActivity_print
+to ../bins/headers/jni.h
+tl JNINativeInterface = 0x464c457f
+pdf~JNINativeInterface
+EOF
+EXPECT=<<EOF
+| 0x00000f7e      d358           ldr r3, [r2, r3]                      ; JNINativeInterface.GetStringUTFChars
+| 0x0000100e      d358           ldr r3, [r2, r3]                      ; JNINativeInterface.GetStringLength
+| 0x00001066      d258           ldr r2, [r2, r3]                      ; JNINativeInterface.NewStringUTF
+| 0x00001114      d258           ldr r2, [r2, r3]                      ; JNINativeInterface.NewStringUTF
+| 0x0000112e      d258           ldr r2, [r2, r3]                      ; JNINativeInterface.NewStringUTF
+EOF
+RUN
 
-NAME='t'
+NAME=t
 FILE=-
-CMDS='t'
-EXPECT='char
+CMDS=<<EOF
+t
+EOF
+EXPECT=<<EOF
+char
 char *
 double
 float
@@ -82,213 +98,182 @@ unsigned char
 unsigned int
 unsigned short
 void *
-'
-run_test
+EOF
+RUN
 
-NAME="t <type>"
+NAME=t <type>
 FILE=-
-CMDS='t int
+CMDS=<<EOF
+t int
 t-*
-t int'
-EXPECT='pf d
-'
-EXPECT_ERR='Cannot find 'int' type
-'
-run_test
+t int
+EOF
+EXPECT=<<EOF
+pf d
+EOF
+EXPECT_ERR=<<EOF
+Cannot find 'int' type
+EOF
+RUN
 
-NAME='t-enum'
+NAME=t-enum
 FILE=-
-CMDS='"td enum pe_machine { IMAGE_FILE_MACHINE_IA64=0x200, IMAGE_FILE_MACHINE_I386=0x14c };"
+CMDS=<<EOF
+td enum pe_machine { IMAGE_FILE_MACHINE_IA64=0x200, IMAGE_FILE_MACHINE_I386=0x14c };
 t-pe_machine
 t~?pe_machine'
-EXPECT='0
-'
-run_test
+EXPECT=<<EOF
+0
+EOF
+RUN
 
-NAME='t-struct'
-BROKEN=
+NAME=t-struct
 FILE=-
-CMDS='"td struct three_elements{int x; char y; float z;}"
+CMDS=<<EOF
+"td struct three_elements{int x; char y; float z;}"
 t-three_elements
 ts~?
-'
-EXPECT='0
-'
-run_test
+EOF
+EXPECT=<<EOF
+0
+EOF
+RUN
 
-Name='t-union'
+NAME=t-union
 FILE=-
-CMDS='td union x{int x; int y; int z;}"
-tk*
-t-x
-'
-Expect='unsigned int=type
-unsigned char=type
-unsigned short=type
-int=type
-long=type
-void *=type
-char=type
-char *=type
-uint8_t=type
-uint16_t=type
-uint32_t=type
-uint64_t=type
-type.unsigned int=i
-type.unsigned char=b
-type.unsigned short=w
-type.int=d
-type.long=x
-type.void *=p
-type.char=c
-type.char *=*z
-type.uint8_t=b
-type.uint16_t=w
-type.uint32_t=d
-type.uint64_t=q
-x=union
-union.x=x,y,z
-union.x.x=int,0,0
-union.x.y=int,0,0
-union.x.z=int,0,0
+BROKEN=1
+CMDS=<<EOF
+"td union xoo{int x; int y; int z;}"
+tk*~union
+t-xoo
+EOF
+EXPECT=<<EOF
+union.xoo=x,y,z
+union.xoo.x=int32_t,0,0
+union.xoo.x.meta=0
+union.xoo.y=int32_t,0,0
+union.xoo.y.meta=0
+union.xoo.z=int32_t,0,0
+union.xoo.z.meta=0
+xoo=union
+EOF
+RUN
 
-unsigned int=type
-unsigned char=type
-unsigned short=type
-int=type
-long=type
-void *=type
-char=type
-char *=type
-uint8_t=type
-uint16_t=type
-uint32_t=type
-uint64_t=type
-type.unsigned int=i
-type.unsigned char=b
-type.unsigned short=w
-type.int=d
-type.long=x
-type.void *=p
-type.char=b
-type.char *=*z
-type.uint8_t=b
-type.uint16_t=w
-type.uint32_t=d
-type.uint64_t=q
-
-'
-NAME='typedef'
+NAME=typedef
 FILE=-
-CMDS='"td typedef int Abracadabra"
+CMDS=<<EOF
+"td typedef int Abracadabra"
 t-Abracadabra
 t~?Abracadabra
-'
-EXPECT='0
-'
-run_test
+EOF
+EXPECT=<<EOF
+0
+EOF
+RUN
 
-NAME='t-*'
-BROKEN=
+NAME=t-*
 FILE=-
-CMDS='"td enum pe_machine { IMAGE_FILE_MACHINE_IA64=0x200, IMAGE_FILE_MACHINE_I386=0x14c };"
+CMDS=<<EOF
+td enum pe_machine { IMAGE_FILE_MACHINE_IA64=0x200, IMAGE_FILE_MACHINE_I386=0x14c };
 t-*
 t
-'
-EXPECT=''
-run_test
+EOF
+EXPECT=<<EOF
+EOF
+RUN
 
-NAME='teb'
-BROKEN=
+NAME=teb
 FILE=-
-CMDS='
-"td enum pe_machine { IMAGE_FILE_MACHINE_IA64=0x200, IMAGE_FILE_MACHINE_I386=0x14c };"
+CMDS=<<EOF
+td enum pe_machine { IMAGE_FILE_MACHINE_IA64=0x200, IMAGE_FILE_MACHINE_I386=0x14c };
 teb pe_machine IMAGE_FILE_MACHINE_I386
-'
-EXPECT='0x14c
-'
-run_test
+EOF
+EXPECT=<<EOF
+0x14c
+EOF
+RUN
 
-NAME='te'
-BROKEN=
+NAME=te
 FILE=-
-CMDS='
-"td enum pe_machine { IMAGE_FILE_MACHINE_IA64=0x200, IMAGE_FILE_MACHINE_I386=0x14c };"
+CMDS=<<EOF
+td enum pe_machine { IMAGE_FILE_MACHINE_IA64=0x200, IMAGE_FILE_MACHINE_I386=0x14c };
 te pe_machine 0x14c
-'
-EXPECT='IMAGE_FILE_MACHINE_I386
-'
-run_test
+EOF
+EXPECT=<<EOF
+IMAGE_FILE_MACHINE_I386
+EOF
+RUN
 
-NAME='tt'
-BROKEN=
+NAME=tt
 FILE=-
-CMDS='
-"td typedef char FILE_NAME;"
+CMDS=<<EOF
+td typedef char FILE_NAME;
 tt FILE_NAME
 "td typedef bool FLAG;"
 tt FLAG
-'
-EXPECT='char
+EOF
+EXPECT=<<EOF
+char
 bool
-'
-run_test
+EOF
+RUN
 
-NAME='td struct'
-BROKEN=
+NAME=td struct
 FILE=-
-CMDS='
+CMDS=<<EOF
 "td struct test_struct{int x;int y;};"
 ts~?test_struct
-'
-EXPECT='1
-'
-run_test
+EOF
+EXPECT=<<EOF
+1
+EOF
+RUN
 
-NAME='enum32'
-BROKEN=
+NAME=enum32
 FILE=-
-CMDS='
+CMDS=<<EOF
 "td enum v { t=0x123, p=0x321 };"
 te~?
 tk v
 tk enum.v.t
 tk enum.v.p
-'
-EXPECT='1
+EOF
+EXPECT=<<EOF
+1
 enum
 0x123
 0x321
-'
-run_test
+EOF
+RUN
 
-
-
-NAME='enum64'
+NAME=enum64
 FILE=-
-CMDS='
+CMDS=<<EOF
 "td enum v { t=0x8000000000000001, p=0x8000000000000008 };"
 te~?
 tk enum.v.t
 tk enum.v.p
-'
-EXPECT='1
+EOF
+EXPECT=<<EOF
+1
 0x8000000000000001
 0x8000000000000008
-'
-run_test
+EOF
+RUN
 
-NAME='to error.h'
-FILES=-
-CMDS='
-to ../../bins/other/error.h
+NAME=to error.h
+FILE=-
+CMDS=<<EOF
+to ../bins/other/error.h
 t
 ts
 t addr
-'
-EXPECT_ERR="../../bins/other/error.h:2: warning: #error your compiler doesn't have support to my API
-"
-EXPECT='char
+EOF
+EXPECT_ERR=<<EOF
+../bins/other/error.h:2: warning: #error your compiler doesn't have support to my API
+EOF
+EXPECT=<<EOF
+char
 char *
 double
 float
@@ -315,18 +300,19 @@ date
 dox
 name
 pf [127]z[40]zd street city zip
-'
-run_test
+EOF
+RUN
 
-NAME='to test.h'
+NAME=to test.h
 FILE=-
-CMDS='
-to ../../bins/other/test.h
+CMDS=<<EOF
+to ../bins/other/test.h
 t
 ts
 t addr
-'
-EXPECT='char
+EOF
+EXPECT=<<EOF
+char
 char *
 double
 float
@@ -353,45 +339,52 @@ date
 dox
 name
 pf [127]z[40]zd street city zip
-'
-run_test
+EOF
+RUN
 
-NAME="t*"
+NAME=t*
 FILE=-
-CMDS="t-*
+CMDS=<<EOF
+t-*
 tk a=b
 t*
-"
-EXPECT='tk a=b
-'
-run_test
+EOF
+EXPECT=<<EOF
+tk a=b
+EOF
+RUN
 
-NAME='tp'
-BROKEN=
+NAME=tp
 FILE=-
-CMDS='"td struct person { int age; char name[10]; }"
+CMDS=<<EOF
+"td struct person { int age; char name[10]; }"
 s 4
 w Carlos
 s 0
 wx 13
 tp person @ 0x0
-'
-EXPECT='  age : 0x00000000 = 19
+EOF
+EXPECT=<<EOF
+  age : 0x00000000 = 19
  name : 0x00000004 = Carlos
-'
-run_test
+EOF
+RUN
 
-NAME='unions'
+NAME=unions
 FILE=-
-CMDS='"td union x{float a;int b;}"
+CMDS=<<EOF
+"td union x{float a;int b;}"
 tu
-'
-EXPECT='x
-'
-run_test
-NAME='Types not reloaded when arch is the same'
+EOF
+EXPECT=<<EOF
+x
+EOF
+RUN
+
+NAME=Types not reloaded when arch is the same
 FILE=-
-CMDS='e asm.archx86
+CMDS=<<EOF
+e asm.archx86
 e anal.arch=x86
 e anal.bits=32
 t-*
@@ -400,56 +393,66 @@ e asm.arch=x68
 e anal.arch=x86
 e anal.bits=32
 tk a
-'
-EXPECT='b
-'
-run_test
-NAME="td twice"
+EOF
+EXPECT=<<EOF
+b
+EOF
+RUN
+
+NAME=td twice
 FILE=-
-CMDS='"td int foo(int bar);"
+CMDS=<<EOF
+"td int foo(int bar);"
 "td int foo(int bar);"
 tk~foo
-'
-EXPECT_ERR=''
-EXPECT='foo=func
+EOF
+EXPECT_ERR=<<EOF
+EOF
+EXPECT=<<EOF
+foo=func
 func.foo.arg.0=int32_t,bar
 func.foo.args=1
 func.foo.cc=cdecl
 func.foo.ret=int32_t
-'
-run_test
+EOF
+RUN
 
-NAME='tk - crash'
-FILE='-'
+NAME=tk - crash
+FILE=-
 CMDS="tk -!!!! d'B%CCCC!9!!!!_"
-EXPECT='0x0
-'
-run_test
+EXPECT=<<EOF
+0x0
+EOF
+RUN
 
-NAME='struct of struct with ts and pf'
-FILE='-'
-CMDS='"td struct bar { int a; int b; };"
+NAME=struct of struct with ts and pf
+FILE=-
+CMDS=<<EOF
+"td struct bar { int a; int b; };"
 "td struct foo { int x; struct bar moo; };"
 ts foo
 .ts foo
-'
-EXPECT='pf d? x (bar)moo
+EOF
+EXPECT=<<EOF
+pf d? x (bar)moo
    x : 0x00000000 = 0
  moo : 
                 struct<bar>
    a : 0x00000004 = 0
    b : 0x00000008 = 0
-'
-run_test
+EOF
+RUN
 
-NAME='Array of struct with ts'
-FILE='-'
-CMDS='"td struct bar { int a; int b; };"
+NAME=Array of struct with ts
+FILE=-
+CMDS=<<EOF
+"td struct bar { int a; int b; };"
 "td struct foo { int x; struct bar moo[2]; };"
 ts foo
 .ts foo
-'
-EXPECT='pf d[2]? x (bar)moo
+EOF
+EXPECT=<<EOF
+pf d[2]? x (bar)moo
    x : 0x00000000 = 0
  moo : 
 [
@@ -461,42 +464,49 @@ EXPECT='pf d[2]? x (bar)moo
    a : 0x0000000c = 0
    b : 0x00000010 = 0
 ]
-'
-run_test
+EOF
+RUN
 
-NAME='te <enum>'
-FILE='-'
-CMDS='"td enum Foo {COW=1,BAR=2};"
+NAME=te <enum>
+FILE=-
+CMDS=<<EOF
+"td enum Foo {COW=1,BAR=2};"
 te
 te Foo
-'
-EXPECT='Foo
+EOF
+EXPECT=<<EOF
+Foo
 COW = 0x1
 BAR = 0x2
-'
-run_test
+EOF
+RUN
 
-NAME='te <enum> <value>'
-FILE='-'
-CMDS='"td enum Foo {COW=1,BAR=2};"
+NAME=te <enum> <value>
+FILE=-
+CMDS=<<EOF
+"td enum Foo {COW=1,BAR=2};"
 te Foo 1
-'
-EXPECT='COW
-'
-run_test
+EOF
+EXPECT=<<EOF
+COW
+EOF
+RUN
 
-NAME='teb <enum> <name>'
-FILE='-'
-CMDS='"td enum Foo {COW=1,BAR=2};"
+NAME=teb <enum> <name>
+FILE=-
+CMDS=<<EOF
+"td enum Foo {COW=1,BAR=2};"
 teb Foo COW
-'
-EXPECT='0x1
-'
-run_test
+EOF
+EXPECT=<<EOF
+0x1
+EOF
+RUN
 
-NAME="tp with varname"
-FILE=../../bins/elf/struct_sample
-CMDS='"td struct Books {char  title[50];char  author[50]; char  subject[100];};"
+NAME=tp with varname
+FILE=../bins/elf/struct_sample
+CMDS=<<EOF
+"td struct Books {char  title[50];char  author[50]; char  subject[100];};"
 aa
 s main
 aei
@@ -504,27 +514,31 @@ aeim
 aecu 0x000006d5
 ?e
 tp Books local_e0h
-'
-EXPECT='
+EOF
+EXPECT=<<EOF
+
    title : 0x00177f18 = Radare2
   author : 0x00177f4a = pancake
  subject : 0x00177f7c = Reversing
-'
-run_test
+EOF
+RUN
 
-NAME="tpx test"
-FILE='-'
-CMDS='"td struct foo {char* a; int b;}"
+NAME=tpx test
+FILE=-
+CMDS=<<EOF
+"td struct foo {char* a; int b;}"
 tpx foo 4141414144141414141442001000000
-'
-EXPECT=' a : 0x00000000 = AAAAD.....B
+EOF
+EXPECT=<<EOF
+ a : 0x00000000 = AAAAD.....B
  b : 0x0000000c = 16
-'
-run_test
+EOF
+RUN
 
-NAME="ta and arm"
-FILE='-'
-CMDS='e asm.arch = arm
+NAME=ta and arm
+FILE=-
+CMDS=<<EOF
+e asm.arch = arm
 e asm.bits = 32
 wx 082090e5040081e5
 "td struct foo {int a; int b; int c;};"
@@ -532,16 +546,18 @@ ta foo.c @ 0x00000000
 ta foo.b @ 0x00000004
 ?e
 pd 2
-'
-EXPECT='
+EOF
+EXPECT=<<EOF
+
             0x00000000      082090e5       ldr r2, [r0, foo.c]
             0x00000004      040081e5       str r0, [r1, foo.b]
-'
-run_test
+EOF
+RUN
 
-NAME="ta and mips"
-FILE='-'
-CMDS='e asm.arch = mips
+NAME=ta and mips
+FILE=-
+CMDS=<<EOF
+e asm.arch = mips
 wx 08007fac040053800800538c
 "td struct foo {int a; int b; int c;};"
 ta foo.c @ 0x00000000
@@ -549,17 +565,19 @@ ta foo.c @ 0x00000008
 ta foo.b @ 0x00000004
 ?e
 pd 3
-'
-EXPECT='
+EOF
+EXPECT=<<EOF
+
             0x00000000      08007fac       sw ra, foo.c(v1)
             0x00000004      04005380       lb s3, foo.b(v0)
             0x00000008      0800538c       lw s3, foo.c(v0)
-'
-run_test
+EOF
+RUN
 
-NAME="struct offset for dst operand with ta"
-FILE='-'
-CMDS='e asm.bits = 32
+NAME=struct offset for dst operand with ta
+FILE=-
+CMDS=<<EOF
+e asm.bits = 32
 "td struct foo {int a; int b ; int c;}"
 wx 8b40048951048d500883780800
 ?e
@@ -568,36 +586,40 @@ ta foo.b @ 0x00000003
 ta foo.c @ 0x00000006
 ta foo.c @ 0x00000009
 pd 4
-'
-EXPECT='
+EOF
+EXPECT=<<EOF
+
             0x00000000      8b4004         mov eax, dword [eax + foo.b] ; [0x4:4]=0x508d0451
             0x00000003      895104         mov dword [ecx + foo.b], edx
             0x00000006      8d5008         lea edx, [eax + foo.c]      ; 0x8
             0x00000009      83780800       cmp dword [eax + foo.c], 0  ; [0x8:4]=0x8788308
-'
-run_test
+EOF
+RUN
 
-NAME="struct offset propagate via tl"
-FILE='-'
-CMDS='e asm.comments = false
+NAME=struct offset propagate via tl
+FILE=-
+CMDS=<<EOF
+e asm.comments = false
 "td struct bar {int a ; int b; int c;}"
 wx 48C7C058190000488B5004488B4808483B500448BBEFBEADDE00000000488958089090C3
 af
 tl bar = 0x1958
 ?e
 pdf~bar.
-'
-EXPECT='
+EOF
+EXPECT=<<EOF
+
 |           0x00000007      488b5004       mov rdx, qword [rax + bar.b]
 |           0x0000000b      488b4808       mov rcx, qword [rax + bar.c]
 |           0x0000000f      483b5004       cmp rdx, qword [rax + bar.b]
 |           0x0000001d      48895808       mov qword [rax + bar.c], rbx
-'
-run_test
+EOF
+RUN
 
-NAME="taa with single struct"
-FILE='-'
-CMDS='e asm.comments = false
+NAME=taa with single struct
+FILE=-
+CMDS=<<EOF
+e asm.comments = false
 "td struct bar {int a ; int b; int c;}"
 wx 48C7C058190000488B5004488B4808483B500448BBEFBEADDE00000000488958089090C3
 tl bar = 0x1958
@@ -605,18 +627,20 @@ af
 taa @ fcn.00000000
 ?e
 pdf~bar.
-'
-EXPECT='
+EOF
+EXPECT=<<EOF
+
 |           0x00000007      488b5004       mov rdx, qword [rax + bar.b]
 |           0x0000000b      488b4808       mov rcx, qword [rax + bar.c]
 |           0x0000000f      483b5004       cmp rdx, qword [rax + bar.b]
 |           0x0000001d      48895808       mov qword [rax + bar.c], rbx
-'
-run_test
+EOF
+RUN
 
-NAME="taa with multiple struct"
-FILE='-'
-CMDS='e asm.comments = false
+NAME=taa with multiple struct
+FILE=-
+CMDS=<<EOF
+e asm.comments = false
 e asm.flags = false
 "td struct bar {int x; int y; int z;};"
 "td struct foo {int a; int b; int c;};"
@@ -624,11 +648,10 @@ wx 48C7C000010000488B5008488B480448C7C000020000488B5008488B48049090C3
 tl bar = 0x200
 tl foo = 0x100
 af
-taa @ fcn.00000000
-?e
+taa
 pdf
-'
-EXPECT='
+EOF
+EXPECT=<<EOF
 / (fcn) fcn.00000000 33
 |   fcn.00000000 ();
 |           0x00000000      48c7c0000100.  mov rax, 0x100
@@ -640,19 +663,21 @@ EXPECT='
 |           0x0000001e      90             nop
 |           0x0000001f      90             nop
 \           0x00000020      c3             ret
-'
-run_test
+EOF
+RUN
 
-NAME="Comments and var in struct offset propagation"
-FILE=../../bins/elf/struct_sample
-CMDS='aa
+NAME=Comments and var in struct offset propagation
+FILE=../bins/elf/struct_sample
+CMDS=<<EOF
+aa
 s main
 "td struct Books {char  title[50];char  author[50]; char  subject[100];};"
 tl Books = 0x00177f18
 ?e
 pdf~Books
-'
-EXPECT='
+EOF
+EXPECT=<<EOF
+
 |           ; var struct Books @ rbp-0xe0
 |           0x00000684      488d8520ffff.  lea rax, [Books]
 |           0x00000695      488910         mov qword [rax], rdx        ; Books.title
@@ -661,12 +686,13 @@ EXPECT='
 |           0x000006b0      488d8520ffff.  lea rax, [Books]
 |           0x000006c5      488930         mov qword [rax], rsi        ; Books.subject
 |           0x000006d5      b800000000     mov eax, 0                  ; Books.subject
-'
-run_test
+EOF
+RUN
 
-NAME="tl with ahr (return value hint)"
-FILE=../../bins/elf/struct_2
-CMDS='aa
+NAME=tl with ahr (return value hint)
+FILE=../bins/elf/struct_2
+CMDS=<<EOF
+aa
 "td struct Test { int a; int  b; char *c;};"
 s main
 ahr 0x00000597 @ 0x00000592
@@ -674,17 +700,19 @@ tl Test = 0x00002020
 s 0x000005a8
 ?e
 pd 3
-'
-EXPECT='
+EOF
+EXPECT=<<EOF
+
 |           0x000005a8      c70206000000   mov dword [edx], 6          ; Test.a
 |           0x000005ae      8b55f4         mov edx, dword [Test]       ; Test.a
 |           0x000005b1      c74204070000.  mov dword [edx + Test.b], 7
-'
-run_test
+EOF
+RUN
 
-NAME="Basic union test"
-FILE=../../bins/elf/union_sample
-CMDS='aa
+NAME=Basic union test
+FILE=../bins/elf/union_sample
+CMDS=<<EOF
+aa
 "td union Books {char  title[50];char  author[50]; char  subject[100];};"
 tu
 tu Books
@@ -693,53 +721,40 @@ tl Books = 0x00177f88
 afv~Books
 s 0x000006d2
 pd 1
-'
-EXPECT='Books
+EOF
+EXPECT=<<EOF
+Books
 pf [50]z[50]z[100]z title author subject
 var union Books @ rbp-0x70
 |           0x000006d2      488d4590       lea rax, [Books]
-'
-run_test
+EOF
+RUN
 
-NAME="ts function pointer test"
-FILE="-"
-CMDS='ws hello @ 0xc
+NAME=ts function pointer test
+FILE=-
+CMDS=<<EOF
+ws hello @ 0xc
 "td struct foo {int x; int (*fp)(int a , int b ); char *b;};"
 ts foo
 .ts foo
-'
-EXPECT='pf dpz x fp b
+EOF
+EXPECT=<<EOF
+pf dpz x fp b
   x : 0x00000000 = 0
  fp : 0x00000004 = (qword)0x0000000000000000
   b : 0x0000000c = .hello
-'
-run_test
+EOF
+RUN
 
-NAME="ts general pointers test"
-FILE="-"
-CMDS='"td struct normal {int a;char b;};"
+NAME=ts general pointers test
+FILE=-
+CMDS=<<EOF
+"td struct normal {int a;char b;};"
 "td struct pointer {char *y;struct normal *obj;};"
 ts pointer
-'
-EXPECT='pf zp y obj
-'
-run_test
+EOF
+EXPECT=<<EOF
+pf zp y obj
+EOF
+RUN
 
-NAME="jni and SoP"
-FILE=../../bins/elf/libverifyPass.so
-CMDS='e asm.lines.bb = false
-aa
-s sym.Java_com_app_ndh_NDHActivity_print
-to ../../bins/headers/jni.h
-tl JNINativeInterface = 0x464c457f
-?e
-pdf~JNINativeInterface
-'
-EXPECT='
-| 0x00000f7e      d358           ldr r3, [r2, r3]                      ; JNINativeInterface.GetStringUTFChars
-| 0x0000100e      d358           ldr r3, [r2, r3]                      ; JNINativeInterface.GetStringLength
-| 0x00001066      d258           ldr r2, [r2, r3]                      ; JNINativeInterface.NewStringUTF
-| 0x00001114      d258           ldr r2, [r2, r3]                      ; JNINativeInterface.NewStringUTF
-| 0x0000112e      d258           ldr r2, [r2, r3]                      ; JNINativeInterface.NewStringUTF
-'
-run_test
