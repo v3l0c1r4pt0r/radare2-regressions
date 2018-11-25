@@ -5,8 +5,8 @@ e anal.jmpmid=false
 e io.cache=true
 wx b8210000c1ebfdbb2c000000000
 af
-afi~size
-afi~realsz
+afi
+?e
 afb
 ?e
 e asm.bb.middle=true
@@ -15,8 +15,30 @@ pdf
 e asm.bb.middle=false
 pdf
 EXPECT=<<RUN
+#
+offset: 0x00000000
+name: fcn.00000000
 size: 7
 realsz: 7
+stackframe: 0
+call-convention: amd64
+cyclomatic-cost : 4
+cyclomatic-complexity: 0
+bits: 64
+type: fcn [NEW]
+num-bbs: 2
+edges: 2
+end-bbs: 0
+call-refs: 
+data-refs: 
+code-xrefs: 
+in-degree: 0
+out-degree: 0
+data-xrefs: 
+locals:0
+args: 0
+diff: type: new
+
 0x00000000 0x00000004 00:0000 4 j 0x00000004
 0x00000004 0x00000007 00:0000 3 j 0x00000004
 
@@ -38,7 +60,7 @@ CMDS=<<EXPECT
 e asm.bb.middle=true
 e anal.jmpmid=true
 e io.cache=true
-"(show_fcn bin, wx $0, af-*, af, afi~size, afi~realsz, afb, ?e, pdr, ?e, agf, ?e, e asm.bb.middle=true, pdf, ?e, e asm.bb.middle=false, pdf)"
+"(show_fcn bin, wx $0, af-*, af, afi, ?e, afb, ?e, pdr, ?e, agf, ?e, e asm.bb.middle=true, pdf, ?e, e asm.bb.middle=false, pdf)"
 .(show_fcn b8210000c1ebfdbb2c000000cc)
 ?e
 .(show_fcn b8210000c1ebfdbb2c000000ebf6)
@@ -48,8 +70,30 @@ e io.cache=true
 # e anal.nopskip=false  # TODO: why not needed?
 .(show_fcn 0f1f440000b8210000c1ebfdbb2c000000ebf0)
 EXPECT=<<RUN
+#
+offset: 0x00000000
+name: fcn.00000000
 size: 13
 realsz: 16
+stackframe: 0
+call-convention: amd64
+cyclomatic-cost : 6
+cyclomatic-complexity: 1
+bits: 64
+type: fcn [NEW]
+num-bbs: 2
+edges: 1
+end-bbs: 1
+call-refs: 0x00000004 J 
+data-refs: 0x0000002c 
+code-xrefs: 0x00000005 J 
+in-degree: 1
+out-degree: 0
+data-xrefs: 
+locals:0
+args: 0
+diff: type: new
+
 0x00000000 0x00000007 00:0000 7 j 0x00000004
 0x00000004 0x0000000d 00:0000 9
 
@@ -103,8 +147,30 @@ realsz: 16
 \           0x0000000c      cc             int3
 ..
 
+#
+offset: 0x00000000
+name: fcn.00000000
 size: 14
 realsz: 17
+stackframe: 0
+call-convention: amd64
+cyclomatic-cost : 7
+cyclomatic-complexity: 0
+bits: 64
+type: fcn [NEW]
+num-bbs: 2
+edges: 2
+end-bbs: 0
+call-refs: 0x00000004 J 0x00000004 J 
+data-refs: 0x0000002c 
+code-xrefs: 0x00000005 J 0x0000000c J 
+in-degree: 2
+out-degree: 0
+data-xrefs: 
+locals:0
+args: 0
+diff: type: new
+
 0x00000000 0x00000007 00:0000 7 j 0x00000004
 0x00000004 0x0000000e 00:0000 10 j 0x00000004
 
@@ -166,8 +232,30 @@ realsz: 17
 \       `=< 0x0000000c      ebf6           jmp 4
 ..
 
+#
+offset: 0x00000000
+name: fcn.00000000
 size: 14
 realsz: 17
+stackframe: 0
+call-convention: amd64
+cyclomatic-cost : 7
+cyclomatic-complexity: 0
+bits: 64
+type: fcn [NEW]
+num-bbs: 3
+edges: 3
+end-bbs: 0
+call-refs: 0x00000004 J 0x00000005 J 
+data-refs: 0x0000002c 
+code-xrefs: 0x00000005 J 0x0000000c J 
+in-degree: 2
+out-degree: 0
+data-xrefs: 
+locals:0
+args: 0
+diff: type: new
+
 0x00000000 0x00000005 00:0000 5 j 0x00000005
 0x00000004 0x0000000e 00:0000 10 j 0x00000005
 0x00000005 0x00000007 00:0000 2 j 0x00000004
@@ -239,8 +327,30 @@ realsz: 17
        `==< 0x0000000c      ebf7           jmp 5                       ; fcn.00000000+0x5
 ..
 
+#
+offset: 0x00000000
+name: fcn.00000000
 size: 19
 realsz: 24
+stackframe: 0
+call-convention: amd64
+cyclomatic-cost : 9
+cyclomatic-complexity: 0
+bits: 64
+type: fcn [NEW]
+num-bbs: 4
+edges: 4
+end-bbs: 0
+call-refs: 0x00000009 J 0x00000003 J 
+data-refs: 0x0000002c 
+code-xrefs: 0x00000011 J 0x0000000a J 
+in-degree: 2
+out-degree: 0
+data-xrefs: 
+locals:0
+args: 0
+diff: type: new
+
 0x00000000 0x00000005 00:0000 5 j 0x00000005
 0x00000003 0x00000005 00:0000 2 j 0x00000005
 0x00000005 0x0000000c 00:0000 7 j 0x00000009
