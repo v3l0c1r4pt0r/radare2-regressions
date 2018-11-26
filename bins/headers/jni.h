@@ -24,9 +24,12 @@
 #ifndef JNI_H_
 #define JNI_H_
 
-#include <stdarg.h>
 
+#if __R2TINYC__
 typedef char* va_list;
+#else
+#include <stdarg.h>
+#endif
 
 /*
  * Primitive types that match up with Java equivalents.
