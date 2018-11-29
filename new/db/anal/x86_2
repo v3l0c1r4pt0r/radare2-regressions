@@ -19,6 +19,7 @@ EXPECT=<<RUN
 offset: 0x00000000
 name: fcn.00000000
 size: 7
+is-pure: true
 realsz: 7
 stackframe: 0
 call-convention: amd64
@@ -74,6 +75,7 @@ EXPECT=<<RUN
 offset: 0x00000000
 name: fcn.00000000
 size: 13
+is-pure: false
 realsz: 16
 stackframe: 0
 call-convention: amd64
@@ -151,6 +153,7 @@ diff: type: new
 offset: 0x00000000
 name: fcn.00000000
 size: 14
+is-pure: false
 realsz: 17
 stackframe: 0
 call-convention: amd64
@@ -236,6 +239,7 @@ diff: type: new
 offset: 0x00000000
 name: fcn.00000000
 size: 14
+is-pure: false
 realsz: 17
 stackframe: 0
 call-convention: amd64
@@ -331,6 +335,7 @@ diff: type: new
 offset: 0x00000000
 name: fcn.00000000
 size: 19
+is-pure: false
 realsz: 24
 stackframe: 0
 call-convention: amd64
