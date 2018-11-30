@@ -603,3 +603,12 @@ stripped false
 subsys   darwin
 va       true
 RUN
+
+NAME=rabin2 -s right symbols
+FILE=../bins/elf/libc.so.0
+CMDS=!rabin2 -s ${R2_FILE} | grep 0002edb0
+EXPECT=<<RUN
+149 0x0002edb0 0x0002edb0 GLOBAL   FUNC  356 getc_unlocked
+402 0x0002edb0 0x0002edb0 GLOBAL   FUNC  356 __fgetc_unlocked
+980 0x0002edb0 0x0002edb0 GLOBAL   FUNC  356 fgetc_unlocked
+RUN
