@@ -604,11 +604,11 @@ RUN
 NAME=iee elf Cd (32-bit)
 FILE=../bins/elf/before-after-main
 CMDS=<<EXPECT
-pD $s{section..preinit_array} @ section..preinit_array
+pD $SS @ section..preinit_array
 ?e
-pD $s{section..init_array} @ section..init_array
+pD $SS @ section..init_array
 ?e
-pD $s{section..fini_array} @ section..fini_array
+pD $SS @ section..fini_array
 EXPECT=<<RUN
             ;-- section..preinit_array:
             ;-- segment.LOAD1:
@@ -644,12 +644,12 @@ RUN
 NAME=iee elf Cd (64-bit)
 FILE=../bins/elf/analysis/ls-linux64
 CMDS=<<EXPECT
-pD $s{section..init_array} @ section..init_array
+pD $SS @ section..init_array
 ?e
-pD $s{section..fini_array} @ section..fini_array
+pD $SS @ section..fini_array
 ?e
 # Can't be first line for some reason
-pD $s{section..preinit_array} @ section..preinit_array
+pD $SS @ section..preinit_array
 EXPECT=<<EXPECT_ERR
             ;-- section..init_array:
             ;-- segment.LOAD1:
@@ -661,7 +661,7 @@ EXPECT=<<EXPECT_ERR
 
 EXPECT_ERR=<<RUN
 Invalid address (section..preinit_array)
-|ERROR| Invalid command 'pD $s{section..preinit_array} @ section..preinit_array' (0x70)
+|ERROR| Invalid command 'pD $SS @ section..preinit_array' (0x70)
 RUN
 
 NAME=iX
