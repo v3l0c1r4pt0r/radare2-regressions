@@ -5,7 +5,6 @@ CMDS64=aXNxfiZGb29DbGFzcyxtZXRob2QKCg==
 RUN
 
 NAME=mach0 swift-x86-64 aav
-BROKEN=1
 FILE=../bins/mach0/swift-main
 EXPECT=<<EOF
 114
