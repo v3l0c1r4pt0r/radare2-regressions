@@ -152,3 +152,22 @@ FILE=../bins/elf/analysis/simple.elf
 EXPECT64=bm8gbWFwIGF0IDB4ZGVhZGJlZWYKbm8gbWFwIGF0IDB4ZGVhZGJlZWYKCg==
 CMDS64=P3AgMHhkZWFkYmVlZgo/UCAweGRlYWRiZWVmCgo=
 RUN
+
+NAME=$s{flag} and $SS (sections context)
+FILE=../bins/elf/before-after-main
+CMDS=<<EXPECT
+iSS~LOAD1
+iS~.preinit_array
+?e
+s segment.LOAD1
+?vi $s{segment.LOAD1}
+?vi $s{section..preinit_array}
+?vi $SS
+EXPECT=<<RUN
+03 0x00000ed4   332 0x08049ed4   336 -rw- LOAD1
+18 0x00000ed4     8 0x08049ed4     8 -rw- .preinit_array
+
+336
+8
+8
+RUN
