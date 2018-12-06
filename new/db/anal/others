@@ -86,7 +86,7 @@ RUN
 NAME=aav thumb detection
 FILE=../bins/firmware/armthumb.bin
 ARGS=-aarm -b32
-EXPECT64=MHgwMDAwMDAwYyA0IGFhdi4weDAwMDAwMDBjCgo=
+EXPECT64=MHgwMDAwMDAwZCA0IGFhdi4weDAwMDAwMDBkCg==
 CMDS64=YWF2CmYKCg==
 RUN
 
