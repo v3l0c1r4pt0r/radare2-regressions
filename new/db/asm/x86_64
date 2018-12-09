@@ -97,8 +97,8 @@ a "mov eax, 33" b821000000
 a "mov rax, 33" 48c7c021000000
 a "mov dword ptr [rbp+4],0" c7450400000000
 a "mov qword ptr [rbp+4],0" 48c7450400000000
-aB "mov [rbp+4],0" 48c7450400000000
-aB "mov [ebp+4],0" 67c7450400000000
+a "mov [rbp+4],0" 48c7450400000000
+a "mov [ebp+4],0" 67c7450400000000
 ad "push r8" 4150
 ad "push r9" 4151
 ad "push r10" 4152
@@ -717,7 +717,7 @@ aB "mov rsp, qword[r12 - 0x12]"  498b6424ee
 aB "mov qword[r12], rsp" 49892424
 aB "mov qword[r8 + 0x20], rax" 49894020
 aB "mov r12, qword[r12]" 4d8b2424
-aB "mov eax,r12d" 4489e0
+a "mov eax,r12d" 4489e0
 a "inc al" fec0
 a "inc BYTE PTR [r12]" 41fe0424
 a "inc BYTE PTR [rbx+0x18]" fe4318

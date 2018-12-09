@@ -323,8 +323,8 @@ d "or eax, dword [eax]" 0b00
 d "out 0, al" E600
 d "out 0, eax" E700
 d "out 0x84, eax" e784
-d "out dx, al" ee
-d "out dx, eax" ef
+ad "out dx, al" ee
+ad "out dx, eax" ef
 d "outsb dx, byte [esi]" 6e
 d "outsd dx, dword [esi]" 6f
 d "paddq xmm0, xmmword [eax]" 660fd400
@@ -1609,8 +1609,6 @@ aB "orps xmm0, xmmword [eax]" 0f5600
 a "out 0, al" e600
 a "out 0, eax" e700
 a "out 0x84, eax" e784
-aB "out dx, al" ee
-aB "out dx, eax" ef
 a "outsb dx, byte [esi]" 6e
 a "outsd dx, dword [esi]" 6f
 aB "pabsb xmm0, xmm0" 660f381cc0
@@ -2183,7 +2181,7 @@ a "nop" 90
 a "int 0x80" cd80
 a "mov eax, 33" b821000000
 a "mov rax, 33" 48c7c021000000
-aB "mov [ebp+4],0" c7450400000000
+a "mov [ebp+4],0" c7450400000000
 a "jmp 0x1b" eb05 0x14
 ad "sete al" 0f94c0
 a "mov byte ptr [bp+di],0x0" 67c60300

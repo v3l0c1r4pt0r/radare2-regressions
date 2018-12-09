@@ -1,4 +1,4 @@
-Bd "call 0" e8fdff
+d "call 0" e8fdff
 a "jmp 0x0" ebfe
 a "jmp 0x10" eb0e
 a "jmp 0x34" eb32

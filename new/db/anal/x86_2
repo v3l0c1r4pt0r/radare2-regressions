@@ -443,7 +443,6 @@ diff: type: new
 RUN
 NAME=lcall offset (#12284)
 FILE=-
-BROKEN=1
 CMDS=<<EXPECT
 e asm.arch=x86
 e asm.bits=16

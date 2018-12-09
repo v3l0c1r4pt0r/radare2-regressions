@@ -141,7 +141,6 @@ RUN
 
 NAME=t-union
 FILE=-
-BROKEN=1
 CMDS=<<EOF
 "td union xoo{int x; int y; int z;}"
 tk*~union
