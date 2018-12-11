@@ -1,6 +1,5 @@
 NAME=aFr on ELF
 FILE=../bins/elf/msp430.elf
-BROKEN=1
 CMDS=<<EXPECT
 s main
 aFr

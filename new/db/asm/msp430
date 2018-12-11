@@ -7,7 +7,7 @@ d "bic.b 4, 0x002e" e2c22e00
 d "bis.b 2, 0x0021" e2d32100
 d "br 0x0021" 30402100
 d "br 0x0003" 10420300
-d "br r1" 0041
+d "br sp" 0041
 d "br r10" 004a
 d "call 0xc096" b01296c0
 d "clr 0x0033" 80433300
