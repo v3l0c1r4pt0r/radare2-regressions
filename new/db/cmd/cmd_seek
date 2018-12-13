@@ -59,24 +59,13 @@ FILE=../bins/pe/cmd_adf_sample0.exe
 CMDS=<<EXPECT
 s 0x560e67
 af
-s 0x560e7d
-so -1
-s
-s 0x560e7c
-so -1
-s
-s 0x560e7a
-so -1
-s
-s 0x560e79
-so -1
-s
-s 0x560e97
-so -1
-s
-s 0x560e96
-so -1
-s
+"(test_so addr, s $0, so -1, s)"
+.(test_so 0x560e7d)
+.(test_so 0x560e7c)
+.(test_so 0x560e7a)
+.(test_so 0x560e79)
+.(test_so 0x560e97)
+.(test_so 0x560e96)
 EXPECT=<<RUN
 0x560e7a
 0x560e7a
