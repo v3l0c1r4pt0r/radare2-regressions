@@ -7,9 +7,11 @@ RUN
 
 NAME=avr baddr
 FILE=../bins/elf/analysis/bugurtos-avr.elf
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=aWV+YmFkZHJbNV0KCg==
+CMDS=ie~baddr[5]
+EXPECT=<<RUN
+0x00000000
 RUN
+
 NAME=avr main address
 FILE=../bins/elf/analysis/bugurtos-avr.elf
 EXPECT64=MHgzMDgKCg==
