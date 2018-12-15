@@ -53,23 +53,52 @@ FILE=../bins/elf/analysis/hello-linux-x86_64
 EXPECT64=eG9yIGVicCwgZWJwCgo=
 CMDS64=MTBvbysKcGkgMQoK
 RUN
+
 NAME=oob consider baddr
 FILE=../bins/mach0/mac-ls
-EXPECT64=MHgwMGYwMDAwMAoweDAwZjAxMDU4CjU1NDg4OWU1NDE1NzQxNTY0MTU1CmZmZmZmZmZmZmZmZmZmZmZmZmZmCgo=
-CMDS64=ZSBiaW4uYmFkZHIgPSAweGYwMDAwMAprIG9sZF92ID0gYGllcWAKb29iCmllfmJhZGRyWzVdCmllfnZhZGRyWzFdCnA4IDEwIEAgZW50cnkwCnA4IDEwIEAgYGsgb2xkX3ZgCgo=
+CMDS=<<EXPECT
+e bin.baddr = 0xf00000
+k old_v = `ieq`
+oob
+ie~baddr[5]
+ie~vaddr[1]
+p8 10 @ entry0
+p8 10 @ `k old_v`
+EXPECT=<<RUN
+0x00f00000
+0x00f01058
+554889e5415741564155
+ffffffffffffffffffff
 RUN
-NAME=oob consider laddr
+
+NAME=oob consider laddr 32bit
 FILE=../bins/mach0/fatmach0-3true
-EXPECT64=MHgwMDAwNTAwMAoweDAwMDAxMDAwCgo=
 ARGS=-a x86 -b 32
-CMDS64=ZSBiaW4ubGFkZHIgPSAweDUwMDAKZSBiaW4uYmFkZHIgPSAtMQpvb2IKaWV+bGFkZHJbN10KaWV+YmFkZHJbNV0KCg==
+CMDS=<<EXPECT
+e bin.laddr = 0x5000
+e bin.baddr = -1
+oob
+ie~laddr[7]
+ie~baddr[5]
+EXPECT=<<RUN
+0x00005000
+0x00001000
 RUN
-NAME=oob consider laddr
+
+NAME=oob consider laddr 64bit
 FILE=../bins/mach0/fatmach0-3true
-EXPECT64=MHgwMDAwNTAwMAoweDAwMDAxMDAwCgo=
 ARGS=-a x86 -b 64
-CMDS64=ZSBiaW4ubGFkZHIgPSAweDUwMDAKZSBiaW4uYmFkZHIgPSAtMQpvb2IKaWV+bGFkZHJbN10KaWV+YmFkZHJbNV0KCg==
+CMDS=<<EXPECT
+e bin.laddr = 0x5000
+e bin.baddr = -1
+oob
+ie~laddr[7]
+ie~baddr[5]
+EXPECT=<<RUN
+0x00005000
+0x00001000
 RUN
+
 NAME=oob from malloc
 FILE=malloc://1024
 EXPECT64=ZWxmCmIzMmFlOTMxMDAwMDAwMDAwMjAwCgo=
