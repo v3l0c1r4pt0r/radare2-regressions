@@ -1,0 +1,32 @@
+NAME=agCj entry0 imports libc_start_main
+FILE=../bins/elf/true
+CMDS=<<EXPECT
+aaa 2> /dev/null
+agCj~{0}
+EXPECT={"name":"entry0", "size":47,"imports":["reloc.__libc_start_main"]}
+RUN
+
+NAME=agCd entry0 imports libc_start_main
+FILE=../bins/elf/true
+CMDS=<<EXPECT64
+aaa 2> /dev/null
+agCd~2110
+EXPECT64=ICAiMHgwMDAwMjExMCIgW2xhYmVsPSJlbnRyeTAiIFVSTD0iZW50cnkwLzB4MDAwMDIxMTAiXTsKICAiMHgwMDAwMjExMCIgLT4gIjB4MDAwMDhmMzAiIFtsYWJlbD0icmVsb2MuX19saWJjX3N0YXJ0X21haW4iIGNvbG9yPSJncmVlbiIgVVJMPSJyZWxvYy5fX2xpYmNfc3RhcnRfbWFpbi8weDAwMDA4ZjMwIl07Cg==
+RUN
+
+NAME=agCd contains label for main
+FILE=../bins/elf/true
+CMDS=<<EXPECT64
+aaa 2> /dev/null
+agCd~label="main"
+EXPECT64=ICAiMHgwMDAwMjA1MCIgW2xhYmVsPSJtYWluIiBVUkw9Im1haW4vMHgwMDAwMjA1MCJdOwo=
+RUN
+
+NAME=agC function names are resovled properly
+FILE=../bins/elf/true
+CMDS=<<EXPECT
+aaa 2> /dev/null
+agC~unk.
+echo end
+EXPECT=end
+RUN
