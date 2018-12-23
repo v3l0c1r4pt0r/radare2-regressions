@@ -1,0 +1,65 @@
+NAME=aC
+FILE=-
+CMDS='aC Flatline
+aCll
+k anal/classes/*
+'
+EXPECT64=RmxhdGxpbmUKY2xhc3MuRmxhdGxpbmU9YwpjbGFzc2VzPUZsYXRsaW5lCgo=
+RUN
+
+NAME=aCm
+FILE=-
+CMDS='aC Flatline
+aCm Flatline PrayerPosition 0x1337 0x42
+aCll
+k anal/classes/*
+'
+EXPECT64=RmxhdGxpbmUKICBQcmF5ZXJQb3NpdGlvbiBAIDB4MTMzNyAodnRhYmxlICsgNjYpCmF0dHIuRmxhdGxpbmUubWV0aG9kPVByYXllclBvc2l0aW9uCmF0dHIuRmxhdGxpbmUubWV0aG9kLlByYXllclBvc2l0aW9uPTQ5MTksNjYKYXR0cnR5cGVzLkZsYXRsaW5lPW1ldGhvZApjbGFzcy5GbGF0bGluZT1jCmNsYXNzZXM9RmxhdGxpbmUKCg==
+RUN
+
+NAME=aCm-
+FILE=-
+CMDS='aC Flatline
+aCm Flatline PrayerPosition 0x1337 0x42
+aCm Flatline RemainIndoors 0xdeadbeef
+aCll
+k anal/classes/*
+?e --
+aCm- Flatline PrayerPosition
+aCll
+k anal/classes/*
+?e --
+aCm- Flatline RemainIndoors
+aCll
+k anal/classes/*
+'
+EXPECT64=RmxhdGxpbmUKICBQcmF5ZXJQb3NpdGlvbiBAIDB4MTMzNyAodnRhYmxlICsgNjYpCiAgUmVtYWluSW5kb29ycyBAIDB4ZGVhZGJlZWYKYXR0ci5GbGF0bGluZS5tZXRob2Q9UHJheWVyUG9zaXRpb24sUmVtYWluSW5kb29ycwphdHRyLkZsYXRsaW5lLm1ldGhvZC5QcmF5ZXJQb3NpdGlvbj00OTE5LDY2CmF0dHIuRmxhdGxpbmUubWV0aG9kLlJlbWFpbkluZG9vcnM9MzczNTkyODU1OSwtMQphdHRydHlwZXMuRmxhdGxpbmU9bWV0aG9kCmNsYXNzLkZsYXRsaW5lPWMKY2xhc3Nlcz1GbGF0bGluZQoKLS0KRmxhdGxpbmUKICBSZW1haW5JbmRvb3JzIEAgMHhkZWFkYmVlZgphdHRyLkZsYXRsaW5lLm1ldGhvZD1SZW1haW5JbmRvb3JzCmF0dHIuRmxhdGxpbmUubWV0aG9kLlJlbWFpbkluZG9vcnM9MzczNTkyODU1OSwtMQphdHRydHlwZXMuRmxhdGxpbmU9bWV0aG9kCmNsYXNzLkZsYXRsaW5lPWMKY2xhc3Nlcz1GbGF0bGluZQoKLS0KRmxhdGxpbmUKY2xhc3MuRmxhdGxpbmU9YwpjbGFzc2VzPUZsYXRsaW5lCgo=
+RUN
+
+NAME=aCmn
+FILE=-
+CMDS='aC Flatline
+aCm Flatline PrayerPosition 0x1337 0x42
+aCll
+k anal/classes/*
+?e --
+aCmn Flatline PrayerPosition Marigold
+aCll
+k anal/classes/*
+'
+EXPECT64=RmxhdGxpbmUKICBQcmF5ZXJQb3NpdGlvbiBAIDB4MTMzNyAodnRhYmxlICsgNjYpCmF0dHIuRmxhdGxpbmUubWV0aG9kPVByYXllclBvc2l0aW9uCmF0dHIuRmxhdGxpbmUubWV0aG9kLlByYXllclBvc2l0aW9uPTQ5MTksNjYKYXR0cnR5cGVzLkZsYXRsaW5lPW1ldGhvZApjbGFzcy5GbGF0bGluZT1jCmNsYXNzZXM9RmxhdGxpbmUKCi0tCkZsYXRsaW5lCiAgTWFyaWdvbGQgQCAweDEzMzcgKHZ0YWJsZSArIDY2KQphdHRyLkZsYXRsaW5lLm1ldGhvZD1NYXJpZ29sZAphdHRyLkZsYXRsaW5lLm1ldGhvZC5NYXJpZ29sZD00OTE5LDY2CmF0dHJ0eXBlcy5GbGF0bGluZT1tZXRob2QKY2xhc3MuRmxhdGxpbmU9YwpjbGFzc2VzPUZsYXRsaW5lCgo=
+RUN
+
+NAME=aC-
+FILE=-
+CMDS='aC Flatline
+aCm Flatline PrayerPosition 0x1337 0x42
+aCll
+k anal/classes/*
+?e --
+aC- Flatline
+aCll
+k anal/classes/*
+'
+EXPECT64=RmxhdGxpbmUKICBQcmF5ZXJQb3NpdGlvbiBAIDB4MTMzNyAodnRhYmxlICsgNjYpCmF0dHIuRmxhdGxpbmUubWV0aG9kPVByYXllclBvc2l0aW9uCmF0dHIuRmxhdGxpbmUubWV0aG9kLlByYXllclBvc2l0aW9uPTQ5MTksNjYKYXR0cnR5cGVzLkZsYXRsaW5lPW1ldGhvZApjbGFzcy5GbGF0bGluZT1jCmNsYXNzZXM9RmxhdGxpbmUKCi0tCg==
+RUN
