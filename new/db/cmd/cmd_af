@@ -166,3 +166,12 @@ EXPECT_ERR=<<RUN
 Truncated instruction of 3 bytes at 0x4017c6
 Truncated instruction of 1 bytes at 0x4017cb
 RUN
+
+NAME=afcf
+FILE=../bins/elf/crackme0x05
+CMDS='af@main
+afcf main @ 0
+afcf @ main
+'
+EXPECT64=aW50IG1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2LCBjaGFyICoqZW52cCkKaW50IG1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2LCBjaGFyICoqZW52cCkK
+RUN
