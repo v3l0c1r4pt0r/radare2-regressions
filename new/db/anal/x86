@@ -374,8 +374,8 @@ CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKZSBhbmFsLmhhc25leHQ9MApiIDB4NGUKd
 RUN
 NAME=./x86_win
 FILE=../bins/pe/standard.exe
-EXPECT64=bmFtZTogc3ViLm1zdmNydC5kbGxfcHJpbnRmX2IyZAoK
-CMDS64=YWFhCmFmaSBAIHN1Yi5tc3ZjcnQuZGxsX3ByaW50Zl9iMmR+bmFtZQoKCg==
+EXPECT64=bmFtZTogc3ViLm1zdmNydC5kbGxfcHJpbnRmXzQwMmIyZA==
+CMDS64=YWFhCmFmaSBAIHN1Yi5tc3ZjcnQuZGxsX3ByaW50Zl80MDJiMmR+bmFtZQoKCg==
 RUN
 NAME=./x86_win
 FILE=../bins/pe/ioli/w32/crackme0x00.exe
