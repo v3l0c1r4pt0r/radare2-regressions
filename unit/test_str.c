@@ -243,6 +243,13 @@ bool test_r_str_len_utf8_ansi(void) {
 	mu_end;
 }
 
+bool test_r_str_sanitize_sdb_key(void) {
+	char *s = r_str_sanitize_sdb_key("rada.re2<is>::Cool");
+	mu_assert_streq (s, "rada_re2_is_::Cool", "sanitize");
+	free (s);
+	mu_end;
+}
+
 bool all_tests() {
 	mu_run_test(test_r_str_replace_char_once);
 	mu_run_test(test_r_str_replace_char);
@@ -262,6 +269,7 @@ bool all_tests() {
 	mu_run_test(test_r_str_rchr);
 	mu_run_test(test_r_str_ansi_len);
 	mu_run_test(test_r_str_len_utf8_ansi);
+	mu_run_test(test_r_str_sanitize_sdb_key);
 	return tests_passed != tests_run;
 }
 
