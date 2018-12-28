@@ -281,7 +281,7 @@ EXPECT=<<RUN
             0x00000000      488b4608       mov rax, qword [rsi + ms.member1]
 RUN
 
-NAME=asm.bbline no-anal glitch fix (#12330)
+NAME=asm.bbline no-anal glitch fix (#12516)
 FILE=../bins/elf/lab2
 CMDS=<<EXPECT
 e asm.bbline=true
