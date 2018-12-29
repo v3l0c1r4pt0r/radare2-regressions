@@ -503,10 +503,11 @@ RUN
 
 NAME=pdJ asm.emu=1 comment
 FILE=../bins/elf/crackme0x05
-EXPECT64=W3sib2Zmc2V0IjoxMzQ1MTQwMjIsInRleHQiOiIgICAgICAgICAgICAweDA4MDQ4NTY2ICAgICAgZTgyOWZlZmZmZiAgICAgY2FsbCBzeW0uaW1wLnByaW50ZiAgICAgICAgIDsgZXNwPTB4ZmZmZmZmZmZmZmZmZmZmYyA7IGVpcD0weDgwNDgzOTQgLT4gMHhhMDBjMjVmZiJ9LHsib2Zmc2V0IjoxMzQ1MTQwMjIsInRleHQiOiIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOyBpbnQgcHJpbnRmKGNvbnN0IGNoYXIgKiBmb3JtYXQgOiAoKjB4ZmZmZmZmZmYpMHgwMDAwMDAwMCA9IC4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLikifV0K
-CMDS='e asm.emu=1
+CMDS=<<EXPECT
+e asm.emu=1
 pdJ 1 @ 0x08048566
-'
+EXPECT=<<RUN
+[{"offset":134514022,"text":"            0x08048566      e829feffff     call sym.imp.printf         ; esp=0xfffffffffffffffc ; eip=0x8048394 -> 0xa00c25ff"},{"offset":134514022,"text":"                                                                         ; int printf(const char * format : (*0xffffffff)0x00000000 = ............................................................................................................................................................................................................................................................)"}]
 RUN
 
 NAME=pdJ asm.emu=1 string
