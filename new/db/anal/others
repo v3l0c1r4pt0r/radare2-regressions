@@ -764,6 +764,16 @@ CMDS=<<EXPECT
 aaa
 f~strlen~390
 EXPECT=<<RUN
-0x00060390 736 sub.strlen_60390
+0x00060390 782 sub.strlen_60390
 0x0006d390 197 sub.strlen_6d390
+RUN
+
+NAME=no function split without overlapping blocks
+FILE=../bins/elf/libc.so.6
+CMDS=<<EXPECT
+aac
+s 0x2254d
+agf~invalid
+echo end
+EXPECT=end
 RUN
