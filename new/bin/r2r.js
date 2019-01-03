@@ -117,9 +117,13 @@ function main (argv) {
       if (testFile.indexOf(filter) === -1) {
         return next();
       }
-      // console.log('[--]', 'run', testFile);
+      // Skip hidden files
       if (testFile.indexOf('/.') !== -1) {
-      // skip hidden files
+        return next();
+      }
+      // Skip extras, they should only be started manually
+      if (filter === '' && testFile.indexOf('extras') !== -1) {
+        console.error('Skipping ' + testFile + ' because it requires dependencies');
         return next();
       }
       nr.load(testFile, (err, data) => {

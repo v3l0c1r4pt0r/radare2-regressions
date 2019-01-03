@@ -71,10 +71,6 @@ class NewRegressions {
       process.exit(1);
     }
     this.promises = [];
-    // reduce startup times of r2
-    process.env.RABIN2_NOPLUGINS = 1;
-    process.env.RASM2_NOPLUGINS = 1;
-    process.env.R2_NOPLUGINS = 1;
     r2promise.open('-').then(r2 => {
       this.r2 = r2;
       cb(null, r2);
@@ -91,6 +87,7 @@ class NewRegressions {
       [path.join('db', 'esil'), this.runTest],
       [path.join('db', 'formats'), this.runTest],
       [path.join('db', 'io'), this.runTest],
+      [path.join('db', 'extras'), this.runTest],
       [path.join('db', 'tools'), this.runTest],
       [path.join('db', 'bin'), this.runTestBin]
     ]) {
@@ -235,7 +232,7 @@ class NewRegressions {
         if (process.env.APPVEYOR && process.env.ANSICON === undefined) {
           process.env['ANSICON'] = 'True';
         }
-        // append custom r2 args
+        // Append custom r2 args
         if (test.args && test.args.length > 0) {
           args.push(...test.args.split(' '));
         }
@@ -255,12 +252,24 @@ class NewRegressions {
           if (!test.file) {
             test.file='-';
           }
-          // append testfile
+          // Append testfile
           args.push(...test.file.split(' '));
 
           let res = '';
           let ree = '';
           test.spawnArgs = args;
+
+          // Set or unset NOPLUGINS to speedup launch time
+          if (test.from.indexOf('extras') !== -1) {
+            delete process.env.RABIN2_NOPLUGINS;
+            delete process.env.RASM2_NOPLUGINS;
+            delete process.env.R2_NOPLUGINS;
+          } else {
+            process.env.RABIN2_NOPLUGINS = 1;
+            process.env.RASM2_NOPLUGINS = 1;
+            process.env.R2_NOPLUGINS = 1;
+          }
+
           const child = spawn(r2bin, args);
           test.birth = new Date();
           child.stdout.on('data', data => {
@@ -374,7 +383,8 @@ class NewRegressions {
       }
       const eq = l.indexOf('=');
       if (eq === -1) {
-        throw new Error('Invalid database: ' + l);
+        console.error('Action' + l + ' seems invalid (' + source + ')');
+        throw new Error('Invalid action: ' + l);
       }
       const k = l.substring(0, eq);
       const v = l.substring(eq + 1);
@@ -810,13 +820,13 @@ function parseTestAsm (source, line) {
   let r2args = [];
   let args = line.match(/(".*?"|[^"\s]+)+(?=\s*|\s*$)/g);
   if (args.length < 3) {
-    console.error(colors.red.bold('[XX]', 'Wrong test format in ' + source + ':' + line));
+    console.error(colors.red.bold('[XX]', 'Wrong asm test format in ' + source + ':' + line));
     return [];
   }
   let filetree = source.split(path.sep);
   const filename = filetree[filetree.length - 1].split('_');
   if (filename.length > 3) {
-    console.error(colors.red.bold('[XX]', 'Wrong filename: ' + source));
+    console.error(colors.red.bold('[XX]', 'Wrong asm filename: ' + source));
     return [];
   } else if (filename.length === 2) {
     r2args.push('e asm.bits=' + filename[1]);
