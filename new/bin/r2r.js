@@ -143,6 +143,11 @@ function main (argv) {
             console.error(err.message);
           }
         });
+        nr.loadFuzz('../bins/elf/analysis', (err, data) => {
+          if (err) {
+            console.error(err.message);
+          }
+        });
       }
       function readLine (cb) {
         rl.cb = cb;
