@@ -62,10 +62,12 @@ keystone:
 	cd new && node bin/r2r.js db/extras/asm/x86.ks_
 
 swf:
-	$(SHELL) run_tests.sh old/t.extras/swf
+	cd new && npm install
+	cd new && node bin/r2r.js db/extras/asm/swf
 
 m68k-extras:
-	$(SHELL) run_tests.sh old/t.extras/m68k
+	cd new && npm install
+	cd new && node bin/r2r.js db/extras/asm/m68k
 
 mc6809:
 	cd new && npm install
@@ -80,8 +82,8 @@ olly-extras:
 	cd new && node bin/r2r.js db/extras/asm/x86.olly
 
 dwarf:
-	$(SHELL) run_tests.sh old/t.extras/dwarf
-
+	cd new && npm install
+	cd new && node bin/r2r.js db/extras/asm/dwarf
 broken:
 	grep BROKEN=1 t -r -l
 
