@@ -37,12 +37,3 @@ EXPECT=<<RUN
 test1
 RUN
 
-
-NAME="?e test 1>x;cat x;rm x"
-FILE=malloc://512
-CMDS=<<EXPECT
-?e test 1>x;cat x;rm x
-EXPECT=<<RUN
-test
-RUN
-
