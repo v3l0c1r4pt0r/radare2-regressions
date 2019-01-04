@@ -1,7 +1,7 @@
 #include <r_util.h>
 #include "minunit.h"
 
-#define FILENAME "test_buf.c"
+#define FILENAME __FILE__
 
 bool test_r_buf_file_new() {
 	RBuffer *b;
