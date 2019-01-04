@@ -71,6 +71,10 @@ m68k-extras:
 
 mc6809:
 	cd new && npm install
+	cd new && node bin/r2r.js db/extras/asm/x86.udis
+
+udis86:
+	cd new && npm install
 	cd new && node bin/r2r.js db/extras/asm/mc6809
 
 olly-extras:
