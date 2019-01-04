@@ -33,7 +33,7 @@ all:
 	-$(MAKE) overlay-apply
 	$(MAKE) alltargets
 
-alltargets: js-tests commands formats io archos unit_tests
+alltargets: js-tests commands io archos unit_tests
 
 archos:
 	@$(MAKE) -C old/t.archos
@@ -45,17 +45,6 @@ commands:
 
 io:
 	$(SHELL) run_tests.sh old/t.io
-
-formats: format.elf format.mach0 format.pdb format.pe
-format.elf:
-	$(SHELL) run_tests.sh old/t.formats/elf
-format.mach0:
-	$(SHELL) run_tests.sh old/t.formats/mach0
-format.pdb:
-	$(SHELL) run_tests.sh old/t.formats/pdb
-format.pe:
-	$(SHELL) run_tests.sh old/t.formats/pe
-
 
 keystone:
 	cd new && npm install
