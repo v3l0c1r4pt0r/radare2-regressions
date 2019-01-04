@@ -46,13 +46,11 @@ commands:
 io:
 	$(SHELL) run_tests.sh old/t.io
 
-formats: format.elf format.mach0 format.others format.pdb format.pe
+formats: format.elf format.mach0 format.pdb format.pe
 format.elf:
 	$(SHELL) run_tests.sh old/t.formats/elf
 format.mach0:
 	$(SHELL) run_tests.sh old/t.formats/mach0
-format.others:
-	$(SHELL) run_tests.sh old/t.formats/others
 format.pdb:
 	$(SHELL) run_tests.sh old/t.formats/pdb
 format.pe:
