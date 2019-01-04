@@ -1,0 +1,14 @@
+NAME="pdf dwarf invalid main for analysis not found (aa)"
+FILE=../bins/src/dwarftest
+CMDS=<<EXPECT
+e asm.dwarf=true
+e anal.nopskip=true # if set to true it fucks the test
+aa
+pd 1 @main
+EXPECT=<<RUN
+/ (fcn) main 44
+|   main (int argc, char **argv, char **envp);
+|           ; var int local_4h @ rbp-0x4
+|           ; DATA XREF from entry0 (0x40045d)
+|           0x0040052d      55             push rbp                    ; /tmp/r2-regressions/.//dwarftest.c:4
+RUN
