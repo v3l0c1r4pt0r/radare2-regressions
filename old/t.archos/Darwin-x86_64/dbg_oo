@@ -30,6 +30,7 @@ IGNORE_ERR=1
 run_test
 
 NAME='dc - i386 forced'
+BROKEN=1
 FILE=../../../bins/mach0/hello-osx-i386
 ARGS="-b 32 -d"
 CMDS='dc
@@ -52,6 +53,7 @@ IGNORE_ERR=1
 run_test
 
 NAME='oo ; dc'
+BROKEN=1
 FILE=../../../bins/mach0/hello-osx-x86_64
 ARGS=-d
 CMDS='oo
@@ -63,6 +65,7 @@ IGNORE_ERR=1
 run_test
 
 NAME='ood'
+BROKEN=1
 FILE=../../../bins/mach0/hello-osx-x86_64
 ARGS=-d
 CMDS='ds
