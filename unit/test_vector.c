@@ -135,6 +135,21 @@ static bool test_vector_free() {
 	mu_end;
 }
 
+static void free_all_test(void *user) {
+	int *acc = user;
+	(*acc)++;
+}
+
+static bool test_vector_free_all() {
+	RVector v;
+	init_test_vector (&v, FREE_TEST_COUNT, 0, NULL, NULL);
+	int acc = 0;
+	r_vector_set_free_all (&v, free_all_test, &acc);
+	r_vector_clear (&v);
+	mu_assert_eq (acc, 1, "free_all");
+	mu_end;
+}
+
 
 static bool test_vector_clone() {
 	RVector v;
@@ -643,6 +658,16 @@ static bool test_pvector_free() {
 	mu_end;
 }
 
+static bool test_pvector_free_all() {
+	RPVector *v = R_NEW (RPVector);
+	init_test_pvector (v, 5, 5);
+	int acc = 0;
+	r_pvector_set_free_all (v, free_all_test, &acc);
+	r_pvector_free (v);
+	mu_assert_eq (acc, 1, "free_all");
+	mu_end;
+}
+
 static bool test_pvector_at() {
 	RPVector v;
 	init_test_pvector (&v, 5, 0);
@@ -1041,6 +1066,7 @@ static int all_tests() {
 	mu_run_test (test_vector_new);
 	mu_run_test (test_vector_clear);
 	mu_run_test (test_vector_free);
+	mu_run_test (test_vector_free_all);
 	mu_run_test (test_vector_clone);
 	mu_run_test (test_vector_empty);
 	mu_run_test (test_vector_remove_at);
@@ -1058,6 +1084,7 @@ static int all_tests() {
 	mu_run_test (test_pvector_new);
 	mu_run_test (test_pvector_clear);
 	mu_run_test (test_pvector_free);
+	mu_run_test (test_pvector_free_all);
 	mu_run_test (test_pvector_at);
 	mu_run_test (test_pvector_set);
 	mu_run_test (test_pvector_contains);
