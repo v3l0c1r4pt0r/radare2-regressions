@@ -287,7 +287,7 @@ a "jmp ecx" ffe1
 aB "jne 6" 0f8500000000 
 a "jno 2" 7100 
 aB "jno 6" 0f8100000000 
-aB "jnp 2" 7b00 
+a "jnp 2" 7b00 
 aB "jnp 6" 0f8b00000000 
 a "jns 2" 7900 
 aB "jns 6" 0f8900000000 
@@ -588,7 +588,7 @@ a "pandn mm0, qword [eax]" 0fdf00
 a "pandn xmm0, xmmword [eax]" 660fdf00 
 a "pand xmm0, xmmword [eax]" 660fdb00 
 a "pause" f390 
-aB "pavgb mm0, qword [eax]" 0fe000 
+a "pavgb mm0, qword [eax]" 0fe000 
 aB "pavgb mm0, qword [eax]" 0fe0 
 a "pavgb xmm0, xmmword [eax]" 660fe000 
 a "pavgw mm0, qword [eax]" 0fe300 

@@ -60,7 +60,8 @@ format.pe:
 
 
 keystone:
-	$(SHELL) run_tests.sh old/t.extras/keystone
+	cd new && npm install
+	cd new && node bin/r2r.js db/extras/asm/x86.ks_
 
 swf:
 	$(SHELL) run_tests.sh old/t.extras/swf
