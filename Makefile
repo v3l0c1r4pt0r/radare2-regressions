@@ -69,8 +69,13 @@ swf:
 m68k-extras:
 	$(SHELL) run_tests.sh old/t.extras/m68k
 
+mc6809:
+	cd new && npm install
+	cd new && node bin/r2r.js db/extras/asm/mc6809
+
 olly-extras:
-	$(SHELL) run_tests.sh old/t.extras/x86_olly
+	cd new && npm install
+	cd new && node bin/r2r.js db/extras/asm/x86.olly
 
 dwarf:
 	$(SHELL) run_tests.sh old/t.extras/dwarf
