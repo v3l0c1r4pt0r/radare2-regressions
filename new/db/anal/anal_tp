@@ -3,7 +3,7 @@ FILE=../bins/anal/back1
 CMDS=<<EXPECT
 aa
 s main
-afta
+aaft
 afv
 EXPECT=<<RUN
 var size_t size @ rbp-0x14
@@ -16,7 +16,7 @@ FILE=../bins/anal/forward1
 CMDS=<<EXPECT
 aa
 s main
-afta
+aaft
 afv
 EXPECT=<<RUN
 var size_t size @ rbp-0x14
@@ -29,7 +29,7 @@ FILE=../bins/anal/follow_ptr
 CMDS=<<EXPECT
 aa
 s main
-afta
+aaft
 afv
 EXPECT=<<RUN
 var size_t local_1ch @ rbp-0x1c
@@ -43,7 +43,7 @@ FILE=../bins/anal/hello_world
 CMDS=<<EXPECT
 aa
 s main
-afta
+aaft
 afv
 EXPECT=<<RUN
 var size_t local_20h @ rbp-0x20
@@ -58,7 +58,7 @@ FILE=../bins/anal/hello_world32
 CMDS=<<EXPECT
 aa
 s main
-afta
+aaft
 afv
 EXPECT=<<RUN
 arg int arg_4h @ esp+0x4
@@ -87,7 +87,7 @@ NAME=Type propgation for reg based arg
 FILE=../bins/anal/arg
 CMDS=<<EXPECT
 aa
-afta
+aaft
 s sym.funcarg
 afvr
 EXPECT=<<RUN
@@ -103,7 +103,7 @@ CMDS=<<EXPECT
 e asm.lines = false
 e asm.xrefs = false
 aa
-afta
+aaft
 s sym.funcarg
 pd 1
 EXPECT=<<RUN
@@ -122,7 +122,7 @@ CMDS=<<EXPECT
 e asm.lines = false
 e asm.xrefs = false
 aa
-afta
+aaft
 s sym.funcarg
 pd 1
 EXPECT=<<RUN
@@ -172,7 +172,7 @@ NAME=Double pointer test
 FILE=../bins/anal/double_ptr
 CMDS=<<EXPECT
 aa
-afta
+aaft
 s main
 afv~ptr
 EXPECT=<<RUN
@@ -183,7 +183,7 @@ NAME=Signed and unsigned test
 FILE=../bins/anal/signed_test
 CMDS=<<EXPECT
 aa
-afta
+aaft
 s main
 afv~sign
 EXPECT=<<RUN
@@ -196,7 +196,7 @@ NAME=flagspace analysis
 FILE=../bins/anal/flagspace
 CMDS=<<EXPECT
 aa
-afta
+aaft
 s main
 afv
 EXPECT=<<RUN
@@ -214,7 +214,7 @@ NAME=bashbot test (x86_64)
 FILE=../bins/anal/bashbot.x86_64.O0.elf
 CMDS=<<EXPECT
 aa
-afta
+aaft
 s main
 afv
 s sym.processCmd
@@ -284,7 +284,7 @@ FILE=../bins/anal/bashbot.arm.gcc.O0.elf
 CMDS=<<EXPECT
 s main
 af
-afta
+aaft
 afv
 EXPECT=<<RUN
 var int local_0h @ sp+0x0
@@ -310,7 +310,7 @@ NAME=format string parse
 FILE=../bins/anal/format
 CMDS=<<EXPECT
 aa
-afta
+aaft
 s main
 afv
 EXPECT=<<RUN
@@ -327,7 +327,7 @@ NAME=local to register var type propgation
 FILE=../bins/anal/l2rbin
 CMDS=<<EXPECT
 aa
-afta
+aaft
 s main
 afv
 EXPECT=<<RUN
