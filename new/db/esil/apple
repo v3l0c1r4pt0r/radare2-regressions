@@ -16,7 +16,7 @@ RUN
 NAME=string refs: thumb
 FILE=../bins/mach0/test-thumb
 EXPECT64=NgoK
-CMDS64=YWYKZSBhc20uZW11PXRydWUKZSBhc20uZW11c3RyPXRydWUKcGRmfj9zdHIuc3RyaW5nCgo=
+CMDS64=YWYKZSBhc20uZW11PXRydWUKZSBlbXUuc3RyPXRydWUKcGRmfj9zdHIuc3RyaW5nCgo=
 RUN
 NAME=string refs: arm32
 FILE=../bins/mach0/test-arm32
