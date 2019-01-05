@@ -1,5 +1,6 @@
 NAME='create mach0 x86-64'
 FILE=-
+BROKEN=1
 CMDS=<<EXPECT
 rm ./tiny64.mach0__
 !rabin2 -C mach064:cc -a x86 -b 64 ./tiny64.mach0__
