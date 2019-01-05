@@ -88,8 +88,7 @@ class NewRegressions {
       [path.join('db', 'formats'), this.runTest],
       [path.join('db', 'io'), this.runTest],
       [path.join('db', 'extras'), this.runTest],
-      [path.join('db', 'tools'), this.runTest],
-      [path.join('db', 'bin'), this.runTestBin]
+      [path.join('db', 'tools'), this.runTest]
     ]) {
       const [txt, cb] = row;
       if (from.indexOf(txt) !== -1) {
@@ -124,66 +123,6 @@ class NewRegressions {
         });
       } catch (e) {
         console.error(e);
-        reject(e);
-      }
-    });
-  }
-
-  runTestBin (test, cb) {
-    const testPath = test.path;
-    return newPromise((resolve, reject) => {
-      const promises = [];
-      const walker = walk(test.path, {followLinks: false});
-      walker.on('file', (root, stat, next) => {
-        const newTest = Object.assign({}, test);
-        newTest.path = path.join(testPath, stat.name);
-        promises.push(this.runTestBinFile(newTest, cb));
-        next();
-      });
-      walker.on('end', () => {
-        Promise.all(promises).then(res => {
-          console.log('Bins Done');
-          resolve();
-        }).catch(reject);
-      });
-    });
-  }
-
-  runTestBinFile (test, cb) {
-    return newPromise((resolve, reject) => {
-      try {
-        co(function * () {
-          const args = [
-            '-escr.utf8=0',
-            '-escr.color=0',
-            '-escr.interactive=0',
-            '-c',
-            '?e init',
-            '-qcq',
-            '-A', // configurable to AAA, or just A somehow
-            test.path
-          ];
-          if (process.env.APPVEYOR && process.env.ANSICON === undefined) {
-            process.env['ANSICON'] = 'True';
-          }
-          test.birth = null;
-          const child = spawn(r2bin, args);
-          child.stdout.on('data', data => {
-            // console.log(data.toString());
-            if (test.birth === null) {
-              test.birth = new Date();
-            }
-          });
-          child.stderr.on('data', data => {
-          //  console.error(data.toString());
-          });
-          child.on('close', data => {
-            test.death = new Date();
-            test.lifetime = test.death - test.birth;
-            return resolve(cb(test));
-          });
-        });
-      } catch (e) {
         reject(e);
       }
     });
