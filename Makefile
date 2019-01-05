@@ -33,7 +33,7 @@ all:
 	-$(MAKE) overlay-apply
 	$(MAKE) alltargets
 
-alltargets: js-tests commands io archos unit_tests
+alltargets: js-tests commands archos unit_tests
 
 archos:
 	@$(MAKE) -C old/t.archos
