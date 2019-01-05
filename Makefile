@@ -33,16 +33,13 @@ all:
 	-$(MAKE) overlay-apply
 	$(MAKE) alltargets
 
-alltargets: js-tests commands archos unit_tests
+alltargets: js-tests archos unit_tests
 
 archos:
 	@$(MAKE) -C old/t.archos
 dbg.linux:
 	$(SHELL) run_tests.sh old/t.archos/Linux
 
-commands:
-	$(SHELL) run_tests.sh old/t
-	
 keystone:
 	cd new && npm install
 	cd new && node bin/r2r.js db/extras/asm/x86.ks_
