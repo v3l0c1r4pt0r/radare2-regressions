@@ -169,6 +169,7 @@ fV 50 0x400412
 RUN
 
 NAME='Custom types in project file'
+BROKEN=1
 FILE=../bins/elf/analysis/main
 CMDS=<<EXPECT
 tk char **=type
