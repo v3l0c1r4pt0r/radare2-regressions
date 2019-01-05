@@ -10,6 +10,7 @@ const walk = require('walk').walk;
 const path = require('path');
 const readline = require('readline');
 const common = require('../common');
+const os = require('os');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -117,15 +118,35 @@ function main (argv) {
       if (testFile.indexOf(filter) === -1) {
         return next();
       }
+
       // Skip hidden files
       if (testFile.indexOf('/.') !== -1) {
         return next();
       }
+
       // Skip extras, they should only be started manually
       if (filter === '' && testFile.indexOf('extras') !== -1) {
         console.error('Skipping ' + testFile + ' because it requires dependencies');
         return next();
       }
+
+      // Skip archos dependent tests that are not for this platform
+      if (testFile.indexOf('archos') !== -1) {
+        let dir = path.dirname(testFile).split(path.sep)
+        dir = dir[dir.length - 1].split('-');
+
+        if (os.platform() !== dir[0]) {
+          console.error('Skipping ' + testFile + ' because platform differs.');
+          return next();
+        }
+
+        if (os.arch() !== dir[1]) {
+          console.error('Skipping ' + testFile + ' because arch differs.');
+          return next();
+        }
+
+      }
+
       nr.load(testFile, (err, data) => {
         if (err) {
           console.log('[XX] WAT DO', testFile);

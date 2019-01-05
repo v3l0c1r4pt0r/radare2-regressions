@@ -83,11 +83,12 @@ class NewRegressions {
   callbackFromPath (from) {
     for (let row of [
       [path.join('db', 'anal'), this.runTest],
+      [path.join('db', 'archos'), this.runTest],
       [path.join('db', 'cmd'), this.runTest],
       [path.join('db', 'esil'), this.runTest],
+      [path.join('db', 'extras'), this.runTest],
       [path.join('db', 'formats'), this.runTest],
       [path.join('db', 'io'), this.runTest],
-      [path.join('db', 'extras'), this.runTest],
       [path.join('db', 'tools'), this.runTest]
     ]) {
       const [txt, cb] = row;
@@ -238,34 +239,6 @@ class NewRegressions {
           console.error(e);
           reject(e);
         }
-        /*
-        // using r2pipe, maybe viable for some tests
-        let res = '';
-        let r2 = null;
-        try {
-          const testPath = test.file;
-          r2 = yield r2promise.open(testPath);
-          for (let cmd in test.cmds) {
-            res += yield r2.cmd(cmd);
-          }
-          if (r2 !== null) {
-            yield r2.quit();
-          }
-          if (res.expect === res) {
-            console.log('OK', test.name);
-          } else {
-            console.log('XX', test.name);
-          }
-          resolve(res);
-        } catch (err) {
-          console.error(err);
-          process.exit(1);
-          if (r2 !== null) {
-            yield r2.quit();
-          }
-          return reject(err);
-        }
-*/
       });
     });
   }
