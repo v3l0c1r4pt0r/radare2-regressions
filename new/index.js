@@ -794,8 +794,15 @@ function parseTestJson (source, line) {
       }
     } catch (err) {
       test.passes = false;
-      console.error(err);
-      console.error(test.stdout);
+      if (t.broken) {
+        console.error(colors.blue('[BR] ') + t.cmd);
+        console.error(err);
+      } else {
+        console.error(colors.red.bold('[XX] ') + t.cmd);
+        console.error(err);
+      }
+      
+      
     }
   }
 
