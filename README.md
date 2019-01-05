@@ -12,18 +12,6 @@ Directory Hierarchy
  * unit/:        Unit tests (written in C, using minunit).
  * bins/:        Sample binaries.
 
-**Deprecated**
-
- * old/t.anal/:      Test scripts covering code analysis within radare2
- * old/t.asm/:       Test scripts covering assembly within radare2
- * old/t.esil/:      Test scripts covering use of ESIL within radare2
- * old/t.formats/:   Test scripts covering detection of binaries within radare2
- * old/t.archos/:    Platform specific test scripts
- * old/t/:           Test scripts (presently uncategorised)
- * test.sh:      Test driver script sourced by tests (not to be run manually).
- * run_tests.sh: Run tests for the core features.
- * run_unit.sh:  Run unit tests for the library functions.
-
 Requirements
 ------------
 
@@ -34,21 +22,8 @@ Requirements
 Usage
 -----
 
- * Run './run_tests.sh' in the top level directory to run the core tests
-   (alternatively you can use 'make').
- * To run *all* tests, use 'make all'.
- * To run individual tests, type 'cd t; ./testname'.
- * To remove old test results run 'make clean'.
+ * To run *all* tests, use 'make -k all'.
 
-Options
--------
-
-The following options can be passed to run_tests.sh or the individual tests
-(environment variables).
-
- * To run tests with valgrind, use 'VALGRIND=1'.
- * To get verbose output, use 'VERBOSE=1' (always enabled for individual
-   tests).
 
 Failure Levels
 --------------
@@ -58,15 +33,6 @@ A test can have one of the following results:
 * fixed: The test passed, but failure was expeced.
 * broken: Failure was expected, and happened.
 * failed: The test failed unexpectedly. This is a regression.
-
-Exit code
----------
-
-run_tests.sh exits with the following exit codes:
-
-* 0: all tests passed
-* 1: at least one essential test failed
-* 2: no essential tests, but at least one regular one failed
 
 Reporting Radare2 Bugs
 ----------------------
@@ -79,8 +45,6 @@ https://github.com/radare/radare2/issues?state=open
 Writing test cases
 ------------------
 
-Test cases are simple shell scripts (POSIX compliant) and either run by
-run_tests.sh or manually in t/.
 
 The following variables are available:
 
@@ -111,7 +75,7 @@ All uppercase variable names are reserved for the test system.
 
 The following functions are available:
 
- * run_test(): Run the test with the variables. Can be called multiple times
+ * RUN(): Run the test with the variables. Can be called multiple times
                in one test file.
 
 The test files should be named according to the following convention:

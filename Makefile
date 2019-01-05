@@ -16,29 +16,18 @@ LIBDIR=$(DESTDIR)/$(PREFIX)/lib
 
 PULLADDR=https://github.com/radare/radare2-regressions.git
 
-do:
-	-git pull ${PULLADDR}
-	-$(MAKE) overlay-apply
-	$(SHELL) run_tests.sh
-
-overlay:
-	if [ -f ../old/t/overlay ]; then \
-		$(SHELL) overlay.sh create ; \
-	fi
-
-apply-overlay overlay-apply:
-	$(SHELL) overlay.sh apply
-
 all:
 	-$(MAKE) overlay-apply
 	$(MAKE) alltargets
 
-alltargets: js-tests archos unit_tests
+apply-overlay overlay-apply:
+	$(SHELL) overlay.sh apply
 
-archos:
-	@$(MAKE) -C old/t.archos
-dbg.linux:
-	$(SHELL) run_tests.sh old/t.archos/Linux
+alltargets: js-tests unit_tests
+
+js-tests:
+	cd new && npm install
+	cd new && node bin/r2r.js
 
 keystone:
 	cd new && npm install
@@ -79,8 +68,6 @@ symstall:
 	ln -fs $(PWD)/r2-v $(BINDIR)/r2-v
 	ln -fs $(PWD)/r2r $(BINDIR)/r2r
 
-#sed -e 's,@R2RDIR@,$(PWD),g' < $(PWD)/r2-v > $(BINDIR)/r2-v
-#sed -e 's,@R2RDIR@,$(PWD),g' < $(PWD)/r2r > $(BINDIR)/r2r
 install:
 	mkdir -p $(BINDIR)
 	sed -e 's,@R2RDIR@,$(LIBDIR)/radare2-regressions,g' < $(PWD)/r2-v > $(BINDIR)/r2-v
@@ -108,10 +95,6 @@ untested:
 	@${MAKE} -s allbins > .b
 	@diff -ru .a .b | grep ^+ | grep -v +++ | cut -c 2-
 	@rm -f .a .b
-
-js-tests:
-	cd new && npm install
-	cd new && node bin/r2r.js
 
 allbins:
 	find bins -type f

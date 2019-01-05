@@ -1,5 +1,5 @@
-NAME=dbg cmdbps
-FILE=/bin/ls
+NAME='dbg.cmdbps'
+FILE=../bins/elf/analysis/elf-nx
 ARGS=-d
 BROKEN=1
 CMDS=<<EXPECT
