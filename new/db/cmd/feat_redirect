@@ -20,20 +20,3 @@ EXPECT=<<RUN
 000x000000000000
 RUN
 
-NAME="?e test>x;cat x;rm x"
-FILE=malloc://512
-BROKEN=1
-CMDS=<<EXPECT
-?e test>x;cat x;rm x
-EXPECT=<<RUN
-test
-RUN
-
-NAME="?e test1>x;cat x;rm x"
-FILE=malloc://512
-CMDS=<<EXPECT
-?e test1>x;cat x;rm x
-EXPECT=<<RUN
-test1
-RUN
-
