@@ -129,6 +129,28 @@ class NewRegressions {
     });
   }
 
+  runTestJson (test, cb) {
+    const self = this;
+    return newPromise((resolve, reject) => {
+      try {
+        co(function * () {
+          try {
+            if (test.path) {
+              self.r2.cmd('o ' + test.path, '; o-!; aaa');
+            }
+            test.stdout = yield self.r2.cmd(test.cmd);
+            return resolve(cb(test));
+          } catch (e) {
+            return reject(e);
+          }
+        });
+      } catch (e) {
+        console.error(e);
+        reject(e);
+      }
+    });
+  }
+
   runTestFuzz (test, cb) {
     return newPromise((resolve, reject) => {
       try {
@@ -261,9 +283,11 @@ class NewRegressions {
     for (let i = 0; i < lines.length; i++) {
       let l = lines[i];
       const line = l.trim();
+
       if (line.length === 0 || line[0] === '#') {
         continue;
       }
+
       if (editMode.enabled) {
         if (editMode.match) {
           console.log(line);
@@ -273,6 +297,17 @@ class NewRegressions {
         }
         continue;
       }
+
+      // Execute json tests
+      if (source.indexOf('json') !== -1) {
+        let tests = parseTestJson(source, line);
+        for (let t of tests) {
+          this.promises.push(this.runTestJson.bind(this)(t, this.checkTestResult.bind(this)));
+        }
+        continue;
+      }
+
+      // Execute asm tests
       if (source.indexOf('asm') !== -1 && source.indexOf('rasm2') === -1) {
         let tests = parseTestAsm(source, line);
         for (let t of tests) {
@@ -280,11 +315,8 @@ class NewRegressions {
         }
         continue;
       }
-      /*
-      if (line === 'EOF') {
-        continue;
-      }
-*/
+
+      // Execute normal test
       if (line === 'RUN') {
         const testCallback = this.callbackFromPath(test.from);
         if (testCallback !== null) {
@@ -293,11 +325,14 @@ class NewRegressions {
           continue;
         }
       }
+
       const eq = l.indexOf('=');
+
       if (eq === -1) {
         console.error('Action' + l + ' seems invalid (' + source + ')');
         throw new Error('Invalid action: ' + l);
       }
+
       const k = l.substring(0, eq);
       const v = l.substring(eq + 1);
       const vt = v.trim();
@@ -546,7 +581,7 @@ class NewRegressions {
     });
   }
 
-  checkTest (test) {
+  checkTest (test, cb) {
     if (process.platform === 'win32') {
       /* Delete \r on windows.
        * Note that process.platform is always win32 even on Windows 64 bits */
@@ -557,15 +592,22 @@ class NewRegressions {
         test.stderr = test.stderr.replace(/\r/g, '');
       }
     }
-    if (test.expect !== undefined) {
-      test.stdoutFail = (test.expect64 || test.expect64 === undefined)
-        ? test.expect.trim() !== test.stdout.trim()
-        : test.expect !== test.stdout;
+
+    /* Check test output, if it's the same, the test passes */
+    if (test.check === undefined) {
+      if (test.expect !== undefined) {
+        test.stdoutFail = (test.expect64 || test.expect64 === undefined)
+          ? test.expect.trim() !== test.stdout.trim()
+          : test.expect !== test.stdout;
+      } else {
+        test.stdoutFail = false;
+      }
+      test.stderrFail = test.expectErr !== undefined ? test.expectErr !== test.stderr : false;
+      test.passes = !test.stdoutFail && !test.stderrFail;
     } else {
-      test.stdoutFail = false;
+      test.check(test);
     }
-    test.stderrFail = test.expectErr !== undefined ? test.expectErr !== test.stderr : false;
-    test.passes = !test.stdoutFail && !test.stderrFail;
+
     const status = (test.passes)
       ? (test.broken ? colors.yellow('[FX]') : colors.green('[OK]'))
       : (test.broken ? colors.blue('[BR]') : colors.red('[XX]'));
@@ -583,6 +625,7 @@ class NewRegressions {
         this.report.failed++;
       }
     }
+
     /* Hack to hide undefined */
     if (test.path === undefined) {
       test.path = '';
@@ -591,14 +634,14 @@ class NewRegressions {
       test.lifetime = '';
     }
     if ((process.env.NOOK && status !== colors.green('[OK]')) || !process.env.NOOK) {
-      // console.log('[' + status + ']', colors.yellow(test.name), test.path, test.lifetime);
       process.stdout.write('\x1b[0K\r' + status + ' ' + test.from + ' ' + colors.yellow(test.name) + ' ' + test.path + ' ' + test.lifetime + (this.verbose ? '\n' : '\r'));
     }
     return test.passes;
   }
 
-  checkTestResult (test) {
+  checkTestResult (test, cb) {
     const testHasFailed = !this.checkTest(test);
+
     if (this.interactive) {
       this.verbose = true;
     }
@@ -725,6 +768,45 @@ function createTemporaryFile () {
       reject(e);
     }
   });
+}
+
+function parseTestJson (source, line) {
+  const bins = ['../bins/elf/crackme0x00b', '../bins/pe/version_std.exe', '../bins/elf/bomb'];
+  let t = {from: source, broken: false};
+  let tmp = line.split(' ');
+
+  t.name = tmp[0];
+  if (tmp[tmp.length - 1] === 'BROKEN') {
+    tmp = tmp.slice(0, tmp.length - 1);
+    t.cmd = tmp.join(' ');
+    t.broken = true;
+  } else {
+    t.cmd = line;
+    t.broken = false;
+  }
+  t.check = function(test) {
+    try {
+      if (test.stdout === '') {
+        test.passes = true;
+      } else {
+        JSON.parse(test.stdout);
+        test.passes = true;
+      }
+    } catch (err) {
+      test.passes = false;
+      console.error(err);
+      console.error(test.stdout);
+    }
+  }
+
+  let tests = [];
+
+  for (b of bins) {
+    let newtest = Object.assign({'path': b}, t);
+    tests.push(newtest);
+  }
+
+  return tests;
 }
 
 function parseTestAsm (source, line) {
