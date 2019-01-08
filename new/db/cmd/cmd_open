@@ -125,31 +125,13 @@ malloc://1024
 RUN
 NAME=ob select files binobj
 FILE=../bins/elf/libmagic.so
-EXPECT=<<CMDS
-38
-0
-CMDS=<<RUN
-iiq~?
-e scr.null=true
-o malloc://1024
-e scr.null=false
-iiq~?
+EXPECT64=NDAKMAo=
+CMDS64=CmlpcX4/CmUgc2NyLm51bGw9dHJ1ZQpvIG1hbGxvYzovLzEwMjQKZSBzY3IubnVsbD1mYWxzZQppaXF+PwoK
 RUN
 NAME=ob select files binobj2
 FILE=../bins/elf/libmagic.so
-EXPECT=<<CMDS
-408
-50
-408
-CMDS=<<RUN
-isq~?
-e scr.null=true
-o ../bins/elf/true32
-e scr.null=false
-isq~?
-# raise back
-op `o~:0[0]`
-isq~?
+EXPECT64=NDEwCjQ2CjQxMAo=
+CMDS64=CmlzcX4/CmUgc2NyLm51bGw9dHJ1ZQpvIC4uL2JpbnMvZWxmL3RydWUzMgplIHNjci5udWxsPWZhbHNlCmlzcX4/CiMgcmFpc2UgYmFjawpvcCBgb346MFswXWAKaXNxfj8KCg==
 RUN
 NAME=o-*
 FILE=-
