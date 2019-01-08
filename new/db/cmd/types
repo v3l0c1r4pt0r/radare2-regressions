@@ -756,3 +756,64 @@ EXPECT=<<EOF
 pf zp y obj
 EOF
 RUN
+
+NAME=tsc test
+FILE=-
+CMDS=<<EOF
+"td struct three_elements{int x; char y; float z;}"
+tsc
+EOF
+EXPECT=<<EOF
+struct three_elements {int32_t x; char y; float z;};
+EOF
+RUN
+
+NAME=tec test
+FILE=-
+CMDS=<<EOF
+"td enum Foo {COW=1,BAR=2};"
+tec
+EOF
+EXPECT=<<EOF
+enum Foo {COW = 1, BAR = 2};
+EOF
+RUN
+
+NAME=tuc test
+FILE=-
+CMDS=<<EOF
+"td union x{int x; int y; int z;}"
+tuc
+EOF
+EXPECT=<<EOF
+union x {int32_t x; int32_t y; int32_t z;};
+EOF
+RUN
+
+NAME=ttc test
+FILE=-
+CMDS=<<EOF
+"td typedef char FILE_NAME;"
+ttc
+EOF
+EXPECT=<<EOF
+typedef char FILE_NAME;
+EOF
+RUN
+
+NAME=tc test
+FILE=-
+CMDS=<<EOF
+"td typedef char FILE_NAME;"
+"td union x{int x; int y; int z;}"
+"td enum Foo {COW=1,BAR=2};"
+"td struct three_elements{int x; char y; float z;}"
+tc
+EOF
+EXPECT=<<EOF
+union x {int32_t x; int32_t y; int32_t z;};
+struct three_elements {int32_t x; char y; float z;};
+typedef char FILE_NAME;
+enum Foo {COW = 1, BAR = 2};
+EOF
+RUN
