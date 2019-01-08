@@ -172,6 +172,17 @@ FILE=../bins/elf/crackme0x05
 CMDS='af@main
 afcf main @ 0
 afcf @ main
+afcfj @ main
 '
-EXPECT64=aW50IG1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2LCBjaGFyICoqZW52cCkKaW50IG1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2LCBjaGFyICoqZW52cCkK
+EXPECT64=aW50IHN5bS5tYWluIChpbnQgYXJnYywgY2hhciAqKmFyZ3YsIGNoYXIgKiplbnZwKTsKW3sibmFtZSI6Im1haW4iLCJyZXR1cm4iOiJpbnQiLCJhcmdzIjpbeyJuYW1lIjoiYXJnYyIsInR5cGUiOiJpbnQifSx7Im5hbWUiOiJhcmd2IiwidHlwZSI6ImNoYXIgKioifSx7Im5hbWUiOiJlbnZwIiwidHlwZSI6ImNoYXIgKioifV0sImNvdW50IjozfV0K
+RUN
+
+NAME=afcf (vars)
+FILE=../bins/elf/ls
+CMDS='s 0x00013c70
+af
+afcf
+afcfj
+'
+EXPECT64=ZmNuLjAwMDEzYzcwIChpbnQgYXJnMSwgaW50IGFyZzIsIGludCBhcmczKTsKW3sibmFtZSI6ImZjbi4wMDAxM2M3MCIsImFyZ3MiOlt7Im5hbWUiOiJhcmcxIiwidHlwZSI6ImludCJ9LHsibmFtZSI6ImFyZzIiLCJ0eXBlIjoiaW50In0seyJuYW1lIjoiYXJnMyIsInR5cGUiOiJpbnQifV0sImNvdW50IjozfV0K
 RUN
