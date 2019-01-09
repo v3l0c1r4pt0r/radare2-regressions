@@ -358,6 +358,7 @@ Num  Vaddr       Bind      Type Name
    3 0x080482f0  GLOBAL    FUNC __libc_start_main
 [Symbols]
 Num Paddr      Vaddr      Bind     Type Size Name
+004 0x000004ac 0x080484ac GLOBAL    OBJ    4 _IO_stdin_used
 001 0x00000134 0x08048134  LOCAL   SECT    0
 002 0x00000148 0x08048148  LOCAL   SECT    0
 003 0x00000168 0x08048168  LOCAL   SECT    0
@@ -411,7 +412,6 @@ Num Paddr      Vaddr      Bind     Type Size Name
 052 0x00000494 0x08048494 GLOBAL   FUNC    0 _fini
 053 0x000006ac 0x080496ac GLOBAL NOTYPE    0 __data_start
 056 0x000006b0 0x080496b0 GLOBAL    OBJ    0 __dso_handle
-057 0x000004ac 0x080484ac GLOBAL    OBJ    4 _IO_stdin_used
 059 0x00000420 0x08048420 GLOBAL   FUNC   97 __libc_csu_init
 060 ---------- 0x080496b8 GLOBAL NOTYPE    0 _end
 061 0x00000300 0x08048300 GLOBAL   FUNC    0 _start

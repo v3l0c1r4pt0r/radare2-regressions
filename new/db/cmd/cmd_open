@@ -125,12 +125,12 @@ malloc://1024
 RUN
 NAME=ob select files binobj
 FILE=../bins/elf/libmagic.so
-EXPECT64=NDAKMAo=
+EXPECT64=MzgKMAo=
 CMDS64=CmlpcX4/CmUgc2NyLm51bGw9dHJ1ZQpvIG1hbGxvYzovLzEwMjQKZSBzY3IubnVsbD1mYWxzZQppaXF+PwoK
 RUN
 NAME=ob select files binobj2
 FILE=../bins/elf/libmagic.so
-EXPECT64=NDEwCjQ2CjQxMAo=
+EXPECT64=NDA4CjQ2CjQwOAo=
 CMDS64=CmlzcX4/CmUgc2NyLm51bGw9dHJ1ZQpvIC4uL2JpbnMvZWxmL3RydWUzMgplIHNjci5udWxsPWZhbHNlCmlzcX4/CiMgcmFpc2UgYmFjawpvcCBgb346MFswXWAKaXNxfj8KCg==
 RUN
 NAME=o-*
