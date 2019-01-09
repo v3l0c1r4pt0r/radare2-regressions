@@ -1423,7 +1423,7 @@ a "mov bl, 0" b300
 a "mov byte [0], al" 880500000000
 a "mov ch, 0" b500
 a "mov cl, 0" b100
-aB "mov cr0, eax" 0f22
+a "mov cr0, eax" 0f22c0
 aB "movddup xmm0, qword [eax]" f20f1200
 aB "movd dword [eax], mm0" 0f7e00
 aB "movd dword [eax], xmm0" 660f7e00
@@ -1435,7 +1435,7 @@ aB "movdqa xmm0, xmmword [eax]" 660f6f00
 aB "movdqa xmmword [eax], xmm0" 660f7f00
 aB "movdqu xmm0, xmmword [eax]" f30f6f00
 aB "movdqu xmmword [eax], xmm0" f30f7f00
-aB "mov dr0, eax" 0f23
+a "mov dr0, eax" 0f23c0
 a "mov dword [0], eax" 890500000000
 aB "mov dword cs:[eax], eax" 2e8900
 aB "mov dword ds:[eax], eax" 3e8900
@@ -1475,8 +1475,8 @@ a "mov eax, 300" b82c010000
 a "mov eax, 3" b803000000
 a "mov [eax+4], eax" 894004
 a "mov [eax+4], ecx" 894804
-aB "mov eax, cr0" 0f20
-aB "mov eax, dr0" 0f21
+a "mov eax, cr0" 0f20c0
+a "mov eax, dr0" 0f21c0
 a "mov eax, dword [0]" a100000000
 a "mov ecx, dword [0]" 8b0d00000000
 a "mov ecx, dword [1]" 8b0d01000000
