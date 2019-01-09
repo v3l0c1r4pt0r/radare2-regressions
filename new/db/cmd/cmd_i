@@ -745,7 +745,6 @@ RUN
 
 # Should not be run on Windows
 NAME=utf8 (possibly malformed) filenames with non-printable chars
-BROKEN=1
 FILE=-
 CMDS=<<EXPECT
 e io.cache=true
