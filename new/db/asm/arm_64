@@ -1,4 +1,6 @@
 a "adrp x5, 0x0" 05000090
+a "b 0x0" 00000014
+a "b ." 00000014
 a "b 0x7efd4" f5fb0114
 a "b 0x7fffff8" feffff15
 a "b 0x8" 02000014
