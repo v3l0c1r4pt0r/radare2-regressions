@@ -616,3 +616,96 @@ EXPECT=<<RUN
 402 0x0002edb0 0x0002edb0 GLOBAL   FUNC  356 __fgetc_unlocked
 980 0x0002edb0 0x0002edb0 GLOBAL   FUNC  356 fgetc_unlocked
 RUN
+
+NAME=rabin2 -V
+FILE=../bins/pe/version_cust.exe
+CMDS=!rabin2 -V ${R2_FILE}
+EXPECT=<<RUN
+=== VS_VERSIONINFO ===
+
+# VS_FIXEDFILEINFO
+
+  Signature: 0xfeef04bd
+  StrucVersion: 0x0
+  FileVersion: 0.0.0.0
+  ProductVersion: 0.0.0.0
+  FileFlagsMask: 0x0
+  FileFlags: 0x0
+  FileOS: 0x0
+  FileType: 0x0
+  FileSubType: 0x0
+
+# StringTable
+
+RUN
+
+NAME=rabin2 -c
+FILE=../bins/java/test.class
+CMDS=!rabin2 -c ${R2_FILE}
+EXPECT=<<RUN
+0x00000000 [0x000008f9 - 0x00000b99] (sz 672) class 0 test super: groovy/lang/Script
+0x000008f9 method 0      <init>
+0x0000092e method 1      <init>
+0x0000096e method 2      main
+0x000009ae method 3      run
+0x00000aba method 4      $getStaticMetaClass
+0x00000afb method 5      $createCallSiteArray_1
+0x00000b6a method 6      $createCallSiteArray
+0x00000b99 method 7      $getCallSiteArray
+RUN
+
+NAME=rabin2 -D swift
+FILE=../bins/elf/libc.so.0
+CMDS=!rabin2 -D swift  _TFSSCfT21_builtinStringLiteralBp8byteSizeBw7isASCIIBi1__SS
+EXPECT=<<RUN
+Swift.String.init (_builtinStringLiteral(Builtin.RawPointer byteSize__Builtin.Word isASCII__Builtin.Int1 _) -> String
+RUN
+
+NAME=rabin2 -h
+FILE=../bins/elf/libc.so.0
+CMDS=!rabin2 -h | grep -c Usage
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -O help
+FILE=../bins/elf/libc.so.0
+CMDS=!rabin2 -O help | grep -c Usage
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -O bad op
+FILE=-
+CMDS=!rabin2 -O bad_op -
+EXPECT_ERR=<<RUN
+Unknown operation. use -O help
+RUN
+
+NAME=rabin2 -v
+FILE=-
+CMDS=!rabin2 -v | grep -c build
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -L
+FILE=-
+CMDS=!rabin2 -L | grep -c any
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -Lq
+FILE=-
+CMDS=!rabin2 -Lq | grep -c any
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -Lj
+FILE=-
+CMDS=!rabin2 -Lj | grep -c any
+EXPECT=<<RUN
+1
+RUN
