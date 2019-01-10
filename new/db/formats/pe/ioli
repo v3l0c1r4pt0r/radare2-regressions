@@ -5,7 +5,7 @@ CMDS64=YWFhCmF4dCBzdHIuMjUwMzgyfj8weDQwMTM2OApDfj8yNTAzODIKCg==
 RUN
 NAME=PE: ioli pocketpc 1 automatic via aaa
 FILE=../bins/pe/ioli/pocketpc/crackme0x00.arm.exe
-EXPECT64=MQoxCgo=
+EXPECT64=MQoyCg==
 CMDS64=YWFhCnBkIDEgQCAweDAwMDExMDhjfj9zdHIuMjUwMzgyCmF4dCBzdHIuMjUwMzgyfj8KCg==
 RUN
 NAME=PE: ioli pocketpc 1 manual via aae
