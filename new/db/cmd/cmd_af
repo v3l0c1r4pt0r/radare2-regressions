@@ -1,14 +1,24 @@
 NAME=af import
 FILE=../bins/mach0/ls-osx-x86_64
 BROKEN=1
-EXPECT64=YmVmb3JlOgoK
-CMDS64=cyBzeW0uaW1wLndyaXRlCmFmCj92ICRGUwoK
+EXPECT=<<EOF
+before:
+EOF
+CMDS=<<EOF
+s sym.imp.write
+af
+?v $FS
+EOF
 RUN
 
 NAME=afll
 FILE=../bins/mach0/ls-osx-x86_64
-EXPECT64=MQo=
-CMDS64=YWEgOyBhZmxsfj9lbnRyeTAK
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+aa ; afll~?entry0
+EOF
 RUN
 
 NAME=missing bb fix
@@ -174,7 +184,10 @@ afcf main @ 0
 afcf @ main
 afcfj @ main
 '
-EXPECT64=aW50IHN5bS5tYWluIChpbnQgYXJnYywgY2hhciAqKmFyZ3YsIGNoYXIgKiplbnZwKTsKW3sibmFtZSI6Im1haW4iLCJyZXR1cm4iOiJpbnQiLCJhcmdzIjpbeyJuYW1lIjoiYXJnYyIsInR5cGUiOiJpbnQifSx7Im5hbWUiOiJhcmd2IiwidHlwZSI6ImNoYXIgKioifSx7Im5hbWUiOiJlbnZwIiwidHlwZSI6ImNoYXIgKioifV0sImNvdW50IjozfV0K
+EXPECT=<<EOF
+int sym.main (int argc, char **argv, char **envp);
+[{"name":"main","return":"int","args":[{"name":"argc","type":"int"},{"name":"argv","type":"char **"},{"name":"envp","type":"char **"}],"count":3}]
+EOF
 RUN
 
 NAME=afcf (vars)
@@ -184,5 +197,8 @@ af
 afcf
 afcfj
 '
-EXPECT64=ZmNuLjAwMDEzYzcwIChpbnQgYXJnMSwgaW50IGFyZzIsIGludCBhcmczKTsKW3sibmFtZSI6ImZjbi4wMDAxM2M3MCIsImFyZ3MiOlt7Im5hbWUiOiJhcmcxIiwidHlwZSI6ImludCJ9LHsibmFtZSI6ImFyZzIiLCJ0eXBlIjoiaW50In0seyJuYW1lIjoiYXJnMyIsInR5cGUiOiJpbnQifV0sImNvdW50IjozfV0K
+EXPECT=<<EOF
+fcn.00013c70 (int arg1, int arg2, int arg3);
+[{"name":"fcn.00013c70","args":[{"name":"arg1","type":"int"},{"name":"arg2","type":"int"},{"name":"arg3","type":"int"}],"count":3}]
+EOF
 RUN

@@ -1,25 +1,59 @@
 NAME=test $alias
 FILE=-
-EXPECT64=aGVsbG8KCg==
-CMDS64=JGZvbz0/ZSBoZWxsbwokZm9vCgo=
+EXPECT=<<EOF
+hello
+EOF
+CMDS=<<EOF
+$foo=?e hello
+$foo
+EOF
 RUN
+
 NAME=test $alias quotes
 FILE=-
-EXPECT64=aGVsbG8Kd29ybGQKCg==
-CMDS64=IiRmb289P2UgaGVsbG87P2Ugd29ybGQiCiRmb28KCg==
+EXPECT=<<EOF
+hello
+world
+EOF
+CMDS=<<EOF
+"$foo=?e hello;?e world"
+$foo
+EOF
 RUN
+
 NAME=test $alias args
 FILE=-
-EXPECT64=aGVsbG8gd29ybGQKCg==
-CMDS64=JGZvbz0hZWNobyBoZWxsbwokZm9vIHdvcmxkCgo=
+EXPECT=<<EOF
+hello world
+EOF
+CMDS=<<EOF
+$foo=!echo hello
+$foo world
+EOF
 RUN
+
 NAME=list $alias
 FILE=-
-EXPECT64=JGZvbwokYmFyCgo=
-CMDS64=JGZvbz1hCiRiYXI9YgokCgo=
+EXPECT=<<EOF
+$foo
+$bar
+EOF
+CMDS=<<EOF
+$foo=a
+$bar=b
+$
+EOF
 RUN
+
 NAME=delete $alias
 FILE=-
-EXPECT64=JGZvbwoK
-CMDS64=JGZvbz1hCiRiYXI9YgokYmFyPQokCgo=
+EXPECT=<<EOF
+$foo
+EOF
+CMDS=<<EOF
+$foo=a
+$bar=b
+$bar=
+$
+EOF
 RUN

@@ -8,18 +8,23 @@ RUN
 
 NAME=agCd entry0 imports libc_start_main
 FILE=../bins/elf/true
-CMDS=<<EXPECT64
+CMDS=<<EXPECT
 aaa 2> /dev/null
 agCd~2110
-EXPECT64=ICAiMHgwMDAwMjExMCIgW2xhYmVsPSJlbnRyeTAiIFVSTD0iZW50cnkwLzB4MDAwMDIxMTAiXTsKICAiMHgwMDAwMjExMCIgLT4gIjB4MDAwMDhmMzAiIFtsYWJlbD0icmVsb2MuX19saWJjX3N0YXJ0X21haW4iIGNvbG9yPSJncmVlbiIgVVJMPSJyZWxvYy5fX2xpYmNfc3RhcnRfbWFpbi8weDAwMDA4ZjMwIl07Cg==
+EXPECT=<<EOF
+  "0x00002110" [label="entry0" URL="entry0/0x00002110"];
+  "0x00002110" -> "0x00008f30" [label="reloc.__libc_start_main" color="green" URL="reloc.__libc_start_main/0x00008f30"];
+EOF
 RUN
 
 NAME=agCd contains label for main
 FILE=../bins/elf/true
-CMDS=<<EXPECT64
+CMDS=<<EXPECT
 aaa 2> /dev/null
 agCd~label="main"
-EXPECT64=ICAiMHgwMDAwMjA1MCIgW2xhYmVsPSJtYWluIiBVUkw9Im1haW4vMHgwMDAwMjA1MCJdOwo=
+EXPECT=<<EOF
+  "0x00002050" [label="main" URL="main/0x00002050"];
+EOF
 RUN
 
 NAME=agC function names are resovled properly

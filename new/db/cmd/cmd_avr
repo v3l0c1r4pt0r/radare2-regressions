@@ -1,17 +1,28 @@
 NAME=avrD msvc simple
 FILE=--
-CMDS64=ZSBhbmFsLmNwcC5hYmk9bXN2YzsiYXZyRCAuP0FWQ2xhc3NOYW1lQEAiCg==
-EXPECT64=Q2xhc3NOYW1lCg==
+CMDS=<<EOF
+e anal.cpp.abi=msvc;"avrD .?AVClassName@@"
+EOF
+EXPECT=<<EOF
+ClassName
+EOF
 RUN
 
 NAME=avrD msvc empty
 FILE=--
-CMDS64=ZSBhbmFsLmNwcC5hYmk9bXN2YzsiYXZyRCAuP0FWQEAiCg==
-EXPECT64=
+CMDS=<<EOF
+e anal.cpp.abi=msvc;"avrD .?AV@@"
+EOF
+EXPECT=<<EOF
+EOF
 RUN
 
 NAME=avrD msvc namespaces
 FILE=--
-CMDS64=ZSBhbmFsLmNwcC5hYmk9bXN2YzsiYXZyRCAuP0FWQ2xhc3NJbklubmVyTmFtZXNwYWNlQElubmVyTmFtZXNwYWNlQE91dGVyTmFtZXNwYWNlQEAiCg==
-EXPECT64=T3V0ZXJOYW1lc3BhY2U6OklubmVyTmFtZXNwYWNlOjpDbGFzc0luSW5uZXJOYW1lc3BhY2UK
+CMDS=<<EOF
+e anal.cpp.abi=msvc;"avrD .?AVClassInInnerNamespace@InnerNamespace@OuterNamespace@@"
+EOF
+EXPECT=<<EOF
+OuterNamespace::InnerNamespace::ClassInInnerNamespace
+EOF
 RUN

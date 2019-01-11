@@ -568,6 +568,9 @@ class NewRegressions {
               }
               newTests.push('EOF');
             }
+          } else if (line.startsWith('CMDS=<<EXPECT64')) {
+            writeTests = true;
+            newTests.push('CMDS=<<EXPECT');
           } else {
             newTests.push(tests[i]);
           }

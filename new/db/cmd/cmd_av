@@ -1,5 +1,24 @@
 NAME=av list virtual table
 FILE=../bins/elf/analysis/elf-virtualtable
-EXPECT64=ClZ0YWJsZSBGb3VuZCBhdCAweDAwNDAwY2U4CjB4MDA0MDBjZTggOiBzeW0uQTo6Z3JlZXQKMHgwMDQwMGNmMCA6IHN5bS5DOjpwcmludFZhbHVlCgoKVnRhYmxlIEZvdW5kIGF0IDB4MDA0MDBkMDgKMHgwMDQwMGQwOCA6IHN5bS5BOjpncmVldAoweDAwNDAwZDEwIDogc3ltLkI6OnByaW50VmFsdWUKCgpWdGFibGUgRm91bmQgYXQgMHgwMDQwMGQyOAoweDAwNDAwZDI4IDogc3ltLkE6OmdyZWV0CjB4MDA0MDBkMzAgOiBzeW0uQTo6cHJpbnRWYWx1ZQoK
-CMDS64=CmFhYQphdgoK
+EXPECT=<<EOF
+
+Vtable Found at 0x00400ce8
+0x00400ce8 : sym.A::greet
+0x00400cf0 : sym.C::printValue
+
+
+Vtable Found at 0x00400d08
+0x00400d08 : sym.A::greet
+0x00400d10 : sym.B::printValue
+
+
+Vtable Found at 0x00400d28
+0x00400d28 : sym.A::greet
+0x00400d30 : sym.A::printValue
+
+EOF
+CMDS=<<EOF
+aaa
+av
+EOF
 RUN

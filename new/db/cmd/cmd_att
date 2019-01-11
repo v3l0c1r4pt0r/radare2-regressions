@@ -1,20 +1,130 @@
 NAME=att relsub
 FILE=../bins/mach0/mac-ls
-EXPECT64=ICA7LS0gbWFpbjoKICA7LS0gZW50cnkwOgogIDstLSBmdW5jLjEwMDAwMTA1ODoKICAweDEwMDAwMTA1OCAgICAgIHB1c2hxICVyYnAKICAweDEwMDAwMTA1OSAgICAgIG1vdnEgJXJzcCwgJXJicAogIDB4MTAwMDAxMDVjICAgICAgcHVzaHEgJXIxNQogIDB4MTAwMDAxMDVlICAgICAgcHVzaHEgJXIxNAogIDB4MTAwMDAxMDYwICAgICAgcHVzaHEgJXIxMwogIDB4MTAwMDAxMDYyICAgICAgcHVzaHEgJXIxMgogIDB4MTAwMDAxMDY0ICAgICAgcHVzaHEgJXJieAogIDB4MTAwMDAxMDY1ICAgICAgc3VicSAkMHg2NDgsICVyc3AKICAweDEwMDAwMTA2YyAgICAgIG1vdnEgJXJzaSwgJXJieAogIDB4MTAwMDAxMDZmICAgICAgbW92bCAlZWRpLCAlcjE0ZAogIDB4MTAwMDAxMDcyICAgICAgbGVhcSAtMHg2NDAoJXJicCksICVyYXgKICAweDEwMDAwMTA3OSAgICAgIG1vdnEgJXJheCwgLTB4NjQ4KCVyYnApCiAgMHgxMDAwMDEwODAgICAgICB0ZXN0bCAlcjE0ZCwgJXIxNGQKICAweDEwMDAwMTA4MyAgICAgIGpnIDB4MTAwMDAxMDhhCiAgMHgxMDAwMDEwODUgICAgICBjYWxscSBzeW0uZnVuYy4xMDAwMDQ0MDEKICAweDEwMDAwMTA4YSAgICAgIGxlYXEgMHgxMDAwMDRiMTAsICVyc2kKICAweDEwMDAwMTA5MSAgICAgIHhvcmwgJWVkaSwgJWVkaQogIDB4MTAwMDAxMDkzICAgICAgY2FsbHEgc3ltLmltcC5zZXRsb2NhbGUKICAweDEwMDAwMTA5OCAgICAgIG1vdmwgJDEsICVyMTNkCiAgMHgxMDAwMDEwOWUgICAgICBtb3ZsICQxLCAlZWRpCg==
-CMDS64=ZSBhc20uc3ludGF4PWF0dAplIGFzbS5saW5lcy5iYj0wCmUgYXNtLmJ5dGVzPTAKZSBhc20uY29tbWVudHM9ZmFsc2UKcGQgMjAKCg==
+EXPECT=<<EOF
+  ;-- main:
+  ;-- entry0:
+  ;-- func.100001058:
+  0x100001058      pushq %rbp
+  0x100001059      movq %rsp, %rbp
+  0x10000105c      pushq %r15
+  0x10000105e      pushq %r14
+  0x100001060      pushq %r13
+  0x100001062      pushq %r12
+  0x100001064      pushq %rbx
+  0x100001065      subq $0x648, %rsp
+  0x10000106c      movq %rsi, %rbx
+  0x10000106f      movl %edi, %r14d
+  0x100001072      leaq -0x640(%rbp), %rax
+  0x100001079      movq %rax, -0x648(%rbp)
+  0x100001080      testl %r14d, %r14d
+  0x100001083      jg 0x10000108a
+  0x100001085      callq sym.func.100004401
+  0x10000108a      leaq 0x100004b10, %rsi
+  0x100001091      xorl %edi, %edi
+  0x100001093      callq sym.imp.setlocale
+  0x100001098      movl $1, %r13d
+  0x10000109e      movl $1, %edi
+EOF
+CMDS=<<EOF
+e asm.syntax=att
+e asm.lines.bb=0
+e asm.bytes=0
+e asm.comments=false
+pd 20
+EOF
 RUN
+
 NAME=att varsub
 FILE=../bins/mach0/mac-ls
-EXPECT64=ICA7LS0gZW50cnkwOgogIDstLSBmdW5jLjEwMDAwMTA1ODoKLyAoZmNuKSBtYWluIDIyNTkKfCAweDEwMDAwMTA1OCAgICAgIHB1c2hxICVyYnAKfCAweDEwMDAwMTA1OSAgICAgIG1vdnEgJXJzcCwgJXJicAp8IDB4MTAwMDAxMDVjICAgICAgcHVzaHEgJXIxNQp8IDB4MTAwMDAxMDVlICAgICAgcHVzaHEgJXIxNAp8IDB4MTAwMDAxMDYwICAgICAgcHVzaHEgJXIxMwp8IDB4MTAwMDAxMDYyICAgICAgcHVzaHEgJXIxMgp8IDB4MTAwMDAxMDY0ICAgICAgcHVzaHEgJXJieAp8IDB4MTAwMDAxMDY1ICAgICAgc3VicSAkMHg2NDgsICVyc3AKfCAweDEwMDAwMTA2YyAgICAgIG1vdnEgJXJzaSwgJXJieAp8IDB4MTAwMDAxMDZmICAgICAgbW92bCAlZWRpLCAlcjE0ZAp8IDB4MTAwMDAxMDcyICAgICAgbGVhcSBsb2NhbF82NDBoLCAlcmF4CnwgMHgxMDAwMDEwNzkgICAgICBtb3ZxICVyYXgsIGxvY2FsXzY0OGgKfCAweDEwMDAwMTA4MCAgICAgIHRlc3RsICVyMTRkLCAlcjE0ZAp8IDB4MTAwMDAxMDgzICAgICAgamcgMHgxMDAwMDEwOGEKfCAweDEwMDAwMTA4NSAgICAgIGNhbGxxIHN5bS5mdW5jLjEwMDAwNDQwMQp8IDB4MTAwMDAxMDhhICAgICAgbGVhcSAweDEwMDAwNGIxMCwgJXJzaQp8IDB4MTAwMDAxMDkxICAgICAgeG9ybCAlZWRpLCAlZWRpCnwgMHgxMDAwMDEwOTMgICAgICBjYWxscSBzeW0uaW1wLnNldGxvY2FsZQp8IDB4MTAwMDAxMDk4ICAgICAgbW92bCAkMSwgJXIxM2QKfCAweDEwMDAwMTA5ZSAgICAgIG1vdmwgJDEsICVlZGkK
-CMDS64=YWYKZSBhc20uc3ludGF4PWF0dAplIGFzbS52YXI9MAplIGFzbS5saW5lcy5iYj0wCmUgYXNtLmJ5dGVzPTAKZSBhc20uY29tbWVudHM9ZmFsc2UKcGQgMjAK
+EXPECT=<<EOF
+  ;-- entry0:
+  ;-- func.100001058:
+/ (fcn) main 2259
+| 0x100001058      pushq %rbp
+| 0x100001059      movq %rsp, %rbp
+| 0x10000105c      pushq %r15
+| 0x10000105e      pushq %r14
+| 0x100001060      pushq %r13
+| 0x100001062      pushq %r12
+| 0x100001064      pushq %rbx
+| 0x100001065      subq $0x648, %rsp
+| 0x10000106c      movq %rsi, %rbx
+| 0x10000106f      movl %edi, %r14d
+| 0x100001072      leaq local_640h, %rax
+| 0x100001079      movq %rax, local_648h
+| 0x100001080      testl %r14d, %r14d
+| 0x100001083      jg 0x10000108a
+| 0x100001085      callq sym.func.100004401
+| 0x10000108a      leaq 0x100004b10, %rsi
+| 0x100001091      xorl %edi, %edi
+| 0x100001093      callq sym.imp.setlocale
+| 0x100001098      movl $1, %r13d
+| 0x10000109e      movl $1, %edi
+EOF
+CMDS=<<EOF
+af
+e asm.syntax=att
+e asm.var=0
+e asm.lines.bb=0
+e asm.bytes=0
+e asm.comments=false
+pd 20
+EOF
 RUN
+
 NAME=att varsub 2
 FILE=../bins/elf/varsub
-EXPECT64=LyAoZmNuKSBtYWluIDQyCnwgMHgwMDQwMDRhNiAgICAgIHB1c2hxICVyYnAKfCAweDAwNDAwNGE3ICAgICAgbW92cSAlcnNwLCAlcmJwCnwgMHgwMDQwMDRhYSAgICAgIG1vdnEgYXJnXzhoLCAlcmF4CnwgMHgwMDQwMDRhZiAgICAgIG1vdnEgLTgoJXJzcCksICVyYXgKfCAweDAwNDAwNGI0ICAgICAgbW92cSBhcmdfOGhfMiwgJXJheAp8IDB4MDA0MDA0YjggICAgICBtb3ZxIGxvY2FsXzhoLCAlcmF4CnwgMHgwMDQwMDRiYyAgICAgIG1vdnEgYXJnXzE4aCwgJXJheAp8IDB4MDA0MDA0YzEgICAgICBtb3ZxIC0weDE4KCVyc3ApLCAlcmF4CnwgMHgwMDQwMDRjNiAgICAgIG1vdnEgYXJnXzE4aF8yLCAlcmF4CnwgMHgwMDQwMDRjYSAgICAgIG1vdnEgbG9jYWxfMThoLCAlcmF4CnwgMHgwMDQwMDRjZSAgICAgIGxlYXZlClwgMHgwMDQwMDRjZiAgICAgIHJldHEK
-CMDS64=YWE7IHMgbWFpbgplIGFzbS5zeW50YXg9YXR0CmUgYXNtLnZhcj0wCmUgYXNtLmxpbmVzLmJiPTAKZSBhc20uYnl0ZXM9MAplIGFzbS5jb21tZW50cz1mYWxzZQpwZGYK
+EXPECT=<<EOF
+/ (fcn) main 42
+| 0x004004a6      pushq %rbp
+| 0x004004a7      movq %rsp, %rbp
+| 0x004004aa      movq arg_8h, %rax
+| 0x004004af      movq -8(%rsp), %rax
+| 0x004004b4      movq arg_8h_2, %rax
+| 0x004004b8      movq local_8h, %rax
+| 0x004004bc      movq arg_18h, %rax
+| 0x004004c1      movq -0x18(%rsp), %rax
+| 0x004004c6      movq arg_18h_2, %rax
+| 0x004004ca      movq local_18h, %rax
+| 0x004004ce      leave
+\ 0x004004cf      retq
+EOF
+CMDS=<<EOF
+aa; s main
+e asm.syntax=att
+e asm.var=0
+e asm.lines.bb=0
+e asm.bytes=0
+e asm.comments=false
+pdf
+EOF
 RUN
+
 NAME=att varsub 2 with asm.var.subonly disabled
 FILE=../bins/elf/varsub
-EXPECT64=LyAoZmNuKSBtYWluIDQyCnwgMHgwMDQwMDRhNiAgICAgIHB1c2hxICVyYnAKfCAweDAwNDAwNGE3ICAgICAgbW92cSAlcnNwLCAlcmJwCnwgMHgwMDQwMDRhYSAgICAgIG1vdnEgYXJnXzhoKCVyc3ApLCAlcmF4CnwgMHgwMDQwMDRhZiAgICAgIG1vdnEgLTgoJXJzcCksICVyYXgKfCAweDAwNDAwNGI0ICAgICAgbW92cSBhcmdfOGhfMiglcmJwKSwgJXJheAp8IDB4MDA0MDA0YjggICAgICBtb3ZxIGxvY2FsXzhoKCVyYnApLCAlcmF4CnwgMHgwMDQwMDRiYyAgICAgIG1vdnEgYXJnXzE4aCglcnNwKSwgJXJheAp8IDB4MDA0MDA0YzEgICAgICBtb3ZxIC0weDE4KCVyc3ApLCAlcmF4CnwgMHgwMDQwMDRjNiAgICAgIG1vdnEgYXJnXzE4aF8yKCVyYnApLCAlcmF4CnwgMHgwMDQwMDRjYSAgICAgIG1vdnEgbG9jYWxfMThoKCVyYnApLCAlcmF4CnwgMHgwMDQwMDRjZSAgICAgIGxlYXZlClwgMHgwMDQwMDRjZiAgICAgIHJldHEK
-CMDS64=YWE7IHMgbWFpbgplIGFzbS5zeW50YXg9YXR0CmUgYXNtLnZhcj0wCmUgYXNtLmxpbmVzLmJiPTAKZSBhc20uYnl0ZXM9MAplIGFzbS5jb21tZW50cz1mYWxzZQplIGFzbS52YXIuc3Vib25seT1mYWxzZQpwZGYK
+EXPECT=<<EOF
+/ (fcn) main 42
+| 0x004004a6      pushq %rbp
+| 0x004004a7      movq %rsp, %rbp
+| 0x004004aa      movq arg_8h(%rsp), %rax
+| 0x004004af      movq -8(%rsp), %rax
+| 0x004004b4      movq arg_8h_2(%rbp), %rax
+| 0x004004b8      movq local_8h(%rbp), %rax
+| 0x004004bc      movq arg_18h(%rsp), %rax
+| 0x004004c1      movq -0x18(%rsp), %rax
+| 0x004004c6      movq arg_18h_2(%rbp), %rax
+| 0x004004ca      movq local_18h(%rbp), %rax
+| 0x004004ce      leave
+\ 0x004004cf      retq
+EOF
+CMDS=<<EOF
+aa; s main
+e asm.syntax=att
+e asm.var=0
+e asm.lines.bb=0
+e asm.bytes=0
+e asm.comments=false
+e asm.var.subonly=false
+pdf
+EOF
 RUN
