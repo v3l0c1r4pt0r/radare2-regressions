@@ -1,37 +1,50 @@
 /c/j push rbp
 /cj push rbp
 /j l
+/Oj
+/oj
+/Rj BROKEN
+/wj BROKEN
+?j 0x10
+?Vj
 aaij
 aarj BROKEN
+abtj
 aeafj
 aeaj
 aerj
 afbj
+afcrj
 afij
 aflj
 aflqj
 afvj @ sym.main
 agcj @ sym.main
+aggj
 agJ
 agj
 anj
 aOj
 aoj
+aomj
 arj
+asj
 avj
 axfj
 axfj @ sym.main
-axgj BROKEN
+axgj @ str.Invalid_phase_s BROKEN
 axj @ sym.main
 axtj
 axtj @ sym.main
+CCfj
 CCj
 dbj
 dbtj
 dLj
 dmj
-dplj BROKEN
+dplj
 drj
+drlj BROKEN
 drrj
 ecj
 ecoj
@@ -67,20 +80,30 @@ omj
 p-j BROKEN
 p8j
 pcj
+pdbj
 pdfj
 pDj
 pdj
 pDJ BROKEN
 pdJ BROKEN
 pdrj
+pi 1 @@@ functions BROKEN
+pIj
 pij
 Pj
 psj
+pxhj
+pxj
+pxqj
 pxrj
+pxwj
 sj
 tej
+tfj
 Tj
 tj
 tsj
+ttj
 tuj
+wcj
 zj
