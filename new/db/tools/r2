@@ -44,3 +44,31 @@ CMDS=wx 01; s 1; s-; s+; pb 8
 EXPECT=<<RUN
 00000000
 RUN
+
+NAME=r2 -V
+FILE=-
+CMDS=!r2 -V | grep -c r_anal
+EXPECT=<<RUN
+1
+RUN
+
+NAME=r2 -h
+FILE=-
+CMDS=!r2 -h | grep -c Usage
+EXPECT=<<RUN
+1
+RUN
+
+NAME=r2 -hh
+FILE=-
+CMDS=!r2 -hh | grep -c R2_USER_PLUGINS
+EXPECT=<<RUN
+1
+RUN
+
+NAME=r2 -L
+FILE=-
+CMDS=!r2 -L | grep -c default
+EXPECT=<<RUN
+1
+RUN
