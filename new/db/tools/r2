@@ -47,6 +47,7 @@ RUN
 
 NAME=r2 -V
 FILE=-
+BROKEN=1
 CMDS=!r2 -V | grep -c r_anal
 EXPECT=<<RUN
 1
@@ -54,6 +55,7 @@ RUN
 
 NAME=r2 -h
 FILE=-
+BROKEN=1
 CMDS=!r2 -h | grep -c Usage
 EXPECT=<<RUN
 1
@@ -61,6 +63,7 @@ RUN
 
 NAME=r2 -hh
 FILE=-
+BROKEN=1
 CMDS=!r2 -hh | grep -c R2_USER_PLUGINS
 EXPECT=<<RUN
 1
@@ -68,6 +71,7 @@ RUN
 
 NAME=r2 -L
 FILE=-
+BROKEN=1
 CMDS=!r2 -L | grep -c default
 EXPECT=<<RUN
 1
