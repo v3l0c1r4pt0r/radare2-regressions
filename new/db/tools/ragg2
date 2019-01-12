@@ -97,3 +97,24 @@ CMDS=!ragg2 ../bins/other/ragg2/hi.c | grep e9
 EXPECT=<<RUN
 e90800000048656c6c6f210a00bf01000000488d35ecffffffba07000000b8010000000f05b83c0000004030ff0f05c3
 RUN
+
+NAME=ragg2 -v 
+FILE=-
+CMDS=!ragg2 -v | grep -c build
+EXPECT=<<RUN
+1
+RUN
+
+NAME=ragg2 -h
+FILE=-
+CMDS=!ragg2 -h | grep -c Usage
+EXPECT=<<RUN
+1
+RUN
+
+NAME=ragg2 -L
+FILE=-
+CMDS=!ragg2 -L | grep -c encoders
+EXPECT=<<RUN
+1
+RUN

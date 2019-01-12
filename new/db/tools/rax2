@@ -449,3 +449,10 @@ CMDS=!rax2 -r 0x1234 | grep -c octal
 EXPECT=<<RUN
 1
 RUN
+
+NAME=rax2 -v 
+FILE=-
+CMDS=!rax2 -v | grep -c build
+EXPECT=<<RUN
+1
+RUN
