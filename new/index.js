@@ -80,7 +80,6 @@ class NewRegressions {
     });
     this.start = new Date();
   }
-
   callbackFromPath (from) {
     for (let row of [
       [path.join('db', 'anal'), this.runTest],

@@ -216,6 +216,20 @@ EXPECT=<<RUN
 34120000
 RUN
 
+NAME=rax2 -n 0xFEDCBA9876543210
+FILE=-
+CMDS=!rax2 -n 0xFEDCBA9876543210
+EXPECT=<<RUN
+1032547698badcfe
+RUN
+
+NAME=rax2 -N 0xFEDCBA9876543210
+FILE=-
+CMDS=!rax2 -N 0xFEDCBA9876543210
+EXPECT=<<RUN
+\x10\x32\x54\x76\x98\xba\xdc\xfe
+RUN
+
 NAME=rax2 -N 0x1234
 FILE=-
 CMDS=!rax2 -N 0x1234
@@ -389,4 +403,49 @@ FILE=-
 CMDS=!rax2 -ke 0xdeadbeef
 EXPECT=<<RUN
 0xefbeadde
+RUN
+
+NAME=rax2 -a
+FILE=-
+CMDS=!rax2 -a | grep -c ASCII
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rax2 -w 16 0xffff
+FILE=-
+CMDS=!rax2 -w 16 0xffff
+EXPECT=<<RUN
+16
+-1
+RUN
+
+NAME=rax2 -K
+FILE=-
+CMDS=!printf 1 | rax2 -K | grep -c 0x00000001
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rax2 -i
+FILE=-
+CMDS=!printf A | rax2 -i
+EXPECT=<<RUN
+unsigned char buf[] = {
+  0x41
+};
+unsigned int buf_len = 1;
+RUN
+
+NAME=rax2 -o
+FILE=-
+CMDS64=IXJheDIgLW8gXDE2MiBcNjIK
+EXPECT64=cjIK
+RUN
+
+NAME=rax2 -r 0x1234
+FILE=-
+CMDS=!rax2 -r 0x1234 | grep -c octal
+EXPECT=<<RUN
+1
 RUN
