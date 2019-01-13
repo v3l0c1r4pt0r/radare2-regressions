@@ -1,5 +1,17 @@
 NAME=p-h out of bounds
 FILE=../bins/mach0/mach0-x86-64
-EXPECT64=Li0tLS0tLS0tLS0tLS0uLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS4KfCAgIG9mZnNldCAgICB8IGZsYWdzIGZ1bmNzIGNtdHMgc3ltcyBzdHIgIHwKfC0tLS0tLS0tLS0tLS0pLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLXwKfCAweDEwMDAwMTAwMCB8ICAgIDIgICAgMCAgICAxICAgIDAgICAgMCAgIHwKfCAweDEwMDAwMTAxMCB8ICAgIDEgICAgMCAgICAxICAgIDAgICAgMCAgIHwKfC0tLS0tLS0tLS0tLS0pLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLXwKfCAgICB0b3RhbCAgICB8ICAgIDMgICAgMCAgICAyICAgIDAgICAgMCAgIHwKYC0tLS0tLS0tLS0tLS0nLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLScK
-CMDS64=CmFhYQpwLWggQDB4MTAwMDAxMDEwIEBlOnNlYXJjaC5pbj1iaW4uc2VjdGlvbgoK
+EXPECT=<<EOF
+.-------------.----------------------------.
+|   offset    | flags funcs cmts syms str  |
+|-------------)----------------------------|
+| 0x100001000 |    2    0    1    0    0   |
+| 0x100001010 |    1    0    1    0    0   |
+|-------------)----------------------------|
+|    total    |    3    0    2    0    0   |
+`-------------'----------------------------'
+EOF
+CMDS=<<EOF
+aaa
+p-h @0x100001010 @e:search.in=bin.section
+EOF
 RUN

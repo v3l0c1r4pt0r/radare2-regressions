@@ -1,20 +1,56 @@
 NAME=Vc+cq
 FILE=-
-EXPECT64=MDEKCg==
-CMDS64=CmUgc2NyLmludGVyYWN0aXZlPXRydWUKVmMrY3EKcDggMQoK
+EXPECT=<<EOF
+01
+EOF
+CMDS=<<EOF
+e scr.interactive=true
+Vc+cq
+p8 1
+EOF
 RUN
+
 NAME=visual hex scroll
 FILE=-
-EXPECT64=MHgxMAoK
-CMDS64=CmUgc2NyLmludGVyYWN0aXZlPXRydWUKZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz02NAp3eCA0ODg5ZTU0ODg5ZTUKVmpxCnMKCg==
+EXPECT=<<EOF
+0x10
+EOF
+CMDS=<<EOF
+e scr.interactive=true
+e asm.arch=x86
+e asm.bits=64
+wx 4889e54889e5
+Vjq
+s
+EOF
 RUN
+
 NAME=visual op scroll
 FILE=-
-EXPECT64=MHgzCgo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKZSBzY3IuaW50ZXJhY3RpdmU9dHJ1ZQp3eCA0ODg5ZTU0ODg5ZTUKVnBqcQpzCgo=
+EXPECT=<<EOF
+0x3
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+e scr.interactive=true
+wx 4889e54889e5
+Vpjq
+s
+EOF
 RUN
+
 NAME=visual hex pP scroll
 FILE=-
-EXPECT64=MHgxMAoK
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKZSBzY3IuaW50ZXJhY3RpdmU9dHJ1ZQp3eCA0ODg5ZTU0ODg5ZTUKVnBQanEKcwoK
+EXPECT=<<EOF
+0x10
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+e scr.interactive=true
+wx 4889e54889e5
+VpPjq
+s
+EOF
 RUN

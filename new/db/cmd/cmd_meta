@@ -1,10 +1,25 @@
 NAME=Cvb variable null pointer deref
 FILE=../bins/elf/analysis/x64-simple
-EXPECT64=Cg==
-CMDS64=CmFhYQpDdmIgbG9jYWxfMTAK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+aaa
+Cvb local_10
+EOF
 RUN
+
 NAME=CC.
 FILE=-
-EXPECT64=aGVsbG8KaGVsbG8KMHgwMDAwMDAwYSBDQ3UgImhlbGxvIgoK
-CMDS64=Q0MgaGVsbG8gQCAxMApDQy4KQ0MuMTAKQ0MuQDEwCkNDQDEwCgo=
+EXPECT=<<EOF
+hello
+hello
+0x0000000a CCu "hello"
+EOF
+CMDS=<<EOF
+CC hello @ 10
+CC.
+CC.10
+CC.@10
+CC@10
+EOF
 RUN

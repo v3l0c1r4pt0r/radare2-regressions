@@ -1,296 +1,785 @@
 NAME=/as begin of file
 FILE=../bins/pe/a.exe
 BROKEN=1
-EXPECT64=MHgwMDAwMDAwMCBoaXQwXzAgLk1aLgo=
+EXPECT=<<EOF
+0x00000000 hit0_0 .MZ.
+EOF
 ARGS=-n
-CMDS64=cy8gTVoK
+CMDS=<<EOF
+s/ MZ
+EOF
 RUN
 
 NAME=/as in arm32
 FILE=../bins/elf/libexploit.so
-EXPECT64=MHgwMDAxMjQzNCBleGVjdmUKMHgwMDAxMjRkNCBnZXR0aWQKMHgwMDAxMjVkNCByZWFkCjB4MDAwMTI1ZjQgd3JpdGUKMHgwMDAxMjYxNCBjbG9zZQoweDAwMDEyNjU0IGdldHBpZAoweDAwMDEyNjc0IG11bm1hcAoweDAwMDEyNzQ0IHVubGluawoweDAwMDEyNzY0IGNoZGlyCjB4MDAwMTI3ODQgY2htb2QKMHgwMDAxMjdmNCBmc3RhdDY0CjB4MDAwMTI4OTQgYWNjZXNzCjB4MDAwMTJiZTQga2lsbAoweDAwMDEzNjA0IGV4aXQKMHgwMDAxMzYyNCBmb3JrCjB4MDAwMTM2YTQgb3BlbgoweDAwMDEzNmNjIG1tYXAyCjB4MDAwMTM2ZjQgbXByb3RlY3QKMHgwMDAxMzcxNCBpb2N0bAoweDAwMDEzNzc0IGZjbnRsNjQKMHgwMDAxMzg0NCBtdW5tYXAKMHgwMDAxMzg1MCBleGl0CjB4MDAwMTM4NzAgY2xvbmUKMHgwMDAxMzhiNCBjbG9uZQoweDAwMDEzOTA0IGJyawo=
+EXPECT=<<EOF
+0x00012434 execve
+0x000124d4 gettid
+0x000125d4 read
+0x000125f4 write
+0x00012614 close
+0x00012654 getpid
+0x00012674 munmap
+0x00012744 unlink
+0x00012764 chdir
+0x00012784 chmod
+0x000127f4 fstat64
+0x00012894 access
+0x00012be4 kill
+0x00013604 exit
+0x00013624 fork
+0x000136a4 open
+0x000136cc mmap2
+0x000136f4 mprotect
+0x00013714 ioctl
+0x00013774 fcntl64
+0x00013844 munmap
+0x00013850 exit
+0x00013870 clone
+0x000138b4 clone
+0x00013904 brk
+EOF
 ARGS=
-CMDS64=L2FzCg==
+CMDS=<<EOF
+/as
+EOF
 RUN
 
 NAME=/j escaped
 FILE=../bins/mach0/escaped
-EXPECT64=W3sib2Zmc2V0Ijo4MDE5LCJ0eXBlIjoic3RyaW5nIiwiZGF0YSI6Il1jOlxcaGVsbG9cXHdvcmxkTSJ9XQo=
-CMDS64=Ci9qIGhlbGxvCgo=
+EXPECT='[{"offset":8019,"type":"string","data":"]c:\\hello\\worldM"}]
+'
+CMDS=<<EOF
+/j hello
+EOF
 RUN
+
 NAME=/ search from/to (seek 0)
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MHgwMDAwMDAwMSBoaXQwXzAgIkVMRiIKCg==
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDAKZSBzZWFyY2guZnJvbSA9IDAKZSBzZWFyY2gudG8gPSAweDAwMDAwMDUwCi8gRUxGCgo=
+EXPECT=<<EOF
+0x00000001 hit0_0 "ELF"
+EOF
+CMDS=<<EOF
+e io.va = false
+s 0
+e search.from = 0
+e search.to = 0x00000050
+/ ELF
+EOF
 RUN
+
 NAME=/ search from/to (seek beyond data)
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MHgwMDAwMDAwMSBoaXQwXzAgIkVMRiIKCg==
-CMDS64=CmUgc2NyLmNvbG9yID0gZmFsc2UKZSBpby52YSA9IGZhbHNlCnMgMHgxMDAwCmUgc2VhcmNoLmZyb20gPSAwCmUgc2VhcmNoLnRvID0gMHg1MAovIEVMRgoK
+EXPECT=<<EOF
+0x00000001 hit0_0 "ELF"
+EOF
+CMDS=<<EOF
+e scr.color = false
+e io.va = false
+s 0x1000
+e search.from = 0
+e search.to = 0x50
+/ ELF
+EOF
 RUN
+
 NAME=/j search
 FILE=malloc://1024
-EXPECT64=W3sib2Zmc2V0IjowLCJ0eXBlIjoic3RyaW5nIiwiZGF0YSI6ImZvb1xcIn1dCg==
-CMDS64=d3ggNjY2ZjZmMDA1YwovaiBmb28K
+EXPECT='[{"offset":0,"type":"string","data":"foo\\"}]
+'
+CMDS=<<EOF
+wx 666f6f005c
+/j foo
+EOF
 RUN
+
 NAME=/! search
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCBoaXQwXzAgImZvbyIKCg==
-CMDS64=Cnd4IDY2NmY2ZjAwCi8hIGZmCgo=
+EXPECT=<<EOF
+0x00000000 hit0_0 "foo"
+EOF
+CMDS=<<EOF
+wx 666f6f00
+/! ff
+EOF
 RUN
+
 NAME=/!x search
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCBoaXQwXzAgNjYKCg==
-CMDS64=Cnd4IDY2NmY2ZjAwCi8heCAwMAoK
+EXPECT=<<EOF
+0x00000000 hit0_0 66
+EOF
+CMDS=<<EOF
+wx 666f6f00
+/!x 00
+EOF
 RUN
+
 NAME=// search
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCBoaXQwXzAgNjYKMHgwMDAwMDAwMCBoaXQxXzAgNjYKCg==
-CMDS64=Cnd4IDY2NmY2ZjAwCi8heCAwMAovLwoK
+EXPECT=<<EOF
+0x00000000 hit0_0 66
+0x00000000 hit1_0 66
+EOF
+CMDS=<<EOF
+wx 666f6f00
+/!x 00
+//
+EOF
 RUN
+
 NAME=// search
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCBoaXQwXzAgNjYKMHgwMDAwMDAwMCBoaXQxXzAgNjYKCg==
-CMDS64=Cnd4IDY2NmY2ZjAwCi8heCAwMAovLwoK
+EXPECT=<<EOF
+0x00000000 hit0_0 66
+0x00000000 hit1_0 66
+EOF
+CMDS=<<EOF
+wx 666f6f00
+/!x 00
+//
+EOF
 RUN
+
 NAME=/a search
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCBoaXQwXzAgODNjNDA4Cgo=
-CMDS64=ZSBhc20uYml0cz0zMgoid2EgYWRkIGVzcCw4O3BvcCBlYng7IHBvcCBlYnA7IHJldCIKL2EgYWRkIGVzcCwgOAoK
+EXPECT=<<EOF
+0x00000000 hit0_0 83c408
+EOF
+CMDS=<<EOF
+e asm.bits=32
+"wa add esp,8;pop ebx; pop ebp; ret"
+/a add esp, 8
+EOF
 RUN
+
 NAME=/a search from/to (seek 0)
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MHgwMDAwMDAzYyBoaXQwXzAgMzQ4MAoweDAwMDAwMDQwIGhpdDBfMSAzNDgwCgo=
+EXPECT=<<EOF
+0x0000003c hit0_0 3480
+0x00000040 hit0_1 3480
+EOF
 ARGS=-n
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDAKZSBzZWFyY2guZnJvbSA9IDAKZSBzZWFyY2gudG8gPSAweDUwCi9hIHhvciBhbCwgMHg4MAoK
+CMDS=<<EOF
+e io.va = false
+s 0
+e search.from = 0
+e search.to = 0x50
+/a xor al, 0x80
+EOF
 RUN
+
 NAME=/a search from/to (seek 0)
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MHgwMDAwMDAzYyBoaXQwXzAgMzQ4MAoweDAwMDAwMDQwIGhpdDBfMSAzNDgwCgo=
+EXPECT=<<EOF
+0x0000003c hit0_0 3480
+0x00000040 hit0_1 3480
+EOF
 ARGS=-n
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDAKZSBzZWFyY2guZnJvbSA9IDAKZSBzZWFyY2gudG8gPSAweDUwCiMgL2EgeG9yIGFsLCAweDgwCi94IDM0ODAKCg==
+CMDS=<<EOF
+e io.va = false
+s 0
+e search.from = 0
+e search.to = 0x50
+# /a xor al, 0x80
+/x 3480
+EOF
 RUN
+
 NAME=/a push esp
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MHgwODA0ODA1OCBoaXQwXzAgNTQKMHgwODA0ODA1YyBoaXQwXzEgNTQKMHgwODA0ODA2MCBoaXQwXzIgNTQKMHgwODA0ODM2OSBoaXQwXzMgNTQKCg==
-CMDS64=Ci9hIHB1c2ggZXNwCgo=
+EXPECT=<<EOF
+0x08048058 hit0_0 54
+0x0804805c hit0_1 54
+0x08048060 hit0_2 54
+0x08048369 hit0_3 54
+EOF
+CMDS=<<EOF
+/a push esp
+EOF
 RUN
+
 NAME=/a search from/to (seek beyond data)
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MHgwMDAwMDAzYyBoaXQwXzAgMzQ4MAoweDAwMDAwMDQwIGhpdDBfMSAzNDgwCgo=
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDB4MTAwMAplIHNlYXJjaC5mcm9tID0gMAplIHNlYXJjaC50byA9IDB4MDAwMDAwNTAKL2EgeG9yIGFsLCAweDgwCgo=
+EXPECT=<<EOF
+0x0000003c hit0_0 3480
+0x00000040 hit0_1 3480
+EOF
+CMDS=<<EOF
+e io.va = false
+s 0x1000
+e search.from = 0
+e search.to = 0x00000050
+/a xor al, 0x80
+EOF
 RUN
+
 NAME=/x search from/to (seek beyond data)
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MHgwMDAwMDAzYyBoaXQwXzAgMzQ4MAoweDAwMDAwMDQwIGhpdDBfMSAzNDgwCgo=
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDB4MTAwMAplIHNlYXJjaC5mcm9tID0gMAplIHNlYXJjaC50byA9IDB4MDAwMDAwNTAKL3ggMzQ4MAoK
+EXPECT=<<EOF
+0x0000003c hit0_0 3480
+0x00000040 hit0_1 3480
+EOF
+CMDS=<<EOF
+e io.va = false
+s 0x1000
+e search.from = 0
+e search.to = 0x00000050
+/x 3480
+EOF
 RUN
+
 NAME=/A search
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwNSAxIHJldAoK
-CMDS64=ZSBhc20uYXJjaCA9IHg4NgplIGFuYWwuYXJjaCA9IHg4NgplIGFzbS5iaXRzPTMyCiJ3YSBhZGQgZXNwLDg7cG9wIGVieDsgcG9wIGVicDsgcmV0IgovYXQgcmV0Cg==
+EXPECT=<<EOF
+0x00000005 1 ret
+EOF
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e asm.bits=32
+"wa add esp,8;pop ebx; pop ebp; ret"
+/at ret
+EOF
 RUN
+
 NAME=/A search from/to (seek 0)
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MHgwMDAwMDAzYyAyIHhvciBhbCwgMHg4MAoweDAwMDAwMDQwIDIgeG9yIGFsLCAweDgwCgo=
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDAKZSBzZWFyY2guZnJvbSA9IDAKZSBzZWFyY2gudG8gPSAweDAwMDAwMDUwCi9hdCB4b3IKCg==
+EXPECT=<<EOF
+0x0000003c 2 xor al, 0x80
+0x00000040 2 xor al, 0x80
+EOF
+CMDS=<<EOF
+e io.va = false
+s 0
+e search.from = 0
+e search.to = 0x00000050
+/at xor
+EOF
 RUN
+
 NAME=/A search from/to (seek beyond data)
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MHgwMDAwMDAzYyAyIHhvciBhbCwgMHg4MAoweDAwMDAwMDQwIDIgeG9yIGFsLCAweDgwCgo=
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDB4MTAwMAplIHNlYXJjaC5mcm9tID0gMAplIHNlYXJjaC50byA9IDB4MDAwMDAwNTAKL2F0IHhvcgoK
+EXPECT=<<EOF
+0x0000003c 2 xor al, 0x80
+0x00000040 2 xor al, 0x80
+EOF
+CMDS=<<EOF
+e io.va = false
+s 0x1000
+e search.from = 0
+e search.to = 0x00000050
+/at xor
+EOF
 RUN
+
 NAME=Rop search
 FILE=malloc://1024
-EXPECT64=ICAweDAwMDAwMDAwICAgICAgICAgICAgIDgzYzQwOCAgYWRkIGVzcCwgOAogIDB4MDAwMDAwMDMgICAgICAgICAgICAgICAgIDViICBwb3AgZWJ4CiAgMHgwMDAwMDAwNCAgICAgICAgICAgICAgICAgNWQgIHBvcCBlYnAKICAweDAwMDAwMDA1ICAgICAgICAgICAgICAgICBjMyAgcmV0CgogIDB4MDAwMDAwMDEgICAgICAgICAgICAgICBjNDA4ICBsZXMgZWN4LCBbZWF4XQogIDB4MDAwMDAwMDMgICAgICAgICAgICAgICAgIDViICBwb3AgZWJ4CiAgMHgwMDAwMDAwNCAgICAgICAgICAgICAgICAgNWQgIHBvcCBlYnAKICAweDAwMDAwMDA1ICAgICAgICAgICAgICAgICBjMyAgcmV0CgogIDB4MDAwMDAwMDIgICAgICAgICAgICAgMDg1YjVkICBvciBieXRlIFtlYnggKyAweDVkXSwgYmwKICAweDAwMDAwMDA1ICAgICAgICAgICAgICAgICBjMyAgcmV0CgoK
-CMDS64=ZSBhc20uYXJjaCA9IHg4NgplIGFuYWwuYXJjaCA9IHg4NgplIGFzbS5iaXRzPTMyCiJ3YSBhZGQgZXNwLDg7cG9wIGVieDsgcG9wIGVicDsgcmV0IgplIHNjci5jb2xvcj1mYWxzZQovUgpxCgo=
+EXPECT=<<EOF
+  0x00000000             83c408  add esp, 8
+  0x00000003                 5b  pop ebx
+  0x00000004                 5d  pop ebp
+  0x00000005                 c3  ret
+
+  0x00000001               c408  les ecx, [eax]
+  0x00000003                 5b  pop ebx
+  0x00000004                 5d  pop ebp
+  0x00000005                 c3  ret
+
+  0x00000002             085b5d  or byte [ebx + 0x5d], bl
+  0x00000005                 c3  ret
+
+EOF
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e asm.bits=32
+"wa add esp,8;pop ebx; pop ebp; ret"
+e scr.color=false
+/R
+q
+EOF
 RUN
+
 NAME=Rop search w/ regexp
 FILE=malloc://1024
-EXPECT64=ICAweDAwMDAwMDAyICAgICAgICAgICAgIDA4NWI1ZCAgb3IgYnl0ZSBbZWJ4ICsgMHg1ZF0sIGJsCiAgMHgwMDAwMDAwNSAgICAgICAgICAgICAgICAgYzMgIHJldAoKCg==
-CMDS64=ZSBhc20uYXJjaCA9IHg4NgplIGFuYWwuYXJjaCA9IHg4NgplIGFzbS5iaXRzPTMyCiJ3YSBhZGQgZXNwLDg7cG9wIGVieDsgcG9wIGVicDsgcmV0IgplIHNjci5jb2xvcj1mYWxzZQovUi8gb3IuKmJsCnEKCg==
+EXPECT=<<EOF
+  0x00000002             085b5d  or byte [ebx + 0x5d], bl
+  0x00000005                 c3  ret
+
+EOF
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e asm.bits=32
+"wa add esp,8;pop ebx; pop ebp; ret"
+e scr.color=false
+/R/ or.*bl
+q
+EOF
 RUN
+
 NAME=Rop search w/ branch delay (mips)
 FILE=malloc://128
 BROKEN=1
-EXPECT64=ICAweDAwMDAwMDAwICAgICAgICAgICAxYjAwMDAwMCAgZGl2dSB6ZXJvLCB6ZXJvLCB6ZXJvCiAgMHgwMDAwMDAwNCAgICAgICAgICAgMDQwMDAwMDAgIHNsbHYgemVybywgemVybywgemVybwogIDB4MDAwMDAwMDggICAgICAgICAgIDFhMDAwMDAwICBkaXYgemVybywgemVybywgemVybwogIDB4MDAwMDAwMGMgICAgICAgICAgIDRjMDg0MTAwICBzeXNjYWxsIDB4MTA0MjEKCiAgMHgwMDAwMDAxMCAgICAgICAgICAgMTgwMDAwMDAgIG11bHQgemVybywgemVybwogIDB4MDAwMDAwMTQgICAgICAgICAgIDA0MDAwMDAwICBzbGx2IHplcm8sIHplcm8sIHplcm8KICAweDAwMDAwMDE4ICAgICAgICAgICAwODAwMDAwMCAganIgemVybwogIDB4MDAwMDAwMWMgICAgICAgICAgIDAwMDAwMDcwICBtYWRkIHplcm8sIHplcm8KCgo=
-CMDS64=ZSBhc20uYml0cz0zMgplIGFzbS5hcmNoPW1pcHMKZSBzY3IuY29sb3I9ZmFsc2UKd3ggMWIwMDAwMDAwNDAwMDAwMDFhMDAwMDAwNGMwODQxMDAxODAwMDAwMDA0MDAwMDAwMDgwMDAwMDAwMDAwMDA3MAovUgpxCgo=
+EXPECT=<<EOF
+  0x00000000           1b000000  divu zero, zero, zero
+  0x00000004           04000000  sllv zero, zero, zero
+  0x00000008           1a000000  div zero, zero, zero
+  0x0000000c           4c084100  syscall 0x10421
+
+  0x00000010           18000000  mult zero, zero
+  0x00000014           04000000  sllv zero, zero, zero
+  0x00000018           08000000  jr zero
+  0x0000001c           00000070  madd zero, zero
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e asm.arch=mips
+e scr.color=false
+wx 1b000000040000001a0000004c08410018000000040000000800000000000070
+/R
+q
+EOF
 RUN
+
 NAME=/c/ search instructions extended regex
 FILE=../bins/pe/standard.exe
-EXPECT64=MHgwMDQwMTlkMiAgICMgMjogcm9yIGVzcCwgY2wKMHgwMDQwMTlkNSAgICMgMjogcm9yIGJoLCAxCjB4MDA0MDE5ZGEgICAjIDM6IHJvciBlYnAsIDB4ZTUK
-CMDS64=ZSBhc20uYXJjaCA9IHg4Ng0KZSBhbmFsLmFyY2ggPSB4ODYNCmUgYXNtLmJpdHM9MzINCiIvYy8gcm9yIChiaHwuLi4pLCAoY2x8LikiDQpx
+EXPECT=<<EOF
+0x004019d2   # 2: ror esp, cl
+0x004019d5   # 2: ror bh, 1
+0x004019da   # 3: ror ebp, 0xe5
+EOF
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e asm.bits=32
+"/c/ ror (bh|...), (cl|.)"
+q
+EOF
 RUN
+
 NAME=/m search from/to (seek 0)
 FILE=../bins/pe/standard.exe
-EXPECT64=MHgwMDAwMDAwMCAxIFBFICBmb3IgTVMgV2luZG93cyBJbnRlbCA4MDM4NiAzMi1iaXQKCg==
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDAKZSBzZWFyY2guZnJvbSA9IDAKZSBzZWFyY2gudG8gPSAweDEwCi9tCgo=
+EXPECT=<<EOF
+0x00000000 1 PE  for MS Windows Intel 80386 32-bit
+EOF
+CMDS=<<EOF
+e io.va = false
+s 0
+e search.from = 0
+e search.to = 0x10
+/m
+EOF
 RUN
+
 NAME=/m search from/to (seek beyond data)
 FILE=../bins/pe/standard.exe
-EXPECT64=MHgwMDAwMDAwMCAxIFBFICBmb3IgTVMgV2luZG93cyBJbnRlbCA4MDM4NiAzMi1iaXQKCg==
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDB4MTAwMAplIHNlYXJjaC5mcm9tID0gMAplIHNlYXJjaC50byA9IDB4MTAKL20KCg==
+EXPECT=<<EOF
+0x00000000 1 PE  for MS Windows Intel 80386 32-bit
+EOF
+CMDS=<<EOF
+e io.va = false
+s 0x1000
+e search.from = 0
+e search.to = 0x10
+/m
+EOF
 RUN
+
 NAME=/o search offset of instructions backward
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMgoweDAwMDAwMDAxCjB4MDAwMDAwMDAKCg==
+EXPECT=<<EOF
+0x00000002
+0x00000001
+0x00000000
+EOF
 ARGS=-a x86 -b 32
-CMDS64=Cnd4IDkwOTA4OWQ4OTA5MApzIDQKL28KL28gMgovbyAzCgo=
+CMDS=<<EOF
+wx 909089d89090
+s 4
+/o
+/o 2
+/o 3
+EOF
 RUN
+
 NAME=/x search from/to (seek 0)
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDEwMCBoaXQwXzAgNDE0MjQzNDQKCg==
-CMDS64=CncgQUJDRCBAIDB4MTAwCnMgMAplIHNlYXJjaC5mcm9tID0gMAplIHNlYXJjaC50byA9IDB4MjAwCi94IDQxNDI0MzQ0Cgo=
+EXPECT=<<EOF
+0x00000100 hit0_0 41424344
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+s 0
+e search.from = 0
+e search.to = 0x200
+/x 41424344
+EOF
 RUN
+
 NAME=/x search from/to (seek beyond data)
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDEwMCBoaXQwXzAgNDE0MjQzNDQKCg==
-CMDS64=CncgQUJDRCBAIDB4MTAwCnMgMHgxMDAwCmUgc2VhcmNoLmZyb20gPSAwCmUgc2VhcmNoLnRvID0gMHgyMDAKL3ggNDE0MjQzNDQKCg==
+EXPECT=<<EOF
+0x00000100 hit0_0 41424344
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+s 0x1000
+e search.from = 0
+e search.to = 0x200
+/x 41424344
+EOF
 RUN
+
 NAME=/m search seek
 FILE=../bins/pe/standard.exe
-EXPECT64=MHgwMDAwMDAwMAoweDEwMDAKCg==
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDB4MTAwMAovbX5bMF0KcwovZm0KCg==
+EXPECT=<<EOF
+0x00000000
+0x1000
+EOF
+CMDS=<<EOF
+e io.va = false
+s 0x1000
+/m~[0]
+s
+/fm
+EOF
 RUN
+
 NAME=/mj test json output
 FILE=../bins/elf/analysis/x86-simple
-EXPECT64=W3sib2Zmc2V0IjoxMzQ1MTI2NDAsImRlcHRoIjoxLCJpbmZvIjoiRUxGIDMyLWJpdCBMU0IgZXhlY3V0YWJsZSwgSW50ZWwgODAzODYsIHZlcnNpb24gMSJ9XQo=
-CMDS64=L21qCg==
+EXPECT='[{"offset":134512640,"depth":1,"info":"ELF 32-bit LSB executable, Intel 80386, version 1"}]
+'
+CMDS=<<EOF
+/mj
+EOF
 RUN
+
 NAME=/as search syscall
 FILE=../bins/elf/analysis/x86-simple
-EXPECT64=MHgwODA0ODA3MCBleGl0Cgo=
-CMDS64=YWVpbQphZWlwCi9hcwo=
+EXPECT=<<EOF
+0x08048070 exit
+EOF
+CMDS=<<EOF
+aeim
+aeip
+/as
+EOF
 RUN
+
 NAME=search.from/to for /s
 FILE=../bins/elf/analysis/x86-simple
-EXPECT64=Cg==
-CMDS64=CmFlaW0KYWVpcAplIHNlYXJjaC5pbiA9IHJhdwplIHNlYXJjaC5mcm9tID0gMHgwODA0ODA2MAplIHNlYXJjaC50byA9IDB4MDgwNDgwNmIKL3MKCg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+aeim
+aeip
+e search.in = raw
+e search.from = 0x08048060
+e search.to = 0x0804806b
+/s
+EOF
 RUN
+
 NAME=/v4 search 4 byte
 FILE=-
-EXPECT64=MHgwMDAwMDAwMCBoaXQwXzAgMTIzNDU2NzgKMHgwMDAwMDAwYSBoaXQwXzEgMTIzNDU2NzgKCg==
-CMDS64=Cnd4IDB4MTIzNDU2NzhhYWJiY2NkZGVlZmYxMjM0NTY3OAovdjQgMHg3ODU2MzQxMgoK
+EXPECT=<<EOF
+0x00000000 hit0_0 12345678
+0x0000000a hit0_1 12345678
+EOF
+CMDS=<<EOF
+wx 0x12345678aabbccddeeff12345678
+/v4 0x78563412
+EOF
 RUN
+
 NAME=/v4j search 4 byte with json output
 FILE=-
-EXPECT64=W3sib2Zmc2V0IjowLCJ0eXBlIjoiaGV4cGFpciIsImRhdGEiOiIxMjM0NTY3OCJ9LHsib2Zmc2V0IjoxMCwidHlwZSI6ImhleHBhaXIiLCJkYXRhIjoiMTIzNDU2NzgifV0=
-CMDS64=d3ggMHgxMjM0NTY3OGFhYmJjY2RkZWVmZjEyMzQ1Njc4Ci92NGogMHg3ODU2MzQxMgo=
+EXPECT='[{"offset":0,"type":"hexpair","data":"12345678"},{"offset":10,"type":"hexpair","data":"12345678"}]
+'
+CMDS=<<EOF
+wx 0x12345678aabbccddeeff12345678
+/v4j 0x78563412
+EOF
 RUN
+
 NAME=/v4 search 8 byte
 FILE=-
-EXPECT64=MHgwMDAwMDAwMCBoaXQwXzAgMTIzNDU2NzhhYWJiY2NkZAoK
-CMDS64=Cnd4IDB4MTIzNDU2NzhhYWJiY2NkZGVlZmYxMjM0NTY3OAovdjQgMHg3ODU2MzQxMiAweGRkY2NiYmFhCgo=
+EXPECT=<<EOF
+0x00000000 hit0_0 12345678aabbccdd
+EOF
+CMDS=<<EOF
+wx 0x12345678aabbccddeeff12345678
+/v4 0x78563412 0xddccbbaa
+EOF
 RUN
+
 NAME=/V4j search 4 byte with json
 FILE=-
-EXPECT64=W3sib2Zmc2V0IjowLCJ2YWx1ZSI6MjAxODkxNTM0Nn0seyJvZmZzZXQiOjEwLCJ2YWx1ZSI6MjAxODkxNTM0Nn1dCg==
-CMDS64=d3ggMHgxMjM0NTY3OGFhYmJjY2RkZWVmZjEyMzQ1Njc4Ci9WNGogMHg3ODU2MzQxMiAweDc4NTYzNDIwCgo=
+EXPECT='[{"offset":0,"value":2018915346},{"offset":10,"value":2018915346}]
+'
+CMDS=<<EOF
+wx 0x12345678aabbccddeeff12345678
+/V4j 0x78563412 0x78563420
+EOF
 RUN
+
 NAME=/x search seek
 FILE=../bins/pe/standard.exe
-EXPECT64=MHgxMDAwCgo=
-CMDS64=CmUgaW8udmEgPSBmYWxzZQpzIDB4MTAwMAoveCA5MDkwY2Q4MApzCgo=
+EXPECT=<<EOF
+0x1000
+EOF
+CMDS=<<EOF
+e io.va = false
+s 0x1000
+/x 9090cd80
+s
+EOF
 RUN
+
 NAME=/x hit in the second map
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MHgwODA0OWYyYyBoaXQwXzAgZjg4MjA0MDgKCg==
-CMDS64=Ci94IGY4ODIwNDA4Cgo=
+EXPECT=<<EOF
+0x08049f2c hit0_0 f8820408
+EOF
+CMDS=<<EOF
+/x f8820408
+EOF
 RUN
+
 NAME=/x wrong entries
 FILE=../bins/elf/analysis/go_stripped
-EXPECT64=MHgwODA1YWU5MCBoaXQwXzAgNjUzYjI1MzAwMDAwMDA3MjRiNTNiODM0ZTcxNTA4ODNlYwoweDA4MDViMDMwIGhpdDBfMSA2NTNiMjUzMDAwMDAwMDcyNGI1M2I4MzRlNzE1MDg4M2VjCgo=
-CMDS64=L3ggNjUzYjI1MzAwMDAwMDA3MjRiNTNiODM0ZTcxNTA4ODNlYzE4OAo=
+EXPECT=<<EOF
+0x0805ae90 hit0_0 653b2530000000724b53b834e7150883ec
+0x0805b030 hit0_1 653b2530000000724b53b834e7150883ec
+EOF
+CMDS=<<EOF
+/x 653b2530000000724b53b834e7150883ec188
+EOF
 RUN
+
 NAME=search range hex
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDEwMCBoaXQwXzAgNDE0MjQzNDQKCg==
-CMDS64=CncgQUJDRCBAIDB4MTAwCmIgMHgxMDAKZSBzZWFyY2guZnJvbSA9IDB4NTAKZSBzZWFyY2gudG8gPSAweDE1MAoveCA0MTQyNDM0NAoK
+EXPECT=<<EOF
+0x00000100 hit0_0 41424344
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+b 0x100
+e search.from = 0x50
+e search.to = 0x150
+/x 41424344
+EOF
 RUN
+
 NAME=search range hex
 FILE=malloc://1024
-EXPECT64=Cg==
-CMDS64=CncgQUJDRCBAIDB4MTAwCmIgMHgxMDAKZSBzZWFyY2guZnJvbSA9IDB4NTAKZSBzZWFyY2gudG8gPSAweDkwCi94IDQxNDI0MzQ0Cgo=
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+b 0x100
+e search.from = 0x50
+e search.to = 0x90
+/x 41424344
+EOF
 RUN
+
 NAME=search range hex
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDEwMCBoaXQwXzAgNDE0MjQzNDQKCg==
-CMDS64=CncgQUJDRCBAIDB4MTAwCmIgMHgxMDAKZSBzZWFyY2guZnJvbSA9IDB4MTAwCmUgc2VhcmNoLnRvID0gMHgxMDQKL3ggNDE0MjQzNDQKCg==
+EXPECT=<<EOF
+0x00000100 hit0_0 41424344
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+b 0x100
+e search.from = 0x100
+e search.to = 0x104
+/x 41424344
+EOF
 RUN
+
 NAME=search range hex
 FILE=malloc://1024
-EXPECT64=Cg==
-CMDS64=CncgQUJDRCBAIDB4MTAwCmIgMHgxMDAKZSBzZWFyY2guZnJvbSA9IDB4MTAxCmUgc2VhcmNoLnRvID0gMHgxMDQKL3ggNDE0MjQzNDQKCg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+b 0x100
+e search.from = 0x101
+e search.to = 0x104
+/x 41424344
+EOF
 RUN
+
 NAME=search range hex
 FILE=malloc://1024
-EXPECT64=Cg==
-CMDS64=CncgQUJDRCBAIDB4MTAwCmIgMHgxMDAKZSBzZWFyY2guZnJvbSA9IDB4MTAwCmUgc2VhcmNoLnRvID0gMHgxMDMKL3ggNDE0MjQzNDQKCg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+b 0x100
+e search.from = 0x100
+e search.to = 0x103
+/x 41424344
+EOF
 RUN
+
 NAME=search range hex @(A..B)
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDEwMCBoaXQwXzAgNDE0MjQzNDQKCg==
-CMDS64=CncgQUJDRCBAIDB4MTAwCmIgMHgxMDAKL3ggNDE0MjQzNDQgQCgweDUwIDB4MTUwKQoK
+EXPECT=<<EOF
+0x00000100 hit0_0 41424344
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+b 0x100
+/x 41424344 @(0x50 0x150)
+EOF
 RUN
+
 NAME=search range hex @(A..B)
 FILE=malloc://1024
-EXPECT64=Cg==
-CMDS64=CncgQUJDRCBAIDB4MTAwCmIgMHgxMDAKL3ggNDE0MjQzNDQgQCgweDUwIDB4OTApCgo=
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+b 0x100
+/x 41424344 @(0x50 0x90)
+EOF
 RUN
+
 NAME=backward search hex
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDEwMCBoaXQwXzAgNDE0MjQzNDQKCg==
-CMDS64=dyBBQkNEIEAgMHgxMDAKZSBzZWFyY2guZnJvbSA9IDB4NTAKZSBzZWFyY2gudG8gPSAweDE1MApiIDB4MTAwCi9ieCA0MTQyNDM0NAo=
+EXPECT=<<EOF
+0x00000100 hit0_0 41424344
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+e search.from = 0x50
+e search.to = 0x150
+b 0x100
+/bx 41424344
+EOF
 RUN
+
 NAME=backward search hex
 FILE=malloc://1024
-EXPECT64=Cg==
-CMDS64=dyBBQkNEIEAgMHgxMDAKZSBzZWFyY2guZnJvbSA9IDB4MTEwCmUgc2VhcmNoLnRvID0gMHgxNTAKYiAweDEwMAovYnggNDE0MjQzNDQK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+e search.from = 0x110
+e search.to = 0x150
+b 0x100
+/bx 41424344
+EOF
 RUN
+
 NAME=backward search hex
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDEwMCBoaXQwXzAgNDE0MjQzNDQKCg==
-CMDS64=dyBBQkNEIEAgMHgxMDAKZSBzZWFyY2guZnJvbSA9IDB4MTAwCmUgc2VhcmNoLnRvID0gMHgxMDQKYiAweDEwMAovYnggNDE0MjQzNDQK
+EXPECT=<<EOF
+0x00000100 hit0_0 41424344
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+e search.from = 0x100
+e search.to = 0x104
+b 0x100
+/bx 41424344
+EOF
 RUN
+
 NAME=backward search hex
 FILE=malloc://1024
-EXPECT64=Cg==
-CMDS64=dyBBQkNEIEAgMHgxMDAKZSBzZWFyY2guZnJvbSA9IDB4MTAwCmUgc2VhcmNoLnRvID0gMHgxMDMKYiAweDEwMAovYnggNDE0MjQzNDQK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+e search.from = 0x100
+e search.to = 0x103
+b 0x100
+/bx 41424344
+EOF
 RUN
+
 NAME=backward search hex
 FILE=malloc://1024
-EXPECT64=Cg==
-CMDS64=dyBBQkNEIEAgMHgxMDAKZSBzZWFyY2guZnJvbSA9IDB4MTAxCmUgc2VhcmNoLnRvID0gMHgxMDQKYiAweDEwMAovYnggNDE0MjQzNDQK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+w ABCD @ 0x100
+e search.from = 0x101
+e search.to = 0x104
+b 0x100
+/bx 41424344
+EOF
 RUN
+
 NAME=/x with bin mask
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMSBoaXQwXzAgYWFhYWJiCgo=
-CMDS64=d3ggYWFhYWFhYmIKL3ggYWEuLmJiCg==
+EXPECT=<<EOF
+0x00000001 hit0_0 aaaabb
+EOF
+CMDS=<<EOF
+wx aaaaaabb
+/x aa..bb
+EOF
 RUN
+
 NAME=/x with bin mask
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMSBoaXQwXzAgYWFhYWJiCgo=
-CMDS64=d3ggYWFhYWFhYmIKL3ggLi5hYWJiCg==
+EXPECT=<<EOF
+0x00000001 hit0_0 aaaabb
+EOF
+CMDS=<<EOF
+wx aaaaaabb
+/x ..aabb
+EOF
 RUN
+
 NAME=search by whole file
 FILE=malloc://64
-EXPECT64=MHgwMDAwMDAxMCBoaXQwXzAgOTAKCg==
-CMDS64=d3ggOTAgQCAweDEwCi9GIC4uL2JpbnMvb3RoZXIvcmFkaWZmMi9yYWRpZmYyX2NfMgo=
+EXPECT=<<EOF
+0x00000010 hit0_0 90
+EOF
+CMDS=<<EOF
+wx 90 @ 0x10
+/F ../bins/other/radiff2/radiff2_c_2
+EOF
 RUN
+
 NAME=search by rest of file
 FILE=-
-EXPECT64=MHgwMDAwMDAxMCBoaXQwXzAgMjEwYQoK
-CMDS64=d3ggMjEwYSBAIDB4MTAKL0YgLi4vYmlucy9lbGYvYW5hbHlzaXMvaGVsbG8ucmF3IDQ4Cg==
+EXPECT=<<EOF
+0x00000010 hit0_0 210a
+EOF
+CMDS=<<EOF
+wx 210a @ 0x10
+/F ../bins/elf/analysis/hello.raw 48
+EOF
 RUN
+
 NAME=search by rest of file dec/dec
 FILE=-
-EXPECT64=MHgwMDAwMDAxMCBoaXQwXzAgMGUKCg==
-CMDS64=d3ggMGUgQCAweDEwCi9GIC4uL2JpbnMvZWxmL2FuYWx5c2lzL2hlbGxvLnJhdyAxIDEK
+EXPECT=<<EOF
+0x00000010 hit0_0 0e
+EOF
+CMDS=<<EOF
+wx 0e @ 0x10
+/F ../bins/elf/analysis/hello.raw 1 1
+EOF
 RUN
+
 NAME=search by part of file dec/hex
 FILE=-
-EXPECT64=MHgwMDAwMDAxMCBoaXQwXzAgODA0OAoK
-CMDS64=d3ggODA0OCBAIDB4MTAKL0YgLi4vYmlucy9lbGYvYW5hbHlzaXMvaGVsbG8ucmF3IDB4MWMgMHgyCg==
+EXPECT=<<EOF
+0x00000010 hit0_0 8048
+EOF
+CMDS=<<EOF
+wx 8048 @ 0x10
+/F ../bins/elf/analysis/hello.raw 0x1c 0x2
+EOF
 RUN
 
 

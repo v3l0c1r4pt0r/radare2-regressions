@@ -1,252 +1,730 @@
 NAME=p2 hello-linux-x86_64
 FILE=../bins/elf/analysis/hello-linux-x86_64
-EXPECT64=LS0tLS4uPT0tLS0tIyMuLgotLT09IyMjIy4uIyMjIy4uCj09Li4jIy4uLS0tLS0tPT0KLS09PSMjIyMuLiMjIyMtLQo9PS4uPT0jIy0tIyM9PSMjCi4uLS0tLSMjIyMtLT09PT0KPT0uLj09Li4jIyMjIyMjIwojIy4uIyM9PS0tPT0jIy0tCgo=
-CMDS64=CnAyIDE2Cgo=
+EXPECT=<<EOF
+----..==----##..
+--==####..####..
+==..##..------==
+--==####..####--
+==..==##--##==##
+..----####--====
+==..==..########
+##..##==--==##--
+EOF
+CMDS=<<EOF
+p2 16
+EOF
 RUN
+
 NAME=p= 0xff 0x00
 FILE=-
 BROKEN=1
-EXPECT64=ICAgICAgICAgX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCjAwIDAwZmYgfCBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX3wKMDEgMDAwMCB8fAoK
-CMDS64=CmIgMgp3eCAweGZmCnA9IDJAMAoK
+EXPECT=<<EOF
+         ___________________________________________________
+00 00ff | __________________________________________________|
+01 0000 ||
+EOF
+CMDS=<<EOF
+b 2
+wx 0xff
+p= 2@0
+EOF
 RUN
+
 NAME=p=b 0xff 0x00
 FILE=-
-EXPECT64=MHgwMDAwMDAwMCAwMCAwMGZmIHwnX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX198CjB4MDAwMDAwMDEgMDEgMDAwMCB8fAoK
-CMDS64=YiAyCnd4IDB4ZmYKZSB6b29tLmluPXJhdwpwPWIgMiAyQDAK
+EXPECT=<<EOF
+0x00000000 00 00ff |'__________________________________________________|
+0x00000001 01 0000 ||
+EOF
+CMDS=<<EOF
+b 2
+wx 0xff
+e zoom.in=raw
+p=b 2 2@0
+EOF
 RUN
+
 NAME=p= - crash
 FILE=-
-EXPECT64=MHgwMDAwMDAwMCAwMCAwMDAwIHx8Cg==
-CMDS64=ZSB6b29tLmluID0gYmxvY2sKcD1wIiAxICIgMSBFTgo=
+EXPECT=<<EOF
+0x00000000 00 0000 ||
+EOF
+CMDS=<<EOF
+e zoom.in = block
+p=p" 1 " 1 EN
+EOF
 RUN
+
 NAME=p=d
 FILE=../bins/elf/arm1.bin
-EXPECT64=bWluOiAgICAgICAgICAgICAgMCAgMHgwCm1heDogICAgICAgICAgICAgIDEyNyAgMHg3Zgp1bmlxdWUgKGNvdW50KTogICA2ICAweDYKcmFuZ2UgKG1heC1taW4pOiAgMTI3ICAweDdmCnNpemUgKG9mIGJsb2NrKTogIDEwICAweGEK
+EXPECT=<<EOF
+min:              0  0x0
+max:              127  0x7f
+unique (count):   6  0x6
+range (max-min):  127  0x7f
+size (of block):  10  0xa
+EOF
 ARGS=-n
-CMDS64=cD1kIDEwIEAgMAo=
+CMDS=<<EOF
+p=d 10 @ 0
+EOF
 RUN
+
 NAME=p=e 5
 FILE=../bins/elf/arm1.bin
-EXPECT64=MHgwMDAwMDAwMCAwMCAwMDlmIHwnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnfF9fX19fX18KMHgwMDAxYmVjMSAwMSAwMGMzIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKMHgwMDAzN2Q4MiAwMiAwMGMzIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKMHgwMDA1M2M0MyAwMyAwMGMzIHwgICAgICAgICAgICAgICAgIF9fX19fX19fX19fX19fX19fX19fX198CjB4MDAwNmZiMDQgMDQgMDA1MSB8IF9fX19fX19fX19fX19fX3wK
-CMDS64=cD1lIDVAMAo=
+EXPECT=<<EOF
+0x00000000 00 009f |'''''''''''''''''''''''''''''''|_______
+0x0001bec1 01 00c3 |                                      |
+0x00037d82 02 00c3 |                                      |
+0x00053c43 03 00c3 |                 ______________________|
+0x0006fb04 04 0051 | _______________|
+EOF
+CMDS=<<EOF
+p=e 5@0
+EOF
 RUN
+
 NAME=p=e 5 0x100
 FILE=../bins/elf/arm1.bin
-EXPECT64=MHgwMDAwMDAwMCAwMCAwMDdmIHwnJycnJycnJycnJycnJycnJycnJycnX19ffAoweDAwMDAwMDMzIDAxIDAwNmIgfCAgICAgICAgICAgICAgICAgICAgIHxfXwoweDAwMDAwMDY2IDAyIDAwN2EgfCAgICAgICAgICAgICAgICAgICAgICBfX198CjB4MDAwMDAwOTkgMDMgMDA2YSB8ICAgICAgICAgICAgICAgICAgIF9ffAoweDAwMDAwMGNjIDA0IDAwNWYgfCBfX19fX19fX19fX19fX19fX198Cg==
+EXPECT=<<EOF
+0x00000000 00 007f |''''''''''''''''''''''___|
+0x00000033 01 006b |                     |__
+0x00000066 02 007a |                      ___|
+0x00000099 03 006a |                   __|
+0x000000cc 04 005f | __________________|
+EOF
 ARGS=-n
-CMDS64=ZSB6b29tLmluID0gYmxvY2sNCnA9ZSA1IDB4MTAwDQo=
+CMDS=<<EOF
+e zoom.in = block
+p=e 5 0x100
+EOF
 RUN
+
 NAME=p=e 5 0x100 1
 FILE=../bins/elf/arm1.bin
-EXPECT64=MHgwMDAwMDAwMCAwMCAwMDZiIHwnJycnJycnJycnJycnJycnJycnJyd8X18KMHgwMDAwMDAzMyAwMSAwMDdhIHwgICAgICAgICAgICAgICAgICAgICAgX19ffAoweDAwMDAwMDY2IDAyIDAwNmEgfCAgICAgICAgICAgICAgICAgICBfX3wKMHgwMDAwMDA5OSAwMyAwMDVmIHwgICAgICAgICAgICAgICAgICBffAoweDAwMDAwMGNjIDA0IDAwNTkgfCBfX19fX19fX19fX19fX19fX3wK
+EXPECT=<<EOF
+0x00000000 00 006b |'''''''''''''''''''''|__
+0x00000033 01 007a |                      ___|
+0x00000066 02 006a |                   __|
+0x00000099 03 005f |                  _|
+0x000000cc 04 0059 | _________________|
+EOF
 ARGS=-n
-CMDS64=ZSB6b29tLmluID0gYmxvY2sNCnA9ZSA1IDB4MTAwIDENCg==
+CMDS=<<EOF
+e zoom.in = block
+p=e 5 0x100 1
+EOF
 RUN
+
 NAME=p=p 5
 FILE=../bins/elf/arm1.bin
-EXPECT64=MHgwMDAwMDAwMCAwMCAwMDMyIHwnJycnJycnJycnfAoweDAwMDFiZWMxIDAxIDAwMzEgfCAgICAgICAgIHwKMHgwMDAzN2Q4MiAwMiAwMDM1IHwgICAgICAgICAgfF9fCjB4MDAwNTNjNDMgMDMgMDA0MCB8ICAgICAgICAgICAgfF9fX19fX19fX18KMHgwMDA2ZmIwNCAwNCAwMDc2IHwgX19fX19fX19fX19fX19fX19fX19fX198Cgo=
+EXPECT=<<EOF
+0x00000000 00 0032 |''''''''''|
+0x0001bec1 01 0031 |         |
+0x00037d82 02 0035 |          |__
+0x00053c43 03 0040 |            |__________
+0x0006fb04 04 0076 | _______________________|
+EOF
 ARGS=-n
-CMDS64=cD1wIDVAMAo=
+CMDS=<<EOF
+p=p 5@0
+EOF
 RUN
+
 NAME=p=p 5 0x100
 FILE=../bins/elf/arm1.bin
-EXPECT64=MHgwMDAwMDAwMCAwMCAwMDMyIHwnJycnJ19fX198CjB4MDAwMDAwMzMgMDEgMDAxOSB8ICAgIHwKMHgwMDAwMDA2NiAwMiAwMDFlIHwgICAgIHwKMHgwMDAwMDA5OSAwMyAwMDFlIHwgICAgIHxfCjB4MDAwMDAwY2MgMDQgMDAyOCB8IF9fX19fX198Cgo=
+EXPECT=<<EOF
+0x00000000 00 0032 |'''''____|
+0x00000033 01 0019 |    |
+0x00000066 02 001e |     |
+0x00000099 03 001e |     |_
+0x000000cc 04 0028 | _______|
+EOF
 ARGS=-n
-CMDS64=ZSB6b29tLmluID0gYmxvY2sNCnA9cCA1IDB4MTAwDQo=
+CMDS=<<EOF
+e zoom.in = block
+p=p 5 0x100
+EOF
 RUN
+
 NAME=p=p 5 0x100 1
 FILE=../bins/elf/arm1.bin
-EXPECT64=MHgwMDAwMDAwMCAwMCAwMDE5IHwnJycnfAoweDAwMDAwMDMzIDAxIDAwMWUgfCAgICAgfAoweDAwMDAwMDY2IDAyIDAwMWUgfCAgICAgfF8KMHgwMDAwMDA5OSAwMyAwMDI4IHwgICAgICBffAoweDAwMDAwMGNjIDA0IDAwMWUgfCBfX19fX3wKCg==
+EXPECT=<<EOF
+0x00000000 00 0019 |''''|
+0x00000033 01 001e |     |
+0x00000066 02 001e |     |_
+0x00000099 03 0028 |      _|
+0x000000cc 04 001e | _____|
+EOF
 ARGS=-n
-CMDS64=ZSB6b29tLmluID0gYmxvY2sNCnA9cCA1IDB4MTAwIDENCg==
+CMDS=<<EOF
+e zoom.in = block
+p=p 5 0x100 1
+EOF
 RUN
+
 NAME=p8 10
 FILE=malloc://1024
-EXPECT64=OTA5MDkwOTA5MDkwOTA5MDkwOTAKCg==
-CMDS64=Cnd4IDkwOTA5MDkwOTA5MDkwOTA5MDkwIDsgcDggMTAKCg==
+EXPECT=<<EOF
+90909090909090909090
+EOF
+CMDS=<<EOF
+wx 90909090909090909090 ; p8 10
+EOF
 RUN
+
 NAME=p8 -10
 FILE=malloc://1024
-EXPECT64=OTA5MDkwOTA5MDkwOTA5MDkwOTAKCg==
-CMDS64=Cnd4IDkwOTA5MDkwOTA5MDkwOTA5MDkwIDsgcyAxMCA7IHA4IC0xMAoK
+EXPECT=<<EOF
+90909090909090909090
+EOF
+CMDS=<<EOF
+wx 90909090909090909090 ; s 10 ; p8 -10
+EOF
 RUN
+
 NAME=pi 3
 FILE=malloc://512
-EXPECT64=bW92IGVheCwgMQpjbXAgcmR4LCByY3gKamcgMHhhCgo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggYjgwMTAwMDAwMDQ4MzljYTdmCnBpIDMKCg==
+EXPECT=<<EOF
+mov eax, 1
+cmp rdx, rcx
+jg 0xa
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f
+pi 3
+EOF
 RUN
+
 NAME=pij 3
 FILE=malloc://512
-EXPECT64=W3sib2Zmc2V0IjowLCJ2YWwiOjEsImVzaWwiOiIxLHJheCw9IiwicmVmcHRyIjpmYWxzZSwiZmNuX2FkZHIiOjAsImZjbl9sYXN0IjowLCJzaXplIjo1LCJvcGNvZGUiOiJtb3YgZWF4LCAxIiwiZGlzYXNtIjoibW92IGVheCwgMSIsImJ5dGVzIjoiYjgwMTAwMDAwMCIsImZhbWlseSI6ImNwdSIsInR5cGUiOiJtb3YiLCJ0eXBlX251bSI6OSwidHlwZTJfbnVtIjowfSx7Im9mZnNldCI6NSwiZXNpbCI6InJjeCxyZHgsPT0sJHosemYsPSwkYjY0LGNmLD0sJHAscGYsPSwkcyxzZiw9LCRvLG9mLD0iLCJyZWZwdHIiOmZhbHNlLCJmY25fYWRkciI6MCwiZmNuX2xhc3QiOjAsInNpemUiOjMsIm9wY29kZSI6ImNtcCByZHgsIHJjeCIsImRpc2FzbSI6ImNtcCByZHgsIHJjeCIsImJ5dGVzIjoiNDgzOWNhIiwiZmFtaWx5IjoiY3B1IiwidHlwZSI6ImNtcCIsInR5cGVfbnVtIjoxNSwidHlwZTJfbnVtIjowfSx7Im9mZnNldCI6OCwiZXNpbCI6InNmLG9mLCEsXix6ZiwhLCYsP3ssMTAscmlwLD0sfSIsInJlZnB0ciI6ZmFsc2UsImZjbl9hZGRyIjowLCJmY25fbGFzdCI6MCwic2l6ZSI6Miwib3Bjb2RlIjoiamcgMHhhIiwiZGlzYXNtIjoiamcgMHhhIiwiYnl0ZXMiOiI3ZjAwIiwiZmFtaWx5IjoiY3B1IiwidHlwZSI6ImNqbXAiLCJ0eXBlX251bSI6MjE0NzQ4MzY0OSwidHlwZTJfbnVtIjowLCJqdW1wIjoxMCwiZmFpbCI6MTB9XQo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggYjgwMTAwMDAwMDQ4MzljYTdmCnBpaiAzCgo=
+EXPECT='[{"offset":0,"val":1,"esil":"1,rax,=","refptr":false,"fcn_addr":0,"fcn_last":0,"size":5,"opcode":"mov eax, 1","disasm":"mov eax, 1","bytes":"b801000000","family":"cpu","type":"mov","type_num":9,"type2_num":0},{"offset":5,"esil":"rcx,rdx,==,$z,zf,=,$b64,cf,=,$p,pf,=,$s,sf,=,$o,of,=","refptr":false,"fcn_addr":0,"fcn_last":0,"size":3,"opcode":"cmp rdx, rcx","disasm":"cmp rdx, rcx","bytes":"4839ca","family":"cpu","type":"cmp","type_num":15,"type2_num":0},{"offset":8,"esil":"sf,of,!,^,zf,!,&,?{,10,rip,=,}","refptr":false,"fcn_addr":0,"fcn_last":0,"size":2,"opcode":"jg 0xa","disasm":"jg 0xa","bytes":"7f00","family":"cpu","type":"cjmp","type_num":2147483649,"type2_num":0,"jump":10,"fail":10}]
+'
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f
+pij 3
+EOF
 RUN
+
 NAME=pi 6
 FILE=malloc://512
-EXPECT64=bW92IGVheCwgMQpjbXAgcmR4LCByY3gKamcgMHhhCm1vdiBlYXgsIDEKY21wIHJkeCwgcmN4CmpnIDB4MTQKCg==
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggYjgwMTAwMDAwMDQ4MzljYTdmMDBiODAxMDAwMDAwNDgzOWNhN2YwMApwaSA2Cgo=
+EXPECT=<<EOF
+mov eax, 1
+cmp rdx, rcx
+jg 0xa
+mov eax, 1
+cmp rdx, rcx
+jg 0x14
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f00b8010000004839ca7f00
+pi 6
+EOF
 RUN
+
 NAME=pi -5 @ 0x0040050f
 FILE=../bins/elf/analysis/main
-EXPECT64=cG9wIHJicApqbXAgc3ltLnJlZ2lzdGVyX3RtX2Nsb25lcwpwdXNoIHJicAptb3YgcmJwLCByc3AKbW92IGVkaSwgc3RyLkhlbGxvX1dvcmxkCgo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKcGkgLTUgQCAweDAwNDAwNTBmCgo=
+EXPECT=<<EOF
+pop rbp
+jmp sym.register_tm_clones
+push rbp
+mov rbp, rsp
+mov edi, str.Hello_World
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+pi -5 @ 0x0040050f
+EOF
 RUN
+
 NAME=pi -5 @ 0x0040050f (anal)
 FILE=../bins/elf/analysis/main
-EXPECT64=cG9wIHJicApqbXAgc3ltLnJlZ2lzdGVyX3RtX2Nsb25lcwpwdXNoIHJicAptb3YgcmJwLCByc3AKbW92IGVkaSwgc3RyLkhlbGxvX1dvcmxkCgo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKYWFhCnBpIC01IEAgMHgwMDQwMDUwZgoK
+EXPECT=<<EOF
+pop rbp
+jmp sym.register_tm_clones
+push rbp
+mov rbp, rsp
+mov edi, str.Hello_World
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+aaa
+pi -5 @ 0x0040050f
+EOF
 RUN
+
 NAME=pij -5 @ 0x0040050f
 FILE=../bins/elf/analysis/main
-EXPECT64=W3sib2Zmc2V0Ijo0MTk1NTkwLCJlc2lsIjoicmJwLDgscnNwLC0sPVs4XSw4LHJzcCwtPSIsInJlZnB0ciI6ZmFsc2UsImZjbl9hZGRyIjowLCJmY25fbGFzdCI6MCwic2l6ZSI6MSwib3Bjb2RlIjoicHVzaCByYnAiLCJkaXNhc20iOiJwdXNoIHJicCIsImJ5dGVzIjoiNTUiLCJmYW1pbHkiOiJjcHUiLCJ0eXBlIjoidXB1c2giLCJ0eXBlX251bSI6MTIsInR5cGUyX251bSI6MCwiZmxhZ3MiOlsibWFpbiIsInN5bS5tYWluIl19LHsib2Zmc2V0Ijo0MTk1NTkxLCJlc2lsIjoicnNwLHJicCw9IiwicmVmcHRyIjpmYWxzZSwiZmNuX2FkZHIiOjAsImZjbl9sYXN0IjowLCJzaXplIjozLCJvcGNvZGUiOiJtb3YgcmJwLCByc3AiLCJkaXNhc20iOiJtb3YgcmJwLCByc3AiLCJieXRlcyI6IjQ4ODllNSIsImZhbWlseSI6ImNwdSIsInR5cGUiOiJtb3YiLCJ0eXBlX251bSI6OSwidHlwZTJfbnVtIjowfSx7Im9mZnNldCI6NDE5NTU5NCwicHRyIjo0MTk1NzgwLCJ2YWwiOjQxOTU3ODAsImVzaWwiOiI0MTk1NzgwLHJkaSw9IiwicmVmcHRyIjpmYWxzZSwiZmNuX2FkZHIiOjAsImZjbl9sYXN0IjowLCJzaXplIjo1LCJvcGNvZGUiOiJtb3YgZWRpLCAweDQwMDVjNCIsImRpc2FzbSI6Im1vdiBlZGksIHN0ci5IZWxsb19Xb3JsZCIsImJ5dGVzIjoiYmZjNDA1NDAwMCIsImZhbWlseSI6ImNwdSIsInR5cGUiOiJtb3YiLCJ0eXBlX251bSI6OSwidHlwZTJfbnVtIjowfV0K
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKcGlqIC0zIEAgMHgwMDQwMDUwZgoK
+EXPECT='[{"offset":4195590,"esil":"rbp,8,rsp,-,=[8],8,rsp,-=","refptr":false,"fcn_addr":0,"fcn_last":0,"size":1,"opcode":"push rbp","disasm":"push rbp","bytes":"55","family":"cpu","type":"upush","type_num":12,"type2_num":0,"flags":["main","sym.main"]},{"offset":4195591,"esil":"rsp,rbp,=","refptr":false,"fcn_addr":0,"fcn_last":0,"size":3,"opcode":"mov rbp, rsp","disasm":"mov rbp, rsp","bytes":"4889e5","family":"cpu","type":"mov","type_num":9,"type2_num":0},{"offset":4195594,"ptr":4195780,"val":4195780,"esil":"4195780,rdi,=","refptr":false,"fcn_addr":0,"fcn_last":0,"size":5,"opcode":"mov edi, 0x4005c4","disasm":"mov edi, str.Hello_World","bytes":"bfc4054000","family":"cpu","type":"mov","type_num":9,"type2_num":0}]
+'
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+pij -3 @ 0x0040050f
+EOF
 RUN
+
 NAME=pi -5
 FILE=../bins/elf/analysis/main
-EXPECT64=cG9wIHJicApqbXAgc3ltLnJlZ2lzdGVyX3RtX2Nsb25lcwpwdXNoIHJicAptb3YgcmJwLCByc3AKbW92IGVkaSwgc3RyLkhlbGxvX1dvcmxkCgo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKcyAweDAwNDAwNTBmCnBpIC01Cgo=
+EXPECT=<<EOF
+pop rbp
+jmp sym.register_tm_clones
+push rbp
+mov rbp, rsp
+mov edi, str.Hello_World
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+s 0x0040050f
+pi -5
+EOF
 RUN
+
 NAME=pif bsz
 FILE=malloc://1024
-EXPECT64=cG9wIHJieApwb3AgcjEyCnBvcCByMTMKcG9wIHIxNApwb3AgcjE1CnBvcCByYnAKcmV0Cgo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggNWI0MTVjNDE1ZDQxNWU0MTVmNWRjMwphZgpiIDIKcGlmCgo=
+EXPECT=<<EOF
+pop rbx
+pop r12
+pop r13
+pop r14
+pop r15
+pop rbp
+ret
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx 5b415c415d415e415f5dc3
+af
+b 2
+pif
+EOF
 RUN
+
 NAME=pi~?
 FILE=malloc://1024
-EXPECT64=MjAwCjIwMAoyMDAKCg==
-CMDS64=CnBpIDIwMH4/CnBpIDIwMH4/CnBkIDIwMH4/Cgo=
+EXPECT=<<EOF
+200
+200
+200
+EOF
+CMDS=<<EOF
+pi 200~?
+pi 200~?
+pd 200~?
+EOF
 RUN
+
 NAME=tmpbits
 FILE=-
-EXPECT64=MDAKNjQKCg==
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKcDggMSBAYjozMgplIGFzbS5iaXRzCgo=
+EXPECT=<<EOF
+00
+64
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+p8 1 @b:32
+e asm.bits
+EOF
 RUN
+
 NAME=tmpbits
 FILE=-
-EXPECT64=MDAKMzIKCg==
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKcDggMSBAYjo2NAplIGFzbS5iaXRzCgo=
+EXPECT=<<EOF
+00
+32
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+p8 1 @b:64
+e asm.bits
+EOF
 RUN
+
 NAME=pi 3
 FILE=malloc://512
-EXPECT64=bW92IGVheCwgMQpjbXAgcmR4LCByY3gKamcgMHhhCgo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggYjgwMTAwMDAwMDQ4MzljYTdmCnBpIDMKCg==
+EXPECT=<<EOF
+mov eax, 1
+cmp rdx, rcx
+jg 0xa
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f
+pi 3
+EOF
 RUN
+
 NAME=pij 3 (2)
 FILE=malloc://512
-EXPECT64=W3sib2Zmc2V0IjowLCJ2YWwiOjEsImVzaWwiOiIxLHJheCw9IiwicmVmcHRyIjpmYWxzZSwiZmNuX2FkZHIiOjAsImZjbl9sYXN0IjowLCJzaXplIjo1LCJvcGNvZGUiOiJtb3YgZWF4LCAxIiwiZGlzYXNtIjoibW92IGVheCwgMSIsImJ5dGVzIjoiYjgwMTAwMDAwMCIsImZhbWlseSI6ImNwdSIsInR5cGUiOiJtb3YiLCJ0eXBlX251bSI6OSwidHlwZTJfbnVtIjowfSx7Im9mZnNldCI6NSwiZXNpbCI6InJjeCxyZHgsPT0sJHosemYsPSwkYjY0LGNmLD0sJHAscGYsPSwkcyxzZiw9LCRvLG9mLD0iLCJyZWZwdHIiOmZhbHNlLCJmY25fYWRkciI6MCwiZmNuX2xhc3QiOjAsInNpemUiOjMsIm9wY29kZSI6ImNtcCByZHgsIHJjeCIsImRpc2FzbSI6ImNtcCByZHgsIHJjeCIsImJ5dGVzIjoiNDgzOWNhIiwiZmFtaWx5IjoiY3B1IiwidHlwZSI6ImNtcCIsInR5cGVfbnVtIjoxNSwidHlwZTJfbnVtIjowfSx7Im9mZnNldCI6OCwiZXNpbCI6InNmLG9mLCEsXix6ZiwhLCYsP3ssMTAscmlwLD0sfSIsInJlZnB0ciI6ZmFsc2UsImZjbl9hZGRyIjowLCJmY25fbGFzdCI6MCwic2l6ZSI6Miwib3Bjb2RlIjoiamcgMHhhIiwiZGlzYXNtIjoiamcgMHhhIiwiYnl0ZXMiOiI3ZjAwIiwiZmFtaWx5IjoiY3B1IiwidHlwZSI6ImNqbXAiLCJ0eXBlX251bSI6MjE0NzQ4MzY0OSwidHlwZTJfbnVtIjowLCJqdW1wIjoxMCwiZmFpbCI6MTB9XQo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggYjgwMTAwMDAwMDQ4MzljYTdmCnBpaiAzCgo=
+EXPECT='[{"offset":0,"val":1,"esil":"1,rax,=","refptr":false,"fcn_addr":0,"fcn_last":0,"size":5,"opcode":"mov eax, 1","disasm":"mov eax, 1","bytes":"b801000000","family":"cpu","type":"mov","type_num":9,"type2_num":0},{"offset":5,"esil":"rcx,rdx,==,$z,zf,=,$b64,cf,=,$p,pf,=,$s,sf,=,$o,of,=","refptr":false,"fcn_addr":0,"fcn_last":0,"size":3,"opcode":"cmp rdx, rcx","disasm":"cmp rdx, rcx","bytes":"4839ca","family":"cpu","type":"cmp","type_num":15,"type2_num":0},{"offset":8,"esil":"sf,of,!,^,zf,!,&,?{,10,rip,=,}","refptr":false,"fcn_addr":0,"fcn_last":0,"size":2,"opcode":"jg 0xa","disasm":"jg 0xa","bytes":"7f00","family":"cpu","type":"cjmp","type_num":2147483649,"type2_num":0,"jump":10,"fail":10}]
+'
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f
+pij 3
+EOF
 RUN
+
 NAME=pi 6
 FILE=malloc://512
-EXPECT64=bW92IGVheCwgMQpjbXAgcmR4LCByY3gKamcgMHhhCm1vdiBlYXgsIDEKY21wIHJkeCwgcmN4CmpnIDB4MTQKCg==
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggYjgwMTAwMDAwMDQ4MzljYTdmMDBiODAxMDAwMDAwNDgzOWNhN2YwMApwaSA2Cgo=
+EXPECT=<<EOF
+mov eax, 1
+cmp rdx, rcx
+jg 0xa
+mov eax, 1
+cmp rdx, rcx
+jg 0x14
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f00b8010000004839ca7f00
+pi 6
+EOF
 RUN
+
 NAME=pi -3 @ 3
 FILE=malloc://512
-EXPECT64=YWRkIGJ5dGUgW3JheF0sIGFsCmNtcCByZHgsIHJjeApqZyAweGEKCg==
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggYjgwMTAwMDAwMDQ4MzljYTdmMDAKcGkgLTMgQCAxMAoK
+EXPECT=<<EOF
+add byte [rax], al
+cmp rdx, rcx
+jg 0xa
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f00
+pi -3 @ 10
+EOF
 RUN
+
 NAME=pij -3 @ 3
 FILE=malloc://512
-EXPECT64=WwogIHsKICAgICJvZmZzZXQiOiAzLAogICAgInZhbCI6IDIsCiAgICAiZXNpbCI6ICJhbCxyYXgsKz1bMV0sJG8sb2YsPSwkcyxzZiw9LCR6LHpmLD0sJGM3LGNmLD0sJHAscGYsPSIsCiAgICAicmVmcHRyIjogZmFsc2UsCiAgICAiZmNuX2FkZHIiOiAwLAogICAgImZjbl9sYXN0IjogMCwKICAgICJzaXplIjogMiwKICAgICJvcGNvZGUiOiAiYWRkIGJ5dGUgW3JheF0sIGFsIiwKICAgICJkaXNhc20iOiAiYWRkIGJ5dGUgW3JheF0sIGFsIiwKICAgICJieXRlcyI6ICIwMDAwIiwKICAgICJmYW1pbHkiOiAiY3B1IiwKICAgICJ0eXBlIjogImFkZCIsCiAgICAidHlwZV9udW0iOiAxNywKICAgICJ0eXBlMl9udW0iOiAwCiAgfSwKICB7CiAgICAib2Zmc2V0IjogNSwKICAgICJlc2lsIjogInJjeCxyZHgsPT0sJHosemYsPSwkYjY0LGNmLD0sJHAscGYsPSwkcyxzZiw9LCRvLG9mLD0iLAogICAgInJlZnB0ciI6IGZhbHNlLAogICAgImZjbl9hZGRyIjogMCwKICAgICJmY25fbGFzdCI6IDAsCiAgICAic2l6ZSI6IDMsCiAgICAib3Bjb2RlIjogImNtcCByZHgsIHJjeCIsCiAgICAiZGlzYXNtIjogImNtcCByZHgsIHJjeCIsCiAgICAiYnl0ZXMiOiAiNDgzOWNhIiwKICAgICJmYW1pbHkiOiAiY3B1IiwKICAgICJ0eXBlIjogImNtcCIsCiAgICAidHlwZV9udW0iOiAxNSwKICAgICJ0eXBlMl9udW0iOiAwCiAgfSwKICB7CiAgICAib2Zmc2V0IjogOCwKICAgICJlc2lsIjogInNmLG9mLCEsXix6ZiwhLCYsP3ssMTAscmlwLD0sfSIsCiAgICAicmVmcHRyIjogZmFsc2UsCiAgICAiZmNuX2FkZHIiOiAwLAogICAgImZjbl9sYXN0IjogMCwKICAgICJzaXplIjogMiwKICAgICJvcGNvZGUiOiAiamcgMHhhIiwKICAgICJkaXNhc20iOiAiamcgMHhhIiwKICAgICJieXRlcyI6ICI3ZjAwIiwKICAgICJmYW1pbHkiOiAiY3B1IiwKICAgICJ0eXBlIjogImNqbXAiLAogICAgInR5cGVfbnVtIjogMjE0NzQ4MzY0OSwKICAgICJ0eXBlMl9udW0iOiAwLAogICAgImp1bXAiOiAxMCwKICAgICJmYWlsIjogMTAKICB9Cl0K
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggYjgwMTAwMDAwMDQ4MzljYTdmMDAKcGlqIC0zIEAgMTB+e30KCg==
+EXPECT='[
+  {
+    "offset": 3,
+    "val": 2,
+    "esil": "al,rax,+=[1],$o,of,=,$s,sf,=,$z,zf,=,$c7,cf,=,$p,pf,=",
+    "refptr": false,
+    "fcn_addr": 0,
+    "fcn_last": 0,
+    "size": 2,
+    "opcode": "add byte [rax], al",
+    "disasm": "add byte [rax], al",
+    "bytes": "0000",
+    "family": "cpu",
+    "type": "add",
+    "type_num": 17,
+    "type2_num": 0
+  },
+  {
+    "offset": 5,
+    "esil": "rcx,rdx,==,$z,zf,=,$b64,cf,=,$p,pf,=,$s,sf,=,$o,of,=",
+    "refptr": false,
+    "fcn_addr": 0,
+    "fcn_last": 0,
+    "size": 3,
+    "opcode": "cmp rdx, rcx",
+    "disasm": "cmp rdx, rcx",
+    "bytes": "4839ca",
+    "family": "cpu",
+    "type": "cmp",
+    "type_num": 15,
+    "type2_num": 0
+  },
+  {
+    "offset": 8,
+    "esil": "sf,of,!,^,zf,!,&,?{,10,rip,=,}",
+    "refptr": false,
+    "fcn_addr": 0,
+    "fcn_last": 0,
+    "size": 2,
+    "opcode": "jg 0xa",
+    "disasm": "jg 0xa",
+    "bytes": "7f00",
+    "family": "cpu",
+    "type": "cjmp",
+    "type_num": 2147483649,
+    "type2_num": 0,
+    "jump": 10,
+    "fail": 10
+  }
+]
+'
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f00
+pij -3 @ 10~{}
+EOF
 RUN
+
 NAME=pi -10
 FILE=malloc://1024
-EXPECT64=bm9wCm5vcApub3AKbm9wCm5vcApub3AKbm9wCm5vcApub3AKbm9wCgo=
-CMDS64=Cnd4IDkwOTA5MDkwOTA5MDkwOTA5MDkwIDsgcyAxMCA7IHBpIC0xMAoK
+EXPECT=<<EOF
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+EOF
+CMDS=<<EOF
+wx 90909090909090909090 ; s 10 ; pi -10
+EOF
 RUN
+
 NAME=pif bsz
 FILE=malloc://1024
-EXPECT64=cG9wIHJieApwb3AgcjEyCnBvcCByMTMKcG9wIHIxNApwb3AgcjE1CnBvcCByYnAKcmV0Cgo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggNWI0MTVjNDE1ZDQxNWU0MTVmNWRjMwphZgpiIDIKcGlmCgo=
+EXPECT=<<EOF
+pop rbx
+pop r12
+pop r13
+pop r14
+pop r15
+pop rbp
+ret
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx 5b415c415d415e415f5dc3
+af
+b 2
+pif
+EOF
 RUN
+
 NAME=pi~?
 FILE=malloc://1024
-EXPECT64=MjAwCjIwMAoyMDAKCg==
-CMDS64=CnBpIDIwMH4/CnBpIDIwMH4/CnBkIDIwMH4/Cgo=
+EXPECT=<<EOF
+200
+200
+200
+EOF
+CMDS=<<EOF
+pi 200~?
+pi 200~?
+pd 200~?
+EOF
 RUN
+
 NAME=tmpbits
 FILE=-
-EXPECT64=MDAKNjQKCg==
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKcDggMSBAYjozMgplIGFzbS5iaXRzCgo=
+EXPECT=<<EOF
+00
+64
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+p8 1 @b:32
+e asm.bits
+EOF
 RUN
+
 NAME=tmpbits
 FILE=-
-EXPECT64=MDAKMzIKCg==
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKcDggMSBAYjo2NAplIGFzbS5iaXRzCgo=
+EXPECT=<<EOF
+00
+32
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+p8 1 @b:64
+e asm.bits
+EOF
 RUN
+
 NAME=pm hello.c
 FILE=../bins/src/hello.c
-EXPECT64=MHgwMDAwMDAwMCAxIEMgc291cmNlIGNvZGUKCg==
-CMDS64=CnBtCgo=
+EXPECT=<<EOF
+0x00000000 1 C source code
+EOF
+CMDS=<<EOF
+pm
+EOF
 RUN
+
 NAME=pm elf/main
 FILE=../bins/elf/analysis/main
-EXPECT64=MHgwMDAwMDAwMCAxIEVMRiA2NC1iaXQgTFNCIGV4ZWN1dGFibGUsIHg4Ni02NCwgdmVyc2lvbiAxCgo=
+EXPECT=<<EOF
+0x00000000 1 ELF 64-bit LSB executable, x86-64, version 1
+EOF
 ARGS=-n
-CMDS64=CnBtCgo=
+CMDS=<<EOF
+pm
+EOF
 RUN
+
 NAME=pm mach0/fatmach0-3true
 FILE=../bins/mach0/fatmach0-3true
-EXPECT64=MHgwMDAwMDAwMCAxIEZhdC1NYWNoLU8KCg==
+EXPECT=<<EOF
+0x00000000 1 Fat-Mach-O
+EOF
 ARGS=-n
-CMDS64=CnBtCgo=
+CMDS=<<EOF
+pm
+EOF
 RUN
+
 NAME=pm java/Hello.class
 FILE=../bins/java/Hello.class
-EXPECT64=MHgwMDAwMDAwMCAxIEphdmEgQ0xBU1MKCg==
+EXPECT=<<EOF
+0x00000000 1 Java CLASS
+EOF
 ARGS=-n
-CMDS64=CnBtCgo=
+CMDS=<<EOF
+pm
+EOF
 RUN
+
 NAME=pm pe/a.exe
 FILE=../bins/pe/a.exe
-EXPECT64=MHgwMDAwMDAwMCAxIFBFICBmb3IgTVMgV2luZG93cyAoY29uc29sZSkgSW50ZWwgODAzODYgMzItYml0Cgo=
+EXPECT=<<EOF
+0x00000000 1 PE  for MS Windows (console) Intel 80386 32-bit
+EOF
 ARGS=-n
-CMDS64=CnBtCgo=
+CMDS=<<EOF
+pm
+EOF
 RUN
+
 NAME=print raw lines
 FILE=../bins/other/projects/resetc64
-EXPECT64=KzEKNQoK
-CMDS64=CnNsIDUKcHJsIDF+WzBdCmUgbGluZXMuYWJzPXRydWUKcHJsIDF+WzBdCgo=
+EXPECT=<<EOF
++1
+5
+EOF
+CMDS=<<EOF
+sl 5
+prl 1~[0]
+e lines.abs=true
+prl 1~[0]
+EOF
 RUN
+
 NAME=pib from begining of bb
 FILE=../bins/elf/analysis/x64-loop
-EXPECT64=cHVzaCByYnAKbW92IHJicCwgcnNwCnN1YiByc3AsIDB4MjAKbW92IGR3b3JkIFtyYnAgLSAweDE0XSwgZWRpCm1vdiBxd29yZCBbcmJwIC0gMHgyMF0sIHJzaQptb3YgZHdvcmQgW3JicCAtIDRdLCAwCmptcCAweDQwMDUyMwoK
-CMDS64=CnMgbWFpbgphZgpwaWIKCg==
+EXPECT=<<EOF
+push rbp
+mov rbp, rsp
+sub rsp, 0x20
+mov dword [rbp - 0x14], edi
+mov qword [rbp - 0x20], rsi
+mov dword [rbp - 4], 0
+jmp 0x400523
+EOF
+CMDS=<<EOF
+s main
+af
+pib
+EOF
 RUN
+
 NAME=pib inside bb
 FILE=../bins/elf/analysis/x64-loop
-EXPECT64=c3ViIHJzcCwgMHgyMAptb3YgZHdvcmQgW3JicCAtIDB4MTRdLCBlZGkKbW92IHF3b3JkIFtyYnAgLSAweDIwXSwgcnNpCm1vdiBkd29yZCBbcmJwIC0gNF0sIDAKam1wIDB4NDAwNTIzCgo=
-CMDS64=CnMgbWFpbgphZgpzbyAyCnBpYgoK
+EXPECT=<<EOF
+sub rsp, 0x20
+mov dword [rbp - 0x14], edi
+mov qword [rbp - 0x20], rsi
+mov dword [rbp - 4], 0
+jmp 0x400523
+EOF
+CMDS=<<EOF
+s main
+af
+so 2
+pib
+EOF
 RUN
+
 NAME=pI size > bocksize
 FILE=malloc://1024
-EXPECT64=bm9wCm5vcApub3AKbm9wCm5vcApub3AKbm9wCm5vcApub3AKbm9wCgo=
-CMDS64=Cnd4IDkwOTA5MDkwOTA5MDkwOTA5MDkwCmIgMQpwSSAxMAoK
+EXPECT=<<EOF
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+EOF
+CMDS=<<EOF
+wx 90909090909090909090
+b 1
+pI 10
+EOF
 RUN
+
 NAME=p- with "r2 --"
 FILE=--
-EXPECT64=Cg==
-CMDS64=cC0K
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+p-
+EOF
 RUN
+
 NAME=p- with malloc://512
 FILE=malloc://512
-EXPECT64=MHgwIFteX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXSAweDIwMAo=
-CMDS64=cC0K
+EXPECT=<<EOF
+0x0 [^_____________________________________________] 0x200
+EOF
+CMDS=<<EOF
+p-
+EOF
 RUN
+
 NAME=psW 32 widestring
 FILE=../bins/elf/crackme0x00b
-EXPECT64=dzB3Z3JlYXQKCg==
-CMDS64=cHNXIEAgb2JqLnBhc3MuMTk2NAo=
+EXPECT=<<EOF
+w0wgreat
+EOF
+CMDS=<<EOF
+psW @ obj.pass.1964
+EOF
 RUN
+
 NAME=psW 32 widestring leading zeros
 FILE=../bins/elf/crackme0x00b
-EXPECT64=dzB3Z3JlYXQKCg==
-CMDS64=cHNXIEAgMHgwODA0YTAzZQo=
+EXPECT=<<EOF
+w0wgreat
+EOF
+CMDS=<<EOF
+psW @ 0x0804a03e
+EOF
 RUN
+
 NAME=ps leading zeros
 BROKEN=1
 FILE=../bins/elf/crackme0x00b
-EXPECT64=dwoK
-CMDS64=cHMgQCAweDA4MDRhMDNlCg==
+EXPECT=<<EOF
+w
+EOF
+CMDS=<<EOF
+ps @ 0x0804a03e
+EOF
 RUN

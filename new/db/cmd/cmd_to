@@ -1,20 +1,50 @@
 NAME=to
 FILE=-
-EXPECT64=cGYgZGRkIHggeSB6Cgo=
-CMDS64=dG8gLi4vYmlucy9oZWFkZXJzL3MxLmg7dCBTMQo=
+EXPECT=<<EOF
+pf ddd x y z
+EOF
+CMDS=<<EOF
+to ../bins/headers/s1.h;t S1
+EOF
 RUN
+
 NAME=to
 FILE=-
-EXPECT64=cGYgZGRkIHggdGVzdCB6Cgo=
-CMDS64=dG8gLi4vYmlucy9oZWFkZXJzL3MyLmg7IHQgUzEK
+EXPECT=<<EOF
+pf ddd x test z
+EOF
+CMDS=<<EOF
+to ../bins/headers/s2.h; t S1
+EOF
 RUN
+
 NAME=to
 FILE=-
-EXPECT64=cGYgZGRkIHggdGVzdCB6Cgo=
-CMDS64=dG8gLi4vYmlucy9oZWFkZXJzL3MxLmg7IHRvIC4uL2JpbnMvaGVhZGVycy9zMi5oOyB0IFMxCgo=
+EXPECT=<<EOF
+pf ddd x test z
+EOF
+CMDS=<<EOF
+to ../bins/headers/s1.h; to ../bins/headers/s2.h; t S1
+EOF
 RUN
+
 NAME=to arrays
 FILE=-
-EXPECT64=cGYgWzNdZFs0XWRkIHggeSB6CnN0cnVjdAp4LHksegppbnQzMl90LDAsMwppbnQzMl90LDEyLDQKaW50MzJfdCwyOCwwCgo==
-CMDS64=CnRvIC4uL2JpbnMvaGVhZGVycy9zMy5oCnQgUzEKdGsgUzEKdGsgc3RydWN0LlMxCnRrIHN0cnVjdC5TMS54CnRrIHN0cnVjdC5TMS55CnRrIHN0cnVjdC5TMS56Cgo=
+EXPECT=<<EOF
+pf [3]d[4]dd x y z
+struct
+x,y,z
+int32_t,0,3
+int32_t,12,4
+int32_t,28,0
+EOF
+CMDS=<<EOF
+to ../bins/headers/s3.h
+t S1
+tk S1
+tk struct.S1
+tk struct.S1.x
+tk struct.S1.y
+tk struct.S1.z
+EOF
 RUN

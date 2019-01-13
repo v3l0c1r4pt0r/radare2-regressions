@@ -1,77 +1,175 @@
 NAME=md iso
 FILE=../bins/fs/iso.img
-EXPECT64=ZCAuCmQgLi4KZiBMUy4KZiBSRUFETUUuTUQKZiBTRVJWSUNFUy4KCg==
-CMDS64=bWQgL3Jvb3QKCg==
+EXPECT=<<EOF
+d .
+d ..
+f LS.
+f README.MD
+f SERVICES.
+EOF
+CMDS=<<EOF
+md /root
+EOF
 RUN
+
 NAME=md iso3
 FILE=../bins/fs/iso3.img
-EXPECT64=ZCAuCmQgLi4KZCBiaW4KZCBldGMKZiBSRUFETUUubWQKCg==
-CMDS64=bWQgL3Jvb3QKCg==
+EXPECT=<<EOF
+d .
+d ..
+d bin
+d etc
+f README.md
+EOF
+CMDS=<<EOF
+md /root
+EOF
 RUN
+
 NAME=mp gpt
 FILE=../bins/fs/gpt.img
-EXPECT64=MCAwMCAweDAwMDAxMDAwMDAgMHgwMDIwMTAwMDAwCjEgMDAgMHgwMDIwMTAwMDAwIDB4MWIyNDcwMDAwMAoyIDAwIDB4MWIyNDcwMDAwMCAweDFkMWViMDAwMDAKCg==
-CMDS64=bXAgZ3B0Cgo=
+EXPECT=<<EOF
+0 00 0x0000100000 0x0020100000
+1 00 0x0020100000 0x1b24700000
+2 00 0x1b24700000 0x1d1eb00000
+EOF
+CMDS=<<EOF
+mp gpt
+EOF
 RUN
+
 NAME=m iso9660 auto
 FILE=../bins/fs/iso.img
-EXPECT64=aXNvOTY2MAkweDAJL3Jvb3QKCg==
-CMDS64=bQoK
+EXPECT=<<EOF
+iso9660	0x0	/root
+EOF
+CMDS=<<EOF
+m
+EOF
 RUN
+
 NAME=m ext2 auto
 FILE=../bins/fs/ext2.img
-EXPECT64=ZXh0MgkweDAJL3Jvb3QKCg==
-CMDS64=bQoK
+EXPECT=<<EOF
+ext2	0x0	/root
+EOF
+CMDS=<<EOF
+m
+EOF
 RUN
+
 NAME=m hfs auto
 FILE=../bins/fs/hfs.img
-EXPECT64=aGZzCTB4MAkvcm9vdAoK
-CMDS64=bQoK
+EXPECT=<<EOF
+hfs	0x0	/root
+EOF
+CMDS=<<EOF
+m
+EOF
 RUN
+
 NAME=m fat auto
 FILE=../bins/fs/fat.img
-EXPECT64=ZmF0CTB4MAkvcm9vdAoK
-CMDS64=bQoK
+EXPECT=<<EOF
+fat	0x0	/root
+EOF
+CMDS=<<EOF
+m
+EOF
 RUN
+
 NAME=md ext2 auto
 FILE=../bins/fs/ext2.img
-EXPECT64=NgoK
+EXPECT=<<EOF
+6
+EOF
 ARGS=-n
-CMDS64=bSAvcm9vdAptZCAvcm9vdH4/Cgo=
+CMDS=<<EOF
+m /root
+md /root~?
+EOF
 RUN
+
 NAME=md ext2
 FILE=../bins/fs/ext2.img
-EXPECT64=ZCAuCmQgLi4KZCBsb3N0K2ZvdW5kCmQgYmluCmQgZXRjCmYgUkVBRE1FLm1kCgo=
+EXPECT=<<EOF
+d .
+d ..
+d lost+found
+d bin
+d etc
+f README.md
+EOF
 ARGS=-n
-CMDS64=bSAvcm9vdCBleHQyCm1kIC9yb290Cgo=
+CMDS=<<EOF
+m /root ext2
+md /root
+EOF
 RUN
+
 NAME=md ext2 cat file
 FILE=../bins/fs/ext2.img
-EXPECT64=VGhpcyBpcyBhbiBFWFQyIHBhcnRpdGlvbgoKCg==
+EXPECT=<<EOF
+This is an EXT2 partition
+
+EOF
 ARGS=-n
-CMDS64=bSAvcm9vdCBleHQyCm1nIC9yb290L1JFQURNRS5tZAoK
+CMDS=<<EOF
+m /root ext2
+mg /root/README.md
+EOF
 RUN
+
 NAME=md vfat
 FILE=../bins/fs/fat.img
-EXPECT64=ZCBldGMKZCBiaW4KZiBSRUFETUUubWQKCg==
+EXPECT=<<EOF
+d etc
+d bin
+f README.md
+EOF
 ARGS=-n
-CMDS64=bSAvcm9vdCBmYXQKbWQgL3Jvb3QKCg==
+CMDS=<<EOF
+m /root fat
+md /root
+EOF
 RUN
+
 NAME=md fat cat file
 FILE=../bins/fs/fat.img
-EXPECT64=VGhpcyBpcyBhIEZBVCBwYXJ0aXRpb24KCgo=
+EXPECT=<<EOF
+This is a FAT partition
+
+EOF
 ARGS=-n
-CMDS64=bSAvcm9vdCBmYXQKbWcgL3Jvb3QvUkVBRE1FLm1kCgo=
+CMDS=<<EOF
+m /root fat
+mg /root/README.md
+EOF
 RUN
+
 NAME=md hfs
 FILE=../bins/fs/hfs.img
-EXPECT64=ZCBiaW4KZCBldGMKZiBSRUFETUUubWQKCg==
+EXPECT=<<EOF
+d bin
+d etc
+f README.md
+EOF
 ARGS=-n
-CMDS64=bSAvcm9vdCBoZnMKbWQgL3Jvb3QKCg==
+CMDS=<<EOF
+m /root hfs
+md /root
+EOF
 RUN
+
 NAME=md hfs cat file
 FILE=../bins/fs/hfs.img
-EXPECT64=VGhpcyBpcyBhbiBIRlMgcGFydGl0aW9uCgoK
+EXPECT=<<EOF
+This is an HFS partition
+
+EOF
 ARGS=-n
-CMDS64=bSAvcm9vdCBoZnMKbWcgL3Jvb3QvUkVBRE1FLm1kCgo=
+CMDS=<<EOF
+m /root hfs
+mg /root/README.md
+EOF
 RUN

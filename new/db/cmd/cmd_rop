@@ -1,70 +1,227 @@
 NAME=rop search with maxhits
 FILE=../bins/elf/varsub
-CMDS64=ZSBzZWFyY2gubWF4aGl0cz0xCi9SbCBwb3AgcjE1Cg==
-EXPECT64=MHgwMDAwMDUyYzogcG9wIHIxMjsgcG9wIHIxMzsgcG9wIHIxNDsgcG9wIHIxNTsgcmV0Owo=
+CMDS=<<EOF
+e search.maxhits=1
+/Rl pop r15
+EOF
+EXPECT=<<EOF
+0x0000052c: pop r12; pop r13; pop r14; pop r15; ret;
+EOF
 ARGS=-n
 RUN
 
 NAME=rop search without maxhits
 FILE=../bins/elf/varsub
-CMDS64=L1JsIHBvcCByMTV+Pwo=
+CMDS=<<EOF
+/Rl pop r15~?
+EOF
 EXPECT=4
 RUN
 
 NAME=rop search without maxhits
 FILE=../bins/elf/varsub
-CMDS64=ZSBzZWFyY2gubWF4aGl0cz0yCi9SbCBwb3AgcjE1fj8K
+CMDS=<<EOF
+e search.maxhits=2
+/Rl pop r15~?
+EOF
 EXPECT=2
 RUN
 
 NAME=search all rop gadgets
 FILE=../bins/elf/analysis/x86-helloworld-phdr
-EXPECT64=ICAweDAwMDAwMGI0ICAgICAgICAgICAgICAgY2Q4MCAgaW50IDB4ODAKICAweDAwMDAwMGI2ICAgICAgICAgYjgwMTAwMDAwMCAgbW92IGVheCwgMQogIDB4MDAwMDAwYmIgICAgICAgICBiOTAwMDAwMDAwICBtb3YgZWN4LCAwCiAgMHgwMDAwMDBjMCAgICAgICAgICAgICAgIGNkODAgIGludCAweDgwCiAgMHgwMDAwMDBjMiAgICAgICAgICAgICAgICAgYzMgIHJldAoKICAweDAwMDAwMGI1ICAgICA4MGI4MDEwMDAwMDBiOSAgY21wIGJ5dGUgW2VheCArIDFdLCAweGI5CiAgMHgwMDAwMDBiYyAgICAgICAgICAgICAgIDAwMDAgIGFkZCBieXRlIFtlYXhdLCBhbAogIDB4MDAwMDAwYmUgICAgICAgICAgICAgICAwMDAwICBhZGQgYnl0ZSBbZWF4XSwgYWwKICAweDAwMDAwMGMwICAgICAgICAgICAgICAgY2Q4MCAgaW50IDB4ODAKICAweDAwMDAwMGMyICAgICAgICAgICAgICAgICBjMyAgcmV0CgogIDB4MDAwMDAwYjcgICAgICAgICAgICAgICAwMTAwICBhZGQgZHdvcmQgW2VheF0sIGVheAogIDB4MDAwMDAwYjkgICAgICAgICAgICAgICAwMDAwICBhZGQgYnl0ZSBbZWF4XSwgYWwKICAweDAwMDAwMGJiICAgICAgICAgYjkwMDAwMDAwMCAgbW92IGVjeCwgMAogIDB4MDAwMDAwYzAgICAgICAgICAgICAgICBjZDgwICBpbnQgMHg4MAogIDB4MDAwMDAwYzIgICAgICAgICAgICAgICAgIGMzICByZXQKCiAgMHgwMDAwMDBiOCAgICAgICAgICAgICAgIDAwMDAgIGFkZCBieXRlIFtlYXhdLCBhbAogIDB4MDAwMDAwYmEgICAgICAgMDBiOTAwMDAwMDAwICBhZGQgYnl0ZSBbZWN4XSwgYmgKICAweDAwMDAwMGMwICAgICAgICAgICAgICAgY2Q4MCAgaW50IDB4ODAKICAweDAwMDAwMGMyICAgICAgICAgICAgICAgICBjMyAgcmV0CgoK
+EXPECT=<<EOF
+  0x000000b4               cd80  int 0x80
+  0x000000b6         b801000000  mov eax, 1
+  0x000000bb         b900000000  mov ecx, 0
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+  0x000000b5     80b801000000b9  cmp byte [eax + 1], 0xb9
+  0x000000bc               0000  add byte [eax], al
+  0x000000be               0000  add byte [eax], al
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+  0x000000b7               0100  add dword [eax], eax
+  0x000000b9               0000  add byte [eax], al
+  0x000000bb         b900000000  mov ecx, 0
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+  0x000000b8               0000  add byte [eax], al
+  0x000000ba       00b900000000  add byte [ecx], bh
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+EOF
 ARGS=-n
-CMDS64=ZSBhc20ubmJ5dGVzPTgKZSBhc20uYml0cz0zMgovUgoK
+CMDS=<<EOF
+e asm.nbytes=8
+e asm.bits=32
+/R
+EOF
 RUN
+
 NAME=search rop gadgets with a regexp
 FILE=../bins/elf/analysis/x86-helloworld-phdr
-EXPECT64=ICAweDAwMDAwMGI0ICAgICAgICAgICAgICAgY2Q4MCAgaW50IDB4ODAKICAweDAwMDAwMGI2ICAgICAgICAgYjgwMTAwMDAwMCAgbW92IGVheCwgMQogIDB4MDAwMDAwYmIgICAgICAgICBiOTAwMDAwMDAwICBtb3YgZWN4LCAwCiAgMHgwMDAwMDBjMCAgICAgICAgICAgICAgIGNkODAgIGludCAweDgwCiAgMHgwMDAwMDBjMiAgICAgICAgICAgICAgICAgYzMgIHJldAoKICAweDAwMDAwMGI3ICAgICAgICAgICAgICAgMDEwMCAgYWRkIGR3b3JkIFtlYXhdLCBlYXgKICAweDAwMDAwMGI5ICAgICAgICAgICAgICAgMDAwMCAgYWRkIGJ5dGUgW2VheF0sIGFsCiAgMHgwMDAwMDBiYiAgICAgICAgIGI5MDAwMDAwMDAgIG1vdiBlY3gsIDAKICAweDAwMDAwMGMwICAgICAgICAgICAgICAgY2Q4MCAgaW50IDB4ODAKICAweDAwMDAwMGMyICAgICAgICAgICAgICAgICBjMyAgcmV0CgoK
+EXPECT=<<EOF
+  0x000000b4               cd80  int 0x80
+  0x000000b6         b801000000  mov eax, 1
+  0x000000bb         b900000000  mov ecx, 0
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+  0x000000b7               0100  add dword [eax], eax
+  0x000000b9               0000  add byte [eax], al
+  0x000000bb         b900000000  mov ecx, 0
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+EOF
 ARGS=-n
-CMDS64=ZSBhc20uYml0cz0zMgovUi8gbW92IGVbYWJjZF14Cgo=
+CMDS=<<EOF
+e asm.bits=32
+/R/ mov e[abcd]x
+EOF
 RUN
+
 NAME=search rop gadgets and show them linearly
 FILE=../bins/elf/analysis/x86-helloworld-phdr
-EXPECT64=MHgwMDAwMDBiNDogaW50IDB4ODA7IG1vdiBlYXgsIDE7IG1vdiBlY3gsIDA7IGludCAweDgwOyByZXQ7CjB4MDAwMDAwYjU6IGNtcCBieXRlIFtlYXggKyAxXSwgMHhiOTsgYWRkIGJ5dGUgW2VheF0sIGFsOyBhZGQgYnl0ZSBbZWF4XSwgYWw7IGludCAweDgwOyByZXQ7CjB4MDAwMDAwYjc6IGFkZCBkd29yZCBbZWF4XSwgZWF4OyBhZGQgYnl0ZSBbZWF4XSwgYWw7IG1vdiBlY3gsIDA7IGludCAweDgwOyByZXQ7CjB4MDAwMDAwYjg6IGFkZCBieXRlIFtlYXhdLCBhbDsgYWRkIGJ5dGUgW2VjeF0sIGJoOyBpbnQgMHg4MDsgcmV0OwoK
+EXPECT=<<EOF
+0x000000b4: int 0x80; mov eax, 1; mov ecx, 0; int 0x80; ret;
+0x000000b5: cmp byte [eax + 1], 0xb9; add byte [eax], al; add byte [eax], al; int 0x80; ret;
+0x000000b7: add dword [eax], eax; add byte [eax], al; mov ecx, 0; int 0x80; ret;
+0x000000b8: add byte [eax], al; add byte [ecx], bh; int 0x80; ret;
+EOF
 ARGS=-n
-CMDS64=ZSBhc20uYml0cz0zMjsvUmwKCg==
+CMDS=<<EOF
+e asm.bits=32;/Rl
+EOF
 RUN
+
 NAME=search rop gadgets with filter
 FILE=../bins/elf/analysis/x86-helloworld-phdr
-EXPECT64=ICAweDAwMDAwMGI0ICAgICAgICAgICAgICAgY2Q4MCAgaW50IDB4ODAKICAweDAwMDAwMGI2ICAgICAgICAgYjgwMTAwMDAwMCAgbW92IGVheCwgMQogIDB4MDAwMDAwYmIgICAgICAgICBiOTAwMDAwMDAwICBtb3YgZWN4LCAwCiAgMHgwMDAwMDBjMCAgICAgICAgICAgICAgIGNkODAgIGludCAweDgwCiAgMHgwMDAwMDBjMiAgICAgICAgICAgICAgICAgYzMgIHJldAoKICAweDAwMDAwMGI3ICAgICAgICAgICAgICAgMDEwMCAgYWRkIGR3b3JkIFtlYXhdLCBlYXgKICAweDAwMDAwMGI5ICAgICAgICAgICAgICAgMDAwMCAgYWRkIGJ5dGUgW2VheF0sIGFsCiAgMHgwMDAwMDBiYiAgICAgICAgIGI5MDAwMDAwMDAgIG1vdiBlY3gsIDAKICAweDAwMDAwMGMwICAgICAgICAgICAgICAgY2Q4MCAgaW50IDB4ODAKICAweDAwMDAwMGMyICAgICAgICAgICAgICAgICBjMyAgcmV0CgogIDB4MDAwMDAwYjggICAgICAgICAgICAgICAwMDAwICBhZGQgYnl0ZSBbZWF4XSwgYWwKICAweDAwMDAwMGJhICAgICAgIDAwYjkwMDAwMDAwMCAgYWRkIGJ5dGUgW2VjeF0sIGJoCiAgMHgwMDAwMDBjMCAgICAgICAgICAgICAgIGNkODAgIGludCAweDgwCiAgMHgwMDAwMDBjMiAgICAgICAgICAgICAgICAgYzMgIHJldAoKCg==
+EXPECT=<<EOF
+  0x000000b4               cd80  int 0x80
+  0x000000b6         b801000000  mov eax, 1
+  0x000000bb         b900000000  mov ecx, 0
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+  0x000000b7               0100  add dword [eax], eax
+  0x000000b9               0000  add byte [eax], al
+  0x000000bb         b900000000  mov ecx, 0
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+  0x000000b8               0000  add byte [eax], al
+  0x000000ba       00b900000000  add byte [ecx], bh
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+EOF
 ARGS=-n
-CMDS64=ZSBhc20uYml0cz0zMjsgL1IgZWN4Cgo=
+CMDS=<<EOF
+e asm.bits=32; /R ecx
+EOF
 RUN
+
 NAME=search rop gadgets with filter and output JSON
 FILE=../bins/elf/analysis/x86-helloworld-phdr
-EXPECT64=W3sib3Bjb2RlcyI6W3sib2Zmc2V0IjoxODAsInNpemUiOjIsIm9wY29kZSI6ImludCAweDgwIiwidHlwZSI6InN3aSJ9LHsib2Zmc2V0IjoxODIsInNpemUiOjUsIm9wY29kZSI6Im1vdiBlYXgsIDEiLCJ0eXBlIjoibW92In0seyJvZmZzZXQiOjE4Nywic2l6ZSI6NSwib3Bjb2RlIjoibW92IGVjeCwgMCIsInR5cGUiOiJtb3YifSx7Im9mZnNldCI6MTkyLCJzaXplIjoyLCJvcGNvZGUiOiJpbnQgMHg4MCIsInR5cGUiOiJzd2kifSx7Im9mZnNldCI6MTk0LCJzaXplIjoxLCJvcGNvZGUiOiJyZXQiLCJ0eXBlIjoicmV0In1dLCJyZXRhZGRyIjoxOTQsInNpemUiOjE1fSx7Im9wY29kZXMiOlt7Im9mZnNldCI6MTgzLCJzaXplIjoyLCJvcGNvZGUiOiJhZGQgZHdvcmQgW2VheF0sIGVheCIsInR5cGUiOiJhZGQifSx7Im9mZnNldCI6MTg1LCJzaXplIjoyLCJvcGNvZGUiOiJhZGQgYnl0ZSBbZWF4XSwgYWwiLCJ0eXBlIjoiYWRkIn0seyJvZmZzZXQiOjE4Nywic2l6ZSI6NSwib3Bjb2RlIjoibW92IGVjeCwgMCIsInR5cGUiOiJtb3YifSx7Im9mZnNldCI6MTkyLCJzaXplIjoyLCJvcGNvZGUiOiJpbnQgMHg4MCIsInR5cGUiOiJzd2kifSx7Im9mZnNldCI6MTk0LCJzaXplIjoxLCJvcGNvZGUiOiJyZXQiLCJ0eXBlIjoicmV0In1dLCJyZXRhZGRyIjoxOTQsInNpemUiOjEyfSx7Im9wY29kZXMiOlt7Im9mZnNldCI6MTg0LCJzaXplIjoyLCJvcGNvZGUiOiJhZGQgYnl0ZSBbZWF4XSwgYWwiLCJ0eXBlIjoiYWRkIn0seyJvZmZzZXQiOjE4Niwic2l6ZSI6Niwib3Bjb2RlIjoiYWRkIGJ5dGUgW2VjeF0sIGJoIiwidHlwZSI6ImFkZCJ9LHsib2Zmc2V0IjoxOTIsInNpemUiOjIsIm9wY29kZSI6ImludCAweDgwIiwidHlwZSI6InN3aSJ9LHsib2Zmc2V0IjoxOTQsInNpemUiOjEsIm9wY29kZSI6InJldCIsInR5cGUiOiJyZXQifV0sInJldGFkZHIiOjE5NCwic2l6ZSI6MTF9XQoKCg==
+EXPECT='[{"opcodes":[{"offset":180,"size":2,"opcode":"int 0x80","type":"swi"},{"offset":182,"size":5,"opcode":"mov eax, 1","type":"mov"},{"offset":187,"size":5,"opcode":"mov ecx, 0","type":"mov"},{"offset":192,"size":2,"opcode":"int 0x80","type":"swi"},{"offset":194,"size":1,"opcode":"ret","type":"ret"}],"retaddr":194,"size":15},{"opcodes":[{"offset":183,"size":2,"opcode":"add dword [eax], eax","type":"add"},{"offset":185,"size":2,"opcode":"add byte [eax], al","type":"add"},{"offset":187,"size":5,"opcode":"mov ecx, 0","type":"mov"},{"offset":192,"size":2,"opcode":"int 0x80","type":"swi"},{"offset":194,"size":1,"opcode":"ret","type":"ret"}],"retaddr":194,"size":12},{"opcodes":[{"offset":184,"size":2,"opcode":"add byte [eax], al","type":"add"},{"offset":186,"size":6,"opcode":"add byte [ecx], bh","type":"add"},{"offset":192,"size":2,"opcode":"int 0x80","type":"swi"},{"offset":194,"size":1,"opcode":"ret","type":"ret"}],"retaddr":194,"size":11}]
+
+'
 ARGS=-n
-CMDS64=ZSBhc20uYml0cz0zMjsgL1JqIGVjeAo=
+CMDS=<<EOF
+e asm.bits=32; /Rj ecx
+EOF
 RUN
+
 NAME=search rop gadgets with a regex of the form (a|b)
 FILE=../bins/elf/analysis/x86-helloworld-phdr
-EXPECT64=ICAweDAwMDAwMGI0ICAgICAgICAgICAgICAgY2Q4MCAgaW50IDB4ODAKICAweDAwMDAwMGI2ICAgICAgICAgYjgwMTAwMDAwMCAgbW92IGVheCwgMQogIDB4MDAwMDAwYmIgICAgICAgICBiOTAwMDAwMDAwICBtb3YgZWN4LCAwCiAgMHgwMDAwMDBjMCAgICAgICAgICAgICAgIGNkODAgIGludCAweDgwCiAgMHgwMDAwMDBjMiAgICAgICAgICAgICAgICAgYzMgIHJldAoKICAweDAwMDAwMGI1ICAgICA4MGI4MDEwMDAwMDBiOSAgY21wIGJ5dGUgW2VheCArIDFdLCAweGI5CiAgMHgwMDAwMDBiYyAgICAgICAgICAgICAgIDAwMDAgIGFkZCBieXRlIFtlYXhdLCBhbAogIDB4MDAwMDAwYmUgICAgICAgICAgICAgICAwMDAwICBhZGQgYnl0ZSBbZWF4XSwgYWwKICAweDAwMDAwMGMwICAgICAgICAgICAgICAgY2Q4MCAgaW50IDB4ODAKICAweDAwMDAwMGMyICAgICAgICAgICAgICAgICBjMyAgcmV0CgogIDB4MDAwMDAwYjcgICAgICAgICAgICAgICAwMTAwICBhZGQgZHdvcmQgW2VheF0sIGVheAogIDB4MDAwMDAwYjkgICAgICAgICAgICAgICAwMDAwICBhZGQgYnl0ZSBbZWF4XSwgYWwKICAweDAwMDAwMGJiICAgICAgICAgYjkwMDAwMDAwMCAgbW92IGVjeCwgMAogIDB4MDAwMDAwYzAgICAgICAgICAgICAgICBjZDgwICBpbnQgMHg4MAogIDB4MDAwMDAwYzIgICAgICAgICAgICAgICAgIGMzICByZXQKCiAgMHgwMDAwMDBiOCAgICAgICAgICAgICAgIDAwMDAgIGFkZCBieXRlIFtlYXhdLCBhbAogIDB4MDAwMDAwYmEgICAgICAgMDBiOTAwMDAwMDAwICBhZGQgYnl0ZSBbZWN4XSwgYmgKICAweDAwMDAwMGMwICAgICAgICAgICAgICAgY2Q4MCAgaW50IDB4ODAKICAweDAwMDAwMGMyICAgICAgICAgICAgICAgICBjMyAgcmV0CgoK
+EXPECT=<<EOF
+  0x000000b4               cd80  int 0x80
+  0x000000b6         b801000000  mov eax, 1
+  0x000000bb         b900000000  mov ecx, 0
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+  0x000000b5     80b801000000b9  cmp byte [eax + 1], 0xb9
+  0x000000bc               0000  add byte [eax], al
+  0x000000be               0000  add byte [eax], al
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+  0x000000b7               0100  add dword [eax], eax
+  0x000000b9               0000  add byte [eax], al
+  0x000000bb         b900000000  mov ecx, 0
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+  0x000000b8               0000  add byte [eax], al
+  0x000000ba       00b900000000  add byte [ecx], bh
+  0x000000c0               cd80  int 0x80
+  0x000000c2                 c3  ret
+
+EOF
 ARGS=-n
-CMDS64=ZSBhc20uYml0cz0zMgoiL1IvIChlY3h8ZWF4KSIKCg==
+CMDS=<<EOF
+e asm.bits=32
+"/R/ (ecx|eax)"
+EOF
 RUN
+
 NAME=search rop gadgets with another end gadget as part of it.
 FILE=../bins/elf/analysis/unoriginal
-EXPECT64=ICAweDA4MDQ4MzUwICAgICAgICAgICAgICAgZmZmNCAgcHVzaCBlc3AKICAweDA4MDQ4MzUyICAgICAgICAgICAgICAgNjY5MCAgbm9wCiAgMHgwODA0ODM1NCAgICAgICAgICAgICAgIDY2OTAgIG5vcAogIDB4MDgwNDgzNTYgICAgICAgICAgICAgICA2NjkwICBub3AKICAweDA4MDQ4MzU4ICAgICAgICAgICAgICAgNjY5MCAgbm9wCiAgMHgwODA0ODM1YSAgICAgICAgICAgICAgIDY2OTAgIG5vcAogIDB4MDgwNDgzNWMgICAgICAgICAgICAgICA2NjkwICBub3AKICAweDA4MDQ4MzVlICAgICAgICAgICAgICAgNjY5MCAgbm9wCiAgMHgwODA0ODM2MCAgICAgICAgICAgICA4YjFjMjQgIG1vdiBlYngsIGR3b3JkIFtlc3BdCiAgMHgwODA0ODM2MyAgICAgICAgICAgICAgICAgYzMgIHJldAoKCg==
-CMDS64=ZSBhc20uYml0cz0zMgplIHJvcC5sZW49MTUKZSBzZWFyY2guZnJvbT0weDA4MDQ4MzQwCmUgc2VhcmNoLnRvPTB4MDgwNDg0MDAKIi9SIHB1c2ggZXNwIgoK
+EXPECT=<<EOF
+  0x08048350               fff4  push esp
+  0x08048352               6690  nop
+  0x08048354               6690  nop
+  0x08048356               6690  nop
+  0x08048358               6690  nop
+  0x0804835a               6690  nop
+  0x0804835c               6690  nop
+  0x0804835e               6690  nop
+  0x08048360             8b1c24  mov ebx, dword [esp]
+  0x08048363                 c3  ret
+
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e rop.len=15
+e search.from=0x08048340
+e search.to=0x08048400
+"/R push esp"
+EOF
 RUN
+
 NAME=search rop with sequence.
 FILE=../bins/elf/analysis/x86-helloworld-gcc
-EXPECT64=ICAweDA4MDQ4NDIxICAgICAgICAgICAgICAgICA1NyAgcHVzaCBlZGkKICAweDA4MDQ4NDIyICAgICAgICAgICAgICAgMzFmZiAgeG9yIGVkaSwgZWRpCiAgMHgwODA0ODQyNCAgICAgICAgICAgICAgICAgNTYgIHB1c2ggZXNpCiAgMHgwODA0ODQyNSAgICAgICAgICAgICAgICAgNTMgIHB1c2ggZWJ4CiAgMHgwODA0ODQyNiAgICAgICAgIGU4MDVmZmZmZmYgIGNhbGwgMHg4MDQ4MzMwCgoK
-CMDS64=Ii9SIHB1c2ggZXNpO3B1c2ggZWJ4IgoK
+EXPECT=<<EOF
+  0x08048421                 57  push edi
+  0x08048422               31ff  xor edi, edi
+  0x08048424                 56  push esi
+  0x08048425                 53  push ebx
+  0x08048426         e805ffffff  call 0x8048330
+
+EOF
+CMDS=<<EOF
+"/R push esi;push ebx"
+EOF
 RUN
+
 NAME=search rop with regex sequence.
 FILE=../bins/elf/analysis/x86-helloworld-gcc
-EXPECT64=ICAweDA4MDQ4NDIxICAgICAgICAgICAgICAgICA1NyAgcHVzaCBlZGkKICAweDA4MDQ4NDIyICAgICAgICAgICAgICAgMzFmZiAgeG9yIGVkaSwgZWRpCiAgMHgwODA0ODQyNCAgICAgICAgICAgICAgICAgNTYgIHB1c2ggZXNpCiAgMHgwODA0ODQyNSAgICAgICAgICAgICAgICAgNTMgIHB1c2ggZWJ4CiAgMHgwODA0ODQyNiAgICAgICAgIGU4MDVmZmZmZmYgIGNhbGwgMHg4MDQ4MzMwCgoK
-CMDS64=ZSBhc20uYml0cz0zMgoiL1IvIHB1c2ggZXNpO3B1c2ggZWJ4IgoK
+EXPECT=<<EOF
+  0x08048421                 57  push edi
+  0x08048422               31ff  xor edi, edi
+  0x08048424                 56  push esi
+  0x08048425                 53  push ebx
+  0x08048426         e805ffffff  call 0x8048330
+
+EOF
+CMDS=<<EOF
+e asm.bits=32
+"/R/ push esi;push ebx"
+EOF
 RUN

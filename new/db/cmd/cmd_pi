@@ -1,6 +1,13 @@
 NAME=tbz
 FILE=../bins/other/tbz.arm64
-EXPECT64=dGJ6IHgwLCAweDIwLCAweDEwMDAwNDAwMAp0YnogeDAsIDB4MjAsIDB4ZmZmZjgwMDQKdGJueiB4MCwgMHgyMCwgMHgxMDAwMDQwMDgKdGJueiB4MCwgMHgyMCwgMHhmZmZmODAwYwo=
+EXPECT=<<EOF
+tbz x0, 0x20, 0x100004000
+tbz x0, 0x20, 0xffff8004
+tbnz x0, 0x20, 0x100004008
+tbnz x0, 0x20, 0xffff800c
+EOF
 ARGS=-a arm -b64 -m 0x100000000
-CMDS64=cGkgNAo=
+CMDS=<<EOF
+pi 4
+EOF
 RUN

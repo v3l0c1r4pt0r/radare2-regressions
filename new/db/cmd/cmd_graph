@@ -1,111 +1,358 @@
 NAME=one node
 FILE=-
-EXPECT64=YWdyYXBoLm5vZGVzPXRpdGxlMQphZ3JhcGgubm9kZXMudGl0bGUxLmJvZHk9YmFzZTY0OlltOWtlVEU9CmFncmFwaC5ub2Rlcy50aXRsZTEudz0weDE2CmFncmFwaC5ub2Rlcy50aXRsZTEuaD0weDQKCg==
-CMDS64=CmFnbiB0aXRsZTEgYm9keTEKYWdna35ub2Rlcz0KYWdna35ub2Rlcy50aXRsZTEuYm9keQphZ2drfm5vZGVzLnRpdGxlMS53CmFnZ2t+bm9kZXMudGl0bGUxLmgKCg==
+EXPECT=<<EOF
+agraph.nodes=title1
+agraph.nodes.title1.body=base64:Ym9keTE=
+agraph.nodes.title1.w=0x16
+agraph.nodes.title1.h=0x4
+EOF
+CMDS=<<EOF
+agn title1 body1
+aggk~nodes=
+aggk~nodes.title1.body
+aggk~nodes.title1.w
+aggk~nodes.title1.h
+EOF
 RUN
+
 NAME=two nodes
 FILE=-
-EXPECT64=YWdyYXBoLm5vZGVzPVRpdGxlIHdpdGggc3VwZXIgbG9uZyB0ZXh0IGFuZCBzcGFjZSx0aXRsZTIKYWdyYXBoLm5vZGVzLlRpdGxlIHdpdGggc3VwZXIgbG9uZyB0ZXh0IGFuZCBzcGFjZS5ib2R5PWJhc2U2NDpZbTlrZVRFPQphZ3JhcGgubm9kZXMudGl0bGUyLmJvZHk9YmFzZTY0OlUzVndaWEpNYjI1blFtOWtlVmRwZEdoQlRHOTBJRTltSUhSbGVIUWdZVzVrSUhOd1lXTmxjdz09CmFncmFwaC5ub2Rlcy5UaXRsZSB3aXRoIHN1cGVyIGxvbmcgdGV4dCBhbmQgc3BhY2Uudz0weDJhCmFncmFwaC5ub2Rlcy5UaXRsZSB3aXRoIHN1cGVyIGxvbmcgdGV4dCBhbmQgc3BhY2UuaD0weDQKYWdyYXBoLm5vZGVzLnRpdGxlMi53PTB4MmMKYWdyYXBoLm5vZGVzLnRpdGxlMi5oPTB4NAoK
-CMDS64=CmFnbiAiVGl0bGUgd2l0aCBzdXBlciBsb25nIHRleHQgYW5kIHNwYWNlIiBib2R5MQphZ24gdGl0bGUyICJTdXBlckxvbmdCb2R5V2l0aEFMb3QgT2YgdGV4dCBhbmQgc3BhY2VzIgphZ2drfm5vZGVzPQphZ2drfm5vZGVzLlRpdGxlIHdpdGggc3VwZXIgbG9uZyB0ZXh0IGFuZCBzcGFjZS5ib2R5PQphZ2drfm5vZGVzLnRpdGxlMi5ib2R5PQphZ2drfm5vZGVzLlRpdGxlIHdpdGggc3VwZXIgbG9uZyB0ZXh0IGFuZCBzcGFjZS53CmFnZ2t+bm9kZXMuVGl0bGUgd2l0aCBzdXBlciBsb25nIHRleHQgYW5kIHNwYWNlLmgKYWdna35ub2Rlcy50aXRsZTIudwphZ2drfm5vZGVzLnRpdGxlMi5oCgo=
+EXPECT=<<EOF
+agraph.nodes=Title with super long text and space,title2
+agraph.nodes.Title with super long text and space.body=base64:Ym9keTE=
+agraph.nodes.title2.body=base64:U3VwZXJMb25nQm9keVdpdGhBTG90IE9mIHRleHQgYW5kIHNwYWNlcw==
+agraph.nodes.Title with super long text and space.w=0x2a
+agraph.nodes.Title with super long text and space.h=0x4
+agraph.nodes.title2.w=0x2c
+agraph.nodes.title2.h=0x4
+EOF
+CMDS=<<EOF
+agn "Title with super long text and space" body1
+agn title2 "SuperLongBodyWithALot Of text and spaces"
+aggk~nodes=
+aggk~nodes.Title with super long text and space.body=
+aggk~nodes.title2.body=
+aggk~nodes.Title with super long text and space.w
+aggk~nodes.Title with super long text and space.h
+aggk~nodes.title2.w
+aggk~nodes.title2.h
+EOF
 RUN
+
 NAME=base64 body
 FILE=-
-EXPECT64=YWdyYXBoLm5vZGVzLnRpdGxlMS5ib2R5PWJhc2U2NDphR1ZzYkc4Z2QyOXliR1E9Cgo=
-CMDS64=YWduIHRpdGxlMSBiYXNlNjQ6YUdWc2JHOGdkMjl5YkdRPQphZ2drfm5vZGVzLnRpdGxlMS5ib2R5PQoK
+EXPECT=<<EOF
+agraph.nodes.title1.body=base64:aGVsbG8gd29ybGQ=
+EOF
+CMDS=<<EOF
+agn title1 base64:aGVsbG8gd29ybGQ=
+aggk~nodes.title1.body=
+EOF
 RUN
+
 NAME=long base64 body
 FILE=-
-EXPECT64=YWdyYXBoLm5vZGVzLnRpdGxlMS5ib2R5PWJhc2U2NDpkR2hwY3lCcGN5QmhJSFpsY25rZ2JHOXVaeUIwWlhoMElIUm9ZWFFnZDJobGJpQmxibU52WkdWa0lIZHBiR3dnWTJGMWMyVWdZU0FLSUdsdUlIUm9aU0JpWVhObE5qUT0KCg==
-CMDS64=YWduIHRpdGxlMSBiYXNlNjQ6ZEdocGN5QnBjeUJoSUhabGNua2diRzl1WnlCMFpYaDBJSFJvWVhRZ2QyaGxiaUJsYm1OdlpHVmtJSGRwYkd3Z1kyRjFjMlVnWVNBS0lHbHVJSFJvWlNCaVlYTmxOalE9CmFnZ2t+bm9kZXMudGl0bGUxLmJvZHk9Cgo=
+EXPECT=<<EOF
+agraph.nodes.title1.body=base64:dGhpcyBpcyBhIHZlcnkgbG9uZyB0ZXh0IHRoYXQgd2hlbiBlbmNvZGVkIHdpbGwgY2F1c2UgYSAKIGluIHRoZSBiYXNlNjQ=
+EOF
+CMDS=<<EOF
+agn title1 base64:dGhpcyBpcyBhIHZlcnkgbG9uZyB0ZXh0IHRoYXQgd2hlbiBlbmNvZGVkIHdpbGwgY2F1c2UgYSAKIGluIHRoZSBiYXNlNjQ=
+aggk~nodes.title1.body=
+EOF
 RUN
+
 NAME=two nodes same title
 FILE=-
-EXPECT64=YWdyYXBoLm5vZGVzPXRpdGxlMQphZ3JhcGgubm9kZXMudGl0bGUxLmJvZHk9YmFzZTY0OlltOWtlVEU9CmFncmFwaC5ub2Rlcy50aXRsZTEudz0weDE2Cgo=
-CMDS64=YWduIHRpdGxlMSBib2R5MQphZ24gdGl0bGUxICJTdXBlciBsb25nIGJvZHkgd2l0aCBzb21ldGhpbmciCmFnbiB0aXRsZTEgIlN1cGVyIHN1cGVyIHN1cGVyIGxvbmcgYm9keSB0byBkbyB0ZXN0cy4uLi4uLi4uIgphZ2drfm5vZGVzPQphZ2drfm5vZGVzLnRpdGxlMS5ib2R5PQphZ2drfm5vZGVzLnRpdGxlMS53PQoK
+EXPECT=<<EOF
+agraph.nodes=title1
+agraph.nodes.title1.body=base64:Ym9keTE=
+agraph.nodes.title1.w=0x16
+EOF
+CMDS=<<EOF
+agn title1 body1
+agn title1 "Super long body with something"
+agn title1 "Super super super long body to do tests........"
+aggk~nodes=
+aggk~nodes.title1.body=
+aggk~nodes.title1.w=
+EOF
 RUN
+
 NAME=remove node
 FILE=-
-EXPECT64=Cg==
-CMDS64=YWduIHRpdGxlMSBib2R5MQphZ24tIHRpdGxlMQphZ2drfm5vZGVzPQphZ2drfm5vZGVzLnRpdGxlMQoK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+agn title1 body1
+agn- title1
+aggk~nodes=
+aggk~nodes.title1
+EOF
 RUN
+
 NAME=remove node with title that contain spaces
 FILE=-
-EXPECT64=Cg==
-CMDS64=YWduICJUaXRsZSB3aXRoIHNwYWNlcyIgYm9keTEKYWduLSAiVGl0bGUgd2l0aCBzcGFjZXMiCmFnZ2t+bm9kZXM9CmFnZ2t+bm9kZXMuVGl0bGUgd2l0aCBzcGFjZXMKCg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+agn "Title with spaces" body1
+agn- "Title with spaces"
+aggk~nodes=
+aggk~nodes.Title with spaces
+EOF
 RUN
+
 NAME=remove non-existent node
 FILE=-
-EXPECT64=YWdyYXBoLm5vZGVzPVRpdGxlIHdpdGggc3BhY2VzCmFncmFwaC5ub2Rlcy5UaXRsZSB3aXRoIHNwYWNlcy5ib2R5PWJhc2U2NDpZbTlrZVRFPQoK
-CMDS64=YWduICJUaXRsZSB3aXRoIHNwYWNlcyIgYm9keTEKYWduLSBOb3RWYWxpZAphZ2drfm5vZGVzPQphZ2drfm5vZGVzLlRpdGxlIHdpdGggc3BhY2VzLmJvZHk9Cgo=
+EXPECT=<<EOF
+agraph.nodes=Title with spaces
+agraph.nodes.Title with spaces.body=base64:Ym9keTE=
+EOF
+CMDS=<<EOF
+agn "Title with spaces" body1
+agn- NotValid
+aggk~nodes=
+aggk~nodes.Title with spaces.body=
+EOF
 RUN
+
 NAME=remove edge
 FILE=-
-EXPECT64=YWdyYXBoLm5vZGVzPVRpdGxlIHdpdGggc3BhY2VzLFRpdGxlIHdpdGggc3BhY2VzIDIKCg==
-CMDS64=YWduICJUaXRsZSB3aXRoIHNwYWNlcyIgYm9keTEKYWduICJUaXRsZSB3aXRoIHNwYWNlcyAyIiBib2R5MgphZ2UtICJUaXRsZSB3aXRoIHNwYWNlcyIgIlRpdGxlIHdpdGggc3BhY2VzIDIiCmFnZ2t+bm9kZXM9CmFnZ2t+bm9kZXMuVGl0bGUgd2l0aCBzcGFjZXMubmVpZ2hib3Vycz0KCg==
+EXPECT=<<EOF
+agraph.nodes=Title with spaces,Title with spaces 2
+EOF
+CMDS=<<EOF
+agn "Title with spaces" body1
+agn "Title with spaces 2" body2
+age- "Title with spaces" "Title with spaces 2"
+aggk~nodes=
+aggk~nodes.Title with spaces.neighbours=
+EOF
 RUN
+
 NAME=get graph of a function
 FILE=../bins/elf/analysis/hello-linux-x86_64
 BROKEN=1
-EXPECT64=YWdyYXBoLm5vZGVzPTB4NDAwNDEwCgo=
-CMDS64=YWYKYWdnayAkJH5ub2Rlcz0K
+EXPECT=<<EOF
+agraph.nodes=0x400410
+EOF
+CMDS=<<EOF
+af
+aggk $$~nodes=
+EOF
 RUN
+
 NAME=no selected node in non-interactive
 FILE=-
-EXPECT64=Li0tLS0tLS0tLS0tLS0tLS0tLS0tLgp8ICB0aXRsZTEgICAgICAgICAgICB8CnwgYm9keTEgICAgICAgICAgICAgIHwKYC0tLS0tLS0tLS0tLS0tLS0tLS0tJwoK
-CMDS64=YWduIHRpdGxlMSBib2R5MQphZ2cK
+EXPECT=<<EOF
+.--------------------.
+|  title1            |
+| body1              |
+`--------------------'
+EOF
+CMDS=<<EOF
+agn title1 body1
+agg
+EOF
 RUN
+
 NAME=agf one
 FILE=-
-EXPECT64=WzB4MDAwMDAwMDBdPiBWViBAIGZjbi4wMDAwMDAwMCAobm9kZXMgMSBlZGdlcyAwIHpvb20gMTAwJSkgQkItTk9STSBtb3VzZTpjYW52YXMteSBtb3Ytc3BlZWQ6NQouLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS4KfCAgMHgwICAgICAgICAgICAgICAgICB8CnwgKGZjbikgZmNuLjAwMDAwMDAwIDUgfAp8IHB1c2ggZWJwICAgICAgICAgICAgIHwKfCBtb3YgZWJwLCBlc3AgICAgICAgICB8CnwgcG9wIGVicCAgICAgICAgICAgICAgfAp8IHJldCAgICAgICAgICAgICAgICAgIHwKYC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0nCg==
-CMDS64=ZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz0zMgplIGFzbS5jYWxscz1mYWxzZQoid2EgcHVzaCBlYnA7bW92IGVicCxlc3A7cG9wIGVicDtyZXQiCmFmCmFnZgo=
+EXPECT=<<EOF
+[0x00000000]> VV @ fcn.00000000 (nodes 1 edges 0 zoom 100%) BB-NORM mouse:canvas-y mov-speed:5
+.----------------------.
+|  0x0                 |
+| (fcn) fcn.00000000 5 |
+| push ebp             |
+| mov ebp, esp         |
+| pop ebp              |
+| ret                  |
+`----------------------'
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+e asm.calls=false
+"wa push ebp;mov ebp,esp;pop ebp;ret"
+af
+agf
+EOF
 RUN
+
 NAME=agg one
 FILE=-
-EXPECT64=Li0tLS0tLS0tLS0tLS0tLS0tLS0tLgp8ICAweDAgICAgICAgICAgICAgICB8CnwgcHVzaCBlYnAgICAgICAgICAgIHwKfCBtb3YgZWJwLCBlc3AgICAgICAgfAp8IHBvcCBlYnAgICAgICAgICAgICB8CnwgcmV0ICAgICAgICAgICAgICAgIHwKYC0tLS0tLS0tLS0tLS0tLS0tLS0tJwoK
-CMDS64=YWduIDB4MCBiYXNlNjQ6Y0hWemFDQmxZbkFLYlc5MklHVmljQ3dnWlhOd0NuQnZjQ0JsWW5BS2NtVjAKYWdnCg==
+EXPECT=<<EOF
+.--------------------.
+|  0x0               |
+| push ebp           |
+| mov ebp, esp       |
+| pop ebp            |
+| ret                |
+`--------------------'
+EOF
+CMDS=<<EOF
+agn 0x0 base64:cHVzaCBlYnAKbW92IGVicCwgZXNwCnBvcCBlYnAKcmV0
+agg
+EOF
 RUN
+
 NAME=graph size
 FILE=-
-EXPECT64=YWdyYXBoLnc9MAphZ3JhcGguaD0wCmFncmFwaC53PTIyCmFncmFwaC5oPTcKCg==
-CMDS64=YWdna35hZ3JhcGgudz0KYWdna35hZ3JhcGguaD0KYWduIHRpdGxlMSBib2R5MQphZ2drfmFncmFwaC53PQphZ2drfmFncmFwaC5oPQoK
+EXPECT=<<EOF
+agraph.w=0
+agraph.h=0
+agraph.w=22
+agraph.h=7
+EOF
+CMDS=<<EOF
+aggk~agraph.w=
+aggk~agraph.h=
+agn title1 body1
+aggk~agraph.w=
+aggk~agraph.h=
+EOF
 RUN
+
 NAME=graph size with edges
 FILE=-
-EXPECT64=Cg==
-CMDS64=YWduIHRpdGxlMSBib2R5MQphZ24gdGl0bGUyICJib2R5MiBsb25nIGJvZHkgd2l0aCBhIGxvdCBvZiBzcGFjZXMgYW5kIGRvdHMuLi4uIgphZ24gdGl0bGUzIGJvZHkzCmFnZSB0aXRsZTEgdGl0bGUyCmFnZSB0aXRsZTIgdGl0bGUzCmFnZSB0aXRsZTEgdGl0bGUzCmFnZSB0aXRsZTMgdGl0bGUxCmFnZ2t+YWdyYXBoLnc9MHgzNQphZ2cgfCBoZWFkIC0yIHwgdGFpbCAtMSB8IHRyIC1kICIgIiB8IGdyZXAgIj0tLS0tLS0tLS0tLS0tLS0tPSIKCg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+agn title1 body1
+agn title2 "body2 long body with a lot of spaces and dots...."
+agn title3 body3
+age title1 title2
+age title2 title3
+age title1 title3
+age title3 title1
+aggk~agraph.w=0x35
+agg | head -2 | tail -1 | tr -d " " | grep "=----------------="
+EOF
 RUN
+
 NAME=graph size with self-referenced bb
 FILE=-
-EXPECT64=Cg==
-CMDS64=YWduIHRpdGxlMSBib2R5MQphZ2UgdGl0bGUxIHRpdGxlMQphZ2drfmFncmFwaC53PTB4MTYKYWdna35hZ3JhcGguaD0weDQKCg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+agn title1 body1
+age title1 title1
+aggk~agraph.w=0x16
+aggk~agraph.h=0x4
+EOF
 RUN
+
 NAME=graph title
 FILE=-
-EXPECT64=VGhpcyBpcyB0aGUgZ3JhcGggdGl0bGUKLi0tLS0tLS0tLS0tLS0tLS0tLS0tLgp8ICB0aXRsZTEgICAgICAgICAgICB8CnwgYm9keTEgICAgICAgICAgICAgIHwKYC0tLS0tLS0tLS0tLS0tLS0tLS0tJwoK
-CMDS64=YWduIHRpdGxlMSBib2R5MQplIGdyYXBoLnRpdGxlPVRoaXMgaXMgdGhlIGdyYXBoIHRpdGxlCmFnZwoK
+EXPECT=<<EOF
+This is the graph title
+.--------------------.
+|  title1            |
+| body1              |
+`--------------------'
+EOF
+CMDS=<<EOF
+agn title1 body1
+e graph.title=This is the graph title
+agg
+EOF
 RUN
+
 NAME=print r2 commands to create graph
 FILE=-
-EXPECT64=YWduICJ0aXRsZTMiIGJhc2U2NDpkR2hwY3lCcGN5QnRlU0JpYjJSNUNuZHBkR2dnYm1WM2JHbHVaWE09CmFnbiAidGl0bGUyIiBiYXNlNjQ6WW05a2VUST0KYWduICJ0aXRsZTEiIGJhc2U2NDpZbTlrZVRFPQphZ2UgInRpdGxlMyIgInRpdGxlMSIKYWdlICJ0aXRsZTEiICJ0aXRsZTIiCg==
-CMDS64=YWduIHRpdGxlMSBib2R5MQphZ24gdGl0bGUyIGJvZHkyCmFnbiB0aXRsZTMgYmFzZTY0OmRHaHBjeUJwY3lCdGVTQmliMlI1Q25kcGRHZ2dibVYzYkdsdVpYTT0KYWdlIHRpdGxlMSB0aXRsZTIKYWdlIHRpdGxlMyB0aXRsZTEKYWdnKgoK
+EXPECT=<<EOF
+agn "title3" base64:dGhpcyBpcyBteSBib2R5CndpdGggbmV3bGluZXM=
+agn "title2" base64:Ym9keTI=
+agn "title1" base64:Ym9keTE=
+age "title3" "title1"
+age "title1" "title2"
+EOF
+CMDS=<<EOF
+agn title1 body1
+agn title2 body2
+agn title3 base64:dGhpcyBpcyBteSBib2R5CndpdGggbmV3bGluZXM=
+age title1 title2
+age title3 title1
+agg*
+EOF
 RUN
+
 NAME=graph self-ref block
 FILE=-
-EXPECT64=Li0tLS0uCnwgICAgfAp8Li0tLS0tLS0tLS0tLS0tLS0tLS0tLgp8fCAgdGl0bGUxICAgICAgICAgICAgfAp8fCBib2R5MSAgICAgICAgICAgICAgfAp8YC0tLS0tLS0tLS0tLS0tLS0tLS0tJwp8ICAgIHYKfCAgICB8CmAtLS0tJwo=
-CMDS64=YWduIHRpdGxlMSBib2R5MQphZ2UgdGl0bGUxIHRpdGxlMQphZ2cKCg==
+EXPECT=<<EOF
+.----.
+|    |
+|.--------------------.
+||  title1            |
+|| body1              |
+|`--------------------'
+|    v
+|    |
+`----'
+EOF
+CMDS=<<EOF
+agn title1 body1
+age title1 title1
+agg
+EOF
 RUN
+
 NAME=with anal.nopskip
 FILE=../bins/elf/analysis/ls-alxchk
-EXPECT64=Cg==
-CMDS64=ZSBhbmFsLm5vcHNraXA9dHJ1ZQphYWEKcyAweDAwMDExMzkwCmFnZiA+IC9kZXYvbnVsbAoK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+e anal.nopskip=true
+aaa
+s 0x00011390
+agf > /dev/null
+EOF
 RUN
+
 NAME=super mario block (#8788)
 FILE=../bins/elf/analysis/hello-android-mips
-EXPECT64=WzB4MDAwODA0OWNdPiBWViBAIHN1cGVyX21hcmlvX2ZpeCAobm9kZXMgMSBlZGdlcyAwIHpvb20gMTAwJSkgQkItTk9STSBtb3VzZTpjYW52YXMteSBtb3Ytc3BlZWQ6NQouLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS4KfCAgMHg4MDQ5YyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CnwgKGZjbikgc3VwZXJfbWFyaW9fZml4IDggICAgICAgICAgICAgICAgICAgICAgICAgfAp8ICAgc3VwZXJfbWFyaW9fZml4ICgpOyAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKfCAgICA7IHNlZ21lbnQuZWhkciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CnwgbHVpIHYwLCA4ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAp8ICAgIDsgIlx1MDBhMlx1MDBhMlx1MDBhMldvcmxkIiBzZWN0aW9uLi5yb2RhdGEgIHwKfCBhZGRpdSBhMCwgdjAsIDB4NTEwICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CmAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tJwpbMHgwMDA4MDQ5Y10+IFZWIEAgc3VwZXJfbWFyaW9fZml4IChub2RlcyAxIGVkZ2VzIDAgem9vbSAxMDAlKSBCQi1OT1JNIG1vdXNlOmNhbnZhcy15IG1vdi1zcGVlZDo1Ci4tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLgp8ICAweDgwNDljICAgICAgICAgICAgICAgICAgICAgICAgIHwKfCAoZmNuKSBzdXBlcl9tYXJpb19maXggOCAgICAgICAgICB8CnwgICBzdXBlcl9tYXJpb19maXggKCk7ICAgICAgICAgICAgfAp8ICAgIDsgc2VnbWVudC5laGRyICAgICAgICAgICAgICAgIHwKfCBsdWkgdjAsIDggICAgICAgICAgICAgICAgICAgICAgICB8CnwgICAgOyAiLi4uV29ybGQiIHNlY3Rpb24uLnJvZGF0YSAgfAp8IGFkZGl1IGEwLCB2MCwgMHg1MTAgICAgICAgICAgICAgIHwKYC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0nCg==
-CMDS64=ZSBlbXUuc3RyPXRydWUKcyAweDAwMDgwNDljCmFmKyAweDAwMDgwNDljIHN1cGVyX21hcmlvX2ZpeAphZmIrIDB4MDAwODA0OWMgMHgwMDA4MDQ5YyA4CmUgaW8uY2FjaGU9dHJ1ZQp3eCBjMmEyYzJhMmMyYTIgQCAweDgwNTEwCmUgYXNtLnN0cmVuYz11dGY4CmFnZgplIHNjci5zdHJjb252PWFzY2lpZG90CmFnZgo=
+EXPECT=<<EOF
+[0x0008049c]> VV @ super_mario_fix (nodes 1 edges 0 zoom 100%) BB-NORM mouse:canvas-y mov-speed:5
+.-------------------------------------------------.
+|  0x8049c                                        |
+| (fcn) super_mario_fix 8                         |
+|   super_mario_fix ();                           |
+|    ; segment.ehdr                               |
+| lui v0, 8                                       |
+|    ; "\u00a2\u00a2\u00a2World" section..rodata  |
+| addiu a0, v0, 0x510                             |
+`-------------------------------------------------'
+[0x0008049c]> VV @ super_mario_fix (nodes 1 edges 0 zoom 100%) BB-NORM mouse:canvas-y mov-speed:5
+.----------------------------------.
+|  0x8049c                         |
+| (fcn) super_mario_fix 8          |
+|   super_mario_fix ();            |
+|    ; segment.ehdr                |
+| lui v0, 8                        |
+|    ; "...World" section..rodata  |
+| addiu a0, v0, 0x510              |
+`----------------------------------'
+EOF
+CMDS=<<EOF
+e emu.str=true
+s 0x0008049c
+af+ 0x0008049c super_mario_fix
+afb+ 0x0008049c 0x0008049c 8
+e io.cache=true
+wx c2a2c2a2c2a2 @ 0x80510
+e asm.strenc=utf8
+agf
+e scr.strconv=asciidot
+agf
+EOF
 RUN
+
 NAME=agf
 FILE=../bins/mach0/ls-osx-x86_64
-EXPECT64=
-CMDS64=YWYKYWdmID4gL2Rldi9udWxsCg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+af
+agf > /dev/null
+EOF
 RUN

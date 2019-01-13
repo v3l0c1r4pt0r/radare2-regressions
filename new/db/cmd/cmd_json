@@ -1,15 +1,51 @@
 NAME=test pDj missing newline issue
 FILE=-
-EXPECT64=WwogIHsKICAgICJvZmZzZXQiOiAwLAogICAgInZhbCI6IDEwNCwKICAgICJlc2lsIjogIjEwNCxyZGksKz0sJG8sb2YsPSwkcyxzZiw9LCR6LHpmLD0sJGM2MyxjZiw9LCRwLHBmLD0iLAogICAgInJlZnB0ciI6IGZhbHNlLAogICAgImZjbl9hZGRyIjogMCwKICAgICJmY25fbGFzdCI6IDAsCiAgICAic2l6ZSI6IDQsCiAgICAib3Bjb2RlIjogImFkZCByZGksIDB4NjgiLAogICAgImRpc2FzbSI6ICJhZGQgcmRpLCAweDY4IiwKICAgICJieXRlcyI6ICI0ODgzYzc2OCIsCiAgICAiZmFtaWx5IjogImNwdSIsCiAgICAidHlwZSI6ICJhZGQiLAogICAgInR5cGVfbnVtIjogMTcsCiAgICAidHlwZTJfbnVtIjogMAogIH0KXQoK
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggNDg4M2M3NjgKcERqIDR+e30KCg==
+EXPECT='[
+  {
+    "offset": 0,
+    "val": 104,
+    "esil": "104,rdi,+=,$o,of,=,$s,sf,=,$z,zf,=,$c63,cf,=,$p,pf,=",
+    "refptr": false,
+    "fcn_addr": 0,
+    "fcn_last": 0,
+    "size": 4,
+    "opcode": "add rdi, 0x68",
+    "disasm": "add rdi, 0x68",
+    "bytes": "4883c768",
+    "family": "cpu",
+    "type": "add",
+    "type_num": 17,
+    "type2_num": 0
+  }
+]
+'
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx 4883c768
+pDj 4~{}
+EOF
 RUN
+
 NAME=/j with backlsash
 FILE=../bins/pe/ConsoleApplication1.exe
-EXPECT64=WwogIHsKICAgICJvZmZzZXQiOiA0MjAzOTUyLAogICAgInR5cGUiOiAic3RyaW5nIiwKICAgICJkYXRhIjogImNhdGlvbjFcXFJlbGVhc2VcXENvbnNvbGVBcHBsaWNhdGlvbjEucGRiICAiCiAgfQpdCg==
-CMDS64=L2ogQ29uc29sZUFwcGxpY2F0aW9uMS5wZGJ+e30KCg==
+EXPECT='[
+  {
+    "offset": 4203952,
+    "type": "string",
+    "data": "cation1\\Release\\ConsoleApplication1.pdb  "
+  }
+]
+'
+CMDS=<<EOF
+/j ConsoleApplication1.pdb~{}
+EOF
 RUN
+
 NAME=empty irj should print empty array
 FILE=-
-EXPECT64=W10K
-CMDS64=CmlyagoK
+EXPECT='[]'
+CMDS=<<EOF
+irj
+EOF
 RUN

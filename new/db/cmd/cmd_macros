@@ -1,61 +1,137 @@
 NAME=(msg x,?e $0)
 FILE=-
-EXPECT64=SGVsbG9Xb3JsZAoK
-CMDS64=CiIobXNnIHgsP2UgJDApIgouKG1zZyBIZWxsb1dvcmxkKQo=
+EXPECT=<<EOF
+HelloWorld
+EOF
+CMDS=<<EOF
+"(msg x,?e $0)"
+.(msg HelloWorld)
+EOF
 RUN
+
 NAME=(msg x,?e $0)
 
 FILE=-
-EXPECT64=SGVsbG9Xb3JsZAoK
-CMDS64=CiIobXNnIHgsP2UgJDApIgouKG1zZyBIZWxsb1dvcmxkKQoK
+EXPECT=<<EOF
+HelloWorld
+EOF
+CMDS=<<EOF
+"(msg x,?e $0)"
+.(msg HelloWorld)
+EOF
 RUN
+
 NAME=(msg x,?e $0)
 
 FILE=-
-EXPECT64=SGVsbG9Xb3JsZApoaXoKCg==
-CMDS64=CiIobXNnIHgsP2UgJDApIgouKG1zZyBIZWxsb1dvcmxkKQo/ZSBoaXoKCg==
+EXPECT=<<EOF
+HelloWorld
+hiz
+EOF
+CMDS=<<EOF
+"(msg x,?e $0)"
+.(msg HelloWorld)
+?e hiz
+EOF
 RUN
+
 NAME=.(msg x y,?e $0 $1)
 FILE=-
-EXPECT64=SGVsbG8gV29ybGQKCg==
-CMDS64=CiIobXNnIHggeSw/ZSAkMCAkMSkiCi4obXNnIEhlbGxvIFdvcmxkKQoK
+EXPECT=<<EOF
+Hello World
+EOF
+CMDS=<<EOF
+"(msg x y,?e $0 $1)"
+.(msg Hello World)
+EOF
 RUN
+
 NAME=.(msg "foo bar")
 FILE=-
-EXPECT64=SGVsbG8gV29ybGQKCg==
-CMDS64=CiIobXNnIHgsP2UgJDApIgouKG1zZyAiSGVsbG8gV29ybGQiKQo=
+EXPECT=<<EOF
+Hello World
+EOF
+CMDS=<<EOF
+"(msg x,?e $0)"
+.(msg "Hello World")
+EOF
 RUN
+
 NAME=.(msg foo\ bar)
 FILE=-
-EXPECT64=SGVsbG8gV29ybGQKCg==
-CMDS64=CiIobXNnIHgsP2UgJDApIgouKG1zZyBIZWxsb1wgV29ybGQpCg==
+EXPECT=<<EOF
+Hello World
+EOF
+CMDS=<<EOF
+"(msg x,?e $0)"
+.(msg Hello\ World)
+EOF
 RUN
+
 NAME=(*~?
 FILE=-
-EXPECT64=MgoK
-CMDS64=Cihmb28sYmFyKQooYmFyLGNvdykKKCp+PwoK
+EXPECT=<<EOF
+2
+EOF
+CMDS=<<EOF
+(foo,bar)
+(bar,cow)
+(*~?
+EOF
 RUN
 
 NAME=3(foo,p8 4,s+$0)(1)
 FILE=-
-EXPECT64=MDEwMjAzMDQKMDIwMzA0MDUKMDMwNDA1MDYKCg==
-CMDS64=Cnd4IDAxMDIwMzA0MDUwNjA3MDgwOQozKGZvbyxwOCA0LHMrJDApKDEpCg==
+EXPECT=<<EOF
+01020304
+02030405
+03040506
+EOF
+CMDS=<<EOF
+wx 010203040506070809
+3(foo,p8 4,s+$0)(1)
+EOF
 RUN
 
 NAME=3(foo,?e a,?e b)()
 FILE=-
-EXPECT64=YQpiCmEKYgoK
-CMDS64=CjIoZm9vLD9lIGEsP2UgYikoKQo=
+EXPECT=<<EOF
+a
+b
+a
+b
+EOF
+CMDS=<<EOF
+2(foo,?e a,?e b)()
+EOF
 RUN
 
 NAME=?v $$ @@ foo*
 FILE=-
-EXPECT64=MHgxCjB4MgoweDMK
-CMDS64=ZiBmb28ub25lID0gMQpmIGZvby5iYXIgPSAyCmYgZm9vLmNvdyA9IDMKP3YgJCQgQEAgZm9vKgo=
+EXPECT=<<EOF
+0x1
+0x2
+0x3
+EOF
+CMDS=<<EOF
+f foo.one = 1
+f foo.bar = 2
+f foo.cow = 3
+?v $$ @@ foo*
+EOF
 RUN
 
 NAME=?v
 FILE=-
-EXPECT64=MHgxCjB4MgoweDMK
-CMDS64=ZiBmb28ub25lID0gMQpmIGZvby5iYXIgPSAyCmYgZm9vLmNvdyA9IDMKKCw/diAkJCkoKSBAQCBmb28qCg==
+EXPECT=<<EOF
+0x1
+0x2
+0x3
+EOF
+CMDS=<<EOF
+f foo.one = 1
+f foo.bar = 2
+f foo.cow = 3
+(,?v $$)() @@ foo*
+EOF
 RUN

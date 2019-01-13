@@ -1,6 +1,10 @@
 NAME=dr= double 0x bug
 FILE=-
-EXPECT64=MAoK
+EXPECT=<<EOF
+0
+EOF
 ARGS=-a x86 -b 32
-CMDS64=ZHI9fj8weDB4Cgo=
+CMDS=<<EOF
+dr=~?0x0x
+EOF
 RUN

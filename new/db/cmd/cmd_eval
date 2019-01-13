@@ -1,20 +1,60 @@
 NAME=et
 FILE=-
-EXPECT64=Ym9vbAppbnQKc3RyCmFkZHIKCg==
-CMDS64=ZXQgYXNtLnNsb3cKZXQgYXNtLmJpdHMKZXQgYXNtLmFyY2gKZXQgc2VhcmNoLmZyb20KCg==
+EXPECT=<<EOF
+bool
+int
+str
+addr
+EOF
+CMDS=<<EOF
+et asm.slow
+et asm.bits
+et asm.arch
+et search.from
+EOF
 RUN
+
 NAME=e asm.os
 FILE=../bins/elf/analysis/hello-linux-x86_64
-EXPECT64=aW9zCmRvcwpkYXJ3aW4KbGludXgKZnJlZWJzZApvcGVuYnNkCm5ldGJzZAp3aW5kb3dzCgo=
-CMDS64=ZSBhc20ub3M9Pwo=
+EXPECT=<<EOF
+ios
+dos
+darwin
+linux
+freebsd
+openbsd
+netbsd
+windows
+EOF
+CMDS=<<EOF
+e asm.os=?
+EOF
 RUN
+
 NAME=e asm.cpu
 FILE=../bins/elf/analysis/hello-linux-x86_64
-EXPECT64=bWlwczMyLzY0Cm1pY3JvCnI2CnYzCnYyCgo=
-CMDS64=ZSBhc20uYXJjaD1taXBzCmUgYXNtLmNwdT0/Cgo=
+EXPECT=<<EOF
+mips32/64
+micro
+r6
+v3
+v2
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.cpu=?
+EOF
 RUN
+
 NAME=e asm.syntax
 FILE=-
-EXPECT64=am1wIDEwaAoK
-CMDS64=d3ggZWIwZQplIGFzbS5hcmNoPXg4NgplIGFzbS5zeW50YXg9bWFzbQpwaSAxCgo=
+EXPECT=<<EOF
+jmp 10h
+EOF
+CMDS=<<EOF
+wx eb0e
+e asm.arch=x86
+e asm.syntax=masm
+pi 1
+EOF
 RUN

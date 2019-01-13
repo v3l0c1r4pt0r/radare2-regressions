@@ -1,6 +1,10 @@
 NAME=?e pi backquote color on
 FILE=malloc://1024
-CMDS64=d3ggOTAKZSBzY3IuY29sb3I9dHJ1ZQo/ZSBgcGkgMWAK
+CMDS=<<EOF
+wx 90
+e scr.color=true
+?e `pi 1`
+EOF
 EXPECT=<<EOF
 nop
 EOF

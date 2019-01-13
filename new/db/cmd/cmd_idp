@@ -1,10 +1,27 @@
 NAME=idp flags
 FILE=../bins/pdb/SimplePDB.exe
-CMDS64=aWRwIC4uL2JpbnMvcGRiL1NpbXBsZVBEQi5wZGIKZmkgMSBAIDB4MDA0MDEwMDAKZmkgMSBAIDB4MDA0MDEwMTAKCg==
-EXPECT64=MHgwMDQwMTAwMCA0MDk2IHNlY3Rpb24uLnRleHQKMHgwMDQwMTAwMCAwIHBkYi52b2lkX19fY2RlY2xfU29tZUNvb2xGdW5jdGlvbl92b2lkCjB4MDA0MDEwMTAgMCBwZGIuX21haW4K
+CMDS=<<EOF
+idp ../bins/pdb/SimplePDB.pdb
+fi 1 @ 0x00401000
+fi 1 @ 0x00401010
+EOF
+EXPECT=<<EOF
+0x00401000 4096 section..text
+0x00401000 0 pdb.void___cdecl_SomeCoolFunction_void
+0x00401010 0 pdb._main
+EOF
 RUN
+
 NAME=idp bin state bug (#9441)
 FILE=../bins/pdb/SimplePDB.exe
-CMDS64=ZSBhc20uYml0cwppZHBpIC4uL2JpbnMvcGRiL1NpbXBsZVBEQi5wZGJ+U29tZUNvb2xGdW5jdGlvbgplIGFzbS5iaXRzCgo=
-EXPECT64=MzIKMHgwMDQwMTAwMCAgMiAgLnRleHQgIHZvaWQgX19jZGVjbCBTb21lQ29vbEZ1bmN0aW9uKHZvaWQpCjMyCg==
+CMDS=<<EOF
+e asm.bits
+idpi ../bins/pdb/SimplePDB.pdb~SomeCoolFunction
+e asm.bits
+EOF
+EXPECT=<<EOF
+32
+0x00401000  2  .text  void __cdecl SomeCoolFunction(void)
+32
+EOF
 RUN

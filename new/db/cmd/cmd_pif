@@ -1,13 +1,33 @@
 NAME=pif invalid instruction
 FILE=../bins/elf/mentalminer
 BROKEN=1
-EXPECT64=MTM2NwoK
+EXPECT=<<EOF
+1367
+EOF
 ARGS=-A -B 0x555555554000
-CMDS64=CmUgYXNtLmZ1bmN0aW9ucyA9IGZhbHNlCmUgYXNtLmZsYWdzID0gZmFsc2UKZSBhc20uY29tbWVudHMgPSBmYWxzZQplIGFzbS5jYWxscyA9IGZhbHNlCmFhYQpzIHN5bS5wYXJzZV9fSU9fRklMRV9fCnBpZn4/Cgo=
+CMDS=<<EOF
+e asm.functions = false
+e asm.flags = false
+e asm.comments = false
+e asm.calls = false
+aaa
+s sym.parse__IO_FILE__
+pif~?
+EOF
 RUN
+
 NAME=pif invalid instruction
 FILE=../bins/elf/mentalminer
-EXPECT64=MTEKCg==
+EXPECT=<<EOF
+11
+EOF
 ARGS=-A -B 0x555555554000
-CMDS64=CmUgYXNtLmZ1bmN0aW9ucyA9IGZhbHNlCmUgYXNtLmZsYWdzID0gZmFsc2UKZSBhc20uY29tbWVudHMgPSBmYWxzZQplIGFzbS5jYWxscyA9IGZhbHNlCmFhYQpwaWZ+PwoK
+CMDS=<<EOF
+e asm.functions = false
+e asm.flags = false
+e asm.comments = false
+e asm.calls = false
+aaa
+pif~?
+EOF
 RUN

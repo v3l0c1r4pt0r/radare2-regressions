@@ -1,65 +1,244 @@
 NAME=PE JSON test
 FILE=../bins/pe/ch22.exe
-EXPECT64=W3sibmFtZSI6InNpZ25hdHVyZSIsInR5cGUiOiJ6Iiwib2Zmc2V0IjoxMjgsInZhbHVlIjoxMjgsInN0cmluZyI6IlBFIn0seyJuYW1lIjoiZmlsZUhlYWRlciIsInR5cGUiOiJwZV9pbWFnZV9maWxlX2hlYWRlciIsIm9mZnNldCI6MTMyLCJ2YWx1ZSI6W3sibmFtZSI6Im1hY2hpbmUiLCJ0eXBlIjoiRSIsIm9mZnNldCI6MTMyLCJ2YWx1ZSI6InBlX21hY2hpbmUifSx7Im5hbWUiOiJudW1iZXJPZlNlY3Rpb25zIiwidHlwZSI6InciLCJvZmZzZXQiOjEzNCwidmFsdWUiOjR9LHsibmFtZSI6InRpbWVEYXRlU3RhbXAiLCJ0eXBlIjoidCIsIm9mZnNldCI6MTM2LCJ2YWx1ZSI6IlRodSBTZXAgMTEgMTg6MjE6NDYgMjAxNCJ9LHsibmFtZSI6InBvaW50ZXJUb1N5bWJvbFRhYmxlIiwidHlwZSI6IngiLCJvZmZzZXQiOjE0MCwidmFsdWUiOjB9LHsibmFtZSI6Im51bWJlck9mU3ltYm9scyIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoxNDQsInZhbHVlIjowfSx7Im5hbWUiOiJzaXplT2ZPcHRpb25hbEhlYWRlciIsInR5cGUiOiJ3Iiwib2Zmc2V0IjoxNDgsInZhbHVlIjoyMjR9LHsibmFtZSI6ImNoYXJhY3RlcmlzdGljcyIsInR5cGUiOiJCIiwib2Zmc2V0IjoxNTAsInZhbHVlIjoiMHgwMDAwMDEwMiA6IElNQUdFX0ZJTEVfRVhFQ1VUQUJMRV9JTUFHRSB8IElNQUdFX0ZJTEVfMzJCSVRfTUFDSElORSJ9XX0seyJuYW1lIjoib3B0aW9uYWxIZWFkZXIiLCJ0eXBlIjoicGVfaW1hZ2Vfb3B0aW9uYWxfaGVhZGVyMzIiLCJvZmZzZXQiOjE1MiwidmFsdWUiOlt7Im5hbWUiOiJtYWdpYyIsInR5cGUiOiJFIiwib2Zmc2V0IjoxNTIsInZhbHVlIjoicGVfbWFnaWMifSx7Im5hbWUiOiJtYWpvckxpbmtlclZlcnNpb24iLCJ0eXBlIjoiYiIsIm9mZnNldCI6MTU0LCJ2YWx1ZSI6MTF9LHsibmFtZSI6Im1pbm9yTGlua2VyVmVyc2lvbiIsInR5cGUiOiJiIiwib2Zmc2V0IjoxNTUsInZhbHVlIjowfSx7Im5hbWUiOiJzaXplT2ZDb2RlIiwidHlwZSI6IngiLCJvZmZzZXQiOjE1NiwidmFsdWUiOjEyMjg4fSx7Im5hbWUiOiJzaXplT2ZJbml0aWFsaXplZERhdGEiLCJ0eXBlIjoieCIsIm9mZnNldCI6MTYwLCJ2YWx1ZSI6MTMzMTJ9LHsibmFtZSI6InNpemVPZlVuaW5pdGlhbGl6ZWREYXRhIiwidHlwZSI6IngiLCJvZmZzZXQiOjE2NCwidmFsdWUiOjB9LHsibmFtZSI6ImFkZHJlc3NPZkVudHJ5UG9pbnQiLCJ0eXBlIjoieCIsIm9mZnNldCI6MTY4LCJ2YWx1ZSI6MjAyODZ9LHsibmFtZSI6ImJhc2VPZkNvZGUiLCJ0eXBlIjoieCIsIm9mZnNldCI6MTcyLCJ2YWx1ZSI6ODE5Mn0seyJuYW1lIjoiYmFzZU9mRGF0YSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoxNzYsInZhbHVlIjoyNDU3Nn0seyJuYW1lIjoiaW1hZ2VCYXNlIiwidHlwZSI6IngiLCJvZmZzZXQiOjE4MCwidmFsdWUiOjQxOTQzMDR9LHsibmFtZSI6InNlY3Rpb25BbGlnbm1lbnQiLCJ0eXBlIjoieCIsIm9mZnNldCI6MTg0LCJ2YWx1ZSI6ODE5Mn0seyJuYW1lIjoiZmlsZUFsaWdubWVudCIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoxODgsInZhbHVlIjo1MTJ9LHsibmFtZSI6Im1ham9yT3BlcmF0aW5nU3lzdGVtVmVyc2lvbiIsInR5cGUiOiJ3Iiwib2Zmc2V0IjoxOTIsInZhbHVlIjo0fSx7Im5hbWUiOiJtaW5vck9wZXJhdGluZ1N5c3RlbVZlcnNpb24iLCJ0eXBlIjoidyIsIm9mZnNldCI6MTk0LCJ2YWx1ZSI6MH0seyJuYW1lIjoibWFqb3JJbWFnZVZlcnNpb24iLCJ0eXBlIjoidyIsIm9mZnNldCI6MTk2LCJ2YWx1ZSI6MH0seyJuYW1lIjoibWlub3JJbWFnZVZlcnNpb24iLCJ0eXBlIjoidyIsIm9mZnNldCI6MTk4LCJ2YWx1ZSI6MH0seyJuYW1lIjoibWFqb3JTdWJzeXN0ZW1WZXJzaW9uIiwidHlwZSI6InciLCJvZmZzZXQiOjIwMCwidmFsdWUiOjZ9LHsibmFtZSI6Im1pbm9yU3Vic3lzdGVtVmVyc2lvbiIsInR5cGUiOiJ3Iiwib2Zmc2V0IjoyMDIsInZhbHVlIjowfSx7Im5hbWUiOiJ3aW4zMlZlcnNpb25WYWx1ZSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyMDQsInZhbHVlIjowfSx7Im5hbWUiOiJzaXplT2ZJbWFnZSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyMDgsInZhbHVlIjo1NzM0NH0seyJuYW1lIjoic2l6ZU9mSGVhZGVycyIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyMTIsInZhbHVlIjoxMDI0fSx7Im5hbWUiOiJjaGVja1N1bSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyMTYsInZhbHVlIjowfSx7Im5hbWUiOiJzdWJzeXN0ZW0iLCJ0eXBlIjoiRSIsIm9mZnNldCI6MjIwLCJ2YWx1ZSI6InBlX3N1YnN5c3RlbSJ9LHsibmFtZSI6ImRsbENoYXJhY3RlcmlzdGljcyIsInR5cGUiOiJCIiwib2Zmc2V0IjoyMjIsInZhbHVlIjoiMHgwMDAwODU2MCA6IElNQUdFX0RMTENIQVJBQ1RFUklTVElDU19ISUdIX0VOVFJPUFlfVkEgfCBJTUFHRV9ETExDSEFSQUNURVJJU1RJQ1NfRFlOQU1JQ19CQVNFIHwgSU1BR0VfRExMQ0hBUkFDVEVSSVNUSUNTX05YX0NPTVBBVCB8IElNQUdFX0RMTENIQVJBQ1RFUklTVElDU19OT19TRUggfCBJTUFHRV9ETExDSEFSQUNURVJJU1RJQ1NfVEVSTUlOQUxfU0VSVkVSX0FXQVJFIn0seyJuYW1lIjoic2l6ZU9mU3RhY2tSZXNlcnZlIiwidHlwZSI6IngiLCJvZmZzZXQiOjIyNCwidmFsdWUiOjEwNDg1NzZ9LHsibmFtZSI6InNpemVPZlN0YWNrQ29tbWl0IiwidHlwZSI6IngiLCJvZmZzZXQiOjIyOCwidmFsdWUiOjQwOTZ9LHsibmFtZSI6InNpemVPZkhlYXBSZXNlcnZlIiwidHlwZSI6IngiLCJvZmZzZXQiOjIzMiwidmFsdWUiOjEwNDg1NzZ9LHsibmFtZSI6InNpemVPZkhlYXBDb21taXQiLCJ0eXBlIjoieCIsIm9mZnNldCI6MjM2LCJ2YWx1ZSI6NDA5Nn0seyJuYW1lIjoibG9hZGVyRmxhZ3MiLCJ0eXBlIjoieCIsIm9mZnNldCI6MjQwLCJ2YWx1ZSI6MH0seyJuYW1lIjoibnVtYmVyT2ZSdmFBbmRTaXplcyIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyNDQsInZhbHVlIjoxNn0seyJuYW1lIjoiZGF0YURpcmVjdG9yeSIsInR5cGUiOiJwZV9pbWFnZV9kYXRhX2RpcmVjdG9yeSIsIm9mZnNldCI6MjQ4LCJ2YWx1ZSI6W1sKeyJuYW1lIjoidmlydHVhbEFkZHJlc3MiLCJ0eXBlIjoieCIsIm9mZnNldCI6MjQ4LCJ2YWx1ZSI6MH0seyJuYW1lIjoic2l6ZSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyNTIsInZhbHVlIjowfSx7Im5hbWUiOiJ2aXJ0dWFsQWRkcmVzcyIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyNTYsInZhbHVlIjoyMDIwOH0seyJuYW1lIjoic2l6ZSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyNjAsInZhbHVlIjo3NX0seyJuYW1lIjoidmlydHVhbEFkZHJlc3MiLCJ0eXBlIjoieCIsIm9mZnNldCI6MjY0LCJ2YWx1ZSI6MzI3Njh9LHsibmFtZSI6InNpemUiLCJ0eXBlIjoieCIsIm9mZnNldCI6MjY4LCJ2YWx1ZSI6MTE4NDB9LHsibmFtZSI6InZpcnR1YWxBZGRyZXNzIiwidHlwZSI6IngiLCJvZmZzZXQiOjI3MiwidmFsdWUiOjB9LHsibmFtZSI6InNpemUiLCJ0eXBlIjoieCIsIm9mZnNldCI6Mjc2LCJ2YWx1ZSI6MH0seyJuYW1lIjoidmlydHVhbEFkZHJlc3MiLCJ0eXBlIjoieCIsIm9mZnNldCI6MjgwLCJ2YWx1ZSI6MH0seyJuYW1lIjoic2l6ZSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyODQsInZhbHVlIjowfSx7Im5hbWUiOiJ2aXJ0dWFsQWRkcmVzcyIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyODgsInZhbHVlIjo0OTE1Mn0seyJuYW1lIjoic2l6ZSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyOTIsInZhbHVlIjoxMn0seyJuYW1lIjoidmlydHVhbEFkZHJlc3MiLCJ0eXBlIjoieCIsIm9mZnNldCI6Mjk2LCJ2YWx1ZSI6MjQ1NzZ9LHsibmFtZSI6InNpemUiLCJ0eXBlIjoieCIsIm9mZnNldCI6MzAwLCJ2YWx1ZSI6Mjh9LHsibmFtZSI6InZpcnR1YWxBZGRyZXNzIiwidHlwZSI6IngiLCJvZmZzZXQiOjMwNCwidmFsdWUiOjB9LHsibmFtZSI6InNpemUiLCJ0eXBlIjoieCIsIm9mZnNldCI6MzA4LCJ2YWx1ZSI6MH0seyJuYW1lIjoidmlydHVhbEFkZHJlc3MiLCJ0eXBlIjoieCIsIm9mZnNldCI6MzEyLCJ2YWx1ZSI6MH0seyJuYW1lIjoic2l6ZSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjozMTYsInZhbHVlIjowfSx7Im5hbWUiOiJ2aXJ0dWFsQWRkcmVzcyIsInR5cGUiOiJ4Iiwib2Zmc2V0IjozMjAsInZhbHVlIjowfSx7Im5hbWUiOiJzaXplIiwidHlwZSI6IngiLCJvZmZzZXQiOjMyNCwidmFsdWUiOjB9LHsibmFtZSI6InZpcnR1YWxBZGRyZXNzIiwidHlwZSI6IngiLCJvZmZzZXQiOjMyOCwidmFsdWUiOjB9LHsibmFtZSI6InNpemUiLCJ0eXBlIjoieCIsIm9mZnNldCI6MzMyLCJ2YWx1ZSI6MH0seyJuYW1lIjoidmlydHVhbEFkZHJlc3MiLCJ0eXBlIjoieCIsIm9mZnNldCI6MzM2LCJ2YWx1ZSI6MH0seyJuYW1lIjoic2l6ZSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjozNDAsInZhbHVlIjowfSx7Im5hbWUiOiJ2aXJ0dWFsQWRkcmVzcyIsInR5cGUiOiJ4Iiwib2Zmc2V0IjozNDQsInZhbHVlIjo4MTkyfSx7Im5hbWUiOiJzaXplIiwidHlwZSI6IngiLCJvZmZzZXQiOjM0OCwidmFsdWUiOjh9LHsibmFtZSI6InZpcnR1YWxBZGRyZXNzIiwidHlwZSI6IngiLCJvZmZzZXQiOjM1MiwidmFsdWUiOjB9LHsibmFtZSI6InNpemUiLCJ0eXBlIjoieCIsIm9mZnNldCI6MzU2LCJ2YWx1ZSI6MH0seyJuYW1lIjoidmlydHVhbEFkZHJlc3MiLCJ0eXBlIjoieCIsIm9mZnNldCI6MzYwLCJ2YWx1ZSI6ODIwMH0seyJuYW1lIjoic2l6ZSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjozNjQsInZhbHVlIjo3Mn0seyJuYW1lIjoidmlydHVhbEFkZHJlc3MiLCJ0eXBlIjoieCIsIm9mZnNldCI6MzY4LCJ2YWx1ZSI6MH0seyJuYW1lIjoic2l6ZSIsInR5cGUiOiJ4Iiwib2Zmc2V0IjozNzIsInZhbHVlIjowfV0KXX1dfV0KCg==
+EXPECT='[{"name":"signature","type":"z","offset":128,"value":128,"string":"PE"},{"name":"fileHeader","type":"pe_image_file_header","offset":132,"value":[{"name":"machine","type":"E","offset":132,"value":"pe_machine"},{"name":"numberOfSections","type":"w","offset":134,"value":4},{"name":"timeDateStamp","type":"t","offset":136,"value":"Thu Sep 11 18:21:46 2014"},{"name":"pointerToSymbolTable","type":"x","offset":140,"value":0},{"name":"numberOfSymbols","type":"x","offset":144,"value":0},{"name":"sizeOfOptionalHeader","type":"w","offset":148,"value":224},{"name":"characteristics","type":"B","offset":150,"value":"0x00000102 : IMAGE_FILE_EXECUTABLE_IMAGE | IMAGE_FILE_32BIT_MACHINE"}]},{"name":"optionalHeader","type":"pe_image_optional_header32","offset":152,"value":[{"name":"magic","type":"E","offset":152,"value":"pe_magic"},{"name":"majorLinkerVersion","type":"b","offset":154,"value":11},{"name":"minorLinkerVersion","type":"b","offset":155,"value":0},{"name":"sizeOfCode","type":"x","offset":156,"value":12288},{"name":"sizeOfInitializedData","type":"x","offset":160,"value":13312},{"name":"sizeOfUninitializedData","type":"x","offset":164,"value":0},{"name":"addressOfEntryPoint","type":"x","offset":168,"value":20286},{"name":"baseOfCode","type":"x","offset":172,"value":8192},{"name":"baseOfData","type":"x","offset":176,"value":24576},{"name":"imageBase","type":"x","offset":180,"value":4194304},{"name":"sectionAlignment","type":"x","offset":184,"value":8192},{"name":"fileAlignment","type":"x","offset":188,"value":512},{"name":"majorOperatingSystemVersion","type":"w","offset":192,"value":4},{"name":"minorOperatingSystemVersion","type":"w","offset":194,"value":0},{"name":"majorImageVersion","type":"w","offset":196,"value":0},{"name":"minorImageVersion","type":"w","offset":198,"value":0},{"name":"majorSubsystemVersion","type":"w","offset":200,"value":6},{"name":"minorSubsystemVersion","type":"w","offset":202,"value":0},{"name":"win32VersionValue","type":"x","offset":204,"value":0},{"name":"sizeOfImage","type":"x","offset":208,"value":57344},{"name":"sizeOfHeaders","type":"x","offset":212,"value":1024},{"name":"checkSum","type":"x","offset":216,"value":0},{"name":"subsystem","type":"E","offset":220,"value":"pe_subsystem"},{"name":"dllCharacteristics","type":"B","offset":222,"value":"0x00008560 : IMAGE_DLLCHARACTERISTICS_HIGH_ENTROPY_VA | IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE | IMAGE_DLLCHARACTERISTICS_NX_COMPAT | IMAGE_DLLCHARACTERISTICS_NO_SEH | IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE"},{"name":"sizeOfStackReserve","type":"x","offset":224,"value":1048576},{"name":"sizeOfStackCommit","type":"x","offset":228,"value":4096},{"name":"sizeOfHeapReserve","type":"x","offset":232,"value":1048576},{"name":"sizeOfHeapCommit","type":"x","offset":236,"value":4096},{"name":"loaderFlags","type":"x","offset":240,"value":0},{"name":"numberOfRvaAndSizes","type":"x","offset":244,"value":16},{"name":"dataDirectory","type":"pe_image_data_directory","offset":248,"value":[[
+{"name":"virtualAddress","type":"x","offset":248,"value":0},{"name":"size","type":"x","offset":252,"value":0},{"name":"virtualAddress","type":"x","offset":256,"value":20208},{"name":"size","type":"x","offset":260,"value":75},{"name":"virtualAddress","type":"x","offset":264,"value":32768},{"name":"size","type":"x","offset":268,"value":11840},{"name":"virtualAddress","type":"x","offset":272,"value":0},{"name":"size","type":"x","offset":276,"value":0},{"name":"virtualAddress","type":"x","offset":280,"value":0},{"name":"size","type":"x","offset":284,"value":0},{"name":"virtualAddress","type":"x","offset":288,"value":49152},{"name":"size","type":"x","offset":292,"value":12},{"name":"virtualAddress","type":"x","offset":296,"value":24576},{"name":"size","type":"x","offset":300,"value":28},{"name":"virtualAddress","type":"x","offset":304,"value":0},{"name":"size","type":"x","offset":308,"value":0},{"name":"virtualAddress","type":"x","offset":312,"value":0},{"name":"size","type":"x","offset":316,"value":0},{"name":"virtualAddress","type":"x","offset":320,"value":0},{"name":"size","type":"x","offset":324,"value":0},{"name":"virtualAddress","type":"x","offset":328,"value":0},{"name":"size","type":"x","offset":332,"value":0},{"name":"virtualAddress","type":"x","offset":336,"value":0},{"name":"size","type":"x","offset":340,"value":0},{"name":"virtualAddress","type":"x","offset":344,"value":8192},{"name":"size","type":"x","offset":348,"value":8},{"name":"virtualAddress","type":"x","offset":352,"value":0},{"name":"size","type":"x","offset":356,"value":0},{"name":"virtualAddress","type":"x","offset":360,"value":8200},{"name":"size","type":"x","offset":364,"value":72},{"name":"virtualAddress","type":"x","offset":368,"value":0},{"name":"size","type":"x","offset":372,"value":0}]
+]}]}]
+'
 ARGS=-nn
-CMDS64=ZSBhc20uYml0cz0zMgpzIDB4ODAKcGZqLnBlX250X2ltYWdlX2hlYWRlcnMzMgoK
+CMDS=<<EOF
+e asm.bits=32
+s 0x80
+pfj.pe_nt_image_headers32
+EOF
 RUN
+
 NAME=JSON output
 FILE=malloc://1024
-EXPECT64=W1t7ImluZGV4IjowLCJvZmZzZXQiOjB9LHsibmFtZSI6ImJsYWgiLCJ0eXBlIjoidyIsIm9mZnNldCI6MCwidmFsdWUiOjQ2NjB9LHsibmFtZSI6Im1laCIsInR5cGUiOiJ3Iiwib2Zmc2V0IjoyLCJ2YWx1ZSI6MjY1MDV9LHsibmFtZSI6IkJ1aCIsInR5cGUiOiJwbG9wIiwib2Zmc2V0Ijo0LCJ2YWx1ZSI6W3sibmFtZSI6ImZpcnN0IiwidHlwZSI6ImkiLCJvZmZzZXQiOjQsInZhbHVlIjo2NjZ9LHsibmFtZSI6IkJvaCIsInR5cGUiOiJ0cm9sbCIsIm9mZnNldCI6OCwidmFsdWUiOlt7Im5hbWUiOiJpbnRlZ2VyIiwidHlwZSI6ImkiLCJvZmZzZXQiOjgsInZhbHVlIjo0MDAwfSx7Im5hbWUiOiJ3b3JkIiwidHlwZSI6InciLCJvZmZzZXQiOjEyLCJ2YWx1ZSI6NDJ9LHsibmFtZSI6IkJhaCIsInR5cGUiOiJ0cm9sbCoiLCJvZmZzZXQiOjE0LCJ2YWx1ZSI6NDh9LHsibmFtZSI6ImludGVnZXIiLCJ0eXBlIjoiaSIsIm9mZnNldCI6NDgsInZhbHVlIjoyMH0seyJuYW1lIjoid29yZCIsInR5cGUiOiJ3Iiwib2Zmc2V0Ijo1MiwidmFsdWUiOjU3MzJ9LHsibmFtZSI6IkJhaCIsInR5cGUiOiJ0cm9sbCoiLCJvZmZzZXQiOjU0LCJ2YWx1ZSI6MzJ9LHsibmFtZSI6ImludGVnZXIiLCJ0eXBlIjoiaSIsIm9mZnNldCI6MzIsInZhbHVlIjoxNjY0fSx7Im5hbWUiOiJ3b3JkIiwidHlwZSI6InciLCJvZmZzZXQiOjM2LCJ2YWx1ZSI6MTYzODR9LHsibmFtZSI6IkJhaCIsInR5cGUiOiJ0cm9sbCoiLCJvZmZzZXQiOjM4LCJ2YWx1ZSI6Ik5VTEwifV19LHsibmFtZSI6ImJ3YSIsInR5cGUiOiJ3Iiwib2Zmc2V0IjoxOCwidmFsdWUiOjE2OTE2fV19LHsibmFtZSI6ImZvbyIsInR5cGUiOiJ4Iiwib2Zmc2V0IjoyMCwidmFsdWUiOjU3MzJ9XSxbeyJpbmRleCI6MSwib2Zmc2V0IjoyNH0seyJuYW1lIjoiYmxhaCIsInR5cGUiOiJ3Iiwib2Zmc2V0IjoyNCwidmFsdWUiOjB9LHsibmFtZSI6Im1laCIsInR5cGUiOiJ3Iiwib2Zmc2V0IjoyNiwidmFsdWUiOjB9LHsibmFtZSI6IkJ1aCIsInR5cGUiOiJwbG9wIiwib2Zmc2V0IjoyOCwidmFsdWUiOlt7Im5hbWUiOiJmaXJzdCIsInR5cGUiOiJpIiwib2Zmc2V0IjoyOCwidmFsdWUiOjB9LHsibmFtZSI6IkJvaCIsInR5cGUiOiJ0cm9sbCIsIm9mZnNldCI6MzIsInZhbHVlIjpbeyJuYW1lIjoiaW50ZWdlciIsInR5cGUiOiJpIiwib2Zmc2V0IjozMiwidmFsdWUiOjE2NjR9LHsibmFtZSI6IndvcmQiLCJ0eXBlIjoidyIsIm9mZnNldCI6MzYsInZhbHVlIjoxNjM4NH0seyJuYW1lIjoiQmFoIiwidHlwZSI6InRyb2xsKiIsIm9mZnNldCI6MzgsInZhbHVlIjoiTlVMTCJ9XX0seyJuYW1lIjoiYndhIiwidHlwZSI6InciLCJvZmZzZXQiOjQyLCJ2YWx1ZSI6MH1dfSx7Im5hbWUiOiJmb28iLCJ0eXBlIjoieCIsIm9mZnNldCI6NDQsInZhbHVlIjowfV1dCgo=
-CMDS64=ZSBhc20uYml0cz0zMgp3eCAzNDEyODk2NzlhMDIwMDAwYTAwZjAwMDAyYTAwMzAwMDAwMDAxNDQyNjQxNgp3eCA4MDA2MDAwMDAwNDBAMHgyMAp3eCAxNDAwMDAwMDY0MTYyMDAwMDAwMEAweDMwCnBmLnRyb2xsIGl3Kj8gaW50ZWdlciB3b3JkICh0cm9sbClCYWgKcGYucGxvcCBpP3cgZmlyc3QgKHRyb2xsKUJvaCBid2EKcGYuZ29iZWxpbiAyd3c/eCBibGFoIG1laCAocGxvcClCdWggZm9vCnBmai5nb2JlbGluCgo=
+EXPECT='[[{"index":0,"offset":0},{"name":"blah","type":"w","offset":0,"value":4660},{"name":"meh","type":"w","offset":2,"value":26505},{"name":"Buh","type":"plop","offset":4,"value":[{"name":"first","type":"i","offset":4,"value":666},{"name":"Boh","type":"troll","offset":8,"value":[{"name":"integer","type":"i","offset":8,"value":4000},{"name":"word","type":"w","offset":12,"value":42},{"name":"Bah","type":"troll*","offset":14,"value":48},{"name":"integer","type":"i","offset":48,"value":20},{"name":"word","type":"w","offset":52,"value":5732},{"name":"Bah","type":"troll*","offset":54,"value":32},{"name":"integer","type":"i","offset":32,"value":1664},{"name":"word","type":"w","offset":36,"value":16384},{"name":"Bah","type":"troll*","offset":38,"value":"NULL"}]},{"name":"bwa","type":"w","offset":18,"value":16916}]},{"name":"foo","type":"x","offset":20,"value":5732}],[{"index":1,"offset":24},{"name":"blah","type":"w","offset":24,"value":0},{"name":"meh","type":"w","offset":26,"value":0},{"name":"Buh","type":"plop","offset":28,"value":[{"name":"first","type":"i","offset":28,"value":0},{"name":"Boh","type":"troll","offset":32,"value":[{"name":"integer","type":"i","offset":32,"value":1664},{"name":"word","type":"w","offset":36,"value":16384},{"name":"Bah","type":"troll*","offset":38,"value":"NULL"}]},{"name":"bwa","type":"w","offset":42,"value":0}]},{"name":"foo","type":"x","offset":44,"value":0}]]
+'
+CMDS=<<EOF
+e asm.bits=32
+wx 341289679a020000a00f00002a003000000014426416
+wx 800600000040@0x20
+wx 14000000641620000000@0x30
+pf.troll iw*? integer word (troll)Bah
+pf.plop i?w first (troll)Boh bwa
+pf.gobelin 2ww?x blah meh (plop)Buh foo
+pfj.gobelin
+EOF
 RUN
+
 NAME=access specific element through nested struct
 FILE=malloc://1024
-EXPECT64=ICBCdWggOiAKICAgICAgICAgICAgICAgIHN0cnVjdDxwbG9wPgogICAgICAgZmlyc3QgOiAweDAwMDAwMDA0ID0gNjY2CiAgQnVoIDogCiAgICAgICAgICAgICAgICBzdHJ1Y3Q8cGxvcD4KICAgICAgICAgQm9oIDogCiAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3Q8dHJvbGw+CiAgICAgICAgICAgICAgICAgICAgd29yZCA6IDB4MDAwMDAwMGMgPSAweDAwMmEKCg==
-CMDS64=ZSBhc20uYml0cz0zMgp3eCAzNDEyODk2NzlhMDIwMDAwYTAwZjAwMDAyYTAwMzAwMDAwMDAxNDQyNjQxNgp3eCA4MDA2MDAwMDAwNDBAMHgyMAp3eCAxNDAwMDAwMDY0MTYyMDAwMDAwMEAweDMwCnBmLnRyb2xsIGl3Kj8gaW50ZWdlciB3b3JkICh0cm9sbClCYWgKcGYucGxvcCBpP3cgZmlyc3QgKHRyb2xsKUJvaCBid2EKcGYuZ29iZWxpbiB3dz94IGJsYWggbWVoIChwbG9wKUJ1aCBmb28KcGYuZ29iZWxpbi5CdWguZmlyc3QKcGYuZ29iZWxpbi5CdWguQm9oLndvcmQKCg==
+EXPECT=<<EOF
+  Buh : 
+                struct<plop>
+       first : 0x00000004 = 666
+  Buh : 
+                struct<plop>
+         Boh : 
+                      struct<troll>
+                    word : 0x0000000c = 0x002a
+EOF
+CMDS=<<EOF
+e asm.bits=32
+wx 341289679a020000a00f00002a003000000014426416
+wx 800600000040@0x20
+wx 14000000641620000000@0x30
+pf.troll iw*? integer word (troll)Bah
+pf.plop i?w first (troll)Boh bwa
+pf.gobelin ww?x blah meh (plop)Buh foo
+pf.gobelin.Buh.first
+pf.gobelin.Buh.Boh.word
+EOF
 RUN
+
 NAME=access specific element in an array
 FILE=malloc://1024
-EXPECT64=IHN0ciA6IApbCiAgICAgICAgICAgICAgICBzdHJ1Y3Q8cGxvcD4KICAgICAgICAgb25lIDogMHgwMDAwMDAxMCA9IDQwMDAKICAgICAgICAgdHdvIDogMHgwMDAwMDAxNCA9IDB4ZGVhZAogICAgICAgdGhyZWUgOiAweDAwMDAwMDE2ID0gKHF3b3JkKTB4MDAwMDAwMDAwMDAwMDAwMAogICAgICAgIGZvdXIgOiAweDAwMDAwMDFlID0gMHgwMDAwCl0KIHN0ciA6IApbCiAgICAgICAgICAgICAgICBzdHJ1Y3Q8cGxvcD4KICAgICAgICAgdHdvIDogMHgwMDAwMDAxNCA9IDB4ZGVhZApdCgo=
-CMDS64=ZSBhc20uYml0cz0zMgp3eCBhMDBmMDAwMGFkZGUgQCAweDEwCnBmLnBsb3AgaXdxdyBvbmUgdHdvIHRocmVlIGZvdXIKcGYudHJvbGwgWzNdPyAocGxvcClzdHIKcGYudHJvbGwuc3RyWzFdCnBmLnRyb2xsLnN0clsxXS50d28KCg==
+EXPECT=<<EOF
+ str : 
+[
+                struct<plop>
+         one : 0x00000010 = 4000
+         two : 0x00000014 = 0xdead
+       three : 0x00000016 = (qword)0x0000000000000000
+        four : 0x0000001e = 0x0000
+]
+ str : 
+[
+                struct<plop>
+         two : 0x00000014 = 0xdead
+]
+EOF
+CMDS=<<EOF
+e asm.bits=32
+wx a00f0000adde @ 0x10
+pf.plop iwqw one two three four
+pf.troll [3]? (plop)str
+pf.troll.str[1]
+pf.troll.str[1].two
+EOF
 RUN
+
 NAME=Complex request with specific array element and specific field
 FILE=../bins/pe/ch22.exe
-EXPECT64=ICAgICAgZV9yZXMgOiAweDAwMDAwMGEwID0gWyAweDM0MDAgXQogICAgIGVfcmVzMiA6IDB4MDAwMDAwYjggPSBbIDB4MjAwMCBdCgo=
+EXPECT=<<EOF
+      e_res : 0x000000a0 = [ 0x3400 ]
+     e_res2 : 0x000000b8 = [ 0x2000 ]
+EOF
 ARGS=-nn
-CMDS64=ZSBhc20uYml0cz0zMgpzIDB4ODAKcGYucGVfZG9zX2hlYWRlci5lX3Jlc1syXQpwZi5wZV9kb3NfaGVhZGVyLmVfcmVzMls4XQoK
+CMDS=<<EOF
+e asm.bits=32
+s 0x80
+pf.pe_dos_header.e_res[2]
+pf.pe_dos_header.e_res2[8]
+EOF
 RUN
+
 NAME=write specific element through nested struct
 FILE=malloc://1024
-EXPECT64=d3Y0IDQyIEAgNAp3djIgMHhhZGRlIEAgMHgwMDAwMDAyNAogYmxhaCA6IDB4MDAwMDAwMDAgPSAweDEyMzQKICBtZWggOiAweDAwMDAwMDAyID0gMHg2Nzg5CiAgQnVoIDogCiAgICAgICAgICAgICAgICBzdHJ1Y3Q8cGxvcD4KICAgICAgIGZpcnN0IDogMHgwMDAwMDAwNCA9IDQyCiAgICAgICAgIEJvaCA6IAogICAgICAgICAgICAgICAgICAgICAgc3RydWN0PHRyb2xsPgogICAgICAgICAgICAgICAgIGludGVnZXIgOiAweDAwMDAwMDA4ID0gNDAwMAogICAgICAgICAgICAgICAgICAgIHdvcmQgOiAweDAwMDAwMDBjID0gMHgwMDJhCiAgICAgICAgICAgICAgICAgICAgIEJhaCA6ICgqMHgzMCkKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdDx0cm9sbD4KICAgICAgICAgICAgICAgICAgICAgICAgIGludGVnZXIgOiAweDAwMDAwMDMwID0gMjAKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHdvcmQgOiAweDAwMDAwMDM0ID0gMHgxNjY0CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQmFoIDogKCoweDIwKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0PHRyb2xsPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbnRlZ2VyIDogMHgwMDAwMDAyMCA9IDE2NjQKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgd29yZCA6IDB4MDAwMDAwMjQgPSAweGFkZGUKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEJhaCA6ICgqMHgwKSBOVUxMCiAgICAgICAgIGJ3YSA6IDB4MDAwMDAwMTIgPSAweDQyMTQKICBmb28gOiAweDAwMDAwMDE0ID0gMHgwMDAwMTY2NAo=
-CMDS64=ZSBhc20uYml0cz0zMgp3eCAzNDEyODk2NzlhMDIwMDAwYTAwZjAwMDAyYTAwMzAwMDAwMDAxNDQyNjQxNgp3eCA4MDA2MDAwMDAwNDBAMHgyMAp3eCAxNDAwMDAwMDY0MTYyMDAwMDAwMEAweDMwCnBmLnRyb2xsIGl3Kj8gaW50ZWdlciB3b3JkICh0cm9sbClCYWgKcGYucGxvcCBpP3cgZmlyc3QgKHRyb2xsKUJvaCBid2EKcGYuZ29iZWxpbiB3dz94IGJsYWggbWVoIChwbG9wKUJ1aCBmb28KcGYuZ29iZWxpbi5CdWguZmlyc3Q9NDIKLnBmLmdvYmVsaW4uQnVoLmZpcnN0PTQyCnBmLmdvYmVsaW4uQnVoLkJvaC5CYWguQmFoLndvcmQ9MHhhZGRlCi5wZi5nb2JlbGluLkJ1aC5Cb2guQmFoLkJhaC53b3JkPTB4YWRkZQpwZi5nb2JlbGluCgo=
+EXPECT=<<EOF
+wv4 42 @ 4
+wv2 0xadde @ 0x00000024
+ blah : 0x00000000 = 0x1234
+  meh : 0x00000002 = 0x6789
+  Buh : 
+                struct<plop>
+       first : 0x00000004 = 42
+         Boh : 
+                      struct<troll>
+                 integer : 0x00000008 = 4000
+                    word : 0x0000000c = 0x002a
+                     Bah : (*0x30)
+                            struct<troll>
+                         integer : 0x00000030 = 20
+                            word : 0x00000034 = 0x1664
+                             Bah : (*0x20)
+                                  struct<troll>
+                                 integer : 0x00000020 = 1664
+                                    word : 0x00000024 = 0xadde
+                                     Bah : (*0x0) NULL
+         bwa : 0x00000012 = 0x4214
+  foo : 0x00000014 = 0x00001664
+EOF
+CMDS=<<EOF
+e asm.bits=32
+wx 341289679a020000a00f00002a003000000014426416
+wx 800600000040@0x20
+wx 14000000641620000000@0x30
+pf.troll iw*? integer word (troll)Bah
+pf.plop i?w first (troll)Boh bwa
+pf.gobelin ww?x blah meh (plop)Buh foo
+pf.gobelin.Buh.first=42
+.pf.gobelin.Buh.first=42
+pf.gobelin.Buh.Boh.Bah.Bah.word=0xadde
+.pf.gobelin.Buh.Boh.Bah.Bah.word=0xadde
+pf.gobelin
+EOF
 RUN
+
 NAME=print anonymous nested struct
 FILE=malloc://1024
-EXPECT64=IGEgOiAweDAwMDAwMDAwID0gMTkxOTI1MjMzNwogYiA6IDB4MDAwMDAwMDQgPSAndCcKIGMgOiAKICAgICAgICAgICAgICAgIHN0cnVjdDxpP2kgYSAoZHNmKWIgYz4KICAgYSA6IDB4MDAwMDAwMDggPSAxOTM1NzY1NjE1CiAgIGIgOiAKICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdDxkc2Y+CiAgICAgYSA6IDB4MDAwMDAwMGMgPSAxNzUxNjA2ODg0CiAgICAgYiA6IDB4MDAwMDAwMTAgPSAyMDUzOTI1NzM4CiAgIGMgOiAweDAwMDAwMDE0ID0gMTY1MTkyNTg4MAogZCA6IDB4MDAwMDAwMTggPSAyMDAzOTIyMjg2CiBhIDogMHgwMDAwMDAwMCA9IDE5MTkyNTIzMzcKIGIgOiAweDAwMDAwMDA0ID0gJ3QnCiBjIDogKCoweDczNjE3MDZmKQogICAgICAgICAgICAgICAgc3RydWN0PGk/aSBhIChkc2YpYiBjPgogICBhIDogMHg3MzYxNzA2ZiA9IC0xCiAgIGIgOiAKICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdDxkc2Y+CiAgICAgYSA6IDB4NzM2MTcwNzMgPSAtMQogICAgIGIgOiAweDczNjE3MDc3ID0gLTEKICAgYyA6IDB4NzM2MTcwN2IgPSAtMQogZCA6IDB4MDAwMDAwMGMgPSAxNzUxNjA2ODg0Cg==
-CMDS64=ZSBhc20uYml0cz0zMgp3eCA3MTc3NjU3Mjc0Nzk3NTY5NmY3MDYxNzM2NDY2Njc2ODZhNmI2YzdhNzg2Mzc2NjI2ZTZkNzE3NzY1NzI3NDc5NzU2OTZmNzA2MTczNjQ2NjY3Njg2YTZiNmM3YTc4NjM3NjYyNmU2ZApwZi5kc2YgaWkgYSBiCnBmLmFiYyBpYy4uLj9pIGEgYiAocGYgaT9pIGEgKGRzZiliIGMpYyBkCnBmLmRlZiBpYy4uLio/aSBhIGIgKHBmIGk/aSBhIChkc2YpYiBjKWMgZApwZi5hYmMKcGYuZGVmCg==
+EXPECT=<<EOF
+ a : 0x00000000 = 1919252337
+ b : 0x00000004 = 't'
+ c : 
+                struct<i?i a (dsf)b c>
+   a : 0x00000008 = 1935765615
+   b : 
+                      struct<dsf>
+     a : 0x0000000c = 1751606884
+     b : 0x00000010 = 2053925738
+   c : 0x00000014 = 1651925880
+ d : 0x00000018 = 2003922286
+ a : 0x00000000 = 1919252337
+ b : 0x00000004 = 't'
+ c : (*0x7361706f)
+                struct<i?i a (dsf)b c>
+   a : 0x7361706f = -1
+   b : 
+                      struct<dsf>
+     a : 0x73617073 = -1
+     b : 0x73617077 = -1
+   c : 0x7361707b = -1
+ d : 0x0000000c = 1751606884
+EOF
+CMDS=<<EOF
+e asm.bits=32
+wx 71776572747975696f706173646667686a6b6c7a786376626e6d71776572747975696f706173646667686a6b6c7a786376626e6d
+pf.dsf ii a b
+pf.abc ic...?i a b (pf i?i a (dsf)b c)c d
+pf.def ic...*?i a b (pf i?i a (dsf)b c)c d
+pf.abc
+pf.def
+EOF
 RUN
+
 NAME=pf only one size
 FILE=malloc://1024
-EXPECT64=VXNhZ2U6IHBmIFswfGNudF1bZm9ybWF0LXN0cmluZ10KCg==
-CMDS64=CnBmIDE2IDE2Cgo=
+EXPECT=<<EOF
+Usage: pf [0|cnt][format-string]
+EOF
+CMDS=<<EOF
+pf 16 16
+EOF
 RUN
+
 NAME=pf refuse space between size and format-string
 FILE=malloc://1024
-EXPECT64=VXNhZ2U6IHBmIFswfGNudF1bZm9ybWF0LXN0cmluZ10KCg==
-CMDS64=CnBmIDE2IDE2Cgo=
+EXPECT=<<EOF
+Usage: pf [0|cnt][format-string]
+EOF
+CMDS=<<EOF
+pf 16 16
+EOF
 RUN
+
 NAME=pf field name
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCBbMF0gewogICB4MiA6IDB4MDAwMDAwMDAgPSAweDAwMDAwMDAwCn0KMHgwMDAwMDAwNCBbMV0gewogICB4MiA6IDB4MDAwMDAwMDQgPSAweDAwMDAwMDAwCn0KCg==
-CMDS64=cGYgMnggeDIKCg==
+EXPECT=<<EOF
+0x00000000 [0] {
+   x2 : 0x00000000 = 0x00000000
+}
+0x00000004 [1] {
+   x2 : 0x00000004 = 0x00000000
+}
+EOF
+CMDS=<<EOF
+pf 2x x2
+EOF
 RUN
+
 NAME=pf rop64
 FILE=malloc://1024
-EXPECT64=KCoweDIyKXB1c2ggcmJwCigqMHgyMylwb3AgcmF4Cg==
-CMDS64=ZSBhc20uYml0cz02NAp3eCA1NTU4IEAgMHgyMgp3djggMHgyMiBAIDB4NTAKd3Y4IDB4MjMgQCAweDU4CnBmICpEKkQgQCAweDUwCg==
+EXPECT=<<EOF
+(*0x22)push rbp
+(*0x23)pop rax
+EOF
+CMDS=<<EOF
+e asm.bits=64
+wx 5558 @ 0x22
+wv8 0x22 @ 0x50
+wv8 0x23 @ 0x58
+pf *D*D @ 0x50
+EOF
 RUN
+
 NAME=pf rop32
 FILE=malloc://1024
-EXPECT64=KCoweDIyKXB1c2ggZWJwCigqMHgyMylwb3AgZWF4Cg==
-CMDS64=ZSBhc20uYml0cz0zMgp3eCA1NTU4IEAgMHgyMgp3djQgMHgyMiBAIDB4NTAKd3Y0IDB4MjMgQCAweDU0CnBmICpEKkQgQCAweDUwCg==
+EXPECT=<<EOF
+(*0x22)push ebp
+(*0x23)pop eax
+EOF
+CMDS=<<EOF
+e asm.bits=32
+wx 5558 @ 0x22
+wv4 0x22 @ 0x50
+wv4 0x23 @ 0x54
+pf *D*D @ 0x50
+EOF
 RUN
+
 NAME=pf *z (64bit addr)
 FILE=-
 CMDS=<<EXPECT

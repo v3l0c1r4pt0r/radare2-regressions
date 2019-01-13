@@ -1,143 +1,374 @@
 NAME=f?flag
 FILE=-
-EXPECT64=aGVsbG8KCg==
-CMDS64=ZiBmb289MTIzCmY/Zm9vOz8/ID9lIGhlbGxvCmY/YmFyOz8/ID9lIHdvcmxkCgo=
+EXPECT=<<EOF
+hello
+EOF
+CMDS=<<EOF
+f foo=123
+f?foo;?? ?e hello
+f?bar;?? ?e world
+EOF
 RUN
+
 NAME=fs-fd-flags-visibility
 FILE=-
-EXPECT64=dmlzaWJsZQoweDAwMDAwMDAwIDEgdmlzaWJsZQoK
-CMDS64=ZnMgamVqZQpmIGhpZGRlbgpmcyBqb2pvCmYgdmlzaWJsZQpmZApmCgo=
+EXPECT=<<EOF
+visible
+0x00000000 1 visible
+EOF
+CMDS=<<EOF
+fs jeje
+f hidden
+fs jojo
+f visible
+fd
+f
+EOF
 RUN
+
 NAME=f command with space
 FILE=-
-EXPECT64=MHgwMDAwMTAwMCAxIGZvb2JhcgoK
-CMDS64=ZiAgZm9vYmFyPTB4MTAwMApmCgo=
+EXPECT=<<EOF
+0x00001000 1 foobar
+EOF
+CMDS=<<EOF
+f  foobar=0x1000
+f
+EOF
 RUN
+
 NAME=no flags
 FILE=-
-EXPECT64=Cg==
-CMDS64=ZgoK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+f
+EOF
 RUN
+
 NAME=no flags*
 FILE=-
-EXPECT64=Cg==
-CMDS64=ZioKCg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+f*
+EOF
 RUN
+
 NAME=1: fs *
 FILE=../bins/elf/analysis/main
-EXPECT64=MAoK
-CMDS64=ZnMgKgpmc34/XioKCg==
+EXPECT=<<EOF
+0
+EOF
+CMDS=<<EOF
+fs *
+fs~?^*
+EOF
 RUN
+
 NAME=2: fs *
 FILE=../bins/elf/analysis/main
-EXPECT64=Ngo=
-CMDS64=ZnMgKgpmc34/KgoK
+EXPECT=<<EOF
+6
+EOF
+CMDS=<<EOF
+fs *
+fs~?*
+EOF
 RUN
+
 NAME=3: fs *
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCAxIGZsYWdfaW5fZnMxCjB4MDAwMDAwMDAgMSBmbGFnX2luX2ZzMgoK
-CMDS64=ZnMtKgpmcyBmbGFnc3BhY2VfMQpmIGZsYWdfaW5fZnMxCmZzIGZsYWdzcGFjZV8yCmYgZmxhZ19pbl9mczIKZnMgKgpmCgo=
+EXPECT=<<EOF
+0x00000000 1 flag_in_fs1
+0x00000000 1 flag_in_fs2
+EOF
+CMDS=<<EOF
+fs-*
+fs flagspace_1
+f flag_in_fs1
+fs flagspace_2
+f flag_in_fs2
+fs *
+f
+EOF
 RUN
+
 NAME=fs test_flagspace
 FILE=../bins/elf/analysis/main
-EXPECT64=MQoK
-CMDS64=ZnMgdGVzdF9mbGFnc3BhY2UKZnN+P3Rlc3RfZmxhZ3NwYWNlCgo=
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+fs test_flagspace
+fs~?test_flagspace
+EOF
 RUN
+
 NAME=fs-test_flagspace
 FILE=../bins/elf/analysis/main
-EXPECT64=MAoK
-CMDS64=ZnMgdGVzdF9mbGFnc3BhY2UKZnMtdGVzdF9mbGFnc3BhY2UKZnN+P3Rlc3RfZmxhZ3NwYWNlCgo=
+EXPECT=<<EOF
+0
+EOF
+CMDS=<<EOF
+fs test_flagspace
+fs-test_flagspace
+fs~?test_flagspace
+EOF
 RUN
+
 NAME=fs-test_flagspace
 FILE=../bins/elf/analysis/main
-EXPECT64=MAoK
-CMDS64=ZnMtKgpmc34/MAoK
+EXPECT=<<EOF
+0
+EOF
+CMDS=<<EOF
+fs-*
+fs~?0
+EOF
 RUN
+
 NAME=fs-.
 FILE=malloc://1024
-EXPECT64=MAoK
-CMDS64=ZnMgdGVzdF9mbGFnc3BhY2UKZnMgdGVzdF9ibG9oCmZzIHRlc3RfYmxhaApmcy0uCmZzfj90ZXN0X2JsYWgKCg==
+EXPECT=<<EOF
+0
+EOF
+CMDS=<<EOF
+fs test_flagspace
+fs test_bloh
+fs test_blah
+fs-.
+fs~?test_blah
+EOF
 RUN
+
 NAME=fsm
 FILE=../bins/elf/analysis/main
-EXPECT64=MCAgICAxICogdGVzdAoK
-CMDS64=ZnMtKgpmcyB0ZXN0CmZzbSBzdHIuSGVsbG9fV29ybGQgdGVzdApmcwoK
+EXPECT=<<EOF
+0    1 * test
+EOF
+CMDS=<<EOF
+fs-*
+fs test
+fsm str.Hello_World test
+fs
+EOF
 RUN
+
 NAME=fsr
 FILE=../bins/elf/analysis/main
-EXPECT64=MCAgICAwICogdGVzdDIKCg==
-CMDS64=ZnMtKgpmcyB0ZXN0CmZzIHRlc3QKZnNyIHRlc3QyCmZzCgo=
+EXPECT=<<EOF
+0    0 * test2
+EOF
+CMDS=<<EOF
+fs-*
+fs test
+fs test
+fsr test2
+fs
+EOF
 RUN
+
 NAME=fSn
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCAxIGEKMHgwMDAwMDAwMCAxIGIKMHgwMDAwMDAwMCAxIGMKCg==
-CMDS64=ZiBjIEAgMHgwMDAwMDAwMApmIGIgQCAweDAwMDAwMDAwCmYgYSBAIDB4MDAwMDAwMDAKZlNuCmYKCg==
+EXPECT=<<EOF
+0x00000000 1 a
+0x00000000 1 b
+0x00000000 1 c
+EOF
+CMDS=<<EOF
+f c @ 0x00000000
+f b @ 0x00000000
+f a @ 0x00000000
+fSn
+f
+EOF
 RUN
+
 NAME=fSo
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCAxIGMKMHgwMDAwMDAwMSAxIGIKMHgwMDAwMDAwMiAxIGEKCg==
-CMDS64=ZiBhIEAgMHgwMDAwMDAwMgpmIGIgQCAweDAwMDAwMDAxCmYgYyBAIDB4MDAwMDAwMDAKZlNvCmYKCg==
+EXPECT=<<EOF
+0x00000000 1 c
+0x00000001 1 b
+0x00000002 1 a
+EOF
+CMDS=<<EOF
+f a @ 0x00000002
+f b @ 0x00000001
+f c @ 0x00000000
+fSo
+f
+EOF
 RUN
+
 NAME=fr
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCAxIGJsb2gKCg==
-CMDS64=ZiBibGFoCmZyIGJsYWggYmxvaApmCgo=
+EXPECT=<<EOF
+0x00000000 1 bloh
+EOF
+CMDS=<<EOF
+f blah
+fr blah bloh
+f
+EOF
 RUN
+
 NAME=fm
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAxMCAxIGJsYWgKCg==
-CMDS64=ZiBibGFoCmZtIDB4MTAKZgoK
+EXPECT=<<EOF
+0x00000010 1 blah
+EOF
+CMDS=<<EOF
+f blah
+fm 0x10
+f
+EOF
 RUN
+
 NAME=fl
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMwoweDAwMDAwMDIxIDEyIHRlc3QKMHgwMDAwMDAyMSAzMzMgdGVzdAoK
-CMDS64=ZiBibGFoIDB4MDAwMDAwMGEKZmwgYmxhaCAweDAwMDAwMDAzCmZsCmYtYmxhaApmIHRlc3QgMTIgQCAzMwpmCmZsIHRlc3QgMzMzCmYKCg==
+EXPECT=<<EOF
+0x00000003
+0x00000021 12 test
+0x00000021 333 test
+EOF
+CMDS=<<EOF
+f blah 0x0000000a
+fl blah 0x00000003
+fl
+f-blah
+f test 12 @ 33
+f
+fl test 333
+f
+EOF
 RUN
+
 NAME=fj
 FILE=malloc://1024
-EXPECT64=W3sibmFtZSI6ImJsYWgiLCJzaXplIjoxMCwib2Zmc2V0IjoxMX0seyJuYW1lIjoiYmxvaCIsInNpemUiOjMsIm9mZnNldCI6Mn1dCgo=
-CMDS64=ZiBibGFoIDB4MDAwMDAwMGEgQCAweDAwMDAwMDBiCmYgYmxvaCAweDAwMDAwMDAzIEAgMHgwMDAwMDAwMgpmagoK
+EXPECT='[{"name":"blah","size":10,"offset":11},{"name":"bloh","size":3,"offset":2}]
+'
+CMDS=<<EOF
+f blah 0x0000000a @ 0x0000000b
+f bloh 0x00000003 @ 0x00000002
+fj
+EOF
 RUN
+
 NAME=fe
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDAwMCAxIGEuMAoweDAwMDAwMDAwIDEgYS4xCjB4MDAwMDAwMDAgMSBhLjIKMHgwMDAwMDAwMCAxIGIuMAoweDAwMDAwMDAwIDEgYi4xCjB4MDAwMDAwMDAgMSBiLjIKCg==
-CMDS64=ZmUgYQpmZSBhCmZlIGEKZmUtCmZlIGIKZmUgYgpmZSBiCmYKCg==
+EXPECT=<<EOF
+0x00000000 1 a.0
+0x00000000 1 a.1
+0x00000000 1 a.2
+0x00000000 1 b.0
+0x00000000 1 b.1
+0x00000000 1 b.2
+EOF
+CMDS=<<EOF
+fe a
+fe a
+fe a
+fe-
+fe b
+fe b
+fe b
+f
+EOF
 RUN
+
 NAME=fd
 FILE=malloc://1024
-EXPECT64=YS4wICsgMjU2Cgo=
-CMDS64=ZmUgYQpmZCAweDEwMAoK
+EXPECT=<<EOF
+a.0 + 256
+EOF
+CMDS=<<EOF
+fe a
+fd 0x100
+EOF
 RUN
+
 NAME=fd. with flags
 FILE=malloc://1024
-EXPECT64=ZmxhZzEKZmxhZzIKZmxhZzMK
-CMDS64=d3ggOTA5MDkwOTA5MDkwOTA5MA0KZiBmbGFnMSBAIDB4NQ0KZiBmbGFnMiBAIDB4NQ0KZiBmbGFnMyBAIDB4NQ0KZmQuIDB4NQ0K
+EXPECT=<<EOF
+flag1
+flag2
+flag3
+EOF
+CMDS=<<EOF
+wx 9090909090909090
+f flag1 @ 0x5
+f flag2 @ 0x5
+f flag3 @ 0x5
+fd. 0x5
+EOF
 RUN
+
 NAME=fC
 FILE=malloc://1024
-EXPECT64=MQoK
-CMDS64=ZiBhCmZDIGEgYmxhYmxhCnBkfj9ibGFibGEKCg==
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+f a
+fC a blabla
+pd~?blabla
+EOF
 RUN
+
 NAME=fb
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDEwMCAxIGEKCg==
-CMDS64=ZmIgMHgxMDAKZiBhCmYKCg==
+EXPECT=<<EOF
+0x00000100 1 a
+EOF
+CMDS=<<EOF
+fb 0x100
+f a
+f
+EOF
 RUN
+
 NAME=fb2
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDEwMCAxIGEuMAoweDAwMDAwMTAwIDEgYS4xCjB4MDAwMDAxMDAgMSBhLjIKCg==
-CMDS64=ZmUgYQpmZSBhCmZlIGEKZmIgMHgxMDAgYS4qCmYKCg==
+EXPECT=<<EOF
+0x00000100 1 a.0
+0x00000100 1 a.1
+0x00000100 1 a.2
+EOF
+CMDS=<<EOF
+fe a
+fe a
+fe a
+fb 0x100 a.*
+f
+EOF
 RUN
+
 NAME=f--
 FILE=malloc://1024
-EXPECT64=Cg==
-CMDS64=ZiBhCmYtLQpmCgo=
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+f a
+f--
+f
+EOF
 RUN
+
 NAME=f.
 FILE=../bins/elf/analysis/main
-EXPECT64=MHgwMDQwMDQxMCBibGFoICAgW2VudHJ5MCArIDBdCgo=
-CMDS64=YWFhCmYuYmxhaApmLgpmLi1ibGFoQGVudHJ5MApmLgoK
+EXPECT=<<EOF
+0x00400410 blah   [entry0 + 0]
+EOF
+CMDS=<<EOF
+aaa
+f.blah
+f.
+f.-blah@entry0
+f.
+EOF
 RUN
+
 NAME=f.-
 FILE=../bins/elf/analysis/main
 CMDS=<<EOF
@@ -151,6 +382,7 @@ EXPECT=<<EOF
 0x00400410 patata   [sym._start + 0]
 EOF
 RUN
+
 NAME=f-.
 FILE=../bins/elf/analysis/main
 CMDS=<<EOF
@@ -164,58 +396,162 @@ EXPECT=<<EOF
 0x00400410 patata   [sym._start + 0]
 EOF
 RUN
+
 NAME=f. display
 FILE=../bins/elf/analysis/main
-EXPECT64=ICAgICAgICAgICAuYmxhaDoKICAgICAgICAgICAgICAgMzFlZCAgICAgICAgICAgeG9yIGVicCwgZWJwCgo=
-CMDS64=YWFhCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKcyBlbnRyeTAKZSBhc20ucmVmbGluZXM9ZmFsc2UKZSBhc20ub2Zmc2V0PWZhbHNlCmUgYXNtLmZ1bmN0aW9ucz1mYWxzZQplIGFzbS5jb21tZW50cz1mYWxzZQpmLS0KZi5ibGFoCnBkIDEKCg==
+EXPECT=<<EOF
+           .blah:
+               31ed           xor ebp, ebp
+EOF
+CMDS=<<EOF
+aaa
+e asm.arch=x86
+e asm.bits=32
+s entry0
+e asm.reflines=false
+e asm.offset=false
+e asm.functions=false
+e asm.comments=false
+f--
+f.blah
+pd 1
+EOF
 RUN
+
 NAME=Set/get
 FILE=-
-EXPECT64=MHgwMDAwMDAwMCAxIGNhdAoweDAwMDAwMDAwIDEyIHJpbW1lcgoweDAwMDAwMjlhIDMyIGxpc3RlcgoweDAwMDAwMjlhIDMyIGtyeXRlbgoweDAwMDAwMDBjIDEgc2t1dHRlcgoK
-CMDS64=CmYgY2F0CmYgcmltbWVyIDEyCmYgbGlzdGVyIDMyQDY2NgpmIGtyeXRlbiAzMiA2NjYKZitza3V0dGVyIDEgQCAxMgpmCgo=
+EXPECT=<<EOF
+0x00000000 1 cat
+0x00000000 12 rimmer
+0x0000029a 32 lister
+0x0000029a 32 kryten
+0x0000000c 1 skutter
+EOF
+CMDS=<<EOF
+f cat
+f rimmer 12
+f lister 32@666
+f kryten 32 666
+f+skutter 1 @ 12
+f
+EOF
 RUN
+
 NAME=flags (JSON)
 FILE=-
-EXPECT64=W3sibmFtZSI6ImNhdCIsInNpemUiOjEsIm9mZnNldCI6MH0seyJuYW1lIjoicmltbWVyIiwic2l6ZSI6MTIsIm9mZnNldCI6MH0seyJuYW1lIjoibGlzdGVyIiwic2l6ZSI6MzIsIm9mZnNldCI6NjY2fSx7Im5hbWUiOiJrcnl0ZW4iLCJzaXplIjozMiwib2Zmc2V0Ijo2NjZ9LHsibmFtZSI6InNrdXR0ZXIiLCJzaXplIjoxLCJvZmZzZXQiOjEyfV0K
-CMDS64=CiMgQWRkIGZsYWdzLgpmIGNhdApmIHJpbW1lciAxMgpmIGxpc3RlciAzMkA2NjYKZiBrcnl0ZW4gMzIgNjY2CmYrc2t1dHRlciAxIEAgMTIKZmoKCg==
+EXPECT='[{"name":"cat","size":1,"offset":0},{"name":"rimmer","size":12,"offset":0},{"name":"lister","size":32,"offset":666},{"name":"kryten","size":32,"offset":666},{"name":"skutter","size":1,"offset":12}]
+'
+CMDS=<<EOF
+# Add flags.
+f cat
+f rimmer 12
+f lister 32@666
+f kryten 32 666
+f+skutter 1 @ 12
+fj
+EOF
 RUN
+
 NAME=flag alias
 FILE=-
-EXPECT64=MHg2Cgo=
-CMDS64=CmZhIGZvbz1iYXIrMwpmIGJhcj0zCj92IGZvbwoK
+EXPECT=<<EOF
+0x6
+EOF
+CMDS=<<EOF
+fa foo=bar+3
+f bar=3
+?v foo
+EOF
 RUN
+
 NAME=flag alias 2
 FILE=-
-EXPECT64=MHg2Cgo=
-CMDS64=CmZhIGZvbyBiYXIrMwpmIGJhcj0zCj92IGZvbwoK
+EXPECT=<<EOF
+0x6
+EOF
+CMDS=<<EOF
+fa foo bar+3
+f bar=3
+?v foo
+EOF
 RUN
+
 NAME=flag alias infinite check
 FILE=-
-EXPECT64=MHgzCgo=
-CMDS64=CmZhIGZvbz1mb28rMwo/diBmb28KCg==
+EXPECT=<<EOF
+0x3
+EOF
+CMDS=<<EOF
+fa foo=foo+3
+?v foo
+EOF
 RUN
+
 NAME=flag prefix dump
 FILE=-
-EXPECT64=MTAxCjEwMgoK
-CMDS64=CmYgamlqaT0xCmYgam9qbz0yCmYgYmFzZT0xMDAKLmYqYmFzZQo/dmkgamlqaQo/dmkgam9qbwoK
+EXPECT=<<EOF
+101
+102
+EOF
+CMDS=<<EOF
+f jiji=1
+f jojo=2
+f base=100
+.f*base
+?vi jiji
+?vi jojo
+EOF
 RUN
+
 NAME=rename flags from bin
 FILE=../bins/elf/analysis/main
-EXPECT64=MHgwMDQwMDUyMCAxMzcgc3ltLl9fbGliY19jc3VfaW5pdAoweDAwNDAwNTIwIDEzNyBuZXduYW1lCgo=
-CMDS64=Zn5zeW0uX19saWJjX2NzdV9pbml0CmZyIHN5bS5fX2xpYmNfY3N1X2luaXQgbmV3bmFtZQpmfnN5bS5fX2xpYmNfY3N1X2luaXQKZn5uZXduYW1lCgo=
+EXPECT=<<EOF
+0x00400520 137 sym.__libc_csu_init
+0x00400520 137 newname
+EOF
+CMDS=<<EOF
+f~sym.__libc_csu_init
+fr sym.__libc_csu_init newname
+f~sym.__libc_csu_init
+f~newname
+EOF
 RUN
+
 NAME=f+
 FILE=-
-EXPECT64=MgoK
-CMDS64=Zitmb289MTAKZitiYXI9MjAKZitjb3c9MTAKZitsb3c9MjAKZn4/Cgo=
+EXPECT=<<EOF
+2
+EOF
+CMDS=<<EOF
+f+foo=10
+f+bar=20
+f+cow=10
+f+low=20
+f~?
+EOF
 RUN
+
 NAME=dup flags with filter
 FILE=../bins/elf/ifunc_rel64
-EXPECT64=MHgwMDQ5YWQ0MCAxNjggb2JqLl9JT19oZWxwZXJfanVtcHMKMHgwMDQ5YjY4MCAxNjggb2JqLl9JT19oZWxwZXJfanVtcHNfMQoK
-CMDS64=Zn5vYmouX0lPX2hlbHBlcl9qdW1wcwoK
+EXPECT=<<EOF
+0x0049ad40 168 obj._IO_helper_jumps
+0x0049b680 168 obj._IO_helper_jumps_1
+EOF
+CMDS=<<EOF
+f~obj._IO_helper_jumps
+EOF
 RUN
+
 NAME=flag renaming and reusing the old name for something new
 FILE=malloc://1024
-EXPECT64=MHgwMDAwMDEwMCAwIGJsb2gKMHgwMDAwMDIwMCAwIGJsYWgKCg==
-CMDS64=ZiBibGFoID0gMHgxMDAKZnIgYmxhaCBibG9oCmYgYmxhaCA9IDB4MjAwCmYKCg==
+EXPECT=<<EOF
+0x00000100 0 bloh
+0x00000200 0 blah
+EOF
+CMDS=<<EOF
+f blah = 0x100
+fr blah bloh
+f blah = 0x200
+f
+EOF
 RUN

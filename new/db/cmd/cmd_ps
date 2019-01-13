@@ -1,20 +1,65 @@
 NAME=ps+ libc++ 32bit
 FILE=../bins/elf/stdstring32-libc++.LOAD1
-EXPECT64=YQphYmNkZWZnaGlqCgphYmNkZWZnaGlqawphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ekFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaCgo=
+EXPECT=<<EOF
+a
+abcdefghij
+
+abcdefghijk
+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+EOF
 ARGS=-n -m 0x08049ee8
-CMDS64=b24gLi4vYmlucy9lbGYvc3Rkc3RyaW5nMzItbGliYysrLmhlYXAgMHgwOWViODAwMCA+IC9kZXYvbnVsbApmIG9iai5lbXB0eV9zdHIgMTIgMHgwODA0YTA2NApmIG9iai5sb25nX3N0cjEgMTIgMHgwODA0YTA0YwpmIG9iai5zaG9ydF9zdHIxIDEyIDB4MDgwNGEwMzQKZiBvYmoubG9uZ19zdHIyIDEyIDB4MDgwNGEwNTgKZiBvYmouc2hvcnRfc3RyMiAxMiAweDA4MDRhMDQwCmUgYXNtLmJpdHM9MzIKcHMrIEAgb2JqLnNob3J0X3N0cjEKcHMrIEAgb2JqLnNob3J0X3N0cjIKcHMrIEAgb2JqLmVtcHR5X3N0cgpwcysgQCBvYmoubG9uZ19zdHIxCnBzKyBAIG9iai5sb25nX3N0cjIKCg==
+CMDS=<<EOF
+on ../bins/elf/stdstring32-libc++.heap 0x09eb8000 > /dev/null
+f obj.empty_str 12 0x0804a064
+f obj.long_str1 12 0x0804a04c
+f obj.short_str1 12 0x0804a034
+f obj.long_str2 12 0x0804a058
+f obj.short_str2 12 0x0804a040
+e asm.bits=32
+ps+ @ obj.short_str1
+ps+ @ obj.short_str2
+ps+ @ obj.empty_str
+ps+ @ obj.long_str1
+ps+ @ obj.long_str2
+EOF
 RUN
+
 NAME=ps+ libc++ 64bit
 FILE=../bins/elf/stdstring64-libc++.LOAD1
-EXPECT64=YQphYmNkZWZnaGlqa2xtbm9wcXJzdHV2CgphYmNkZWZnaGlqa2xtbm9wcXJzdHV2dwphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ekFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaCgo=
+EXPECT=<<EOF
+a
+abcdefghijklmnopqrstuv
+
+abcdefghijklmnopqrstuvw
+abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+EOF
 ARGS=-n -m 0x00600dc8
-CMDS64=b24gLi4vYmlucy9lbGYvc3Rkc3RyaW5nNjQtbGliYysrLmhlYXAgMHgwMTI4YjAwMCA+IC9kZXYvbnVsbApmIG9iai5lbXB0eV9zdHIgMjQgMHgwMDYwMTBiOApmIG9iai5sb25nX3N0cjEgMjQgMHgwMDYwMTA4OApmIG9iai5zaG9ydF9zdHIxIDI0IDB4MDA2MDEwNTgKZiBvYmoubG9uZ19zdHIyIDI0IDB4MDA2MDEwYTAKZiBvYmouc2hvcnRfc3RyMiAyNCAweDAwNjAxMDcwCmUgYXNtLmJpdHM9NjQKcHMrIEAgb2JqLnNob3J0X3N0cjEKcHMrIEAgb2JqLnNob3J0X3N0cjIKcHMrIEAgb2JqLmVtcHR5X3N0cgpwcysgQCBvYmoubG9uZ19zdHIxCnBzKyBAIG9iai5sb25nX3N0cjIKCg==
+CMDS=<<EOF
+on ../bins/elf/stdstring64-libc++.heap 0x0128b000 > /dev/null
+f obj.empty_str 24 0x006010b8
+f obj.long_str1 24 0x00601088
+f obj.short_str1 24 0x00601058
+f obj.long_str2 24 0x006010a0
+f obj.short_str2 24 0x00601070
+e asm.bits=64
+ps+ @ obj.short_str1
+ps+ @ obj.short_str2
+ps+ @ obj.empty_str
+ps+ @ obj.long_str1
+ps+ @ obj.long_str2
+EOF
 RUN
+
 NAME=psj ascii (#9064)
 FILE=-
-EXPECT64=eyJzdHJpbmciOiIuLi5cIi4uXHUwMGVmXHUwMGJmXHUwMGJkXHUwMGVmXHUwMGJmXHUwMGJkXHUwMGVmIiwib2Zmc2V0IjowLCJzZWN0aW9uIjoidW5rbm93biIsImxlbmd0aCI6MTMsInR5cGUiOiJ1dGYifQo=
-CMDS64=d3ogLi4uIi4u/////y4uLgpwc2ogMTMKCg==
+EXPECT='{"string":"...\"..\u00ef\u00bf\u00bd\u00ef\u00bf\u00bd\u00ef","offset":0,"section":"unknown","length":13,"type":"utf"}
+'
+CMDS=<<EOF
+wz ..."..����...
+psj 13
+EOF
 RUN
+
 NAME=psx escapes newlines (#10037)
 FILE=-
 CMDS=<<EXPECT
@@ -23,6 +68,7 @@ psx 9
 EXPECT=<<RUN
 abc\x0a123\x0a\x00
 RUN
+
 NAME=ps N and initial nulls (#10037)
 FILE=-
 CMDS=<<EXPECT

@@ -1,5 +1,9 @@
 NAME=.- (edit, source tmp file)
 FILE=-
-EXPECT64=Cg==
-CMDS64=CmUgY2ZnLmVkaXRvcj0vYmluL3RydWUKLi0KCg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+e cfg.editor=/bin/true
+.-
+EOF
 RUN

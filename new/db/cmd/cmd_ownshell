@@ -1,16 +1,46 @@
 NAME=mkdir; ls
 FILE=-
-EXPECT64=L3RtcC9ibGFoL2JsZWgK
-CMDS64=cm0gL3RtcC9ibGFoL2JsZWgKcm0gL3RtcC9ibGFoCm1rZGlyIC90bXAvYmxhaAo/IDErMSA+IC90bXAvYmxhaC9ibGVoCmxzIC1sIC90bXAvYmxhaH5ibGVoWzRdCnJtIC90bXAvYmxhaC9ibGVoCnJtIC90bXAvYmxhaAoK
+EXPECT=<<EOF
+/tmp/blah/bleh
+EOF
+CMDS=<<EOF
+rm /tmp/blah/bleh
+rm /tmp/blah
+mkdir /tmp/blah
+? 1+1 > /tmp/blah/bleh
+ls -l /tmp/blah~bleh[4]
+rm /tmp/blah/bleh
+rm /tmp/blah
+EOF
 RUN
+
 NAME=mkdir -p (without specifying directory)
 FILE=-
-EXPECT64=VXNhZ2U6IG1rZGlyIFstcF0gW2RpcmVjdG9yeV0KCg==
-CMDS64=bWtkaXIgLXAKCg==
+EXPECT=<<EOF
+Usage: mkdir [-p] [directory]
+EOF
+CMDS=<<EOF
+mkdir -p
+EOF
 RUN
+
 NAME=mkdir -p
 FILE=-
 BROKEN=1
-EXPECT64=L3RtcC9mb28vYmFyL2Zvby8uLyAgL3RtcC9mb28vYmFyL2Zvby8uLi8gIC90bXAvZm9vL2Jhci9mb28vZm9vegoK
-CMDS64=cm0gL3RtcC9mb28vYmFyL2Zvby9mb296CnJtIC90bXAvZm9vL2Jhci9mb28Kcm0gL3RtcC9mb28vYmFyCnJtIC90bXAvZm9vCm1rZGlyIC1wIC90bXAvZm9vL2Jhci9mb28KPyAxKzEgPiAvdG1wL2Zvby9iYXIvZm9vL2Zvb3oKbHMgL3RtcC9mb28vYmFyL2ZvbwpybSAvdG1wL2Zvby9iYXIvZm9vL2Zvb3oKcm0gL3RtcC9mb28vYmFyL2ZvbwpybSAvdG1wL2Zvby9iYXIKcm0gL3RtcC9mb28KCg==
+EXPECT=<<EOF
+/tmp/foo/bar/foo/./  /tmp/foo/bar/foo/../  /tmp/foo/bar/foo/fooz
+EOF
+CMDS=<<EOF
+rm /tmp/foo/bar/foo/fooz
+rm /tmp/foo/bar/foo
+rm /tmp/foo/bar
+rm /tmp/foo
+mkdir -p /tmp/foo/bar/foo
+? 1+1 > /tmp/foo/bar/foo/fooz
+ls /tmp/foo/bar/foo
+rm /tmp/foo/bar/foo/fooz
+rm /tmp/foo/bar/foo
+rm /tmp/foo/bar
+rm /tmp/foo
+EOF
 RUN

@@ -1,20 +1,39 @@
 NAME=psj ascii
 FILE=malloc://128
-EXPECT64=eyJzdHJpbmciOiJyYWRhcmUgaXMgY29vbCIsIm9mZnNldCI6MCwic2VjdGlvbiI6InVua25vd24iLCJsZW5ndGgiOjE0LCJ0eXBlIjoiYXNjaWkifQoK
-CMDS64=Cnd4IDcyNjE2NDYxNzI2NTIwNjk3MzIwNjM2ZjZmNmMKcHNqIDE0Cgo=
+EXPECT='{"string":"radare is cool","offset":0,"section":"unknown","length":14,"type":"ascii"}
+'
+CMDS=<<EOF
+wx 72616461726520697320636f6f6c
+psj 14
+EOF
 RUN
+
 NAME=psj utf
 FILE=malloc://128
-EXPECT64=eyJzdHJpbmciOiJcdTAwZTlcdTAwYmJcdTAwOTFcdTAwZTVcdTAwYWVcdTAwYTIiLCJvZmZzZXQiOjAsInNlY3Rpb24iOiJ1bmtub3duIiwibGVuZ3RoIjo2LCJ0eXBlIjoidXRmIn0KCg==
-CMDS64=Cnd4IGU5YmI5MWU1YWVhMgpwc2ogNgoK
+EXPECT='{"string":"\u00e9\u00bb\u0091\u00e5\u00ae\u00a2","offset":0,"section":"unknown","length":6,"type":"utf"}
+'
+CMDS=<<EOF
+wx e9bb91e5aea2
+psj 6
+EOF
 RUN
+
 NAME=psj wide
 FILE=../bins/elf/analysis/x86-helloworld-gcc
-EXPECT64=eyJzdHJpbmciOiJcdTAwMGJcdTAwMDBcdTAwMDBcdTAwMDAiLCJvZmZzZXQiOjEzNDUxODI3Miwic2VjdGlvbiI6Ii5keW5hbWljIiwibGVuZ3RoIjo0LCJ0eXBlIjoid2lkZSJ9Cgo=
-CMDS64=CnMgMHgwODA0OTYwMApwc2ogNAoK
+EXPECT='{"string":"\u000b\u0000\u0000\u0000","offset":134518272,"section":".dynamic","length":4,"type":"wide"}
+'
+CMDS=<<EOF
+s 0x08049600
+psj 4
+EOF
 RUN
+
 NAME=psj ascii 2
 FILE=../bins/elf/analysis/hello-android-arm
-EXPECT64=eyJzdHJpbmciOiJIZWxsbyBXb3JsZCIsIm9mZnNldCI6MzM2MjQsInNlY3Rpb24iOiIucm9kYXRhIiwibGVuZ3RoIjoxMSwidHlwZSI6ImFzY2lpIn0KCg==
-CMDS64=CnMgMHgwMDAwODM1OApwc2ogMTEKCg==
+EXPECT='{"string":"Hello World","offset":33624,"section":".rodata","length":11,"type":"ascii"}
+'
+CMDS=<<EOF
+s 0x00008358
+psj 11
+EOF
 RUN
