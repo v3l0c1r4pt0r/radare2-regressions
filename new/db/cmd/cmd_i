@@ -1591,37 +1591,37 @@ vaddr=0x0000200c paddr=0x0000100c type=SET_32 puts
 vaddr=0x00002010 paddr=0x00001010 type=SET_32 __libc_start_main
 
 11 relocations
-0x00000590 256 main
-0x00000420 1 entry0
-0x00000364 72 section..rel.dyn
-0x000003ac 16 section..rela.plt
-0x00002000 16 section..got.plt
+0x00000000 1936 segment.LOAD0
+0x00000000 0 segment.GNU_STACK
+0x00000000 52 segment.ehdr
+0x00000000 16 loc.imp._ITM_deregisterTMCloneTable
+0x00000000 16 sym.imp.__cxa_finalize
+0x00000000 16 loc.imp.__gmon_start
+0x00000000 16 loc.imp._Jv_RegisterClasses
+0x00000000 16 loc.imp._ITM_registerTMCloneTable
 0x00000034 288 segment.PHDR
 0x00000154 19 segment.INTERP
-0x00000000 1936 segment.LOAD0
-0x00001eec 308 segment.LOAD1
-0x00001ef8 240 segment.DYNAMIC
 0x00000168 68 segment.NOTE
+0x00000364 72 section..rel.dyn
+0x000003ac 16 section..rela.plt
+0x000003f0 16 sym.imp.puts
+0x00000400 16 sym.imp.__libc_start_main
+0x00000420 1 entry0
+0x00000590 256 main
+0x00000590 60 sym.main
+0x0000064c 4 obj._IO_stdin_used
 0x00000658 60 segment.GNU_EH_FRAME
-0x00000000 0 segment.GNU_STACK
+0x00001eec 308 segment.LOAD1
 0x00001eec 276 segment.GNU_RELRO
-0x00000000 52 segment.ehdr
+0x00001ef8 240 segment.DYNAMIC
 0x00001fe8 4 reloc._ITM_deregisterTMCloneTable
 0x00001fec 4 reloc.__cxa_finalize
 0x00001ff0 4 reloc.__gmon_start
 0x00001ff8 4 reloc._Jv_RegisterClasses
 0x00001ffc 4 reloc._ITM_registerTMCloneTable
+0x00002000 16 section..got.plt
 0x0000200c 4 reloc.puts
 0x00002010 4 reloc.__libc_start_main
-0x00000590 60 sym.main
-0x0000064c 4 obj._IO_stdin_used
-0x00000000 16 loc.imp._ITM_deregisterTMCloneTable
-0x00000000 16 sym.imp.__cxa_finalize
-0x000003f0 16 sym.imp.puts
-0x00000000 16 loc.imp.__gmon_start
-0x00000400 16 sym.imp.__libc_start_main
-0x00000000 16 loc.imp._Jv_RegisterClasses
-0x00000000 16 loc.imp._ITM_registerTMCloneTable
 EOF
 RUN
 

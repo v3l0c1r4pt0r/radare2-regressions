@@ -459,8 +459,8 @@ attr.Masterpiece.vtable.0=0x1337,66
 attrtypes.Deadwing=base
 attrtypes.Masterpiece=base,vtable,method
 
-0xdeadbeef 0 method.Masterpiece.Listen
 0x00001337 0 vtable.Masterpiece.0
+0xdeadbeef 0 method.Masterpiece.Listen
 EOF
 RUN
 

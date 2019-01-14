@@ -172,9 +172,9 @@ RUN
 NAME=fSn
 FILE=malloc://1024
 EXPECT=<<EOF
-0x00000000 1 a
-0x00000000 1 b
 0x00000000 1 c
+0x00000000 1 b
+0x00000000 1 a
 EOF
 CMDS=<<EOF
 f c @ 0x00000000
@@ -246,7 +246,7 @@ RUN
 
 NAME=fj
 FILE=malloc://1024
-EXPECT='[{"name":"blah","size":10,"offset":11},{"name":"bloh","size":3,"offset":2}]
+EXPECT='[{"name":"bloh","size":3,"offset":2},{"name":"blah","size":10,"offset":11}]
 '
 CMDS=<<EOF
 f blah 0x0000000a @ 0x0000000b
@@ -423,9 +423,9 @@ FILE=-
 EXPECT=<<EOF
 0x00000000 1 cat
 0x00000000 12 rimmer
+0x0000000c 1 skutter
 0x0000029a 32 lister
 0x0000029a 32 kryten
-0x0000000c 1 skutter
 EOF
 CMDS=<<EOF
 f cat
@@ -439,7 +439,7 @@ RUN
 
 NAME=flags (JSON)
 FILE=-
-EXPECT='[{"name":"cat","size":1,"offset":0},{"name":"rimmer","size":12,"offset":0},{"name":"lister","size":32,"offset":666},{"name":"kryten","size":32,"offset":666},{"name":"skutter","size":1,"offset":12}]
+EXPECT='[{"name":"cat","size":1,"offset":0},{"name":"rimmer","size":12,"offset":0},{"name":"skutter","size":1,"offset":12},{"name":"lister","size":32,"offset":666},{"name":"kryten","size":32,"offset":666}]
 '
 CMDS=<<EOF
 # Add flags.
