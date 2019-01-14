@@ -3,7 +3,7 @@ FILE=../bins/elf/true
 CMDS=<<EXPECT
 aaa 2> /dev/null
 agCj~{0}
-EXPECT={"name":"entry0", "size":47,"imports":["reloc.__libc_start_main"]}
+EXPECT={"name":"entry0", "size":46,"imports":["reloc.__libc_start_main"]}
 RUN
 
 NAME=agCd entry0 imports libc_start_main

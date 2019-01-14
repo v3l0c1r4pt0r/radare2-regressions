@@ -764,7 +764,7 @@ CMDS=<<EXPECT
 aaa
 f~strlen~390
 EXPECT=<<RUN
-0x00060390 782 sub.strlen_60390
+0x00060390 732 sub.strlen_60390
 0x0006d390 197 sub.strlen_6d390
 RUN
 
@@ -776,4 +776,14 @@ s 0x2254d
 agf~invalid
 echo end
 EXPECT=end
+RUN
+
+NAME=noreturn of reloc-functions
+FILE=../bins/elf/ls
+CMDS=<<EXPECT
+aaa
+afbr 0x80b0
+EXPECT=<<RUN
+0x000081cb
+0x00008237
 RUN

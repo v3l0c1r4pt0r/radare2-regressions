@@ -1923,7 +1923,9 @@ CMDS=<<EXPECT
 aa
 pdf
 EXPECT=<<RUN
-|           ;-- entry0:
+/ (fcn) entry0 46
+|   entry0 (int arg3);
+|           ; arg int arg3 @ rdx
 |           0x00005ae0      f30f1efa       endbr64
 |           0x00005ae4      31ed           xor ebp, ebp
 |           0x00005ae6      4989d1         mov r9, rdx                 ; arg3
@@ -1935,8 +1937,7 @@ EXPECT=<<RUN
 |           0x00005af3      4c8d05660c01.  lea r8, [0x00016760]
 |           0x00005afa      488d0def0b01.  lea rcx, [0x000166f0]
 |           0x00005b01      488d3d68e5ff.  lea rdi, [main]             ; 0x4070 ; "AWAVAUATU\x89\xfdSH\x89\xf3H\x83\xecXH\x8b>dH\x8b\x04%("
-|           0x00005b08      ff150ac30100   call qword [reloc.__libc_start_main] ; [0x21e18:8]=0
-\           0x00005b0e      f4             hlt
+\           0x00005b08      ff150ac30100   call qword [reloc.__libc_start_main] ; [0x21e18:8]=0
 RUN
 
 NAME=asm.lines.ret, pd and pdJ
