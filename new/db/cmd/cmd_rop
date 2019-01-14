@@ -2,7 +2,7 @@ NAME=rop search with maxhits
 FILE=../bins/elf/varsub
 CMDS=<<EOF
 e search.maxhits=1
-/Rl pop r15
+/Rq pop r15
 EOF
 EXPECT=<<EOF
 0x0000052c: pop r12; pop r13; pop r14; pop r15; ret;
@@ -13,7 +13,7 @@ RUN
 NAME=rop search without maxhits
 FILE=../bins/elf/varsub
 CMDS=<<EOF
-/Rl pop r15~?
+/Rq pop r15~?
 EOF
 EXPECT=4
 RUN
@@ -22,7 +22,7 @@ NAME=rop search without maxhits
 FILE=../bins/elf/varsub
 CMDS=<<EOF
 e search.maxhits=2
-/Rl pop r15~?
+/Rq pop r15~?
 EOF
 EXPECT=2
 RUN
@@ -95,7 +95,8 @@ EXPECT=<<EOF
 EOF
 ARGS=-n
 CMDS=<<EOF
-e asm.bits=32;/Rl
+e asm.bits=32
+/Rq
 EOF
 RUN
 
