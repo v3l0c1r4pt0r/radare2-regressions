@@ -1938,3 +1938,19 @@ EXPECT=<<RUN
 |           0x00005b08      ff150ac30100   call qword [reloc.__libc_start_main] ; [0x21e18:8]=0
 \           0x00005b0e      f4             hlt
 RUN
+
+NAME=asm.lines.ret, pd and pdJ
+FILE=../bins/elf/crackme0x05
+CMDS=<<EXPECT
+e asm.lines.ret=1
+s 0x08048414
+pd 2
+?e
+pdJ 2
+EXPECT=<<RUN
+            0x08048414      c3             ret
+            ; --------------------------------------
+            0x08048415      90             nop
+
+[{"offset":134513684,"text":"            0x08048414      c3             ret"},{"offset":134513684,"text":"            ; --------------------------------------"},{"offset":134513685,"text":"            0x08048415      90             nop"}]
+RUN
