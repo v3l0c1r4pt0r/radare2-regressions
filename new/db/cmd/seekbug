@@ -1,25 +1,78 @@
 NAME=seekbug pi -x
 FILE=malloc://1024
-EXPECT64=MHgyMDAKCg==
-CMDS64=CmUgc2NyLm51bGw9dHJ1ZQpzIDB4MjAwCnBpIC0zCmUgc2NyLm51bGw9ZmFsc2UKcwoK
+EXPECT=<<EOF
+0x200
+EOF
+CMDS=<<EOF
+e scr.null=true
+s 0x200
+pi -3
+e scr.null=false
+s
+EOF
 RUN
+
 NAME=seekbug pid -x
 FILE=malloc://1024
-EXPECT64=MHgyMDAKCg==
-CMDS64=CmUgc2NyLm51bGw9dHJ1ZQpzIDB4MjAwCnBpZCAtMwplIHNjci5udWxsPWZhbHNlCnMKCg==
+EXPECT=<<EOF
+0x200
+EOF
+CMDS=<<EOF
+e scr.null=true
+s 0x200
+pid -3
+e scr.null=false
+s
+EOF
 RUN
+
 NAME=seekbug pd -x
 FILE=malloc://1024
-EXPECT64=MHgyMDAKCg==
-CMDS64=CmUgc2NyLm51bGw9dHJ1ZQpzIDB4MjAwCnBkIC0zCmUgc2NyLm51bGw9ZmFsc2UKcwoK
+EXPECT=<<EOF
+0x200
+EOF
+CMDS=<<EOF
+e scr.null=true
+s 0x200
+pd -3
+e scr.null=false
+s
+EOF
 RUN
+
 NAME=seekbug px -x
 FILE=malloc://1024
-EXPECT64=MHgyMDAKCg==
-CMDS64=CmUgc2NyLm51bGw9dHJ1ZQpzIDB4MjAwCnB4IC0zCmUgc2NyLm51bGw9ZmFsc2UKcwoK
+EXPECT=<<EOF
+0x200
+EOF
+CMDS=<<EOF
+e scr.null=true
+s 0x200
+px -3
+e scr.null=false
+s
+EOF
 RUN
+
 NAME=seekbug s ]
 FILE=malloc://1024
-EXPECT64=MHg2NAoweDY0CjB4NjQKMHg2NAoweDAK
-CMDS64=cyAweDY0CnMKcyB1bmt2YWwKcwpzIF0KcwpzIFsKcwpzIFsweDBdCnMK
+EXPECT=<<EOF
+0x64
+0x64
+0x64
+0x64
+0x0
+EOF
+CMDS=<<EOF
+s 0x64
+s
+s unkval
+s
+s ]
+s
+s [
+s
+s [0x0]
+s
+EOF
 RUN

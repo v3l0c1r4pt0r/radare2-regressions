@@ -1,5 +1,9 @@
 NAME=t/echo
 FILE=-
-EXPECT64=aGVsbG8gd29ybGQKCg==
-CMDS64=P2UgaGVsbG8gd29ybGQK
+EXPECT=<<EOF
+hello world
+EOF
+CMDS=<<EOF
+?e hello world
+EOF
 RUN

@@ -1,23 +1,67 @@
 NAME=endian tests: pv4
 FILE=-
-EXPECT64=MHgwNDAzMDIwMQoweDAxMDIwMzA0Cgo=
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPWZhbHNlCmUgYXNtLmJpdHM9MzIKd3ggMDEwMjAzMDQKcHY0CmUgY2ZnLmJpZ2VuZGlhbj10cnVlCnB2NAoK
+EXPECT=<<EOF
+0x04030201
+0x01020304
+EOF
+CMDS=<<EOF
+e cfg.bigendian=false
+e asm.bits=32
+wx 01020304
+pv4
+e cfg.bigendian=true
+pv4
+EOF
 RUN
+
 NAME=endian tests: pv2
 FILE=-
-EXPECT64=MHgwMjAxCjB4MDEwMgoK
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPWZhbHNlCmUgYXNtLmJpdHM9MzIKd3ggMDEwMjAzMDQKcHYyCmUgY2ZnLmJpZ2VuZGlhbj10cnVlCnB2MgoK
+EXPECT=<<EOF
+0x0201
+0x0102
+EOF
+CMDS=<<EOF
+e cfg.bigendian=false
+e asm.bits=32
+wx 01020304
+pv2
+e cfg.bigendian=true
+pv2
+EOF
 RUN
+
 NAME=endian tests: pv8
 FILE=-
-EXPECT64=MHgwODA3MDYwNTA0MDMwMjAxCjB4MDEwMjAzMDQwNTA2MDcwOAoK
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPWZhbHNlCmUgYXNtLmJpdHM9MzIKd3ggMDEwMjAzMDQwNTA2MDcwOApwdjgKZSBjZmcuYmlnZW5kaWFuPXRydWUKcHY4Cgo=
+EXPECT=<<EOF
+0x0807060504030201
+0x0102030405060708
+EOF
+CMDS=<<EOF
+e cfg.bigendian=false
+e asm.bits=32
+wx 0102030405060708
+pv8
+e cfg.bigendian=true
+pv8
+EOF
 RUN
+
 NAME=endian tests: ?v
 FILE=-
-EXPECT64=MHg0MDMwMjAxCjB4MTAyMDMwNAoK
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPWZhbHNlCmUgYXNtLmJpdHM9MzIKd3ggMDEwMjAzMDQKP3YgWyQkXQplIGNmZy5iaWdlbmRpYW49dHJ1ZQo/diBbJCRdCgo=
+EXPECT=<<EOF
+0x4030201
+0x1020304
+EOF
+CMDS=<<EOF
+e cfg.bigendian=false
+e asm.bits=32
+wx 01020304
+?v [$$]
+e cfg.bigendian=true
+?v [$$]
+EOF
 RUN
+
 NAME=pfq
 CMDS=<<EOF
 wv4 32

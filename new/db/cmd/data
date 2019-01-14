@@ -1,5 +1,18 @@
 NAME=cmp data
 FILE=-
-EXPECT64=dGhhdHMgZmluZQoK
-CMDS64=YiAxNgp3eCA0MQplIHNjci5udWxsPTEKY3ggNDEgMj4vZGV2L251bGwKZSBzY3IubnVsbD0wCj8hID9lIHRoYXRzIGZpbmUKZSBzY3IubnVsbD0xCmN4IDExIDI+L2Rldi9udWxsCmUgc2NyLm51bGw9MAo/ISA/ZSB0aGF0cyB3cm9uZwoK
+EXPECT=<<EOF
+thats fine
+EOF
+CMDS=<<EOF
+b 16
+wx 41
+e scr.null=1
+cx 41 2>/dev/null
+e scr.null=0
+?! ?e thats fine
+e scr.null=1
+cx 11 2>/dev/null
+e scr.null=0
+?! ?e thats wrong
+EOF
 RUN

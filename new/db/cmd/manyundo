@@ -1,6 +1,303 @@
 NAME=t/manyundo
 FILE=malloc://1024
 BROKEN=1
-EXPECT64=LW5vIHNlZWtzIGRvbmUtCmYgdW5kb182MiBAIDB4MjUKZiB1bmRvXzYxIEAgMHgyNgpmIHVuZG9fNjAgQCAweDI3CmYgdW5kb181OSBAIDB4MjgKZiB1bmRvXzU4IEAgMHgyOQpmIHVuZG9fNTcgQCAweDJhCmYgdW5kb181NiBAIDB4MmIKZiB1bmRvXzU1IEAgMHgyYwpmIHVuZG9fNTQgQCAweDJkCmYgdW5kb181MyBAIDB4MmUKZiB1bmRvXzUyIEAgMHgyZgpmIHVuZG9fNTEgQCAweDMwCmYgdW5kb181MCBAIDB4MzEKZiB1bmRvXzQ5IEAgMHgzMgpmIHVuZG9fNDggQCAweDMzCmYgdW5kb180NyBAIDB4MzQKZiB1bmRvXzQ2IEAgMHgzNQpmIHVuZG9fNDUgQCAweDM2CmYgdW5kb180NCBAIDB4MzcKZiB1bmRvXzQzIEAgMHgzOApmIHVuZG9fNDIgQCAweDM5CmYgdW5kb180MSBAIDB4M2EKZiB1bmRvXzQwIEAgMHgzYgpmIHVuZG9fMzkgQCAweDNjCmYgdW5kb18zOCBAIDB4M2QKZiB1bmRvXzM3IEAgMHgzZQpmIHVuZG9fMzYgQCAweDNmCmYgdW5kb18zNSBAIDB4NDAKZiB1bmRvXzM0IEAgMHg0MQpmIHVuZG9fMzMgQCAweDQyCmYgdW5kb18zMiBAIDB4NDMKZiB1bmRvXzMxIEAgMHg0NApmIHVuZG9fMzAgQCAweDQ1CmYgdW5kb18yOSBAIDB4NDYKZiB1bmRvXzI4IEAgMHg0NwpmIHVuZG9fMjcgQCAweDQ4CmYgdW5kb18yNiBAIDB4NDkKZiB1bmRvXzI1IEAgMHg0YQpmIHVuZG9fMjQgQCAweDRiCmYgdW5kb18yMyBAIDB4NGMKZiB1bmRvXzIyIEAgMHg0ZApmIHVuZG9fMjEgQCAweDRlCmYgdW5kb18yMCBAIDB4NGYKZiB1bmRvXzE5IEAgMHg1MApmIHVuZG9fMTggQCAweDUxCmYgdW5kb18xNyBAIDB4NTIKZiB1bmRvXzE2IEAgMHg1MwpmIHVuZG9fMTUgQCAweDU0CmYgdW5kb18xNCBAIDB4NTUKZiB1bmRvXzEzIEAgMHg1NgpmIHVuZG9fMTIgQCAweDU3CmYgdW5kb18xMSBAIDB4NTgKZiB1bmRvXzEwIEAgMHg1OQpmIHVuZG9fOSBAIDB4NWEKZiB1bmRvXzggQCAweDViCmYgdW5kb183IEAgMHg1YwpmIHVuZG9fNiBAIDB4NWQKZiB1bmRvXzUgQCAweDVlCmYgdW5kb180IEAgMHg1ZgpmIHVuZG9fMyBAIDB4NjAKZiB1bmRvXzIgQCAweDYxCmYgdW5kb18xIEAgMHg2MgpmIHVuZG9fMCBAIDB4NjMKMHg2NAoKZiByZWRvXzAgQCAweDI2CmYgcmVkb18xIEAgMHgyNwpmIHJlZG9fMiBAIDB4MjgKZiByZWRvXzMgQCAweDI5CmYgcmVkb180IEAgMHgyYQpmIHJlZG9fNSBAIDB4MmIKZiByZWRvXzYgQCAweDJjCmYgcmVkb183IEAgMHgyZApmIHJlZG9fOCBAIDB4MmUKZiByZWRvXzkgQCAweDJmCmYgcmVkb18xMCBAIDB4MzAKZiByZWRvXzExIEAgMHgzMQpmIHJlZG9fMTIgQCAweDMyCmYgcmVkb18xMyBAIDB4MzMKZiByZWRvXzE0IEAgMHgzNApmIHJlZG9fMTUgQCAweDM1CmYgcmVkb18xNiBAIDB4MzYKZiByZWRvXzE3IEAgMHgzNwpmIHJlZG9fMTggQCAweDM4CmYgcmVkb18xOSBAIDB4MzkKZiByZWRvXzIwIEAgMHgzYQpmIHJlZG9fMjEgQCAweDNiCmYgcmVkb18yMiBAIDB4M2MKZiByZWRvXzIzIEAgMHgzZApmIHJlZG9fMjQgQCAweDNlCmYgcmVkb18yNSBAIDB4M2YKZiByZWRvXzI2IEAgMHg0MApmIHJlZG9fMjcgQCAweDQxCmYgcmVkb18yOCBAIDB4NDIKZiByZWRvXzI5IEAgMHg0MwpmIHJlZG9fMzAgQCAweDQ0CmYgcmVkb18zMSBAIDB4NDUKZiByZWRvXzMyIEAgMHg0NgpmIHJlZG9fMzMgQCAweDQ3CmYgcmVkb18zNCBAIDB4NDgKZiByZWRvXzM1IEAgMHg0OQpmIHJlZG9fMzYgQCAweDRhCmYgcmVkb18zNyBAIDB4NGIKZiByZWRvXzM4IEAgMHg0YwpmIHJlZG9fMzkgQCAweDRkCmYgcmVkb180MCBAIDB4NGUKZiByZWRvXzQxIEAgMHg0ZgpmIHJlZG9fNDIgQCAweDUwCmYgcmVkb180MyBAIDB4NTEKZiByZWRvXzQ0IEAgMHg1MgpmIHJlZG9fNDUgQCAweDUzCmYgcmVkb180NiBAIDB4NTQKZiByZWRvXzQ3IEAgMHg1NQpmIHJlZG9fNDggQCAweDU2CmYgcmVkb180OSBAIDB4NTcKZiByZWRvXzUwIEAgMHg1OApmIHJlZG9fNTEgQCAweDU5CmYgcmVkb181MiBAIDB4NWEKZiByZWRvXzUzIEAgMHg1YgpmIHJlZG9fNTQgQCAweDVjCmYgcmVkb181NSBAIDB4NWQKZiByZWRvXzU2IEAgMHg1ZQpmIHJlZG9fNTcgQCAweDVmCmYgcmVkb181OCBAIDB4NjAKZiByZWRvXzU5IEAgMHg2MQpmIHJlZG9fNjAgQCAweDYyCmYgcmVkb182MSBAIDB4NjMKZiByZWRvXzYyIEAgMHg2NAoweDI1CgpmIHVuZG9fNjIgQCAweDI1CmYgdW5kb182MSBAIDB4MjYKZiB1bmRvXzYwIEAgMHgyNwpmIHVuZG9fNTkgQCAweDI4CmYgdW5kb181OCBAIDB4MjkKZiB1bmRvXzU3IEAgMHgyYQpmIHVuZG9fNTYgQCAweDJiCmYgdW5kb181NSBAIDB4MmMKZiB1bmRvXzU0IEAgMHgyZApmIHVuZG9fNTMgQCAweDJlCmYgdW5kb181MiBAIDB4MmYKZiB1bmRvXzUxIEAgMHgzMApmIHVuZG9fNTAgQCAweDMxCmYgdW5kb180OSBAIDB4MzIKZiB1bmRvXzQ4IEAgMHgzMwpmIHVuZG9fNDcgQCAweDM0CmYgdW5kb180NiBAIDB4MzUKZiB1bmRvXzQ1IEAgMHgzNgpmIHVuZG9fNDQgQCAweDM3CmYgdW5kb180MyBAIDB4MzgKZiB1bmRvXzQyIEAgMHgzOQpmIHVuZG9fNDEgQCAweDNhCmYgdW5kb180MCBAIDB4M2IKZiB1bmRvXzM5IEAgMHgzYwpmIHVuZG9fMzggQCAweDNkCmYgdW5kb18zNyBAIDB4M2UKZiB1bmRvXzM2IEAgMHgzZgpmIHVuZG9fMzUgQCAweDQwCmYgdW5kb18zNCBAIDB4NDEKZiB1bmRvXzMzIEAgMHg0MgpmIHVuZG9fMzIgQCAweDQzCmYgdW5kb18zMSBAIDB4NDQKZiB1bmRvXzMwIEAgMHg0NQpmIHVuZG9fMjkgQCAweDQ2CmYgdW5kb18yOCBAIDB4NDcKZiB1bmRvXzI3IEAgMHg0OApmIHVuZG9fMjYgQCAweDQ5CmYgdW5kb18yNSBAIDB4NGEKZiB1bmRvXzI0IEAgMHg0YgpmIHVuZG9fMjMgQCAweDRjCmYgdW5kb18yMiBAIDB4NGQKZiB1bmRvXzIxIEAgMHg0ZQpmIHVuZG9fMjAgQCAweDRmCmYgdW5kb18xOSBAIDB4NTAKZiB1bmRvXzE4IEAgMHg1MQpmIHVuZG9fMTcgQCAweDUyCmYgdW5kb18xNiBAIDB4NTMKZiB1bmRvXzE1IEAgMHg1NApmIHVuZG9fMTQgQCAweDU1CmYgdW5kb18xMyBAIDB4NTYKZiB1bmRvXzEyIEAgMHg1NwpmIHVuZG9fMTEgQCAweDU4CmYgdW5kb18xMCBAIDB4NTkKZiB1bmRvXzkgQCAweDVhCmYgdW5kb184IEAgMHg1YgpmIHVuZG9fNyBAIDB4NWMKZiB1bmRvXzYgQCAweDVkCmYgdW5kb181IEAgMHg1ZQpmIHVuZG9fNCBAIDB4NWYKZiB1bmRvXzMgQCAweDYwCmYgdW5kb18yIEAgMHg2MQpmIHVuZG9fMSBAIDB4NjIKZiB1bmRvXzAgQCAweDYzCjB4NjQKCmYgdW5kb18xMiBAIDB4MjUKZiB1bmRvXzExIEAgMHgyNgpmIHVuZG9fMTAgQCAweDI3CmYgdW5kb185IEAgMHgyOApmIHVuZG9fOCBAIDB4MjkKZiB1bmRvXzcgQCAweDJhCmYgdW5kb182IEAgMHgyYgpmIHVuZG9fNSBAIDB4MmMKZiB1bmRvXzQgQCAweDJkCmYgdW5kb18zIEAgMHgyZQpmIHVuZG9fMiBAIDB4MmYKZiB1bmRvXzEgQCAweDMwCmYgdW5kb18wIEAgMHgzMQojIEN1cnJlbnQgdW5kby9yZWRvIHBvc2l0aW9uLgpmIHJlZG9fMCBAIDB4MzMKZiByZWRvXzEgQCAweDM0CmYgcmVkb18yIEAgMHgzNQpmIHJlZG9fMyBAIDB4MzYKZiByZWRvXzQgQCAweDM3CmYgcmVkb181IEAgMHgzOApmIHJlZG9fNiBAIDB4MzkKZiByZWRvXzcgQCAweDNhCmYgcmVkb184IEAgMHgzYgpmIHJlZG9fOSBAIDB4M2MKZiByZWRvXzEwIEAgMHgzZApmIHJlZG9fMTEgQCAweDNlCmYgcmVkb18xMiBAIDB4M2YKZiByZWRvXzEzIEAgMHg0MApmIHJlZG9fMTQgQCAweDQxCmYgcmVkb18xNSBAIDB4NDIKZiByZWRvXzE2IEAgMHg0MwpmIHJlZG9fMTcgQCAweDQ0CmYgcmVkb18xOCBAIDB4NDUKZiByZWRvXzE5IEAgMHg0NgpmIHJlZG9fMjAgQCAweDQ3CmYgcmVkb18yMSBAIDB4NDgKZiByZWRvXzIyIEAgMHg0OQpmIHJlZG9fMjMgQCAweDRhCmYgcmVkb18yNCBAIDB4NGIKZiByZWRvXzI1IEAgMHg0YwpmIHJlZG9fMjYgQCAweDRkCmYgcmVkb18yNyBAIDB4NGUKZiByZWRvXzI4IEAgMHg0ZgpmIHJlZG9fMjkgQCAweDUwCmYgcmVkb18zMCBAIDB4NTEKZiByZWRvXzMxIEAgMHg1MgpmIHJlZG9fMzIgQCAweDUzCmYgcmVkb18zMyBAIDB4NTQKZiByZWRvXzM0IEAgMHg1NQpmIHJlZG9fMzUgQCAweDU2CmYgcmVkb18zNiBAIDB4NTcKZiByZWRvXzM3IEAgMHg1OApmIHJlZG9fMzggQCAweDU5CmYgcmVkb18zOSBAIDB4NWEKZiByZWRvXzQwIEAgMHg1YgpmIHJlZG9fNDEgQCAweDVjCmYgcmVkb180MiBAIDB4NWQKZiByZWRvXzQzIEAgMHg1ZQpmIHJlZG9fNDQgQCAweDVmCmYgcmVkb180NSBAIDB4NjAKZiByZWRvXzQ2IEAgMHg2MQpmIHJlZG9fNDcgQCAweDYyCmYgcmVkb180OCBAIDB4NjMKZiByZWRvXzQ5IEAgMHg2NAoweDMyCgpmIHVuZG9fMTMgQCAweDI1CmYgdW5kb18xMiBAIDB4MjYKZiB1bmRvXzExIEAgMHgyNwpmIHVuZG9fMTAgQCAweDI4CmYgdW5kb185IEAgMHgyOQpmIHVuZG9fOCBAIDB4MmEKZiB1bmRvXzcgQCAweDJiCmYgdW5kb182IEAgMHgyYwpmIHVuZG9fNSBAIDB4MmQKZiB1bmRvXzQgQCAweDJlCmYgdW5kb18zIEAgMHgyZgpmIHVuZG9fMiBAIDB4MzAKZiB1bmRvXzEgQCAweDMxCmYgdW5kb18wIEAgMHgzMgoweDEwMAoKCg==
-CMDS64=CnMqCiMgRm9yY2UgYSB3cmFwYXJvdW5kIGluIHRoZSB1bmRvL3JlZG8gYnVmZmVyLgoxMDBzKyAxCnMqIDsgP3YgJCQgOyA/ZQoKIyBNYWtlIHN1cmUgZ2V0IGJhY2sgdG8gdGhlIGxhc3QgYXZhaWxhYmxlIHVuZG8uCjEwMHMtCnMqIDsgP3YgJCQgOyA/ZQoKIyBBbmQgcmVkbyBtdXN0IHdvcmsgb2YgY291cnNlLgoxMDBzKwpzKiA7ID92ICQkIDsgP2UKCiMgU2Vla2luZyBpbnNpZGUgdGhlIHVuZG8gbGlzdCBtdXN0IGRlc3Ryb3kgdGhlIHJlZG8gbGlzdC4KNTBzLQpzKiA7ID92ICQkIDsgP2UKcyAweDEwMApzKiA7ID92ICQkIDsgP2UKCg==
+EXPECT=<<EOF
+-no seeks done-
+f undo_62 @ 0x25
+f undo_61 @ 0x26
+f undo_60 @ 0x27
+f undo_59 @ 0x28
+f undo_58 @ 0x29
+f undo_57 @ 0x2a
+f undo_56 @ 0x2b
+f undo_55 @ 0x2c
+f undo_54 @ 0x2d
+f undo_53 @ 0x2e
+f undo_52 @ 0x2f
+f undo_51 @ 0x30
+f undo_50 @ 0x31
+f undo_49 @ 0x32
+f undo_48 @ 0x33
+f undo_47 @ 0x34
+f undo_46 @ 0x35
+f undo_45 @ 0x36
+f undo_44 @ 0x37
+f undo_43 @ 0x38
+f undo_42 @ 0x39
+f undo_41 @ 0x3a
+f undo_40 @ 0x3b
+f undo_39 @ 0x3c
+f undo_38 @ 0x3d
+f undo_37 @ 0x3e
+f undo_36 @ 0x3f
+f undo_35 @ 0x40
+f undo_34 @ 0x41
+f undo_33 @ 0x42
+f undo_32 @ 0x43
+f undo_31 @ 0x44
+f undo_30 @ 0x45
+f undo_29 @ 0x46
+f undo_28 @ 0x47
+f undo_27 @ 0x48
+f undo_26 @ 0x49
+f undo_25 @ 0x4a
+f undo_24 @ 0x4b
+f undo_23 @ 0x4c
+f undo_22 @ 0x4d
+f undo_21 @ 0x4e
+f undo_20 @ 0x4f
+f undo_19 @ 0x50
+f undo_18 @ 0x51
+f undo_17 @ 0x52
+f undo_16 @ 0x53
+f undo_15 @ 0x54
+f undo_14 @ 0x55
+f undo_13 @ 0x56
+f undo_12 @ 0x57
+f undo_11 @ 0x58
+f undo_10 @ 0x59
+f undo_9 @ 0x5a
+f undo_8 @ 0x5b
+f undo_7 @ 0x5c
+f undo_6 @ 0x5d
+f undo_5 @ 0x5e
+f undo_4 @ 0x5f
+f undo_3 @ 0x60
+f undo_2 @ 0x61
+f undo_1 @ 0x62
+f undo_0 @ 0x63
+0x64
+
+f redo_0 @ 0x26
+f redo_1 @ 0x27
+f redo_2 @ 0x28
+f redo_3 @ 0x29
+f redo_4 @ 0x2a
+f redo_5 @ 0x2b
+f redo_6 @ 0x2c
+f redo_7 @ 0x2d
+f redo_8 @ 0x2e
+f redo_9 @ 0x2f
+f redo_10 @ 0x30
+f redo_11 @ 0x31
+f redo_12 @ 0x32
+f redo_13 @ 0x33
+f redo_14 @ 0x34
+f redo_15 @ 0x35
+f redo_16 @ 0x36
+f redo_17 @ 0x37
+f redo_18 @ 0x38
+f redo_19 @ 0x39
+f redo_20 @ 0x3a
+f redo_21 @ 0x3b
+f redo_22 @ 0x3c
+f redo_23 @ 0x3d
+f redo_24 @ 0x3e
+f redo_25 @ 0x3f
+f redo_26 @ 0x40
+f redo_27 @ 0x41
+f redo_28 @ 0x42
+f redo_29 @ 0x43
+f redo_30 @ 0x44
+f redo_31 @ 0x45
+f redo_32 @ 0x46
+f redo_33 @ 0x47
+f redo_34 @ 0x48
+f redo_35 @ 0x49
+f redo_36 @ 0x4a
+f redo_37 @ 0x4b
+f redo_38 @ 0x4c
+f redo_39 @ 0x4d
+f redo_40 @ 0x4e
+f redo_41 @ 0x4f
+f redo_42 @ 0x50
+f redo_43 @ 0x51
+f redo_44 @ 0x52
+f redo_45 @ 0x53
+f redo_46 @ 0x54
+f redo_47 @ 0x55
+f redo_48 @ 0x56
+f redo_49 @ 0x57
+f redo_50 @ 0x58
+f redo_51 @ 0x59
+f redo_52 @ 0x5a
+f redo_53 @ 0x5b
+f redo_54 @ 0x5c
+f redo_55 @ 0x5d
+f redo_56 @ 0x5e
+f redo_57 @ 0x5f
+f redo_58 @ 0x60
+f redo_59 @ 0x61
+f redo_60 @ 0x62
+f redo_61 @ 0x63
+f redo_62 @ 0x64
+0x25
+
+f undo_62 @ 0x25
+f undo_61 @ 0x26
+f undo_60 @ 0x27
+f undo_59 @ 0x28
+f undo_58 @ 0x29
+f undo_57 @ 0x2a
+f undo_56 @ 0x2b
+f undo_55 @ 0x2c
+f undo_54 @ 0x2d
+f undo_53 @ 0x2e
+f undo_52 @ 0x2f
+f undo_51 @ 0x30
+f undo_50 @ 0x31
+f undo_49 @ 0x32
+f undo_48 @ 0x33
+f undo_47 @ 0x34
+f undo_46 @ 0x35
+f undo_45 @ 0x36
+f undo_44 @ 0x37
+f undo_43 @ 0x38
+f undo_42 @ 0x39
+f undo_41 @ 0x3a
+f undo_40 @ 0x3b
+f undo_39 @ 0x3c
+f undo_38 @ 0x3d
+f undo_37 @ 0x3e
+f undo_36 @ 0x3f
+f undo_35 @ 0x40
+f undo_34 @ 0x41
+f undo_33 @ 0x42
+f undo_32 @ 0x43
+f undo_31 @ 0x44
+f undo_30 @ 0x45
+f undo_29 @ 0x46
+f undo_28 @ 0x47
+f undo_27 @ 0x48
+f undo_26 @ 0x49
+f undo_25 @ 0x4a
+f undo_24 @ 0x4b
+f undo_23 @ 0x4c
+f undo_22 @ 0x4d
+f undo_21 @ 0x4e
+f undo_20 @ 0x4f
+f undo_19 @ 0x50
+f undo_18 @ 0x51
+f undo_17 @ 0x52
+f undo_16 @ 0x53
+f undo_15 @ 0x54
+f undo_14 @ 0x55
+f undo_13 @ 0x56
+f undo_12 @ 0x57
+f undo_11 @ 0x58
+f undo_10 @ 0x59
+f undo_9 @ 0x5a
+f undo_8 @ 0x5b
+f undo_7 @ 0x5c
+f undo_6 @ 0x5d
+f undo_5 @ 0x5e
+f undo_4 @ 0x5f
+f undo_3 @ 0x60
+f undo_2 @ 0x61
+f undo_1 @ 0x62
+f undo_0 @ 0x63
+0x64
+
+f undo_12 @ 0x25
+f undo_11 @ 0x26
+f undo_10 @ 0x27
+f undo_9 @ 0x28
+f undo_8 @ 0x29
+f undo_7 @ 0x2a
+f undo_6 @ 0x2b
+f undo_5 @ 0x2c
+f undo_4 @ 0x2d
+f undo_3 @ 0x2e
+f undo_2 @ 0x2f
+f undo_1 @ 0x30
+f undo_0 @ 0x31
+# Current undo/redo position.
+f redo_0 @ 0x33
+f redo_1 @ 0x34
+f redo_2 @ 0x35
+f redo_3 @ 0x36
+f redo_4 @ 0x37
+f redo_5 @ 0x38
+f redo_6 @ 0x39
+f redo_7 @ 0x3a
+f redo_8 @ 0x3b
+f redo_9 @ 0x3c
+f redo_10 @ 0x3d
+f redo_11 @ 0x3e
+f redo_12 @ 0x3f
+f redo_13 @ 0x40
+f redo_14 @ 0x41
+f redo_15 @ 0x42
+f redo_16 @ 0x43
+f redo_17 @ 0x44
+f redo_18 @ 0x45
+f redo_19 @ 0x46
+f redo_20 @ 0x47
+f redo_21 @ 0x48
+f redo_22 @ 0x49
+f redo_23 @ 0x4a
+f redo_24 @ 0x4b
+f redo_25 @ 0x4c
+f redo_26 @ 0x4d
+f redo_27 @ 0x4e
+f redo_28 @ 0x4f
+f redo_29 @ 0x50
+f redo_30 @ 0x51
+f redo_31 @ 0x52
+f redo_32 @ 0x53
+f redo_33 @ 0x54
+f redo_34 @ 0x55
+f redo_35 @ 0x56
+f redo_36 @ 0x57
+f redo_37 @ 0x58
+f redo_38 @ 0x59
+f redo_39 @ 0x5a
+f redo_40 @ 0x5b
+f redo_41 @ 0x5c
+f redo_42 @ 0x5d
+f redo_43 @ 0x5e
+f redo_44 @ 0x5f
+f redo_45 @ 0x60
+f redo_46 @ 0x61
+f redo_47 @ 0x62
+f redo_48 @ 0x63
+f redo_49 @ 0x64
+0x32
+
+f undo_13 @ 0x25
+f undo_12 @ 0x26
+f undo_11 @ 0x27
+f undo_10 @ 0x28
+f undo_9 @ 0x29
+f undo_8 @ 0x2a
+f undo_7 @ 0x2b
+f undo_6 @ 0x2c
+f undo_5 @ 0x2d
+f undo_4 @ 0x2e
+f undo_3 @ 0x2f
+f undo_2 @ 0x30
+f undo_1 @ 0x31
+f undo_0 @ 0x32
+0x100
+EOF
+CMDS=<<EOF
+s*
+# Force a wraparound in the undo/redo buffer.
+100s+ 1
+s* ; ?v $$ ; ?e
+
+# Make sure get back to the last available undo.
+100s-
+s* ; ?v $$ ; ?e
+
+# And redo must work of course.
+100s+
+s* ; ?v $$ ; ?e
+
+# Seeking inside the undo list must destroy the redo list.
+50s-
+s* ; ?v $$ ; ?e
+s 0x100
+s* ; ?v $$ ; ?e
+EOF
 RUN

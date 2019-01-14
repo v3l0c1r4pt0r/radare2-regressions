@@ -1,5 +1,42 @@
 NAME=lea_intel att relsub
 FILE=../bins/elf/ezpz
-EXPECT64=ICAweDAwNDAyYzQzICAgICAgbGVhIHJheCwgW3JicCAtIDB4YTBdCiAgMHgwMDQwMmM0YSAgICAgIG1vdiByZGksIHJheAogIDB4MDA0MDJjNGQgICAgICBjYWxsIHN5bS5NRDVfSW5pdF9NRDVfQ1RYCiAgMHgwMDQwMmM1MiAgICAgIG1vdiBlYXgsIGR3b3JkIFtyYnAgLSAweGI0XQogIDB4MDA0MDJjNTggICAgICBhZGQgZWF4LCAxCiAgMHgwMDQwMmM1YiAgICAgIG1vdnN4ZCByZHgsIGVheAogIDB4MDA0MDJjNWUgICAgICBsZWEgcmF4LCBbcmJwIC0gMHhhMF0KICAweDAwNDAyYzY1ICAgICAgbW92IGVzaSwgb2JqLlBhc3N3b3JkCiAgMHgwMDQwMmM2YSAgICAgIG1vdiByZGksIHJheAogIDB4MDA0MDJjNmQgICAgICBjYWxsIHN5bS5NRDVfVXBkYXRlX01ENV9DVFhfX3ZvaWRjb25zdF9fdW5zaWduZWRsb25nCiAgMHgwMDQwMmM3MiAgICAgIGxlYSByZHgsIFtyYnAgLSAweGEwXQogIDB4MDA0MDJjNzkgICAgICBsZWEgcmF4LCBbcmJwIC0gMHhiMF0KICAweDAwNDAyYzgwICAgICAgbW92IHJzaSwgcmR4CiAgMHgwMDQwMmM4MyAgICAgIG1vdiByZGksIHJheAogIDB4MDA0MDJjODYgICAgICBjYWxsIHN5bS5NRDVfRmluYWxfdW5zaWduZWRjaGFyX19NRDVfQ1RYCiAgMHgwMDQwMmM4YiAgICAgIG1vdiBlYXgsIGR3b3JkIFtyYnAgLSAweGI0XQogIDB4MDA0MDJjOTEgICAgICBjZHFlCiAgMHgwMDQwMmM5MyAgICAgIHNobCByYXgsIDQKICAweDAwNDAyYzk3ICAgICAgbGVhIHJjeCwgW3JheCArIG9iai5Hb29kSGFzaGVzXQogIDB4MDA0MDJjOWUgICAgICBsZWEgcmF4LCBbcmJwIC0gMHhiMF0KICAweDAwNDAyY2E1ICAgICAgbW92IGVkeCwgMHgxMAogIDB4MDA0MDJjYWEgICAgICBtb3YgcnNpLCByY3gKICAweDAwNDAyY2FkICAgICAgbW92IHJkaSwgcmF4CiAgMHgwMDQwMmNiMCAgICAgIGNhbGwgc3ltLmltcC5tZW1jbXAKICAweDAwNDAyY2I1ICAgICAgdGVzdCBlYXgsIGVheAogIDB4MDA0MDJjYjcgICAgICBqZSAweDQwMmNjMgogIDB4MDA0MDJjYjkgICAgICBtb3YgYnl0ZSBbb2JqLkRyYXdHb29kV29ya10sIDAKICAweDAwNDAyY2MwICAgICAgam1wIDB4NDAyY2RkCiAgMHgwMDQwMmNjMiAgICAgIGFkZCBkd29yZCBbcmJwIC0gMHhiNF0sIDEKICAweDAwNDAyY2M5ICAgICAgY21wIGR3b3JkIFtyYnAgLSAweGI0XSwgMHgxNAo=
-CMDS64=ZSBhc20ubGluZXMuYmI9MAplIGFzbS5ieXRlcz0wCmUgYXNtLmNvbW1lbnRzPWZhbHNlCnMgMHgwMDQwMmM0MwpwZCAzMAoK
+EXPECT=<<EOF
+  0x00402c43      lea rax, [rbp - 0xa0]
+  0x00402c4a      mov rdi, rax
+  0x00402c4d      call sym.MD5_Init_MD5_CTX
+  0x00402c52      mov eax, dword [rbp - 0xb4]
+  0x00402c58      add eax, 1
+  0x00402c5b      movsxd rdx, eax
+  0x00402c5e      lea rax, [rbp - 0xa0]
+  0x00402c65      mov esi, obj.Password
+  0x00402c6a      mov rdi, rax
+  0x00402c6d      call sym.MD5_Update_MD5_CTX__voidconst__unsignedlong
+  0x00402c72      lea rdx, [rbp - 0xa0]
+  0x00402c79      lea rax, [rbp - 0xb0]
+  0x00402c80      mov rsi, rdx
+  0x00402c83      mov rdi, rax
+  0x00402c86      call sym.MD5_Final_unsignedchar__MD5_CTX
+  0x00402c8b      mov eax, dword [rbp - 0xb4]
+  0x00402c91      cdqe
+  0x00402c93      shl rax, 4
+  0x00402c97      lea rcx, [rax + obj.GoodHashes]
+  0x00402c9e      lea rax, [rbp - 0xb0]
+  0x00402ca5      mov edx, 0x10
+  0x00402caa      mov rsi, rcx
+  0x00402cad      mov rdi, rax
+  0x00402cb0      call sym.imp.memcmp
+  0x00402cb5      test eax, eax
+  0x00402cb7      je 0x402cc2
+  0x00402cb9      mov byte [obj.DrawGoodWork], 0
+  0x00402cc0      jmp 0x402cdd
+  0x00402cc2      add dword [rbp - 0xb4], 1
+  0x00402cc9      cmp dword [rbp - 0xb4], 0x14
+EOF
+CMDS=<<EOF
+e asm.lines.bb=0
+e asm.bytes=0
+e asm.comments=false
+s 0x00402c43
+pd 30
+EOF
 RUN

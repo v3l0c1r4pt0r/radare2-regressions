@@ -1,24 +1,58 @@
 NAME=hello-arm32
 FILE=../bins/elf/analysis/hello-arm32
-EXPECT64=MHgxMDAwMAoweDkwYwoK
-CMDS64=P3YgJE0KP3YgJHMKCg==
+EXPECT=<<EOF
+0x10000
+0x90c
+EOF
+CMDS=<<EOF
+?v $M
+?v $s
+EOF
 RUN
+
 NAME=hello-arm32
 FILE=../bins/elf/analysis/hello-arm32
-EXPECT64=MHg0MDAwCjB4OTBjCgo=
+EXPECT=<<EOF
+0x4000
+0x90c
+EOF
 ARGS=-B 0x4000
-CMDS64=P3YgJE0KP3YgJHMKCg==
+CMDS=<<EOF
+?v $M
+?v $s
+EOF
 RUN
+
 NAME=$FB (fcn-begin)
 FILE=malloc://1024
-EXPECT64=MHgyYQoK
-CMDS64=cyA0MgphZgpzIDQ0CnMgJEZCCnMK
+EXPECT=<<EOF
+0x2a
+EOF
+CMDS=<<EOF
+s 42
+af
+s 44
+s $FB
+s
+EOF
 RUN
+
 NAME=$$ (malloc)
 FILE=malloc://1024
-EXPECT64=MHgwCjB4MmEKMHgwCgo=
-CMDS64=P3YgJCQKcyA0Mgo/diAkJApzLQo/diAkJAo=
+EXPECT=<<EOF
+0x0
+0x2a
+0x0
+EOF
+CMDS=<<EOF
+?v $$
+s 42
+?v $$
+s-
+?v $$
+EOF
 RUN
+
 NAME=$$$ (malloc)
 FILE=-
 CMDS=<<EXPECT
@@ -51,6 +85,7 @@ EXPECT=<<RUN
 0x123
 0x123
 RUN
+
 NAME=nested $$
 FILE=-
 CMDS=<<EXPECT
@@ -64,6 +99,7 @@ EXPECT=<<RUN
 0x600
 0x700
 RUN
+
 NAME=no seek change on pdf @ addr (#10007)
 FILE=../bins/elf/redpill
 CMDS=<<EXPECT
@@ -77,80 +113,272 @@ EXPECT=<<RUN
 0xf40
 0xf40
 RUN
+
 NAME=$o (malloc)
 FILE=malloc://1024
-EXPECT64=MHgwCjB4MmEKMHgwCgo=
-CMDS64=P3YgJG8KcyA0Mgo/diAkbwpzLQo/diAkbwoK
+EXPECT=<<EOF
+0x0
+0x2a
+0x0
+EOF
+CMDS=<<EOF
+?v $o
+s 42
+?v $o
+s-
+?v $o
+EOF
 RUN
+
 NAME=$s (malloc)
 FILE=malloc://1024
-EXPECT64=MHg0MDAKCg==
-CMDS64=P3YgJHMKCg==
+EXPECT=<<EOF
+0x400
+EOF
+CMDS=<<EOF
+?v $s
+EOF
 RUN
+
 NAME=$j (malloc)
 FILE=malloc://1024
-EXPECT64=MHgzMAoweDEKMHhmZmZmZmZmZmZmZmZmZmZmCgoK
-CMDS64=ZSBhc20uYml0cz0zMgplIGFzbS5hcmNoID0geDg2CmUgYW5hbC5hcmNoID0geDg2CndhIGptcCAweDMwCj92ICRqCndhIGp6IDB4MDEKP3YgJGoKd2EgeG9yIGVheCwgZWF4Cj92ICRqCj9lCgo=
+EXPECT=<<EOF
+0x30
+0x1
+0xffffffffffffffff
+
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e asm.arch = x86
+e anal.arch = x86
+wa jmp 0x30
+?v $j
+wa jz 0x01
+?v $j
+wa xor eax, eax
+?v $j
+?e
+EOF
 RUN
+
 NAME=$f (malloc)
 FILE=malloc://1024
-EXPECT64=MHhmZmZmZmZmZmZmZmZmZmZmCjB4NgoweGZmZmZmZmZmZmZmZmZmZmYKCg==
-CMDS64=ZSBhc20uYml0cz0zMgplIGFzbS5hcmNoID0geDg2CmUgYW5hbC5hcmNoID0geDg2Cnd4IGViMmUKP3YgJGYKd3ggMGY4NGZiZmZmZmZmCj92ICRmCnd4IDMxYzAKP3YgJGYKCg==
+EXPECT=<<EOF
+0xffffffffffffffff
+0x6
+0xffffffffffffffff
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e asm.arch = x86
+e anal.arch = x86
+wx eb2e
+?v $f
+wx 0f84fbffffff
+?v $f
+wx 31c0
+?v $f
+EOF
 RUN
+
 NAME=$m (malloc)
 FILE=malloc://1024
-EXPECT64=MHg1MDAKMHhmZmZmZmZmZmZmZmZmZmZmCgoK
-CMDS64=ZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz0zMgp3YSBtb3YgZWF4LCBbMHg1MDBdCj92ICRtCndhIG1vdiBlYXgsIGVieAo/diAkbQo/ZQoK
+EXPECT=<<EOF
+0x500
+0xffffffffffffffff
+
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+wa mov eax, [0x500]
+?v $m
+wa mov eax, ebx
+?v $m
+?e
+EOF
 RUN
+
 NAME=$l (malloc)
 FILE=malloc://1024
-EXPECT64=MHgyCjB4NQoweDEKCg==
-CMDS64=ZSBhc20uYml0cz0zMgplIGFzbS5hcmNoID0geDg2CmUgYW5hbC5hcmNoID0geDg2CndhIHhvciBlYXgsIGVheAo/diAkbAp3YSBtb3YgZXNwLCAweDEKP3YgJGwKd3ggYzMKP3YgJGwK
+EXPECT=<<EOF
+0x2
+0x5
+0x1
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e asm.arch = x86
+e anal.arch = x86
+wa xor eax, eax
+?v $l
+wa mov esp, 0x1
+?v $l
+wx c3
+?v $l
+EOF
 RUN
+
 NAME=$e (malloc)
 FILE=-
-EXPECT64=MHgwCjB4MQoweDEKMHgwCg==
-CMDS64=ZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz0zMgp3YSBpbmMgZWF4Cj92ICRlCndhIGptcCAweDAxCj92ICRlCndhIHJldAo/diAkZQp3YSBjYWxsIDB4MDEKP3YgJGUKCg==
+EXPECT=<<EOF
+0x0
+0x1
+0x1
+0x0
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+wa inc eax
+?v $e
+wa jmp 0x01
+?v $e
+wa ret
+?v $e
+wa call 0x01
+?v $e
+EOF
 RUN
+
 NAME=$e (malloc) 2
 FILE=malloc://1024
-EXPECT64=MHgyMAo=
-CMDS64=ZSBhc20uYml0cyA9IDB4MjAKP3YgJHthc20uYml0c30KCg==
+EXPECT=<<EOF
+0x20
+EOF
+CMDS=<<EOF
+e asm.bits = 0x20
+?v ${asm.bits}
+EOF
 RUN
+
 NAME=$e (malloc) 3
 FILE=malloc://1024
-EXPECT64=aGV4ICAgICAweDgKb2N0YWwgICAwMTAKdW5pdCAgICA4CnNlZ21lbnQgMDAwMDowMDA4CmludDMyICAgOApzdHJpbmcgICJcYiIKYmluYXJ5ICAwYjAwMDAxMDAwCmZ2YWx1ZTogOC4wCmZsb2F0OiAgMC4wMDAwMDBmCmRvdWJsZTogMC4wMDAwMDAKdHJpdHMgICAwdDIyCjB4OApoZXggICAgIDB4MApvY3RhbCAgIDAwCnVuaXQgICAgMApzZWdtZW50IDAwMDA6MDAwMAppbnQzMiAgIDAKc3RyaW5nICAiXDAiCmJpbmFyeSAgMGIwMDAwMDAwMApmdmFsdWU6IDAuMApmbG9hdDogIDAuMDAwMDAwZgpkb3VibGU6IDAuMDAwMDAwCnRyaXRzICAgMHQwCjB4MAo=
-CMDS64=PyA1KzMKP3YgJD8KPyAwCj92ICQ/Cgo=
+EXPECT=<<EOF
+hex     0x8
+octal   010
+unit    8
+segment 0000:0008
+int32   8
+string  "\b"
+binary  0b00001000
+fvalue: 8.0
+float:  0.000000f
+double: 0.000000
+trits   0t22
+0x8
+hex     0x0
+octal   00
+unit    0
+segment 0000:0000
+int32   0
+string  "\0"
+binary  0b00000000
+fvalue: 0.0
+float:  0.000000f
+double: 0.000000
+trits   0t0
+0x0
+EOF
+CMDS=<<EOF
+? 5+3
+?v $?
+? 0
+?v $?
+EOF
 RUN
+
 NAME=$$ (x86-simple)
 FILE=../bins/elf/analysis/x86-simple
-EXPECT64=MHg4MDQ4MDYwCjB4MmEKMHg4MDQ4MDYwCgo=
-CMDS64=P3YgJCQKcyA0Mgo/diAkJApzLQo/diAkJAo=
+EXPECT=<<EOF
+0x8048060
+0x2a
+0x8048060
+EOF
+CMDS=<<EOF
+?v $$
+s 42
+?v $$
+s-
+?v $$
+EOF
 RUN
+
 NAME=$o (x86-simple)
 FILE=../bins/elf/analysis/x86-simple
-EXPECT64=MHg2MAoweDJhCjB4NjAKCg==
-CMDS64=P3YgJG8KcyA0Mgo/diAkbwpzLQo/diAkbwoK
+EXPECT=<<EOF
+0x60
+0x2a
+0x60
+EOF
+CMDS=<<EOF
+?v $o
+s 42
+?v $o
+s-
+?v $o
+EOF
 RUN
+
 NAME=$b (x86-simple)
 FILE=../bins/elf/analysis/x86-simple
-EXPECT64=MHg3YgpoZXggICAgIDB4N2IKb2N0YWwgICAwMTczCnVuaXQgICAgMTIzCnNlZ21lbnQgMDAwMDowMDdiCmludDMyICAgMTIzCnN0cmluZyAgInsiCmJpbmFyeSAgMGIwMTExMTAxMQpmdmFsdWU6IDEyMy4wCmZsb2F0OiAgMC4wMDAwMDBmCmRvdWJsZTogMC4wMDAwMDAKdHJpdHMgICAwdDExMTIwCg==
-CMDS64=ZSBhc20uYml0cz0zMgplIGFzbS5hcmNoID0geDg2CmUgYW5hbC5hcmNoID0geDg2CmIgMTIzCj92ICRiCj8gJGIKCg==
+EXPECT=<<EOF
+0x7b
+hex     0x7b
+octal   0173
+unit    123
+segment 0000:007b
+int32   123
+string  "{"
+binary  0b01111011
+fvalue: 123.0
+float:  0.000000f
+double: 0.000000
+trits   0t11120
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e asm.arch = x86
+e anal.arch = x86
+b 123
+?v $b
+? $b
+EOF
 RUN
+
 NAME=$s (x86-simple)
 FILE=../bins/elf/analysis/x86-simple
-EXPECT64=MHhmYwoK
-CMDS64=P3YgJHMKCg==
+EXPECT=<<EOF
+0xfc
+EOF
+CMDS=<<EOF
+?v $s
+EOF
 RUN
+
 NAME=?p and ?P
 FILE=../bins/elf/analysis/simple.elf
-EXPECT64=MHgwMDAwMDA2MAoweDA4MDAwMDYwCgo=
-CMDS64=P3AgMHgwODAwMDA2MAo/UCAweDAwMDAwMDYwCgo=
+EXPECT=<<EOF
+0x00000060
+0x08000060
+EOF
+CMDS=<<EOF
+?p 0x08000060
+?P 0x00000060
+EOF
 RUN
+
 NAME=?p and ?P
 FILE=../bins/elf/analysis/simple.elf
-EXPECT64=bm8gbWFwIGF0IDB4ZGVhZGJlZWYKbm8gbWFwIGF0IDB4ZGVhZGJlZWYKCg==
-CMDS64=P3AgMHhkZWFkYmVlZgo/UCAweGRlYWRiZWVmCgo=
+EXPECT=<<EOF
+no map at 0xdeadbeef
+no map at 0xdeadbeef
+EOF
+CMDS=<<EOF
+?p 0xdeadbeef
+?P 0xdeadbeef
+EOF
 RUN
 
 NAME=$s{flag} and $SS (sections context)

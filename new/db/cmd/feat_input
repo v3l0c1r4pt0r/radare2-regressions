@@ -1,79 +1,174 @@
 NAME=newline ?e 
 
 FILE=malloc://1024
-EXPECT64=CgoK
-CMDS64=CiMgVGhlIHRlc3Qgc3VpdGUgaXMgbm90IGFsbG93ZWQgdG8gaW50ZXJwcmV0IHRoZSBvdXRwdXQhCj9lIAoKCg==
+EXPECT=<<EOF
+
+EOF
+CMDS=<<EOF
+# The test suite is not allowed to interpret the output!
+?e 
+EOF
 RUN
+
 NAME=comments
 FILE=malloc://1024
-EXPECT64=MHgwCgo=
-CMDS64=CiMgVGhpcyBpcyBhIGNvbW1lbnQuCiMgVGhpcyBpcyBhIGNvbW1lbnQgd2l0aCBhIDsgaW4gaXQgLSBhbmQgaXQgaXMgc3RpbGwgb25seSBhIGNvbW1lbnQuCiMgT3RoZXIgc3R1ZmYgaXMgYWxzbyBpZ25vcmVkOiBgLi5gIH4gLi4KCiMgQnV0IGluc2lkZSBhIGNvbW1hbmQgbGluZSBvbmx5IHRoZSBjb21tYW5kcyBhZnRlciB0aGUgIyBhcmUgaWdub3JlZC4KP3YgJCQgIyB0aGlzIG11c3QgYmVpZ25vcmVkIDsgP3YgJCQgfCBscwoK
+EXPECT=<<EOF
+0x0
+EOF
+CMDS=<<EOF
+# This is a comment.
+# This is a comment with a ; in it - and it is still only a comment.
+# Other stuff is also ignored: `..` ~ ..
+
+# But inside a command line only the commands after the # are ignored.
+?v $$ # this must beignored ; ?v $$ | ls
+EOF
 RUN
+
 NAME=w foo#bar
 FILE=malloc://1024
-EXPECT64=Zm9vI2JhcgoK
-CMDS64=CncgZm9vI2Jhcgpwc3oKCg==
+EXPECT=<<EOF
+foo#bar
+EOF
+CMDS=<<EOF
+w foo#bar
+psz
+EOF
 RUN
+
 NAME="quoted"
 FILE=malloc://1024
-EXPECT64=ZnVjazt5b3VAMjMKCg==
-CMDS64=CiJ3IGZ1Y2s7eW91QDIzIgpwc3oKCg==
+EXPECT=<<EOF
+fuck;you@23
+EOF
+CMDS=<<EOF
+"w fuck;you@23"
+psz
+EOF
 RUN
+
 NAME="quoted"@addr
 FILE=malloc://1024
-EXPECT64=ZnVjazt5b3VAMjMKCg==
-CMDS64=CiJ3IGZ1Y2s7eW91QDIzIkAweDEwCnBzekAweDEwCgo=
+EXPECT=<<EOF
+fuck;you@23
+EOF
+CMDS=<<EOF
+"w fuck;you@23"@0x10
+psz@0x10
+EOF
 RUN
+
 NAME="?e foo" "?e bar"
 FILE=malloc://1024
-EXPECT64=Zm9vCmJhcgoK
-CMDS64=CiI/ZSBmb28iOyI/ZSBiYXIiCgo=
+EXPECT=<<EOF
+foo
+bar
+EOF
+CMDS=<<EOF
+"?e foo";"?e bar"
+EOF
 RUN
+
 NAME=at3 "?vi $$"@3;"?e bar"
 FILE=malloc://1024
-EXPECT64=MwpiYXIKCg==
-CMDS64=Ij92aSAkJCJAMzs/ZSBiYXIK
+EXPECT=<<EOF
+3
+bar
+EOF
+CMDS=<<EOF
+"?vi $$"@3;?e bar
+EOF
 RUN
+
 NAME=at3 "?vi $$"@3;"?e bar"
 FILE=malloc://1024
-EXPECT64=MwpiYXIKCg==
-CMDS64=Ij92aSAkJCJAMzsiP2UgYmFyIgo=
+EXPECT=<<EOF
+3
+bar
+EOF
+CMDS=<<EOF
+"?vi $$"@3;"?e bar"
+EOF
 RUN
+
 NAME="?v 1>>>2 ror"
 FILE=malloc://1024
-EXPECT64=MHg0MDAwMDAwMDAwMDAwMDAwCg==
-CMDS64=Ij92IDE+Pj4yIgo=
+EXPECT=<<EOF
+0x4000000000000000
+EOF
+CMDS=<<EOF
+"?v 1>>>2"
+EOF
 RUN
+
 NAME="?v 0xdeadbeef<<<40 rol"
 FILE=malloc://1024
-EXPECT64=MHhhZGJlZWYwMDAwMDAwMGRlCg==
-CMDS64=Ij92IDB4ZGVhZGJlZWY8PDw0MCIK
+EXPECT=<<EOF
+0xadbeef00000000de
+EOF
+CMDS=<<EOF
+"?v 0xdeadbeef<<<40"
+EOF
 RUN
+
 NAME=?e foo;?e bar
 FILE=malloc://1024
-EXPECT64=Zm9vCmJhcgoK
-CMDS64=Cj9lIGZvbzs/ZSBiYXIKCg==
+EXPECT=<<EOF
+foo
+bar
+EOF
+CMDS=<<EOF
+?e foo;?e bar
+EOF
 RUN
+
 NAME=;?e bar
 FILE=malloc://1024
-EXPECT64=YmFyCgo=
-CMDS64=Cjs/ZSBiYXIKCg==
+EXPECT=<<EOF
+bar
+EOF
+CMDS=<<EOF
+;?e bar
+EOF
 RUN
+
 NAME='>' in cmd: agn "sh->fu"
 FILE=-
-CMDS64=CmFnbiAic2gtPmZ1IgphZ2cK
-EXPECT64=Li0tLS0tLS0tLS0tLS0tLS0tLS0tLgp8ICBzaC0+ZnUgICAgICAgICAgICB8CmAtLS0tLS0tLS0tLS0tLS0tLS0tLScK
+CMDS=<<EOF
+agn "sh->fu"
+agg
+EOF
+EXPECT=<<EOF
+.--------------------.
+|  sh->fu            |
+`--------------------'
+EOF
 RUN
+
 NAME=multiple '>' in cmd line: ?e abc > def>ghi
 FILE=-
-CMDS64=Cj9lIGFiYyA+IGRlZj5naGkgICMgc2hvdWxkIG5vdCBoYW5nCiJybSAuL2RlZj5naGkiCnJtIC4vZ2hpCg==
-EXPECT64=Cg==
+CMDS=<<EOF
+?e abc > def>ghi  # should not hang
+"rm ./def>ghi"
+rm ./ghi
+EOF
+EXPECT=<<EOF
+EOF
 RUN
+
 NAME=hash+space in quoted string
 FILE=-
-CMDS64=CmFnbiAiUHJvY2VzcyBmb3JtIEEjIEIjIGluIGNsb3VkIgphZ2cK
-EXPECT64=Li0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0uCnwgIFByb2Nlc3MgZm9ybSBBIyBCIyBpbiBjbG91ZCAgfApgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLScK
+CMDS=<<EOF
+agn "Process form A# B# in cloud"
+agg
+EOF
+EXPECT=<<EOF
+.-------------------------------.
+|  Process form A# B# in cloud  |
+`-------------------------------'
+EOF
 RUN
+
 NAME=cmd outputting trailing space
 FILE=-
 CMDS=<<EXPECT

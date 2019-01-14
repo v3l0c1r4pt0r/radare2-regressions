@@ -1,40 +1,108 @@
 NAME=@ addr
 FILE=--
-EXPECT64=MHg0MgoK
-CMDS64=CnMgMApzIEAgMHg0MgoK
+EXPECT=<<EOF
+0x42
+EOF
+CMDS=<<EOF
+s 0
+s @ 0x42
+EOF
 RUN
+
 NAME=@ e:
 FILE=-
-EXPECT64=dHJ1ZQoK
-CMDS64=CmUgc2NyLmNvbG9yPWZhbHNlCmUgc2NyLmNvbG9yIEAgZTpzY3IuY29sb3I9dHJ1ZQoK
+EXPECT=<<EOF
+true
+EOF
+CMDS=<<EOF
+e scr.color=false
+e scr.color @ e:scr.color=true
+EOF
 RUN
+
 NAME=@ a:
 FILE=-
-EXPECT64=YXJtCgo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmFyY2ggQCBhOmFybQoK
+EXPECT=<<EOF
+arm
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.arch @ a:arm
+EOF
 RUN
+
 NAME=@ e: @ addr
 FILE=-
-EXPECT64=dHJ1ZQoweDEzMzcKCg==
-CMDS64=CmUgc2NyLmNvbG9yPWZhbHNlCnMgMAplIHNjci5jb2xvciBAIGU6c2NyLmNvbG9yPXRydWUgQCAweDEzMzcKcyBAIGU6c2NyLmNvbG9yPXRydWUgQCAweDEzMzcKCg==
+EXPECT=<<EOF
+true
+0x1337
+EOF
+CMDS=<<EOF
+e scr.color=false
+s 0
+e scr.color @ e:scr.color=true @ 0x1337
+s @ e:scr.color=true @ 0x1337
+EOF
 RUN
+
 NAME=@ addr @ e
 FILE=-
-EXPECT64=ZmFsc2UKdHJ1ZQoweDQyCjB4MTMzNwoK
-CMDS64=CmUgc2NyLmNvbG9yIEAgMHg0MiBAIGU6c2NyLmNvbG9yPWZhbHNlIAplIHNjci5jb2xvciBAIDB4MTMzNyBAIGU6c2NyLmNvbG9yPXRydWUKcyBAIDB4NDIgQCBlOnNjci5jb2xvcj1mYWxzZSAKcyBAIDB4MTMzNyBAIGU6c2NyLmNvbG9yPXRydWUgCgo=
+EXPECT=<<EOF
+false
+true
+0x42
+0x1337
+EOF
+CMDS=<<EOF
+e scr.color @ 0x42 @ e:scr.color=false 
+e scr.color @ 0x1337 @ e:scr.color=true
+s @ 0x42 @ e:scr.color=false 
+s @ 0x1337 @ e:scr.color=true 
+EOF
 RUN
+
 NAME=@ a: @ addr @ e:
 FILE=-
-EXPECT64=eDg2CmFybQoweDQyCjB4MTMzNwpmYWxzZQp0cnVlCgo=
-CMDS64=CmUgYXNtLmFyY2ggQCBhOng4NiBAIDB4NDIgQCBlOnNjci5jb2xvcj1mYWxzZQplIGFzbS5hcmNoIEAgYTphcm0gQCAweDEzMzcgQCBlOnNjci5jb2xvcj10cnVlCnMgQCBhOng4NiBAIDB4NDIgQCBlOnNjci5jb2xvcj1mYWxzZQpzIEAgQCBhOmFybSBAIDB4MTMzNyBAIGU6c2NyLmNvbG9yPXRydWUKZSBzY3IuY29sb3IgQCBhOng4NiBAIDB4NDIgQCBlOnNjci5jb2xvcj1mYWxzZQplIHNjci5jb2xvciBAIEAgYTphcm0gQCAweDEzMzcgQCBlOnNjci5jb2xvcj10cnVlCgo=
+EXPECT=<<EOF
+x86
+arm
+0x42
+0x1337
+false
+true
+EOF
+CMDS=<<EOF
+e asm.arch @ a:x86 @ 0x42 @ e:scr.color=false
+e asm.arch @ a:arm @ 0x1337 @ e:scr.color=true
+s @ a:x86 @ 0x42 @ e:scr.color=false
+s @ @ a:arm @ 0x1337 @ e:scr.color=true
+e scr.color @ a:x86 @ 0x42 @ e:scr.color=false
+e scr.color @ @ a:arm @ 0x1337 @ e:scr.color=true
+EOF
 RUN
+
 NAME=@e:a=b,c=d with a==c
 FILE=-
-EXPECT64=dHJ1ZQpmYWxzZQoK
-CMDS64=CmUgYXNtLnBzZXVkbz1mYWxzZQplIGFzbS5wc2V1ZG8gQCBlOmFzbS5wc2V1ZG89dHJ1ZSxhc20ucHNldWRvPXRydWUKZSBhc20ucHNldWRvCgo=
+EXPECT=<<EOF
+true
+false
+EOF
+CMDS=<<EOF
+e asm.pseudo=false
+e asm.pseudo @ e:asm.pseudo=true,asm.pseudo=true
+e asm.pseudo
+EOF
 RUN
+
 NAME=@e:a=b @e:c=d with a==c
 FILE=-
-EXPECT64=dHJ1ZQpmYWxzZQoK
-CMDS64=CmUgYXNtLnBzZXVkbz1mYWxzZQplIGFzbS5wc2V1ZG8gQCBlOmFzbS5wc2V1ZG89dHJ1ZSBAIGU6YXNtLnBzZXVkbz10cnVlCmUgYXNtLnBzZXVkbwoK
+EXPECT=<<EOF
+true
+false
+EOF
+CMDS=<<EOF
+e asm.pseudo=false
+e asm.pseudo @ e:asm.pseudo=true @ e:asm.pseudo=true
+e asm.pseudo
+EOF
 RUN

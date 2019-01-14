@@ -1,15 +1,26 @@
 NAME=stdin eof
 FILE=-
-EXPECT64=Cg==
-CMDS64=Cg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+
+EOF
 RUN
+
 NAME=stdin quit
 FILE=-
-EXPECT64=Cg==
-CMDS64=Cg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+
+EOF
 RUN
+
 NAME=stdin quit
 FILE=-
-EXPECT64=Cg==
-CMDS64=Cg==
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+
+EOF
 RUN

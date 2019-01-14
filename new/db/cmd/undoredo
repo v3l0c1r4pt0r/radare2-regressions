@@ -1,5 +1,196 @@
 NAME=t/undoredo
 FILE=malloc://1024
-EXPECT64=Tm8gc2Vla3MuCjB4MAoKQnV0IHRyeSB1bmRvL3JlZG8uCgpGaXJzdCBzZWVrcy4KZiB1bmRvXzAgQCAweDAKMHgxMApmIHVuZG9fMSBAIDB4MApmIHVuZG9fMCBAIDB4MTAKMHgyMApmIHVuZG9fMiBAIDB4MApmIHVuZG9fMSBAIDB4MTAKZiB1bmRvXzAgQCAweDIwCjB4MzAKZiB1bmRvXzMgQCAweDAKZiB1bmRvXzIgQCAweDEwCmYgdW5kb18xIEAgMHgyMApmIHVuZG9fMCBAIDB4MzAKMHg0MAoKVW5kbyBhbGwgc2Vla3MgKGFuZCBzb21lIG1vcmUpLgpmIHVuZG9fMiBAIDB4MApmIHVuZG9fMSBAIDB4MTAKZiB1bmRvXzAgQCAweDIwCiMgQ3VycmVudCB1bmRvL3JlZG8gcG9zaXRpb24uCmYgcmVkb18wIEAgMHg0MAoweDMwCgpmIHVuZG9fMSBAIDB4MApmIHVuZG9fMCBAIDB4MTAKIyBDdXJyZW50IHVuZG8vcmVkbyBwb3NpdGlvbi4KZiByZWRvXzAgQCAweDMwCmYgcmVkb18xIEAgMHg0MAoweDIwCgpmIHVuZG9fMCBAIDB4MAojIEN1cnJlbnQgdW5kby9yZWRvIHBvc2l0aW9uLgpmIHJlZG9fMCBAIDB4MjAKZiByZWRvXzEgQCAweDMwCmYgcmVkb18yIEAgMHg0MAoweDEwCgpmIHJlZG9fMCBAIDB4MTAKZiByZWRvXzEgQCAweDIwCmYgcmVkb18yIEAgMHgzMApmIHJlZG9fMyBAIDB4NDAKMHgwCgpmIHJlZG9fMCBAIDB4MTAKZiByZWRvXzEgQCAweDIwCmYgcmVkb18yIEAgMHgzMApmIHJlZG9fMyBAIDB4NDAKMHgwCgpmIHJlZG9fMCBAIDB4MTAKZiByZWRvXzEgQCAweDIwCmYgcmVkb18yIEAgMHgzMApmIHJlZG9fMyBAIDB4NDAKMHgwCgpUaGVuIHJlZG8gdGhlbSAoYW5kIHNvbWUgbW9yZSkuCmYgdW5kb18wIEAgMHgwCiMgQ3VycmVudCB1bmRvL3JlZG8gcG9zaXRpb24uCmYgcmVkb18wIEAgMHgyMApmIHJlZG9fMSBAIDB4MzAKZiByZWRvXzIgQCAweDQwCjB4MTAKCmYgdW5kb18xIEAgMHgwCmYgdW5kb18wIEAgMHgxMAojIEN1cnJlbnQgdW5kby9yZWRvIHBvc2l0aW9uLgpmIHJlZG9fMCBAIDB4MzAKZiByZWRvXzEgQCAweDQwCjB4MjAKCmYgdW5kb18yIEAgMHgwCmYgdW5kb18xIEAgMHgxMApmIHVuZG9fMCBAIDB4MjAKIyBDdXJyZW50IHVuZG8vcmVkbyBwb3NpdGlvbi4KZiByZWRvXzAgQCAweDQwCjB4MzAKCmYgdW5kb18zIEAgMHgwCmYgdW5kb18yIEAgMHgxMApmIHVuZG9fMSBAIDB4MjAKZiB1bmRvXzAgQCAweDMwCjB4NDAKCmYgdW5kb18zIEAgMHgwCmYgdW5kb18yIEAgMHgxMApmIHVuZG9fMSBAIDB4MjAKZiB1bmRvXzAgQCAweDMwCjB4NDAKCmYgdW5kb18zIEAgMHgwCmYgdW5kb18yIEAgMHgxMApmIHVuZG9fMSBAIDB4MjAKZiB1bmRvXzAgQCAweDMwCjB4NDAKClVuZG8gc29tZSBzZWVrcyBhbmQgdGhlbiBzZWVrIHNvbWV3aGVyZSBlbHNlLgpmIHVuZG9fMSBAIDB4MApmIHVuZG9fMCBAIDB4MTAKIyBDdXJyZW50IHVuZG8vcmVkbyBwb3NpdGlvbi4KZiByZWRvXzAgQCAweDMwCmYgcmVkb18xIEAgMHg0MAoweDIwCgpmIHVuZG9fMiBAIDB4MApmIHVuZG9fMSBAIDB4MTAKZiB1bmRvXzAgQCAweDIwCjB4NTAKCmYgdW5kb18yIEAgMHgwCmYgdW5kb18xIEAgMHgxMApmIHVuZG9fMCBAIDB4MjAKMHg1MAoKVW5kbyBhbGwgc2Vla3MgYWdhaW4gYW5kIHBlcmZvcm0gYSBzaW5nbGUgc2VlayB3aXRoIHVuZG8vcmVkby4KZiByZWRvXzAgQCAweDEwCmYgcmVkb18xIEAgMHgyMApmIHJlZG9fMiBAIDB4NTAKMHgwCgpmIHVuZG9fMCBAIDB4MAoweDEwMAoKZiB1bmRvXzAgQCAweDAKMHgxMDAKCgo=
-CMDS64=Cj9lIE5vIHNlZWtzLgpzKiA7ID92ICQkCj9lCgo/ZSBCdXQgdHJ5IHVuZG8vcmVkby4Kcy0KcysKcyoKcysKcysKcy0Kcy0Kcy0KcysKcyoKP2UKCj9lIEZpcnN0IHNlZWtzLgpzIDB4MTAgOyBzKiA7ID92ICQkCnMgMHgyMCA7IHMqIDsgP3YgJCQKcyAweDMwIDsgcyogOyA/diAkJApzIDB4NDAgOyBzKiA7ID92ICQkCj9lCgo/ZSBVbmRvIGFsbCBzZWVrcyAoYW5kIHNvbWUgbW9yZSkuCnMtIDsgcyogOyA/diAkJCA7ID9lCnMtIDsgcyogOyA/diAkJCA7ID9lCnMtIDsgcyogOyA/diAkJCA7ID9lCnMtIDsgcyogOyA/diAkJCA7ID9lCiMgVGVzdCBpZiBtb3JlIHVuZG9zIGJyZWFrIHNvbWV0aGluZy4Kcy0gOyBzKiA7ID92ICQkIDsgP2UKcy0gOyBzKiA7ID92ICQkIDsgP2UKCj9lIFRoZW4gcmVkbyB0aGVtIChhbmQgc29tZSBtb3JlKS4KcysgOyBzKiA7ID92ICQkIDsgP2UKcysgOyBzKiA7ID92ICQkIDsgP2UKcysgOyBzKiA7ID92ICQkIDsgP2UKcysgOyBzKiA7ID92ICQkIDsgP2UKIyBUZXN0IGlmIG1vcmUgdW5kb3MgYnJlYWsgc29tZXRoaW5nLgpzKyA7IHMqIDsgP3YgJCQgOyA/ZQpzKyA7IHMqIDsgP3YgJCQgOyA/ZQoKP2UgVW5kbyBzb21lIHNlZWtzIGFuZCB0aGVuIHNlZWsgc29tZXdoZXJlIGVsc2UuCnMtIDsgcy0KcyogOyA/diAkJCA7ID9lCnMgMHg1MApzKiA7ID92ICQkIDsgP2UKIyBSZWRvIG5vdyBkb2VzIG5vdGhpbmcuCnMrIDsgcysgOyBzKwpzKiA7ID92ICQkIDsgP2UKCj9lIFVuZG8gYWxsIHNlZWtzIGFnYWluIGFuZCBwZXJmb3JtIGEgc2luZ2xlIHNlZWsgd2l0aCB1bmRvL3JlZG8uCnMtIDsgcy0gOyBzLQpzKiA7ID92ICQkIDsgP2UKcyAweDEwMApzKiA7ID92ICQkIDsgP2UKcy0gOyBzKwpzKiA7ID92ICQkIDsgP2UKCg==
+EXPECT=<<EOF
+No seeks.
+0x0
+
+But try undo/redo.
+
+First seeks.
+f undo_0 @ 0x0
+0x10
+f undo_1 @ 0x0
+f undo_0 @ 0x10
+0x20
+f undo_2 @ 0x0
+f undo_1 @ 0x10
+f undo_0 @ 0x20
+0x30
+f undo_3 @ 0x0
+f undo_2 @ 0x10
+f undo_1 @ 0x20
+f undo_0 @ 0x30
+0x40
+
+Undo all seeks (and some more).
+f undo_2 @ 0x0
+f undo_1 @ 0x10
+f undo_0 @ 0x20
+# Current undo/redo position.
+f redo_0 @ 0x40
+0x30
+
+f undo_1 @ 0x0
+f undo_0 @ 0x10
+# Current undo/redo position.
+f redo_0 @ 0x30
+f redo_1 @ 0x40
+0x20
+
+f undo_0 @ 0x0
+# Current undo/redo position.
+f redo_0 @ 0x20
+f redo_1 @ 0x30
+f redo_2 @ 0x40
+0x10
+
+f redo_0 @ 0x10
+f redo_1 @ 0x20
+f redo_2 @ 0x30
+f redo_3 @ 0x40
+0x0
+
+f redo_0 @ 0x10
+f redo_1 @ 0x20
+f redo_2 @ 0x30
+f redo_3 @ 0x40
+0x0
+
+f redo_0 @ 0x10
+f redo_1 @ 0x20
+f redo_2 @ 0x30
+f redo_3 @ 0x40
+0x0
+
+Then redo them (and some more).
+f undo_0 @ 0x0
+# Current undo/redo position.
+f redo_0 @ 0x20
+f redo_1 @ 0x30
+f redo_2 @ 0x40
+0x10
+
+f undo_1 @ 0x0
+f undo_0 @ 0x10
+# Current undo/redo position.
+f redo_0 @ 0x30
+f redo_1 @ 0x40
+0x20
+
+f undo_2 @ 0x0
+f undo_1 @ 0x10
+f undo_0 @ 0x20
+# Current undo/redo position.
+f redo_0 @ 0x40
+0x30
+
+f undo_3 @ 0x0
+f undo_2 @ 0x10
+f undo_1 @ 0x20
+f undo_0 @ 0x30
+0x40
+
+f undo_3 @ 0x0
+f undo_2 @ 0x10
+f undo_1 @ 0x20
+f undo_0 @ 0x30
+0x40
+
+f undo_3 @ 0x0
+f undo_2 @ 0x10
+f undo_1 @ 0x20
+f undo_0 @ 0x30
+0x40
+
+Undo some seeks and then seek somewhere else.
+f undo_1 @ 0x0
+f undo_0 @ 0x10
+# Current undo/redo position.
+f redo_0 @ 0x30
+f redo_1 @ 0x40
+0x20
+
+f undo_2 @ 0x0
+f undo_1 @ 0x10
+f undo_0 @ 0x20
+0x50
+
+f undo_2 @ 0x0
+f undo_1 @ 0x10
+f undo_0 @ 0x20
+0x50
+
+Undo all seeks again and perform a single seek with undo/redo.
+f redo_0 @ 0x10
+f redo_1 @ 0x20
+f redo_2 @ 0x50
+0x0
+
+f undo_0 @ 0x0
+0x100
+
+f undo_0 @ 0x0
+0x100
+
+EOF
+CMDS=<<EOF
+?e No seeks.
+s* ; ?v $$
+?e
+
+?e But try undo/redo.
+s-
+s+
+s*
+s+
+s+
+s-
+s-
+s-
+s+
+s*
+?e
+
+?e First seeks.
+s 0x10 ; s* ; ?v $$
+s 0x20 ; s* ; ?v $$
+s 0x30 ; s* ; ?v $$
+s 0x40 ; s* ; ?v $$
+?e
+
+?e Undo all seeks (and some more).
+s- ; s* ; ?v $$ ; ?e
+s- ; s* ; ?v $$ ; ?e
+s- ; s* ; ?v $$ ; ?e
+s- ; s* ; ?v $$ ; ?e
+# Test if more undos break something.
+s- ; s* ; ?v $$ ; ?e
+s- ; s* ; ?v $$ ; ?e
+
+?e Then redo them (and some more).
+s+ ; s* ; ?v $$ ; ?e
+s+ ; s* ; ?v $$ ; ?e
+s+ ; s* ; ?v $$ ; ?e
+s+ ; s* ; ?v $$ ; ?e
+# Test if more undos break something.
+s+ ; s* ; ?v $$ ; ?e
+s+ ; s* ; ?v $$ ; ?e
+
+?e Undo some seeks and then seek somewhere else.
+s- ; s-
+s* ; ?v $$ ; ?e
+s 0x50
+s* ; ?v $$ ; ?e
+# Redo now does nothing.
+s+ ; s+ ; s+
+s* ; ?v $$ ; ?e
+
+?e Undo all seeks again and perform a single seek with undo/redo.
+s- ; s- ; s-
+s* ; ?v $$ ; ?e
+s 0x100
+s* ; ?v $$ ; ?e
+s- ; s+
+s* ; ?v $$ ; ?e
+EOF
 RUN

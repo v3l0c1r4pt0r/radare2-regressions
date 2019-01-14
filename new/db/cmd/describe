@@ -1,10 +1,26 @@
 NAME=asm.describe alignment with memory access
 FILE=-
-EXPECT64=ICAgICAgICAgICAgMHgwMDAwMDAwMCAgICAgIGExMDAwMTAwMDAgICAgIG1vdiBlYXgsIGR3b3JkIFsweDEwMF0gICAgICA7IFsweDEwMDo0XT0wIDsgbW92ZXMgZGF0YSBmcm9tIHNyYyB0byBkc3QKCg==
-CMDS64=CmUgYXNtLmFyY2ggPSB4ODYKZSBhbmFsLmFyY2ggPSB4ODYKZSBhc20uYml0cz0zMgoid2EgbW92IGVheCwgWzB4MTAwXSIKZSBhc20uZGVzY3JpYmUgPSB0cnVlCnBkIDEKCg==
+EXPECT=<<EOF
+            0x00000000      a100010000     mov eax, dword [0x100]      ; [0x100:4]=0 ; moves data from src to dst
+EOF
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e asm.bits=32
+"wa mov eax, [0x100]"
+e asm.describe = true
+pd 1
+EOF
 RUN
+
 NAME=asm.describe alignment
 FILE=-
-EXPECT64=ICAgICAgICAgICAgMHgwMDAwMDAwMCAgICAgIDkwICAgICAgICAgICAgIG5vcCAgICAgICAgICAgICAgICAgICAgICAgICA7IG5vIG9wZXJhdGlvbgoK
-CMDS64=CndhIG5vcAplIGFzbS5kZXNjcmliZSA9IHRydWUKcGQgMQoK
+EXPECT=<<EOF
+            0x00000000      90             nop                         ; no operation
+EOF
+CMDS=<<EOF
+wa nop
+e asm.describe = true
+pd 1
+EOF
 RUN
