@@ -97,6 +97,48 @@ EXPECT=<<RUN
 6
 RUN
 
+NAME=rabin2 -zz pe
+FILE=../bins/pe/ioli/w32/crackme0x00.exe
+CMDS=!rabin2 -zz ${R2_FILE} | grep "Password:"
+EXPECT=<<RUN
+086 0x00002619 0x00404019  10  11 (.rdata) ascii Password: 
+RUN
+
+NAME=rabin2 -zzz pe
+FILE=../bins/pe/ioli/w32/crackme0x00.exe
+CMDS=!rabin2 -zzz ${R2_FILE} | grep "Password:"
+EXPECT=<<RUN
+086 0x00002619 0x00404019  10  11 (.rdata) ascii Password: 
+RUN
+
+NAME=rabin2 -zzq pe
+FILE=../bins/pe/ioli/w32/crackme0x00.exe
+CMDS=!rabin2 -zzq ${R2_FILE} | grep "Password:"
+EXPECT=<<RUN
+0x404019 11 10 Password: 
+RUN
+
+NAME=rabin2 -zzzq pe
+FILE=../bins/pe/ioli/w32/crackme0x00.exe
+CMDS=!rabin2 -zzzq ${R2_FILE} | grep "Password:"
+EXPECT=<<RUN
+0x00404019 Password: 
+RUN
+
+NAME=rabin2 -zzqq pe
+FILE=../bins/pe/ioli/w32/crackme0x00.exe
+CMDS=!rabin2 -zzqq ${R2_FILE} | grep "Password:"
+EXPECT=<<RUN
+Password: 
+RUN
+
+NAME=rabin2 -zzzqq pe
+FILE=../bins/pe/ioli/w32/crackme0x00.exe
+CMDS=!rabin2 -zzzqq ${R2_FILE} | grep "Password:"
+EXPECT=<<RUN
+Password: 
+RUN
+
 NAME=rabin2 -z elf
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 CMDS=!rabin2 -z ${R2_FILE}|wc -l|awk "{print \$1}"
@@ -654,11 +696,25 @@ EXPECT=<<RUN
 0x00000b99 method 7      $getCallSiteArray
 RUN
 
+NAME=rabin2 -cq
+FILE=../bins/java/test.class
+CMDS=!rabin2 -cq ${R2_FILE}
+EXPECT=<<RUN
+0x00000000 [0x000008f9 - 0x00000b99] test groovy/lang/Script
+RUN
+
 NAME=rabin2 -D swift
 FILE=../bins/elf/libc.so.0
 CMDS=!rabin2 -D swift  _TFSSCfT21_builtinStringLiteralBp8byteSizeBw7isASCIIBi1__SS
 EXPECT=<<RUN
 Swift.String.init (_builtinStringLiteral(Builtin.RawPointer byteSize__Builtin.Word isASCII__Builtin.Int1 _) -> String
+RUN
+
+NAME=rabin2 -D Unsupported
+FILE=../bins/elf/libc.so.0
+CMDS=!rabin2 -D XXX LOLILOL
+EXPECT_ERR=<<RUN
+Unsupported demangler
 RUN
 
 NAME=rabin2 -h
@@ -671,6 +727,20 @@ RUN
 NAME=rabin2 -O help
 FILE=../bins/elf/libc.so.0
 CMDS=!rabin2 -O help | grep -c Usage
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -O h
+FILE=../bins/elf/libc.so.0
+CMDS=!rabin2 -O h | grep -c Usage
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -O ?
+FILE=../bins/elf/libc.so.0
+CMDS=!rabin2 -O ? | grep -c Usage
 EXPECT=<<RUN
 1
 RUN
@@ -706,6 +776,69 @@ RUN
 NAME=rabin2 -Lj
 FILE=-
 CMDS=!rabin2 -Lj | grep -c any
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -Lj any
+FILE=-
+CMDS=!rabin2 -Lj Dummy | grep -c Dummy
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -U
+FILE=../bins/pe/resource.exe
+CMDS=!rabin2 -U ${R2_FILE} | grep -c Resource
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -E
+FILE=../bins/pe/dll.dll
+CMDS=!rabin2 -E ${R2_FILE} | grep -c dll_export
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -l
+FILE=../bins/pe/ioli/w32/crackme0x00.exe
+CMDS=!rabin2 -l ${R2_FILE} | grep -c kernel32.dll
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -R
+FILE=../bins/pe/base.exe
+CMDS=!rabin2 -R ${R2_FILE} | grep -c msvcrt.dll___set_app_type
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -Z
+FILE=../bins/pe/base.exe
+CMDS=!rabin2 -Z ${R2_FILE}
+EXPECT=<<RUN
+216569
+RUN
+
+NAME=rabin2 -H
+FILE=../bins/pe/base.exe
+CMDS=!rabin2 -H ${R2_FILE} | grep -c "Machine : 0x14c"
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -d
+FILE=../bins/elf/analysis/dwarftest
+CMDS=!rabin2 -d ${R2_FILE} | grep -c "0x00400535	/tmp/r2-regressions/.//dwarftest.c"
+EXPECT=<<RUN
+1
+RUN
+
+NAME=rabin2 -P
+FILE=../bins/pdb/Project1.pdb
+CMDS=!rabin2 -P ${R2_FILE} | grep -c R2_TEST_UNION
 EXPECT=<<RUN
 1
 RUN
