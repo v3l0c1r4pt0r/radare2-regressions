@@ -133,11 +133,11 @@ EXPECT=<<RUN
 RUN
 
 NAME=rafind2 -S
-BROKEN=1
 FILE=-
-CMDS=!rafind2 -S واسع ../bins/pe/testapp-msvc64.exe
+CMDS=!rafind2 -S wide ../bins/pe/testapp-msvc64.exe
 EXPECT=<<RUN
-0x00014840
+0x1481a
+0x14842
 RUN
 
 NAME=rafind2 -Z
