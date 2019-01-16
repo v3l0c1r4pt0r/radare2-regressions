@@ -316,7 +316,7 @@ NAME=rax2 -t 1234567890
 FILE=-
 CMDS=!rax2 -t 1234567890 | cut -d " " -f 1,2
 EXPECT=<<RUN
-2009-02-13 23:31:30
+Fri Feb
 RUN
 
 NAME=rax2 -x linux osx
