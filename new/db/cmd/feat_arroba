@@ -12,7 +12,7 @@ RUN
 NAME=@ e:
 FILE=-
 EXPECT=<<EOF
-true
+1
 EOF
 CMDS=<<EOF
 e scr.color=false
@@ -34,7 +34,7 @@ RUN
 NAME=@ e: @ addr
 FILE=-
 EXPECT=<<EOF
-true
+1
 0x1337
 EOF
 CMDS=<<EOF
@@ -48,8 +48,8 @@ RUN
 NAME=@ addr @ e
 FILE=-
 EXPECT=<<EOF
-false
-true
+0
+1
 0x42
 0x1337
 EOF
@@ -68,8 +68,8 @@ x86
 arm
 0x42
 0x1337
-false
-true
+0
+1
 EOF
 CMDS=<<EOF
 e asm.arch @ a:x86 @ 0x42 @ e:scr.color=false
