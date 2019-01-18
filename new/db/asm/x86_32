@@ -2163,7 +2163,7 @@ a "xor bp, 0x8080" 6681f58080
 a "xor si, 0x8" 6683f608
 a "xor al, byte [eax]" 3200
 a "xor byte [eax], al" 3000
-aB "xor byte [eax], 0xff" 8030FF
+a "xor byte [eax], 0xff" 8030ff
 a "xor dword [eax], eax" 3100
 a "xor eax, dword [eax]" 3300
 a "xor [eax], eax" 3100
