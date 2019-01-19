@@ -260,8 +260,8 @@ RUN
 NAME=rabin2 -qqzz
 FILE=../bins/elf/analysis/hello-linux-x86_64
 CMDS=<<EXPECT
-!rabin2 -qqzz ${R2_FILE} | grep do_global_dtors_aux_fini_array_entry
-!rabin2 -qqzz ${R2_FILE} | wc -l
+!!rabin2 -qqzz ${R2_FILE}~do_global_dtors_aux_fini_array_entry
+!!rabin2 -qqzz ${R2_FILE}~?
 EXPECT=<<RUN
 __do_global_dtors_aux_fini_array_entry
 82
@@ -270,8 +270,8 @@ RUN
 NAME=rabin2 -qqzzz
 FILE=../bins/elf/analysis/hello-linux-x86_64
 CMDS=<<EXPECT
-!rabin2 -qqzzz ${R2_FILE} | grep do_global_dtors_aux_fini_array_entry
-!rabin2 -qqzzz ${R2_FILE} | wc -l
+!!rabin2 -qqzzz ${R2_FILE}~do_global_dtors_aux_fini_array_entry
+!!rabin2 -qqzzz ${R2_FILE}~?
 EXPECT=<<RUN
 __do_global_dtors_aux_fini_array_entry
 82
