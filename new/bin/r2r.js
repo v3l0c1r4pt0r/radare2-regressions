@@ -356,6 +356,9 @@ function fixTest (test, next) {
           }
           if (test.stdout.endsWith('\n') && endString !== null) {
             output += 'EXPECT=<<' + endString + '\n' + test.stdout;
+            if (endString === 'EOF') {
+              output += 'EOF\n';
+            }
           } else {
             const delim = common.getSuitableDelim(test.stdout);
             output += 'EXPECT=' + delim + test.stdout + delim + '\n';
@@ -389,6 +392,9 @@ function fixTest (test, next) {
             }
             if (test.stderr.endsWith('\n') && endString !== null) {
               output += 'EXPECT_ERR=<<' + endString + '\n' + test.stderr;
+              if (endString === 'EOF') {
+                output += 'EOF\n';
+              }
             } else {
               const delim = common.getSuitableDelim(test.stderr);
               output += 'EXPECT_ERR=' + delim + test.stderr + delim + '\n';
