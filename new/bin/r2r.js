@@ -331,8 +331,9 @@ function fixTest (test, next) {
         } else if (line.startsWith('EXPECT=')) {
           const val = line.substring(7);
           const valTrim = val.trim();
+          let endString = null;
           if (valTrim.startsWith('<<')) {
-            const endString = valTrim.substring(2);
+            endString = valTrim.substring(2);
             i++;
             while (!lines[i].startsWith(endString)) {
               i++;
@@ -353,7 +354,7 @@ function fixTest (test, next) {
               }
             }
           }
-          if (test.stdout.endsWith('\n') && endString !== undefined) {
+          if (test.stdout.endsWith('\n') && endString !== null) {
             output += 'EXPECT=<<' + endString + '\n' + test.stdout;
           } else {
             const delim = common.getSuitableDelim(test.stdout);
@@ -363,8 +364,9 @@ function fixTest (test, next) {
           if ((test.stderr.match(/\n/g) || []).length > 1) {
             const val = line.substring(11);
             const valTrim = val.trim();
+            let endString = null;
             if (valTrim.startsWith('<<')) {
-              const endString = valTrim.substring(2);
+              endString = valTrim.substring(2);
               i++;
               while (!lines[i].startsWith(endString)) {
                 i++;
@@ -385,7 +387,7 @@ function fixTest (test, next) {
                 }
               }
             }
-            if (test.stderr.endsWith('\n') && endString !== undefined) {
+            if (test.stderr.endsWith('\n') && endString !== null) {
               output += 'EXPECT_ERR=<<' + endString + '\n' + test.stderr;
             } else {
               const delim = common.getSuitableDelim(test.stderr);
