@@ -1,15 +1,33 @@
 NAME=Dalvik HelloWorld afl
 FILE=../bins/dex/HelloWorld.dex
-EXPECT64=MHgwMDAwMDIzOCAgICAxIDIwICAgICAgICAgICBzeW0uTEhlbGxvLm1ldGhvZC5faW5pdF9fX1YKMHgwMDAwMDI1YyAgICAxIDM0ICAgICAgICAgICBlbnRyeTAKMHgwMDAwMDI5MCAgICAxIDg0ICAgICAgICAgICBzeW0uTEhlbGxvLm1ldGhvZC5mb29fSV9WCjB4MDAwMDAyZjQgICAgMSAyMCAgICAgICAgICAgc3ltLkxXb3JsZC5tZXRob2QuX2luaXRfX19WCjB4MDAwMDAzMTggICAgMSA2OCAgICAgICAgICAgc3ltLkxXb3JsZC5tZXRob2QuZm9vX0lfVgoK
-CMDS64=ZSBpby52YT0wOyBhYTsgYWZsCg==
+EXPECT=<<EOF
+0x00000238    1 20           sym.LHello.method._init___V
+0x0000025c    1 34           entry0
+0x00000290    1 84           sym.LHello.method.foo_I_V
+0x000002f4    1 20           sym.LWorld.method._init___V
+0x00000318    1 68           sym.LWorld.method.foo_I_V
+EOF
+CMDS=<<EOF
+e io.va=0; aa; afl
+EOF
 RUN
+
 NAME=Dalvik HelloWorld string xref
 FILE=../bins/dex/HelloWorld.dex
-EXPECT64=ZW50cnkwIDB4MjYwIFtEQVRBXSBjb25zdC1zdHJpbmcgdjEsIHN0ci5GaW5kdXMK
-CMDS64=YWE7IGF4dCBAIHN0ci5GaW5kdXMK
+EXPECT=<<EOF
+entry0 0x260 [DATA] const-string v1, str.Findus
+EOF
+CMDS=<<EOF
+aa; axt @ str.Findus
+EOF
 RUN
+
 NAME=Dalvik HelloWorld func xref
 FILE=../bins/dex/HelloWorld.dex
-EXPECT64=ZW50cnkwIDB4MjZlIFtDQUxMXSBpbnZva2UtZGlyZWN0IHt2MH0sIExIZWxsby48aW5pdD4oKVYgOyAweDAK
-CMDS64=ZSBpby52YT0wOyBhYTsgYXh0IEAgc3ltLkxIZWxsby5tZXRob2QuX2luaXRfX19WCg==
+EXPECT=<<EOF
+entry0 0x26e [CALL] invoke-direct {v0}, LHello.<init>()V ; 0x0
+EOF
+CMDS=<<EOF
+e io.va=0; aa; axt @ sym.LHello.method._init___V
+EOF
 RUN

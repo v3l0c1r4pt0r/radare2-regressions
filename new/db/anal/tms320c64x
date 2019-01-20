@@ -1,5 +1,37 @@
 NAME=320c64 OPEX
 FILE=malloc://512280
-EXPECT64=WwogIHsKICAgICJvcGNvZGUiOiAiYiAweDIwZGU4IiwKICAgICJkaXNhc20iOiAiYiAweDIwZGU4IiwKICAgICJtbmVtb25pYyI6ICJiIiwKICAgICJzaWduIjogZmFsc2UsCiAgICAicHJlZml4IjogMCwKICAgICJpZCI6IDE3LAogICAgIm9wZXgiOiB7CiAgICAgICJvcGVyYW5kcyI6IFsKICAgICAgICB7CiAgICAgICAgICAidHlwZSI6ICJpbW0iLAogICAgICAgICAgInZhbHVlIjogMTM0NjMyCiAgICAgICAgfQogICAgICBdCiAgICB9LAogICAgImFkZHIiOiAwLAogICAgImJ5dGVzIjogIjAwNDFiZDEwIiwKICAgICJzaXplIjogNCwKICAgICJ0eXBlIjogImptcCIsCiAgICAianVtcCI6IDEzNDYzMiwKICAgICJyZWZwdHIiOiAwLAogICAgImN5Y2xlcyI6IDAsCiAgICAiZGVsYXkiOiAwLAogICAgImZhbWlseSI6ICJjcHUiCiAgfQpdCg==
-CMDS64=ZSBhc20uYXJjaD10bXMzMjAKZSBhc20uY3B1PWM2NHgKd3ggMDA0MWJkMTAKYW9qfnt9Cgo=
+EXPECT='[
+  {
+    "opcode": "b 0x20de8",
+    "disasm": "b 0x20de8",
+    "mnemonic": "b",
+    "sign": false,
+    "prefix": 0,
+    "id": 17,
+    "opex": {
+      "operands": [
+        {
+          "type": "imm",
+          "value": 134632
+        }
+      ]
+    },
+    "addr": 0,
+    "bytes": "0041bd10",
+    "size": 4,
+    "type": "jmp",
+    "jump": 134632,
+    "refptr": 0,
+    "cycles": 0,
+    "delay": 0,
+    "family": "cpu"
+  }
+]
+'
+CMDS=<<EOF
+e asm.arch=tms320
+e asm.cpu=c64x
+wx 0041bd10
+aoj~{}
+EOF
 RUN

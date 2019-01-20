@@ -441,6 +441,7 @@ diff: type: new
 \       `=< 0x00000011      ebf0           jmp 3
 ..
 RUN
+
 NAME=lcall offset (#12284)
 FILE=-
 CMDS=<<EXPECT
@@ -450,6 +451,7 @@ wx 9a34002001
 ?v $j
 EXPECT=0x1234
 RUN
+
 NAME=ljmp offset (#12284)
 FILE=-
 CMDS=<<EXPECT

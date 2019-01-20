@@ -1,270 +1,914 @@
 NAME=a2f jmp after ret
 FILE=malloc://512
-EXPECT64=MQoK
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz02NAp3eCBiODAxMDAwMDAwNDgzOWNhN2YyNmI4ZmZmZmZmZmY0ODM5Y2E3YzFjNDk4YjQ4Mzg0OThiNTEzOGI4MDEwMDAwMDA0ODM5Y2E3ZjBhYjhmZmZmZmZmZjQ4MzljYTdkMDI1ZGMzNDg4M2M3Njg0ODgzYzY2ODVkYzMKYTJmCmFmbH4/Cgo=
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f26b8ffffffff4839ca7c1c498b4838498b5138b8010000004839ca7f0ab8ffffffff4839ca7d025dc34883c7684883c6685dc3
+a2f
+afl~?
+EOF
 RUN
+
 NAME=a2f jmp after ret - _size (symsize)
 FILE=malloc://512
-EXPECT64=MQo2MAoK
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz02NAp3eCBiODAxMDAwMDAwNDgzOWNhN2YyNmI4ZmZmZmZmZmY0ODM5Y2E3YzFjNDk4YjQ4Mzg0OThiNTEzOGI4MDEwMDAwMDA0ODM5Y2E3ZjBhYjhmZmZmZmZmZjQ4MzljYTdkMDI1ZGMzNDg4M2M3Njg0ODgzYzY2ODVkYzMKYTJmCmFmbH4/CmFmbH5bMl0KCg==
+EXPECT=<<EOF
+1
+60
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f26b8ffffffff4839ca7c1c498b4838498b5138b8010000004839ca7f0ab8ffffffff4839ca7d025dc34883c7684883c6685dc3
+a2f
+afl~?
+afl~[2]
+EOF
 RUN
+
 NAME=a2f jmp after ret - realsize (bbs_sum)
 FILE=malloc://512
-EXPECT64=MQo2MAoK
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz02NAp3eCBiODAxMDAwMDAwNDgzOWNhN2YyNmI4ZmZmZmZmZmY0ODM5Y2E3YzFjNDk4YjQ4Mzg0OThiNTEzOGI4MDEwMDAwMDA0ODM5Y2E3ZjBhYjhmZmZmZmZmZjQ4MzljYTdkMDI1ZGMzNDg4M2M3Njg0ODgzYzY2ODVkYzMKYTJmCmFmbH4/CmFmbH5bMl0KCg==
+EXPECT=<<EOF
+1
+60
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f26b8ffffffff4839ca7c1c498b4838498b5138b8010000004839ca7f0ab8ffffffff4839ca7d025dc34883c7684883c6685dc3
+a2f
+afl~?
+afl~[2]
+EOF
 RUN
+
 NAME=a2f 8 bbs 4 ret and some jumps
 FILE=malloc://512
-EXPECT64=MHgwMDAwMDAwMCAweDAwMDAwMDA0IDAwOjAwMDAgNCBqIDB4MDAwMDAwMDkgZiAweDAwMDAwMDA0CjB4MDAwMDAwMDQgMHgwMDAwMDAwOCAwMDowMDAwIDQgaiAweDAwMDAwMDBkIGYgMHgwMDAwMDAwOAoweDAwMDAwMDA4IDB4MDAwMDAwMDkgMDA6MDAwMCAxCjB4MDAwMDAwMDkgMHgwMDAwMDAwZCAwMDowMDAwIDQgaiAweDAwMDAwMDBlCjB4MDAwMDAwMGQgMHgwMDAwMDAwZSAwMDowMDAwIDEKMHgwMDAwMDAwZSAweDAwMDAwMDEyIDAwOjAwMDAgNCBqIDB4MDAwMDAwMTMgZiAweDAwMDAwMDEyCjB4MDAwMDAwMTIgMHgwMDAwMDAxMyAwMDowMDAwIDEKMHgwMDAwMDAxMyAweDAwMDAwMDE5IDAwOjAwMDAgNgoK
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz0zMgp3eCA4NWMwNzQwNTg1YzA3NDA1YzM4NWMwZWIwMWMzODVjMDc0MDFjM2I4ZWZiZWFkZGVjMwphMmYKYWZiCgo=
+EXPECT=<<EOF
+0x00000000 0x00000004 00:0000 4 j 0x00000009 f 0x00000004
+0x00000004 0x00000008 00:0000 4 j 0x0000000d f 0x00000008
+0x00000008 0x00000009 00:0000 1
+0x00000009 0x0000000d 00:0000 4 j 0x0000000e
+0x0000000d 0x0000000e 00:0000 1
+0x0000000e 0x00000012 00:0000 4 j 0x00000013 f 0x00000012
+0x00000012 0x00000013 00:0000 1
+0x00000013 0x00000019 00:0000 6
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=32
+wx 85c0740585c07405c385c0eb01c385c07401c3b8efbeaddec3
+a2f
+afb
+EOF
 RUN
+
 NAME=a2f 3bbs with entry in the middle of the function
 FILE=malloc://512
-EXPECT64=MHgwMDAwMDAwMCAweDAwMDAwMDBhIDAwOjAwMDAgMTAgaiAweDAwMDAwMDBhCjB4MDAwMDAwMGEgMHgwMDAwMDAwZSAwMDowMDAwIDQgaiAweDAwMDAwMDAwIGYgMHgwMDAwMDAwZQoweDAwMDAwMDBlIDB4MDAwMDAwMTQgMDA6MDAwMCA2Cgo=
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz0zMgp3eCAzMWMwMzFjOTgzYzEwMTgzYzEwMjg1Yzk3NWYyMzFjOTMxYzA0MGMzCnMgMHhhCmEyZgphZmIKCg==
+EXPECT=<<EOF
+0x00000000 0x0000000a 00:0000 10 j 0x0000000a
+0x0000000a 0x0000000e 00:0000 4 j 0x00000000 f 0x0000000e
+0x0000000e 0x00000014 00:0000 6
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=32
+wx 31c031c983c10183c10285c975f231c931c040c3
+s 0xa
+a2f
+afb
+EOF
 RUN
+
 NAME=a2f 6 bbs with entry at the end of the function
 FILE=malloc://512
-EXPECT64=MHgwMDAwMDAwMCAweDAwMDAwMDBhIDAwOjAwMDAgMTAgaiAweDAwMDAwMDEyIGYgMHgwMDAwMDAwYQoweDAwMDAwMDBhIDB4MDAwMDAwMTIgMDA6MDAwMCA4IGogMHgwMDAwMDAxMgoweDAwMDAwMDEyIDB4MDAwMDAwMWMgMDA6MDAwMCAxMCBqIDB4MDAwMDAwMDAgZiAweDAwMDAwMDFjCjB4MDAwMDAwMWMgMHgwMDAwMDAyNiAwMDowMDAwIDEwIGogMHgwMDAwMDAyOCBmIDB4MDAwMDAwMjYKMHgwMDAwMDAyNiAweDAwMDAwMDI4IDAwOjAwMDAgMiBqIDB4MDAwMDAwMDAKMHgwMDAwMDAyOCAweDAwMDAwMDJiIDAwOjAwMDAgMwoK
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz0zMgp3eCAzMWMwODNjMDAxODNlODAxNzUwODMxYzA4M2U4MDE4M2MwMDEzMWM5ODNjMTAxODNlOTAxNzVlNDMxZDI4M2VhMDE4M2MyMDE3NDAyZWJkODMxYzBjMwpzIDB4MjYKYTJmCmFmYgoK
+EXPECT=<<EOF
+0x00000000 0x0000000a 00:0000 10 j 0x00000012 f 0x0000000a
+0x0000000a 0x00000012 00:0000 8 j 0x00000012
+0x00000012 0x0000001c 00:0000 10 j 0x00000000 f 0x0000001c
+0x0000001c 0x00000026 00:0000 10 j 0x00000028 f 0x00000026
+0x00000026 0x00000028 00:0000 2 j 0x00000000
+0x00000028 0x0000002b 00:0000 3
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=32
+wx 31c083c00183e801750831c083e80183c00131c983c10183e90175e431d283ea0183c2017402ebd831c0c3
+s 0x26
+a2f
+afb
+EOF
 RUN
+
 NAME=a2f cjmp
 FILE=malloc://0x5000
-EXPECT64=MHgwMDAwMDAwMCAweDAwMDAwMDA0IDAwOjAwMDAgNCBqIDB4MDAwMDAwMDUgZiAweDAwMDAwMDA0CjB4MDAwMDAwMDQgMHgwMDAwMDAwNSAwMDowMDAwIDEgaiAweDAwMDAwMDA1CjB4MDAwMDAwMDUgMHgwMDAwMDAwNiAwMDowMDAwIDEKCg==
-CMDS64=CmUgYXNtLmFyY2ggPSB4ODYKZSBhbmFsLmFyY2ggPSB4ODYKZSBpby5jYWNoZT10cnVlCmUgYXNtLmJpdHM9MzIKd3ggMzFjMDc0MDE0MGMzCmEyZgphZmIKCg==
+EXPECT=<<EOF
+0x00000000 0x00000004 00:0000 4 j 0x00000005 f 0x00000004
+0x00000004 0x00000005 00:0000 1 j 0x00000005
+0x00000005 0x00000006 00:0000 1
+EOF
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e io.cache=true
+e asm.bits=32
+wx 31c0740140c3
+a2f
+afb
+EOF
 RUN
+
 NAME=aaa with axt
 FILE=../bins/anal/keygen.exe
-EXPECT64=KG5vZnVuYykgMHg0YmZlNTMgW0RBVEFdIG1vdiBlZHgsIDB4NGJmZmIwCgo=
-CMDS64=YWFhCmF4dCAweDRiZmZiMAo=
+EXPECT=<<EOF
+(nofunc) 0x4bfe53 [DATA] mov edx, 0x4bffb0
+EOF
+CMDS=<<EOF
+aaa
+axt 0x4bffb0
+EOF
 RUN
+
 NAME=aaa with maxbbsz
 FILE=../bins/anal/flare_notepad.ex
-EXPECT64=MQoK
-CMDS64=ZSBhbmFsLmJiLm1heHNpemUgPSAyMDQ4CmFhYQpwZGZ+cmV0Pwo=
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+e anal.bb.maxsize = 2048
+aaa
+pdf~ret?
+EOF
 RUN
+
 NAME=aaa with avra
 FILE=../bins/elf/class_test
-EXPECT64=Vk1JIFR5cGUgSW5mbyBhdCAweDA4MDQ4ZjRjOgogIFJlZmVyZW5jZSB0byBSVFRJJ3MgdHlwZSBjbGFzczogMHgwODA0YjE0MAogIFJlZmVyZW5jZSB0byB0eXBlJ3MgbmFtZTogMHgwODA0OGY2YwogIFR5cGUgTmFtZTogQmF0CiAgRmxhZ3M6IDB4MAogIENvdW50IG9mIGJhc2UgY2xhc3NlczogMHgyCiAgICAgIEJhc2UgY2xhc3MgdHlwZSBkZXNjcmlwdG9yIGFkZHJlc3M6IDB4MDgwNDhmNzQKICAgICAgQmFzZSBjbGFzcyBmbGFnczogMHgyCiAgICAgIEJhc2UgY2xhc3MgdHlwZSBkZXNjcmlwdG9yIGFkZHJlc3M6IDB4MDgwNDhmYWMKICAgICAgQmFzZSBjbGFzcyBmbGFnczogMHg0MDIKClZNSSBUeXBlIEluZm8gYXQgMHgwODA0OGY0YzoKICBSZWZlcmVuY2UgdG8gUlRUSSdzIHR5cGUgY2xhc3M6IDB4MDgwNGIxNDAKICBSZWZlcmVuY2UgdG8gdHlwZSdzIG5hbWU6IDB4MDgwNDhmNmMKICBUeXBlIE5hbWU6IEJhdAogIEZsYWdzOiAweDAKICBDb3VudCBvZiBiYXNlIGNsYXNzZXM6IDB4MgogICAgICBCYXNlIGNsYXNzIHR5cGUgZGVzY3JpcHRvciBhZGRyZXNzOiAweDA4MDQ4Zjc0CiAgICAgIEJhc2UgY2xhc3MgZmxhZ3M6IDB4MgogICAgICBCYXNlIGNsYXNzIHR5cGUgZGVzY3JpcHRvciBhZGRyZXNzOiAweDA4MDQ4ZmFjCiAgICAgIEJhc2UgY2xhc3MgZmxhZ3M6IDB4NDAyCgpUeXBlIEluZm8gYXQgMHgwODA0OGY3NDoKICBSZWZlcmVuY2UgdG8gUlRUSSdzIHR5cGUgY2xhc3M6IDB4MDgwNGIwNDgKICBSZWZlcmVuY2UgdG8gdHlwZSdzIG5hbWU6IDB4MDgwNDhmN2MKICBUeXBlIE5hbWU6IEJpcmQKClNJIFR5cGUgSW5mbyBhdCAweDA4MDQ4Zjg0OgogIFJlZmVyZW5jZSB0byBSVFRJJ3MgdHlwZSBjbGFzczogMHgwODA0YjExNAogIFJlZmVyZW5jZSB0byB0eXBlJ3MgbmFtZTogMHgwODA0OGY5MAogIFR5cGUgTmFtZTogRG9nCiAgUmVmZXJlbmNlIHRvIHBhcmVudCdzIHR5cGUgbmFtZTogMHgwODA0OGZhYwoKU0kgVHlwZSBJbmZvIGF0IDB4MDgwNDhmOTg6CiAgUmVmZXJlbmNlIHRvIFJUVEkncyB0eXBlIGNsYXNzOiAweDA4MDRiMTE0CiAgUmVmZXJlbmNlIHRvIHR5cGUncyBuYW1lOiAweDA4MDQ4ZmE0CiAgVHlwZSBOYW1lOiBDYXQKICBSZWZlcmVuY2UgdG8gcGFyZW50J3MgdHlwZSBuYW1lOiAweDA4MDQ4ZmFjCgpUeXBlIEluZm8gYXQgMHgwODA0OGZhYzoKICBSZWZlcmVuY2UgdG8gUlRUSSdzIHR5cGUgY2xhc3M6IDB4MDgwNGIwNDgKICBSZWZlcmVuY2UgdG8gdHlwZSdzIG5hbWU6IDB4MDgwNDhmYjQKICBUeXBlIE5hbWU6IE1hbW1hbAoK
-CMDS64=YWFhCmF2cmEK
+EXPECT=<<EOF
+VMI Type Info at 0x08048f4c:
+  Reference to RTTI's type class: 0x0804b140
+  Reference to type's name: 0x08048f6c
+  Type Name: Bat
+  Flags: 0x0
+  Count of base classes: 0x2
+      Base class type descriptor address: 0x08048f74
+      Base class flags: 0x2
+      Base class type descriptor address: 0x08048fac
+      Base class flags: 0x402
+
+VMI Type Info at 0x08048f4c:
+  Reference to RTTI's type class: 0x0804b140
+  Reference to type's name: 0x08048f6c
+  Type Name: Bat
+  Flags: 0x0
+  Count of base classes: 0x2
+      Base class type descriptor address: 0x08048f74
+      Base class flags: 0x2
+      Base class type descriptor address: 0x08048fac
+      Base class flags: 0x402
+
+Type Info at 0x08048f74:
+  Reference to RTTI's type class: 0x0804b048
+  Reference to type's name: 0x08048f7c
+  Type Name: Bird
+
+SI Type Info at 0x08048f84:
+  Reference to RTTI's type class: 0x0804b114
+  Reference to type's name: 0x08048f90
+  Type Name: Dog
+  Reference to parent's type name: 0x08048fac
+
+SI Type Info at 0x08048f98:
+  Reference to RTTI's type class: 0x0804b114
+  Reference to type's name: 0x08048fa4
+  Type Name: Cat
+  Reference to parent's type name: 0x08048fac
+
+Type Info at 0x08048fac:
+  Reference to RTTI's type class: 0x0804b048
+  Reference to type's name: 0x08048fb4
+  Type Name: Mammal
+
+EOF
+CMDS=<<EOF
+aaa
+avra
+EOF
 RUN
+
 NAME=aac on mips be
 FILE=../bins/elf/analysis/mipsbe-busybox
-EXPECT64=MTI2OQoK
-CMDS64=YWFjCmFmbH4/Cgo=
+EXPECT=<<EOF
+1269
+EOF
+CMDS=<<EOF
+aac
+afl~?
+EOF
 RUN
+
 NAME=raw aac with maps (less because of wrong map address)
 FILE=../bins/elf/analysis/mipsbe-busybox
 ARGS=-n -m 0x80000 -a mips -b32 -e cfg.bigendian=true
-EXPECT64=NAoK
-CMDS64=YWFjCmFmbH4/Cgo=
+EXPECT=<<EOF
+4
+EOF
+CMDS=<<EOF
+aac
+afl~?
+EOF
 RUN
+
 NAME=raw aac (using a PIC bin)
 BROKEN=1
 FILE=../bins/elf/libmagic.so
-EXPECT64=MjAyCg==
-CMDS64=YWFjCmFmbH4/Cgo=
+EXPECT=<<EOF
+202
+EOF
+CMDS=<<EOF
+aac
+afl~?
+EOF
 RUN
+
 NAME=raw aac with maps (using a PIC bin)
 BROKEN=1
 FILE=../bins/elf/libmagic.so
 ARGS=-n -m 0x80000 -a arm -b 16 -e cfg.bigendian=false
-EXPECT64=OTYKCg==
-CMDS64=YWFjCmUgc2VhcmNoLmluPWlvLm1hcHMKYWZsfj8KCg==
+EXPECT=<<EOF
+96
+EOF
+CMDS=<<EOF
+aac
+e search.in=io.maps
+afl~?
+EOF
 RUN
 
 NAME=aav without vinfun
 FILE=../bins/elf/analysis/mipsbe-busybox
-EXPECT64=MQoK
-CMDS64=YWYgQCAweDAwNDBkZWE0CmUgYW5hbC52aW5mdW49ZmFsc2UKYWF2CnBkIDEgQCAweDAwNDBkZWNjfj9hbmRpCgo=
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+af @ 0x0040dea4
+e anal.vinfun=false
+aav
+pd 1 @ 0x0040decc~?andi
+EOF
 RUN
+
 NAME=aav with vinfun
 FILE=../bins/elf/analysis/mipsbe-busybox
-EXPECT64=MQoK
-CMDS64=YWYgQCAweDAwNDBkZWE0CmUgYW5hbC52aW5mdW49dHJ1ZQphYXYKcGQgMSBAIDB4MDA0MGRlY2N+P2R3b3JkCgo=
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+af @ 0x0040dea4
+e anal.vinfun=true
+aav
+pd 1 @ 0x0040decc~?dword
+EOF
 RUN
+
 NAME=aav thumb detection
 FILE=../bins/firmware/armthumb.bin
 ARGS=-aarm -b32
-EXPECT64=MHgwMDAwMDAwZCA0IGFhdi4weDAwMDAwMDBkCg==
-CMDS64=YWF2CmYKCg==
+EXPECT=<<EOF
+0x0000000d 4 aav.0x0000000d
+EOF
+CMDS=<<EOF
+aav
+f
+EOF
 RUN
 
 NAME=arj x86 32 bits
 FILE=malloc://0x100
-EXPECT64=eyJvZWF4IjowLCJlYXgiOjAsImVieCI6MCwiZWN4IjowLCJlZHgiOjAsImVzaSI6MCwiZWRpIjowLCJlc3AiOjAsImVicCI6MCwiZWlwIjowLCJlZmxhZ3MiOjB9Cgo=
-CMDS64=ZSBhc20uYXJjaCA9IHg4NgplIGFuYWwuYXJjaCA9IHg4NgplIGFzbS5iaXRzPTMyCmFyagoK
+EXPECT='{"oeax":0,"eax":0,"ebx":0,"ecx":0,"edx":0,"esi":0,"edi":0,"esp":0,"ebp":0,"eip":0,"eflags":0}
+'
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e asm.bits=32
+arj
+EOF
 RUN
+
 NAME=arj x86 16 bits
 FILE=malloc://0x100
-EXPECT64=eyJpcCI6MCwiYXgiOjAsImJ4IjowLCJjeCI6MCwiZHgiOjAsInNwIjowLCJicCI6MCwic2kiOjAsImRpIjowLCJmbGFncyI6MH0KCg==
-CMDS64=ZSBhc20uYXJjaCA9IHg4NgplIGFuYWwuYXJjaCA9IHg4NgplIGFzbS5iaXRzPTE2CmFyagoK
+EXPECT='{"ip":0,"ax":0,"bx":0,"cx":0,"dx":0,"sp":0,"bp":0,"si":0,"di":0,"flags":0}
+'
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e asm.bits=16
+arj
+EOF
 RUN
 
 NAME=sym is not fcn
 FILE=../bins/mach0/mach0-i386
-EXPECT64=Cg==
-CMDS64=CmFhID4gL2Rldi9udWxsCmFmbH5zeW0uX19taF9leGVjdXRlX2hlYWRlclswXQoK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+aa > /dev/null
+afl~sym.__mh_execute_header[0]
+EOF
 RUN
+
 NAME=af x86-32
 FILE=malloc://1024
-EXPECT64=NgoK
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhbmFsLmVvYmptcD1mYWxzZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCnd4IDZhMDAgNDg4OWU1IGMzCmFmCmFmbH5bMl0KCg==
+EXPECT=<<EOF
+6
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e anal.eobjmp=false
+e asm.arch=x86
+e asm.bits=32
+wx 6a00 4889e5 c3
+af
+afl~[2]
+EOF
 RUN
+
 NAME=af x86-32 ujmp eobjmp=true
 FILE=malloc://1024
-EXPECT64=MTEKCg==
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhc20uYXJjaD14ODYKZSBhbmFsLmVvYmptcD10cnVlCmUgYXNtLmJpdHM9MzIKd3ggNmEwMCA0ODg5ZTUgZmYyNWY4MTIwMDAwIGZmMjVmODEyMDAwMGZmZTBjMwphZgphZmx+WzJdCgo=
+EXPECT=<<EOF
+11
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e asm.arch=x86
+e anal.eobjmp=true
+e asm.bits=32
+wx 6a00 4889e5 ff25f8120000 ff25f8120000ffe0c3
+af
+afl~[2]
+EOF
 RUN
+
 NAME=af x86-32 ujmp eobjmp=false
 FILE=malloc://1024
-EXPECT64=MTEKCg==
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhc20uYXJjaD14ODYKZSBhbmFsLmVvYmptcD1mYWxzZQplIGFzbS5iaXRzPTMyCnd4IDZhMDAgNDg4OWU1IGZmMjVmODEyMDAwMCBmZjI1ZjgxMjAwMDBmZmUwYzMKYWYKYWZsflsyXQoK
+EXPECT=<<EOF
+11
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e asm.arch=x86
+e anal.eobjmp=false
+e asm.bits=32
+wx 6a00 4889e5 ff25f8120000 ff25f8120000ffe0c3
+af
+afl~[2]
+EOF
 RUN
+
 NAME=af bug
 FILE=malloc://1024
-EXPECT64=cHVzaCAwCmRlYyBlYXgKbW92IGVicCwgZXNwCmRlYyBlYXgKYW5kIGVzcCwgMHhmZmZmZmZmMApkZWMgZWF4Cm1vdiBlZGksIGR3b3JkIFtlYnAgKyA4XQpkZWMgZWF4CmxlYSBlc2ksIFtlYnAgKyAweDEwXQptb3YgZWR4LCBlZGkKYWRkIGVkeCwgMQpzaGwgZWR4LCAzCmRlYyBlYXgKYWRkIGVkeCwgZXNpCmRlYyBlYXgKbW92IGVjeCwgZWR4CmptcCAweDI1CmRlYyBlYXgKYWRkIGVjeCwgOApkZWMgZWF4CmNtcCBkd29yZCBbZWN4XSwgMApqbmUgMHgyMQpkZWMgZWF4CmFkZCBlY3gsIDgKY2FsbCAweGY4Ywptb3YgZWRpLCBlYXgKY2FsbCAweDM5NTYKcmV0Cgo=
-CMDS64=ZSBhbmFsLmhhc25leHQ9MAplIGFzbS5hcmNoPXg4NgplIGFuYWwuZW9iam1wPWZhbHNlCmUgYXNtLmJpdHM9MzIKd3ggNmEwMDQ4ODllNTQ4ODNlNGYwNDg4YjdkMDg0ODhkNzUxMDg5ZmE4M2MyMDFjMWUyMDM0ODAxZjI0ODg5ZDFlYjA0NDg4M2MxMDg0ODgzMzkwMDc1ZjY0ODgzYzEwOGU4NTgwZjAwMDA4OWM3ZTgxYjM5MDAwMGMzNTU0ODg5ZTUKcyArMHg0MAp3eCA0ODhkNDc2ODQ4OGQ3ZTY4NDg4OWM2YzllOTAxM2EwMDAwNTU0ODg5ZTU0ODgzYzY2ODQ4ODNjNzY4YzllOWVmMzkwMDAwNTU0ODg5ZTU1MzQ4ODlmMTQ4OGI1NjYwNDg4YjQ3NjA0ODhiNTgzMDQ4Mzk1YTMwN2YxZDdjMjI0OApzIC0weDQwCmFmCmIgMHg4MApwSWYKCg==
+EXPECT=<<EOF
+push 0
+dec eax
+mov ebp, esp
+dec eax
+and esp, 0xfffffff0
+dec eax
+mov edi, dword [ebp + 8]
+dec eax
+lea esi, [ebp + 0x10]
+mov edx, edi
+add edx, 1
+shl edx, 3
+dec eax
+add edx, esi
+dec eax
+mov ecx, edx
+jmp 0x25
+dec eax
+add ecx, 8
+dec eax
+cmp dword [ecx], 0
+jne 0x21
+dec eax
+add ecx, 8
+call 0xf8c
+mov edi, eax
+call 0x3956
+ret
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e asm.arch=x86
+e anal.eobjmp=false
+e asm.bits=32
+wx 6a004889e54883e4f0488b7d08488d751089fa83c201c1e2034801f24889d1eb044883c1084883390075f64883c108e8580f000089c7e81b390000c3554889e5
+s +0x40
+wx 488d4768488d7e684889c6c9e9013a0000554889e54883c6684883c768c9e9ef390000554889e5534889f1488b5660488b4760488b583048395a307f1d7c2248
+s -0x40
+af
+b 0x80
+pIf
+EOF
 RUN
+
 NAME=disasm bug
 FILE=malloc://1024
-EXPECT64=cHVzaCAwCmRlYyBlYXgKbW92IGVicCwgZXNwCmRlYyBlYXgKYW5kIGVzcCwgMHhmZmZmZmZmMApkZWMgZWF4Cm1vdiBlZGksIGR3b3JkIFtlYnAgKyA4XQpkZWMgZWF4CmxlYSBlc2ksIFtlYnAgKyAweDEwXQptb3YgZWR4LCBlZGkKYWRkIGVkeCwgMQpzaGwgZWR4LCAzCmRlYyBlYXgKYWRkIGVkeCwgZXNpCmRlYyBlYXgKbW92IGVjeCwgZWR4CmptcCAweDI1CmRlYyBlYXgKYWRkIGVjeCwgOApkZWMgZWF4CmNtcCBkd29yZCBbZWN4XSwgMApqbmUgMHgyMQpkZWMgZWF4CmFkZCBlY3gsIDgKY2FsbCAweGY4Ywptb3YgZWRpLCBlYXgKY2FsbCAweDM5NTYKcmV0Cgo=
-CMDS64=ZSBhbmFsLmhhc25leHQ9MAplIGFuYWwuZW9iam1wPWZhbHNlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKd3ggNmEwMDQ4ODllNTQ4ODNlNGYwNDg4YjdkMDg0ODhkNzUxMDg5ZmE4M2MyMDFjMWUyMDM0ODAxZjI0ODg5ZDFlYjA0NDg4M2MxMDg0ODgzMzkwMDc1ZjY0ODgzYzEwOGU4NTgwZjAwMDA4OWM3ZTgxYjM5MDAwMGMzNTU0ODg5ZTUKcysweDQwCnd4IDQ4OGQ0NzY4NDg4ZDdlNjg0ODg5YzZjOWU5MDEzYTAwMDA1NTQ4ODllNTQ4ODNjNjY4NDg4M2M3NjhjOWU5ZWYzOTAwMDA1NTQ4ODllNTUzNDg4OWYxNDg4YjU2NjA0ODhiNDc2MDQ4OGI1ODMwNDgzOTVhMzA3ZjFkN2MyMjQ4CnMtMHg0MApiIDB4MTAwCmFmCnBJZiBAMAoK
+EXPECT=<<EOF
+push 0
+dec eax
+mov ebp, esp
+dec eax
+and esp, 0xfffffff0
+dec eax
+mov edi, dword [ebp + 8]
+dec eax
+lea esi, [ebp + 0x10]
+mov edx, edi
+add edx, 1
+shl edx, 3
+dec eax
+add edx, esi
+dec eax
+mov ecx, edx
+jmp 0x25
+dec eax
+add ecx, 8
+dec eax
+cmp dword [ecx], 0
+jne 0x21
+dec eax
+add ecx, 8
+call 0xf8c
+mov edi, eax
+call 0x3956
+ret
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e anal.eobjmp=false
+e asm.arch=x86
+e asm.bits=32
+wx 6a004889e54883e4f0488b7d08488d751089fa83c201c1e2034801f24889d1eb044883c1084883390075f64883c108e8580f000089c7e81b390000c3554889e5
+s+0x40
+wx 488d4768488d7e684889c6c9e9013a0000554889e54883c6684883c768c9e9ef390000554889e5534889f1488b5660488b4760488b583048395a307f1d7c2248
+s-0x40
+b 0x100
+af
+pIf @0
+EOF
 RUN
+
 NAME=call-convention
 FILE=../bins/elf/analysis/x86-simple
-EXPECT64=Y2FsbC1jb252ZW50aW9uOiBzdGRjYWxsCgo=
-CMDS64=CmFhCnMgZW50cnkwCmFmYyBzdGRjYWxsCmFmaX5jYWxsLWNvbnZlbnRpb24KCg==
+EXPECT=<<EOF
+call-convention: stdcall
+EOF
+CMDS=<<EOF
+aa
+s entry0
+afc stdcall
+afi~call-convention
+EOF
 RUN
+
 NAME=function address
 FILE=../bins/mach0/mach0-i386
-EXPECT64=MHgwMDAwMWY1MAoweDAwMDAxZjAwCgo=
-CMDS64=ZSBhbmFsLmhhc25leHQ9MAphYQphZm8gc3ltLl9mb28KYWZvIHN5bS5fYmFyCgo=
+EXPECT=<<EOF
+0x00001f50
+0x00001f00
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+aa
+afo sym._foo
+afo sym._bar
+EOF
 RUN
+
 NAME=afr
 FILE=../bins/mach0/mach0-i386
-EXPECT64=MHgwMDAwMWYwMCAgICA0IDczICAgICAgICAgICBzeW0uX2JhcgoweDAwMDAxZjUwICAgIDEgNDcgICAgICAgICAgIHN5bS5fZm9vCjB4MDAwMDFmODAgICAgMSA0MSAgICAgICAgICAgc3ltLl9tYWluCgo=
-CMDS64=ZSBhbmFsLmhhc25leHQ9MAphZnIKYWZsCg==
+EXPECT=<<EOF
+0x00001f00    4 73           sym._bar
+0x00001f50    1 47           sym._foo
+0x00001f80    1 41           sym._main
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+afr
+afl
+EOF
 RUN
+
 NAME=aF
 FILE=../bins/mach0/mach0-i386
-EXPECT64=MHgwMDAwMWY4MCAgICAxIDQxICAgICAgICAgICBzeW0uX21haW4KCg==
-CMDS64=ZSBhbmFsLmhhc25leHQ9MAphRgphZmwK
+EXPECT=<<EOF
+0x00001f80    1 41           sym._main
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+aF
+afl
+EOF
 RUN
+
 NAME=function prelude offsets
 FILE=../bins/mach0/mach0-i386
-EXPECT64=MHgwMDAwMWYwMAoweDAwMDAxZjUwCjB4MDAwMDFmODAKCg==
-CMDS64=cyAweDEwMDAKYWFwCmFmbH5bMF0KCg==
+EXPECT=<<EOF
+0x00001f00
+0x00001f50
+0x00001f80
+EOF
+CMDS=<<EOF
+s 0x1000
+aap
+afl~[0]
+EOF
 RUN
+
 NAME=function preludes symbol names
 FILE=../bins/mach0/mach0-i386
-EXPECT64=MHgwMDAwMWYwMCAgICA0IDczICAgICAgICAgICBzeW0uX2JhcgoweDAwMDAxZjUwICAgIDEgNDcgICAgICAgICAgIHN5bS5fZm9vCjB4MDAwMDFmODAgICAgMSA0MSAgICAgICAgICAgc3ltLl9tYWluCgo=
-CMDS64=cyAweDEwMDAKYWFwCmFmbAoK
+EXPECT=<<EOF
+0x00001f00    4 73           sym._bar
+0x00001f50    1 47           sym._foo
+0x00001f80    1 41           sym._main
+EOF
+CMDS=<<EOF
+s 0x1000
+aap
+afl
+EOF
 RUN
+
 NAME=af afF
 FILE=malloc://1024
-EXPECT64=LyAoZmNuKSBmY24udGVzdApcICAgICAgICAgICAweDAwMDAwMDAwICg2IGJ5dGUgZm9sZGVkIGZ1bmN0aW9uKQoK
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhbmFsLmVvYmptcD1mYWxzZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCnd4IDZhMDA0ODg5ZTVjMwphZiB0ZXN0CmFmRgpwZCAxIEAgZmNuLnRlc3QKCg==
+EXPECT=<<EOF
+/ (fcn) fcn.test
+\           0x00000000 (6 byte folded function)
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e anal.eobjmp=false
+e asm.arch=x86
+e asm.bits=32
+wx 6a004889e5c3
+af test
+afF
+pd 1 @ fcn.test
+EOF
 RUN
+
 NAME=af afF graph
 FILE=malloc://1024
-EXPECT64=WzB4MDAwMDAwMDBdPiBWViBAIGZjbi50ZXN0IChub2RlcyAxIGVkZ2VzIDAgem9vbSAxMDAlKSBCQi1OT1JNIG1vdXNlOmNhbnZhcy15IG1vdi1zcGVlZDo1Ci4tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0uCnwgIDB4MCAgICAgICAgICAgICAgICAgICAgICB8CnwgLyAoZmNuKSBmY24udGVzdCAgICAgICAgICB8CnwgKDYgYnl0ZSBmb2xkZWQgZnVuY3Rpb24pICB8CmAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0nCgo=
-CMDS64=CmUgYW5hbC5oYXNuZXh0PTAKZSBhbmFsLmVvYmptcD1mYWxzZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCnd4IDZhMDA0ODg5ZTVjMwphZiB0ZXN0CmFmRgphZ2YKCg==
+EXPECT=<<EOF
+[0x00000000]> VV @ fcn.test (nodes 1 edges 0 zoom 100%) BB-NORM mouse:canvas-y mov-speed:5
+.---------------------------.
+|  0x0                      |
+| / (fcn) fcn.test          |
+| (6 byte folded function)  |
+`---------------------------'
+EOF
+CMDS=<<EOF
+e anal.hasnext=0
+e anal.eobjmp=false
+e asm.arch=x86
+e asm.bits=32
+wx 6a004889e5c3
+af test
+afF
+agf
+EOF
 RUN
+
 NAME=af-*
 FILE=../bins/elf/analysis/main
-EXPECT64=Cg==
-CMDS64=CmFhCmFmLSoKYWZsCgo=
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+aa
+af-*
+afl
+EOF
 RUN
+
 NAME=ahc
 FILE=malloc://16
-EXPECT64=NQoweDAwMDAwMDI1CjB4MDAwMDAwMjUKCg==
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKd3ggZWJmZQphaHMgNQphaGMgMHgyNQphaGYgMHgyNQphbyAxfmp1bXAsZmFpbCxzaXplWzFdCgo=
+EXPECT=<<EOF
+5
+0x00000025
+0x00000025
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+wx ebfe
+ahs 5
+ahc 0x25
+ahf 0x25
+ao 1~jump,fail,size[1]
+EOF
 RUN
+
 NAME=ahi S
 FILE=malloc://16
-EXPECT64=bW92IGVheCwgZXhpdCgpCgo=
-CMDS64=ZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz0zMgplIGFzbS5vcz1saW51eAp3eCBiODAxMDAwMDAwCmFoaSBTCnBpIDEK
+EXPECT=<<EOF
+mov eax, exit()
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+e asm.os=linux
+wx b801000000
+ahi S
+pi 1
+EOF
 RUN
+
 NAME=iS. and iSj. implementation
 FILE=../bins/anal/lab1B
-EXPECT64=Q3VycmVudCBzZWN0aW9uCk5tIFBhZGRyICAgICAgIFNpemUgVmFkZHIgICAgICBNZW1zeiBQZXJtcyBDaGVja3N1bSAgICAgICAgICBOYW1lCjAwIDB4MDAwMDAxODggICAgMzYgMHgwODA0ODE4OCAgICAzNiAtci0tIC5ub3RlLmdudS5idWlsZF9pZApDdXJyZW50IHNlY3Rpb24KTm0gUGFkZHIgICAgICAgU2l6ZSBWYWRkciAgICAgIE1lbXN6IFBlcm1zIENoZWNrc3VtICAgICAgICAgIE5hbWUKeyJuYW1lIjoiLnBsdCIsInNpemUiOjI0MCwidnNpemUiOjI0MCwicGVybSI6Ii1yLXgiLCJwYWRkciI6MTg4OCwidmFkZHIiOjEzNDUxNDUyOH0=
-CMDS64=cyAweDE4OAppUy4KcyAweDA4MDU4MDAwCmlTLgpzIDB4NzYwCmlTai4KCg==
+EXPECT='Current section
+Nm Paddr       Size Vaddr      Memsz Perms Checksum          Name
+00 0x00000188    36 0x08048188    36 -r-- .note.gnu.build_id
+Current section
+Nm Paddr       Size Vaddr      Memsz Perms Checksum          Name
+{"name":".plt","size":240,"vsize":240,"perm":"-r-x","paddr":1888,"vaddr":134514528}'
+CMDS=<<EOF
+s 0x188
+iS.
+s 0x08058000
+iS.
+s 0x760
+iSj.
+EOF
 RUN
+
 NAME=iE and iE. implementation
 FILE=../bins/anal/lab1B
-EXPECT64=TnVtIFBhZGRyICAgICAgVmFkZHIgICAgICBCaW5kICAgICBUeXBlIFNpemUgTmFtZQowMjIgMHgwMDAwMDliNyAweDA4MDQ4OWI3IEdMT0JBTCAgIEZVTkMgIDE4OSBkZWNyeXB0CnsibmFtZSI6InByb2dfdGltZW91dCIsImRlbW5hbWUiOiIiLCJmbGFnbmFtZSI6InN5bS5wcm9nX3RpbWVvdXQiLCJvcmRpbmFsIjozNSwiYmluZCI6IkdMT0JBTCIsInNpemUiOjE3LCJ0eXBlIjoiRlVOQyIsInZhZGRyIjoxMzQ1MTUxMTAsInBhZGRyIjoyNDcwfQ==
-CMDS64=cyAweDA4MDQ4OWI5CmlFLgpzIDB4MDgwNDg5YTYKcys1Cmlzai4KCg==
+EXPECT='Num Paddr      Vaddr      Bind     Type Size Name
+022 0x000009b7 0x080489b7 GLOBAL   FUNC  189 decrypt
+{"name":"prog_timeout","demname":"","flagname":"sym.prog_timeout","ordinal":35,"bind":"GLOBAL","size":17,"type":"FUNC","vaddr":134515110,"paddr":2470}'
+CMDS=<<EOF
+s 0x080489b9
+iE.
+s 0x080489a6
+s+5
+isj.
+EOF
 RUN
+
 NAME=address information
 FILE=../bins/mach0/mach0-i386
-EXPECT64=ZXhlYwpyZWFkCmZsYWcKZmxhZwoK
-CMDS64=cyBlbnRyeTAKYWkKcyBzeW0uX19taF9leGVjdXRlX2hlYWRlcgphaQoK
+EXPECT=<<EOF
+exec
+read
+flag
+flag
+EOF
+CMDS=<<EOF
+s entry0
+ai
+s sym.__mh_execute_header
+ai
+EOF
 RUN
+
 NAME=af x86-32
 FILE=malloc://16
-EXPECT64=MTUKYWRkcmVzczogMHgwCm9wY29kZTogbm9wCm1uZW1vbmljOiBub3AKcHJlZml4OiAwCmlkOiA0OTQKYnl0ZXM6IDkwCnJlZnB0cjogMApzaXplOiAxCnNpZ246IGZhbHNlCnR5cGU6IG5vcApjeWNsZXM6IDEKZXNpbDogLApzdGFjazogbnVsbApmYW1pbHk6IGNwdQpzdGFja29wOiBudWxsCjkwCgo=
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKd3ggOTA5MAphbyAxfj8KYW8gMQpwOCAxCgo=
+EXPECT=<<EOF
+15
+address: 0x0
+opcode: nop
+mnemonic: nop
+prefix: 0
+id: 494
+bytes: 90
+refptr: 0
+size: 1
+sign: false
+type: nop
+cycles: 1
+esil: ,
+stack: null
+family: cpu
+stackop: null
+90
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+wx 9090
+ao 1~?
+ao 1
+p8 1
+EOF
 RUN
+
 NAME=af x86-64
 FILE=malloc://16
-EXPECT64=MTAKCg==
-CMDS64=CmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9NjQKd3ggNjYyZTBmMWY4NDAwMDAwMDAwMDAKYW8gMX5zaXplWzFdCgo=
+EXPECT=<<EOF
+10
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=64
+wx 662e0f1f840000000000
+ao 1~size[1]
+EOF
 RUN
+
 NAME=anal/fcn_name
 FILE=../bins/elf/analysis/main-g
-EXPECT64=LyAoZmNuKSBzeW0uY2FsbF9nbW9uX3N0YXJ0IDIzCgo=
-CMDS64=cyAweDAwNDAwNDJjCmFmCnBkIDF+c3ltLmNhbGxfZ21vbl9zdGFydDowCg==
+EXPECT=<<EOF
+/ (fcn) sym.call_gmon_start 23
+EOF
+CMDS=<<EOF
+s 0x0040042c
+af
+pd 1~sym.call_gmon_start:0
+EOF
 RUN
+
 NAME=anal/fcn_subname
 FILE=../bins/elf/analysis/main-g
-EXPECT64=bmFtZTogc3ltLmNhbGxfZ21vbl9zdGFydAovIChmY24pIHN5bS5jYWxsX2dtb25fc3RhcnQgMjMKCg==
-CMDS64=cyAweDAwNDAwNDJjCmFmCmFmaX5uYW1lCnBkIDF+c3ltLmNhbGxfZ21vbl9zdGFydDowCg==
+EXPECT=<<EOF
+name: sym.call_gmon_start
+/ (fcn) sym.call_gmon_start 23
+EOF
+CMDS=<<EOF
+s 0x0040042c
+af
+afi~name
+pd 1~sym.call_gmon_start:0
+EOF
 RUN
+
 NAME=anal/name
 FILE=../bins/mach0/ls-osx-x86_64
-EXPECT64=bmFtZTogbWFpbgoK
-CMDS64=YWYKYWZpfm5hbWUKCg==
+EXPECT=<<EOF
+name: main
+EOF
+CMDS=<<EOF
+af
+afi~name
+EOF
 RUN
+
 NAME=anal hasnext on main
 FILE=../bins/elf/true32
-EXPECT64=c2l6ZTogMjYxCgo=
-CMDS64=ZSBhbmFsLmhhc25leHQ9dHJ1ZQphZkBtYWluCmFmaUBtYWlufnNpemUKCg==
+EXPECT=<<EOF
+size: 261
+EOF
+CMDS=<<EOF
+e anal.hasnext=true
+af@main
+afi@main~size
+EOF
 RUN
+
 NAME=anal without hasnext on main
 FILE=../bins/elf/true32
-EXPECT64=c2l6ZTogMjYxCgo=
-CMDS64=ZSBhbmFsLmhhc25leHQ9ZmFsc2UKYWZAbWFpbgphZmlAbWFpbn5zaXplCgo=
+EXPECT=<<EOF
+size: 261
+EOF
+CMDS=<<EOF
+e anal.hasnext=false
+af@main
+afi@main~size
+EOF
 RUN
+
 NAME=ahe
 FILE=malloc://512
-EXPECT64=MTYKZXNpbDogdGVzdAoK
-CMDS64=ZSBhc20uYml0cz02NAplIGFzbS5hcmNoID0geDg2CmUgYW5hbC5hcmNoID0geDg2CmFvfj8KYWhlIHRlc3QKYW9+ZXNpbAoK
+EXPECT=<<EOF
+16
+esil: test
+EOF
+CMDS=<<EOF
+e asm.bits=64
+e asm.arch = x86
+e anal.arch = x86
+ao~?
+ahe test
+ao~esil
+EOF
 RUN
+
 NAME=ahe
 FILE=malloc://512
-EXPECT64=ZXNpbDogdGVzdAoK
-CMDS64=YWhlIHRlc3QKYW9+XmVzaWwKCg==
+EXPECT=<<EOF
+esil: test
+EOF
+CMDS=<<EOF
+ahe test
+ao~^esil
+EOF
 RUN
+
 NAME=ahe 33,rax,=
 FILE=malloc://512
-EXPECT64=MHgwMDAwMDAyMQoK
-CMDS64=d3ggMDAwMDAwCmFoZSAzMyxyYXgsPQphZXMKZHI/cmF4Cgo=
+EXPECT=<<EOF
+0x00000021
+EOF
+CMDS=<<EOF
+wx 000000
+ahe 33,rax,=
+aes
+dr?rax
+EOF
 RUN
+
 NAME=delete memory format with Cf-
 FILE=../bins/dmg/src/Hello
-EXPECT64=ICAgICAgICAgICAgMHgwMDAwMDAwMCAgICAgIDU3ICAgICAgICAgICAgIHB1c2ggcmRpCiAgICAgICAgICAgIDB4MDAwMDAwMDAgZm9ybWF0IHggewoweDAwMDAwMDAwID0gMHg2YzcyNmY1Nwp9IDEKdGVtcF9wcm9qCiAgICAgICAgICAgIDB4MDAwMDAwMDAgICAgICA1NyAgICAgICAgICAgICBwdXNoIHJkaQp0ZW1wX3Byb2oKICAgICAgICAgICAgMHgwMDAwMDAwMCAgICAgIDU3ICAgICAgICAgICAgIHB1c2ggcmRpCgo=
-CMDS64=CnBkIDEKQ2YgMSB4CnBkIDEKUHMgdGVtcF9wcm9qCkNmLQpwZCAxClBzIHRlbXBfcHJvagpQbyB0ZW1wX3Byb2oKcGQgMQoK
+EXPECT=<<EOF
+            0x00000000      57             push rdi
+            0x00000000 format x {
+0x00000000 = 0x6c726f57
+} 1
+temp_proj
+            0x00000000      57             push rdi
+temp_proj
+            0x00000000      57             push rdi
+EOF
+CMDS=<<EOF
+pd 1
+Cf 1 x
+pd 1
+Ps temp_proj
+Cf-
+pd 1
+Ps temp_proj
+Po temp_proj
+pd 1
+EOF
 RUN
+
 NAME=ao cjmp
 FILE=-
-EXPECT64=c2l6ZTogMgpqdW1wOiAweDAwMDAwMDFkCmZhaWw6IDB4MDAwMDAwMDIKCg==
-CMDS64=ZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz0zMgp3eCA3NjFiCmFvfmp1bXAsZmFpbCxzaXplCgo=
+EXPECT=<<EOF
+size: 2
+jump: 0x0000001d
+fail: 0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+wx 761b
+ao~jump,fail,size
+EOF
 RUN
+
 NAME=aoj 31c0
 FILE=-
-EXPECT64=WwogIHsKICAgICJvcGNvZGUiOiAieG9yIGVheCwgZWF4IiwKICAgICJkaXNhc20iOiAieG9yIGVheCwgZWF4IiwKICAgICJtbmVtb25pYyI6ICJ4b3IiLAogICAgInNpZ24iOiBmYWxzZSwKICAgICJwcmVmaXgiOiAwLAogICAgImlkIjogMzM0LAogICAgIm9wZXgiOiB7CiAgICAgICJvcGVyYW5kcyI6IFsKICAgICAgICB7CiAgICAgICAgICAic2l6ZSI6IDQsCiAgICAgICAgICAicnciOiAzLAogICAgICAgICAgInR5cGUiOiAicmVnIiwKICAgICAgICAgICJ2YWx1ZSI6ICJlYXgiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAic2l6ZSI6IDQsCiAgICAgICAgICAicnciOiAxLAogICAgICAgICAgInR5cGUiOiAicmVnIiwKICAgICAgICAgICJ2YWx1ZSI6ICJlYXgiCiAgICAgICAgfQogICAgICBdLAogICAgICAibW9kcm0iOiB0cnVlCiAgICB9LAogICAgImFkZHIiOiAwLAogICAgImJ5dGVzIjogIjMxYzAiLAogICAgInNpemUiOiAyLAogICAgInR5cGUiOiAieG9yIiwKICAgICJlc2lsIjogImVheCxlYXgsXj0sJHosemYsPSwkcCxwZiw9LCRzLHNmLD0sJDAsY2YsPSwkMCxvZiw9IiwKICAgICJyZWZwdHIiOiAwLAogICAgImN5Y2xlcyI6IDEsCiAgICAiZGVsYXkiOiAwLAogICAgImZhbWlseSI6ICJjcHUiCiAgfQpdCg==
-CMDS64=ZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz0zMgp3eCAzMWMwCmFvan57fQoK
+EXPECT='[
+  {
+    "opcode": "xor eax, eax",
+    "disasm": "xor eax, eax",
+    "mnemonic": "xor",
+    "sign": false,
+    "prefix": 0,
+    "id": 334,
+    "opex": {
+      "operands": [
+        {
+          "size": 4,
+          "rw": 3,
+          "type": "reg",
+          "value": "eax"
+        },
+        {
+          "size": 4,
+          "rw": 1,
+          "type": "reg",
+          "value": "eax"
+        }
+      ],
+      "modrm": true
+    },
+    "addr": 0,
+    "bytes": "31c0",
+    "size": 2,
+    "type": "xor",
+    "esil": "eax,eax,^=,$z,zf,=,$p,pf,=,$s,sf,=,$0,cf,=,$0,of,=",
+    "refptr": 0,
+    "cycles": 1,
+    "delay": 0,
+    "family": "cpu"
+  }
+]
+'
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+wx 31c0
+aoj~{}
+EOF
 RUN
 
 NAME=reflines offset
@@ -391,364 +1035,1361 @@ RUN
 
 NAME=reflines offset 2 (ascii)
 FILE=../bins/elf/analysis/ls-alxchk
-EXPECT64=fCAgICAgICAsPTwgMHgwMDAxMTNiZCAgICAgIGplIDB4MTE0NGUKfCAgICAgICB8ICAgMHgwMDAxMTNjMyAgICAgIG1vdiBlc2ksIDB4MmYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA7ICcvJyA7IGludCBjCnwgICAgICAgfCAgIDB4MDAwMTEzYzggICAgICBjYWxsIHN5bS5pbXAuc3RycmNociAgICAgICAgICAgICAgICAgICAgICAgOyBjaGFyICpzdHJyY2hyKGNvbnN0IGNoYXIgKnMsIGludCBjKQp8ICAgICAgIHwgICAweDAwMDExM2NkICAgICAgdGVzdCByYXgsIHJheAp8ICAgICAgLD09PCAweDAwMDExM2QwICAgICAgamUgMHgxMTQyNAp8ICAgICAgfHwgICAweDAwMDExM2QyICAgICAgbGVhIHJkeCwgW3JheCArIDFdCnwgICAgICB8fCAgIDB4MDAwMTEzZDYgICAgICBtb3YgcmN4LCByZHgKfCAgICAgIHx8ICAgMHgwMDAxMTNkOSAgICAgIHN1YiByY3gsIHJieAp8ICAgICAgfHwgICAweDAwMDExM2RjICAgICAgY21wIHJjeCwgNgp8ICAgICAsPT09PCAweDAwMDExM2UwICAgICAgamxlIDB4MTE0MjQKfCAgICAgfHx8ICAgMHgwMDAxMTNlMiAgICAgIGxlYSByc2ksIFtyYXggLSA2XQp8ICAgICB8fHwgICAweDAwMDExM2U2ICAgICAgbW92IGVjeCwgNwp8ICAgICB8fHwgICAweDAwMDExM2ViICAgICAgbGVhIHJkaSwgW3JpcCArIDB4N2ViYl0gICAgICAgICAgICAgICAgICAgIDsgc3RyLi5saWJzIDsgMHgxOTJhZCA7ICIvLmxpYnMvIgp8ICAgICB8fHwgICAweDAwMDExM2YyICAgICAgcmVwZSBjbXBzYiBieXRlIFtyc2ldLCBieXRlIHB0ciBbcmRpXQp8ICAgICw9PT09PCAweDAwMDExM2Y0ICAgICAgam5lIDB4MTE0MjQKfCAgICB8fHx8ICAgMHgwMDAxMTNmNiAgICAgIG1vdiBlY3gsIDMKfCAgICB8fHx8ICAgMHgwMDAxMTNmYiAgICAgIG1vdiByc2ksIHJkeAp8ICAgIHx8fHwgICAweDAwMDExM2ZlICAgICAgbW92IHJieCwgcmR4CnwgICAgfHx8fCAgIDB4MDAwMTE0MDEgICAgICBsZWEgcmRpLCBbcmlwICsgMHg3ZWFkXSAgICAgICAgICAgICAgICAgICAgOyAibHQtIiA7IDB4MTkyYjUKfCAgICB8fHx8ICAgMHgwMDAxMTQwOCAgICAgIHJlcGUgY21wc2IgYnl0ZSBbcnNpXSwgYnl0ZSBwdHIgW3JkaV0KfCAgICB8fHx8ICAgMHgwMDAxMTQwYSAgICAgIHNldGEgc2lsCnwgICAgfHx8fCAgIDB4MDAwMTE0MGUgICAgICBzZXRiIGNsCnwgICAgfHx8fCAgIDB4MDAwMTE0MTEgICAgICBjbXAgc2lsLCBjbAp8ICAgLD09PT09PCAweDAwMDExNDE0ICAgICAgam5lIDB4MTE0MjQKfCAgIHx8fHx8ICAgMHgwMDAxMTQxNiAgICAgIGxlYSByYngsIFtyYXggKyA0XQp8ICAgfHx8fHwgICAweDAwMDExNDFhICAgICAgbW92IHJheCwgcXdvcmQgW3JpcCArIDB4ZGVhZl0gICAgICAgICAgICAgIDsgcmVsb2MucHJvZ3JhbV9pbnZvY2F0aW9uX3Nob3J0X25hbWUgOyBbMHgxZjJkMDo4XT0wCnwgICB8fHx8fCAgIDB4MDAwMTE0MjEgICAgICBtb3YgcXdvcmQgW3JheF0sIHJieAp8ICAgfHx8fHwgICA7IENPREUgWFJFRlMgZnJvbSBzdWIuc3RycmNocl8xMTM5MCAoMHgxMTNkMCwgMHgxMTNlMCwgMHgxMTNmNCwgMHgxMTQxNCkKfCAgIGBgYGAtLT4gMHgwMDAxMTQyNCAgICAgIG1vdiByYXgsIHF3b3JkIFtyaXAgKyAweGRlM2RdICAgICAgICAgICAgICA7IFsweDFmMjY4OjhdPTB4MjE2ODAK
-CMDS64=ZSBhc20ucmVsc3ViPWZhbHNlCmUgYXNtLmJ5dGVzPWZhbHNlCmUgYXNtLmxlYWhpbnRzPWZhbHNlCmUgc2NyLnV0Zjg9ZmFsc2UKZSBzY3IuY29sb3I9ZmFsc2UKcyAkUwphYWEgPi9kZXYvbnVsbApzIDB4MDAwMTEzYmQKcGQgMjgKCg==
+EXPECT=<<EOF
+|       ,=< 0x000113bd      je 0x1144e
+|       |   0x000113c3      mov esi, 0x2f                              ; '/' ; int c
+|       |   0x000113c8      call sym.imp.strrchr                       ; char *strrchr(const char *s, int c)
+|       |   0x000113cd      test rax, rax
+|      ,==< 0x000113d0      je 0x11424
+|      ||   0x000113d2      lea rdx, [rax + 1]
+|      ||   0x000113d6      mov rcx, rdx
+|      ||   0x000113d9      sub rcx, rbx
+|      ||   0x000113dc      cmp rcx, 6
+|     ,===< 0x000113e0      jle 0x11424
+|     |||   0x000113e2      lea rsi, [rax - 6]
+|     |||   0x000113e6      mov ecx, 7
+|     |||   0x000113eb      lea rdi, [rip + 0x7ebb]                    ; str..libs ; 0x192ad ; "/.libs/"
+|     |||   0x000113f2      repe cmpsb byte [rsi], byte ptr [rdi]
+|    ,====< 0x000113f4      jne 0x11424
+|    ||||   0x000113f6      mov ecx, 3
+|    ||||   0x000113fb      mov rsi, rdx
+|    ||||   0x000113fe      mov rbx, rdx
+|    ||||   0x00011401      lea rdi, [rip + 0x7ead]                    ; "lt-" ; 0x192b5
+|    ||||   0x00011408      repe cmpsb byte [rsi], byte ptr [rdi]
+|    ||||   0x0001140a      seta sil
+|    ||||   0x0001140e      setb cl
+|    ||||   0x00011411      cmp sil, cl
+|   ,=====< 0x00011414      jne 0x11424
+|   |||||   0x00011416      lea rbx, [rax + 4]
+|   |||||   0x0001141a      mov rax, qword [rip + 0xdeaf]              ; reloc.program_invocation_short_name ; [0x1f2d0:8]=0
+|   |||||   0x00011421      mov qword [rax], rbx
+|   |||||   ; CODE XREFS from sub.strrchr_11390 (0x113d0, 0x113e0, 0x113f4, 0x11414)
+|   ````--> 0x00011424      mov rax, qword [rip + 0xde3d]              ; [0x1f268:8]=0x21680
+EOF
+CMDS=<<EOF
+e asm.relsub=false
+e asm.bytes=false
+e asm.leahints=false
+e scr.utf8=false
+e scr.color=false
+s $S
+aaa >/dev/null
+s 0x000113bd
+pd 28
+EOF
 RUN
+
 NAME=reflines offset 3 (ascii)
 FILE=../bins/elf/analysis/ls-alxchk
-EXPECT64=fCAgICAgICAgICAgMHgwMDAwM2NhNiAgICAgIGNtcCBlYXgsIDIKfCAgICAgICAsPTwgMHgwMDAwM2NhOSAgICAgIGplIDB4NDVlYwp8ICAgICAgIHwgICAweDAwMDAzY2FmICAgICAgY21wIGVheCwgMwp8ICAgICAgLD09PCAweDAwMDAzY2IyICAgICAgamUgMHgzY2UzCnwgICAgICB8fCAgIDB4MDAwMDNjYjQgICAgICBzdWIgZWF4LCAxCnwgICAgICw9PT08IDB4MDAwMDNjYjcgICAgICBqZSAweDNjYmUKfCAgICAgfHx8ICAgOyBDT0RFIFhSRUYgZnJvbSBtYWluICgweDU4YmMpCnwgICAgIHx8fCAgIDB4MDAwMDNjYjkgICAgICBjYWxsIHN5bS5pbXAuYWJvcnQgICAgICAgICAgICAgICAgICAgICAgICAgOyB2b2lkIGFib3J0KHZvaWQpCnwgICAgIHx8fCAgIDsgQ09ERSBYUkVGIGZyb20gbWFpbiAoMHgzY2I3KQp8ICAgICBgLS0tPiAweDAwMDAzY2JlICAgICAgbW92IGVkaSwgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDsgaW50IGZkCnwgICAgICB8fCAgIDB4MDAwMDNjYzMgICAgICBjYWxsIHN5bS5pbXAuaXNhdHR5ICAgICAgICAgICAgICAgICAgICAgICAgOyBpbnQgaXNhdHR5KGludCBmZCkKfCAgICAgIHx8ICAgMHgwMDAwM2NjOCAgICAgIHRlc3QgZWF4LCBlYXgKfCAgICAgLD09PTwgMHgwMDAwM2NjYSAgICAgIGplIDB4NGMyZQp8ICAgICB8fHwgICAweDAwMDAzY2QwICAgICAgbW92IGR3b3JkIFtyaXAgKyAweDFkNjI2XSwgMiAgICAgICAgICAgICAgIDsgWzB4MjEzMDA6NF09MAp8ICAgICB8fHwgICAweDAwMDAzY2RhICAgICAgbW92IGJ5dGUgW3JpcCArIDB4MWQzM2ZdLCAxICAgICAgICAgICAgICAgIDsgWzB4MjEwMjA6MV09MAp8ICAgICw9PT09PCAweDAwMDAzY2UxICAgICAgam1wIDB4M2NmOQp8ICAgIHx8fHwgICA7IENPREUgWFJFRiBmcm9tIG1haW4gKDB4M2NiMikKfCAgICB8fGAtLT4gMHgwMDAwM2NlMyAgICAgIG1vdiBlc2ksIDUKfCAgICB8fCB8ICAgMHgwMDAwM2NlOCAgICAgIHhvciBlZGksIGVkaQp8ICAgIHx8IHwgICAweDAwMDAzY2VhICAgICAgbW92IGR3b3JkIFtyaXAgKyAweDFkNjBjXSwgMCAgICAgICAgICAgICAgIDsgWzB4MjEzMDA6NF09MAp8ICAgIHx8IHwgICAweDAwMDAzY2Y0ICAgICAgY2FsbCBzdWIuX19zdGFja19jaGtfZmFpbF8xMjc0MAp8ICAgIHx8IHwgICA7IENPREUgWFJFRlMgZnJvbSBtYWluICgweDNjZTEsIDB4NDYwMiwgMHg0YzM4KQp8ICAgIGAtLS0tPiAweDAwMDAzY2Y5ICAgICAgbGVhIHJkaSwgW3JpcCArIDB4MTRmYjRdICAgICAgICAgICAgICAgICAgIDsgc3RyLlFVT1RJTkdfU1RZTEUgOyAweDE4Y2I0IDsgIlFVT1RJTkdfU1RZTEUiIDsgY29uc3QgY2hhciAqbmFtZQo=
-CMDS64=ZSBhc20ucmVsc3ViPWZhbHNlCmUgYXNtLmJ5dGVzPWZhbHNlCmUgYXNtLmxlYWhpbnRzPWZhbHNlCmUgc2NyLnV0Zjg9ZmFsc2UKZSBzY3IuY29sb3I9ZmFsc2UKcyAkUwphYWEgPi9kZXYvbnVsbApzIDB4MDAwMDNjYTYKcGQgMTkKCg==
+EXPECT=<<EOF
+|           0x00003ca6      cmp eax, 2
+|       ,=< 0x00003ca9      je 0x45ec
+|       |   0x00003caf      cmp eax, 3
+|      ,==< 0x00003cb2      je 0x3ce3
+|      ||   0x00003cb4      sub eax, 1
+|     ,===< 0x00003cb7      je 0x3cbe
+|     |||   ; CODE XREF from main (0x58bc)
+|     |||   0x00003cb9      call sym.imp.abort                         ; void abort(void)
+|     |||   ; CODE XREF from main (0x3cb7)
+|     `---> 0x00003cbe      mov edi, 1                                 ; int fd
+|      ||   0x00003cc3      call sym.imp.isatty                        ; int isatty(int fd)
+|      ||   0x00003cc8      test eax, eax
+|     ,===< 0x00003cca      je 0x4c2e
+|     |||   0x00003cd0      mov dword [rip + 0x1d626], 2               ; [0x21300:4]=0
+|     |||   0x00003cda      mov byte [rip + 0x1d33f], 1                ; [0x21020:1]=0
+|    ,====< 0x00003ce1      jmp 0x3cf9
+|    ||||   ; CODE XREF from main (0x3cb2)
+|    ||`--> 0x00003ce3      mov esi, 5
+|    || |   0x00003ce8      xor edi, edi
+|    || |   0x00003cea      mov dword [rip + 0x1d60c], 0               ; [0x21300:4]=0
+|    || |   0x00003cf4      call sub.__stack_chk_fail_12740
+|    || |   ; CODE XREFS from main (0x3ce1, 0x4602, 0x4c38)
+|    `----> 0x00003cf9      lea rdi, [rip + 0x14fb4]                   ; str.QUOTING_STYLE ; 0x18cb4 ; "QUOTING_STYLE" ; const char *name
+EOF
+CMDS=<<EOF
+e asm.relsub=false
+e asm.bytes=false
+e asm.leahints=false
+e scr.utf8=false
+e scr.color=false
+s $S
+aaa >/dev/null
+s 0x00003ca6
+pd 19
+EOF
 RUN
+
 NAME=reflines offset 3 (ascii + wide)
 FILE=../bins/elf/analysis/ls-alxchk
-EXPECT64=fCAgICAgICAgICAgMHgwMDAwM2NhNiAgICAgIGNtcCBlYXgsIDIKfCAgICAgICw9PTwgMHgwMDAwM2NhOSAgICAgIGplIDB4NDVlYwp8ICAgICAgfCAgICAweDAwMDAzY2FmICAgICAgY21wIGVheCwgMwp8ICAgICw9PT09PCAweDAwMDAzY2IyICAgICAgamUgMHgzY2UzCnwgICAgfCB8ICAgIDB4MDAwMDNjYjQgICAgICBzdWIgZWF4LCAxCnwgICw9PT09PT08IDB4MDAwMDNjYjcgICAgICBqZSAweDNjYmUKfCAgfCB8IHwgICAgOyBDT0RFIFhSRUYgZnJvbSBtYWluICgweDU4YmMpCnwgIHwgfCB8ICAgIDB4MDAwMDNjYjkgICAgICBjYWxsIHN5bS5pbXAuYWJvcnQgICAgICAgICAgICAgICAgICAgICAgICAgOyB2b2lkIGFib3J0KHZvaWQpCnwgIHwgfCB8ICAgIDsgQ09ERSBYUkVGIGZyb20gbWFpbiAoMHgzY2I3KQp8ICBgLS0tLS0tPiAweDAwMDAzY2JlICAgICAgbW92IGVkaSwgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDsgaW50IGZkCnwgICAgfCB8ICAgIDB4MDAwMDNjYzMgICAgICBjYWxsIHN5bS5pbXAuaXNhdHR5ICAgICAgICAgICAgICAgICAgICAgICAgOyBpbnQgaXNhdHR5KGludCBmZCkKfCAgICB8IHwgICAgMHgwMDAwM2NjOCAgICAgIHRlc3QgZWF4LCBlYXgKfCAgLD09PT09PTwgMHgwMDAwM2NjYSAgICAgIGplIDB4NGMyZQp8ICB8IHwgfCAgICAweDAwMDAzY2QwICAgICAgbW92IGR3b3JkIFtyaXAgKyAweDFkNjI2XSwgMiAgICAgICAgICAgICAgIDsgWzB4MjEzMDA6NF09MAp8ICB8IHwgfCAgICAweDAwMDAzY2RhICAgICAgbW92IGJ5dGUgW3JpcCArIDB4MWQzM2ZdLCAxICAgICAgICAgICAgICAgIDsgWzB4MjEwMjA6MV09MAp8ID09PT09PT09PCAweDAwMDAzY2UxICAgICAgam1wIDB4M2NmOQp8ICB8IHwgfCAgICA7IENPREUgWFJFRiBmcm9tIG1haW4gKDB4M2NiMikKfCAgfCBgLS0tLT4gMHgwMDAwM2NlMyAgICAgIG1vdiBlc2ksIDUKfCAgfCAgIHwgICAgMHgwMDAwM2NlOCAgICAgIHhvciBlZGksIGVkaQp8ICB8ICAgfCAgICAweDAwMDAzY2VhICAgICAgbW92IGR3b3JkIFtyaXAgKyAweDFkNjBjXSwgMCAgICAgICAgICAgICAgIDsgWzB4MjEzMDA6NF09MAp8ICB8ICAgfCAgICAweDAwMDAzY2Y0ICAgICAgY2FsbCBzdWIuX19zdGFja19jaGtfZmFpbF8xMjc0MAp8ICB8ICAgfCAgICA7IENPREUgWFJFRlMgZnJvbSBtYWluICgweDNjZTEsIDB4NDYwMiwgMHg0YzM4KQp8IC0tLS0tLS0tPiAweDAwMDAzY2Y5ICAgICAgbGVhIHJkaSwgW3JpcCArIDB4MTRmYjRdICAgICAgICAgICAgICAgICAgIDsgc3RyLlFVT1RJTkdfU1RZTEUgOyAweDE4Y2I0IDsgIlFVT1RJTkdfU1RZTEUiIDsgY29uc3QgY2hhciAqbmFtZQo=
-CMDS64=ZSBhc20ucmVsc3ViPWZhbHNlCmUgYXNtLmJ5dGVzPWZhbHNlCmUgYXNtLmxlYWhpbnRzPWZhbHNlCmUgc2NyLnV0Zjg9ZmFsc2UKZSBzY3IuY29sb3I9ZmFsc2UKZSBhc20ubGluZXMud2lkZT10cnVlCnMgJFMKYWFhID4vZGV2L251bGwKcyAweDAwMDAzY2E2CnBkIDE5Cgo=
+EXPECT=<<EOF
+|           0x00003ca6      cmp eax, 2
+|      ,==< 0x00003ca9      je 0x45ec
+|      |    0x00003caf      cmp eax, 3
+|    ,====< 0x00003cb2      je 0x3ce3
+|    | |    0x00003cb4      sub eax, 1
+|  ,======< 0x00003cb7      je 0x3cbe
+|  | | |    ; CODE XREF from main (0x58bc)
+|  | | |    0x00003cb9      call sym.imp.abort                         ; void abort(void)
+|  | | |    ; CODE XREF from main (0x3cb7)
+|  `------> 0x00003cbe      mov edi, 1                                 ; int fd
+|    | |    0x00003cc3      call sym.imp.isatty                        ; int isatty(int fd)
+|    | |    0x00003cc8      test eax, eax
+|  ,======< 0x00003cca      je 0x4c2e
+|  | | |    0x00003cd0      mov dword [rip + 0x1d626], 2               ; [0x21300:4]=0
+|  | | |    0x00003cda      mov byte [rip + 0x1d33f], 1                ; [0x21020:1]=0
+| ========< 0x00003ce1      jmp 0x3cf9
+|  | | |    ; CODE XREF from main (0x3cb2)
+|  | `----> 0x00003ce3      mov esi, 5
+|  |   |    0x00003ce8      xor edi, edi
+|  |   |    0x00003cea      mov dword [rip + 0x1d60c], 0               ; [0x21300:4]=0
+|  |   |    0x00003cf4      call sub.__stack_chk_fail_12740
+|  |   |    ; CODE XREFS from main (0x3ce1, 0x4602, 0x4c38)
+| --------> 0x00003cf9      lea rdi, [rip + 0x14fb4]                   ; str.QUOTING_STYLE ; 0x18cb4 ; "QUOTING_STYLE" ; const char *name
+EOF
+CMDS=<<EOF
+e asm.relsub=false
+e asm.bytes=false
+e asm.leahints=false
+e scr.utf8=false
+e scr.color=false
+e asm.lines.wide=true
+s $S
+aaa >/dev/null
+s 0x00003ca6
+pd 19
+EOF
 RUN
+
 NAME=reflines offset 4 (ascii + wide)
 FILE=../bins/elf/analysis/ls-alxchk
-EXPECT64=fCAgICAgICAgICAgMHgwMDAwM2NhNiAgICAgIGNtcCBlYXgsIDIKfCAgICAgICw9PTwgMHgwMDAwM2NhOSAgICAgIGplIDB4NDVlYwp8ICAgICAgfCAgICAweDAwMDAzY2FmICAgICAgY21wIGVheCwgMwp8ICAgICw9PT09PCAweDAwMDAzY2IyICAgICAgamUgMHgzY2UzCnwgICAgfCB8ICAgIDB4MDAwMDNjYjQgICAgICBzdWIgZWF4LCAxCnwgICw9PT09PT08IDB4MDAwMDNjYjcgICAgICBqZSAweDNjYmUKfCAgfCB8IHwgICAgOyBDT0RFIFhSRUYgZnJvbSBtYWluICgweDU4YmMpCnwgIHwgfCB8ICAgIDB4MDAwMDNjYjkgICAgICBjYWxsIHN5bS5pbXAuYWJvcnQgICAgICAgICAgICAgICAgICAgICAgICAgOyB2b2lkIGFib3J0KHZvaWQpCnwgIHwgfCB8ICAgIDsgQ09ERSBYUkVGIGZyb20gbWFpbiAoMHgzY2I3KQp8ICBgLS0tLS0tPiAweDAwMDAzY2JlICAgICAgbW92IGVkaSwgMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDsgaW50IGZkCnwgICAgfCB8ICAgIDB4MDAwMDNjYzMgICAgICBjYWxsIHN5bS5pbXAuaXNhdHR5ICAgICAgICAgICAgICAgICAgICAgICAgOyBpbnQgaXNhdHR5KGludCBmZCkKfCAgICB8IHwgICAgMHgwMDAwM2NjOCAgICAgIHRlc3QgZWF4LCBlYXgKfCAgLD09PT09PTwgMHgwMDAwM2NjYSAgICAgIGplIDB4NGMyZQp8ICB8IHwgfCAgICAweDAwMDAzY2QwICAgICAgbW92IGR3b3JkIFtyaXAgKyAweDFkNjI2XSwgMiAgICAgICAgICAgICAgIDsgWzB4MjEzMDA6NF09MAp8ICB8IHwgfCAgICAweDAwMDAzY2RhICAgICAgbW92IGJ5dGUgW3JpcCArIDB4MWQzM2ZdLCAxICAgICAgICAgICAgICAgIDsgWzB4MjEwMjA6MV09MAp8ID09PT09PT09PCAweDAwMDAzY2UxICAgICAgam1wIDB4M2NmOQp8ICB8IHwgfCAgICA7IENPREUgWFJFRiBmcm9tIG1haW4gKDB4M2NiMikKfCAgfCBgLS0tLT4gMHgwMDAwM2NlMyAgICAgIG1vdiBlc2ksIDUKfCAgfCAgIHwgICAgMHgwMDAwM2NlOCAgICAgIHhvciBlZGksIGVkaQp8ICB8ICAgfCAgICAweDAwMDAzY2VhICAgICAgbW92IGR3b3JkIFtyaXAgKyAweDFkNjBjXSwgMCAgICAgICAgICAgICAgIDsgWzB4MjEzMDA6NF09MAp8ICB8ICAgfCAgICAweDAwMDAzY2Y0ICAgICAgY2FsbCBzdWIuX19zdGFja19jaGtfZmFpbF8xMjc0MAp8ICB8ICAgfCAgICA7IENPREUgWFJFRlMgZnJvbSBtYWluICgweDNjZTEsIDB4NDYwMiwgMHg0YzM4KQp8IC0tLS0tLS0tPiAweDAwMDAzY2Y5ICAgICAgbGVhIHJkaSwgW3JpcCArIDB4MTRmYjRdICAgICAgICAgICAgICAgICAgIDsgc3RyLlFVT1RJTkdfU1RZTEUgOyAweDE4Y2I0IDsgIlFVT1RJTkdfU1RZTEUiIDsgY29uc3QgY2hhciAqbmFtZQo=
-CMDS64=ZSBhc20ucmVsc3ViPWZhbHNlCmUgYXNtLmJ5dGVzPWZhbHNlCmUgYXNtLmxlYWhpbnRzPWZhbHNlCmUgc2NyLnV0Zjg9ZmFsc2UKZSBzY3IuY29sb3I9ZmFsc2UKZSBhc20ubGluZXMud2lkZT10cnVlCmFhYSA+L2Rldi9udWxsCnMgMHgwMDAwM2NhNgpwZCAxOQoK
+EXPECT=<<EOF
+|           0x00003ca6      cmp eax, 2
+|      ,==< 0x00003ca9      je 0x45ec
+|      |    0x00003caf      cmp eax, 3
+|    ,====< 0x00003cb2      je 0x3ce3
+|    | |    0x00003cb4      sub eax, 1
+|  ,======< 0x00003cb7      je 0x3cbe
+|  | | |    ; CODE XREF from main (0x58bc)
+|  | | |    0x00003cb9      call sym.imp.abort                         ; void abort(void)
+|  | | |    ; CODE XREF from main (0x3cb7)
+|  `------> 0x00003cbe      mov edi, 1                                 ; int fd
+|    | |    0x00003cc3      call sym.imp.isatty                        ; int isatty(int fd)
+|    | |    0x00003cc8      test eax, eax
+|  ,======< 0x00003cca      je 0x4c2e
+|  | | |    0x00003cd0      mov dword [rip + 0x1d626], 2               ; [0x21300:4]=0
+|  | | |    0x00003cda      mov byte [rip + 0x1d33f], 1                ; [0x21020:1]=0
+| ========< 0x00003ce1      jmp 0x3cf9
+|  | | |    ; CODE XREF from main (0x3cb2)
+|  | `----> 0x00003ce3      mov esi, 5
+|  |   |    0x00003ce8      xor edi, edi
+|  |   |    0x00003cea      mov dword [rip + 0x1d60c], 0               ; [0x21300:4]=0
+|  |   |    0x00003cf4      call sub.__stack_chk_fail_12740
+|  |   |    ; CODE XREFS from main (0x3ce1, 0x4602, 0x4c38)
+| --------> 0x00003cf9      lea rdi, [rip + 0x14fb4]                   ; str.QUOTING_STYLE ; 0x18cb4 ; "QUOTING_STYLE" ; const char *name
+EOF
+CMDS=<<EOF
+e asm.relsub=false
+e asm.bytes=false
+e asm.leahints=false
+e scr.utf8=false
+e scr.color=false
+e asm.lines.wide=true
+aaa >/dev/null
+s 0x00003ca6
+pd 19
+EOF
 RUN
+
 NAME=reflines in noreturn
 FILE=../bins/elf/analysis/ls-alxchk
-EXPECT64=LyAoZmNuKSBzdWIuX19zdGFja19jaGtfZmFpbF8xMjc0MCA3Ngp8ICAgc3ViLl9fc3RhY2tfY2hrX2ZhaWxfMTI3NDAgKGludCBhcmcyKTsKfCAgICAgICAgICAgOyB2YXIgaW50IGxvY2FsXzhoIEAgcmJwLTB4OAp8ICAgICAgICAgICA7IGFyZyBpbnQgYXJnMiBAIHJzaQp8ICAgICAgICAgICAweDAwMDEyNzQwICAgICAgcHVzaCByYnAKfCAgICAgICAgICAgMHgwMDAxMjc0MSAgICAgIG1vdiByYnAsIHJzcAp8ICAgICAgICAgICAweDAwMDEyNzQ0ICAgICAgc3ViIHJzcCwgMHgxMDMwCnwgICAgICAgICAgIDB4MDAwMTI3NGIgICAgICBvciBxd29yZCBbcnNwXSwgMAp8ICAgICAgICAgICAweDAwMDEyNzUwICAgICAgYWRkIHJzcCwgMHgxMDIwCnwgICAgICAgICAgIDB4MDAwMTI3NTcgICAgICBtb3YgcmF4LCBxd29yZCBmczpbMHgyOF0KfCAgICAgICAgICAgMHgwMDAxMjc2MCAgICAgIG1vdiBxd29yZCBbbG9jYWxfOGhdLCByYXgKfCAgICAgICAgICAgMHgwMDAxMjc2NCAgICAgIHhvciBlYXgsIGVheAp8ICAgICAgICAgICAweDAwMDEyNzY2ICAgICAgbGVhIHJheCwgW3JpcCArIDB4ZjAzM10KfCAgICAgICAgICAgMHgwMDAxMjc2ZCAgICAgIHRlc3QgcmRpLCByZGkKfCAgICAgICAgICAgMHgwMDAxMjc3MCAgICAgIGNtb3ZuZSByYXgsIHJkaQp8ICAgICAgICAgICAweDAwMDEyNzc0ICAgICAgbW92IGR3b3JkIFtyYXhdLCBlc2kKfCAgICAgICAgICAgMHgwMDAxMjc3NiAgICAgIG1vdiByYXgsIHF3b3JkIFtsb2NhbF84aF0KfCAgICAgICAgICAgMHgwMDAxMjc3YSAgICAgIHhvciByYXgsIHF3b3JkIGZzOlsweDI4XQp8ICAgICAgLD09PCAweDAwMDEyNzgzICAgICAgam5lIDB4MTI3ODcKfCAgICAgIHwgICAgMHgwMDAxMjc4NSAgICAgIGxlYXZlCnwgICAgICB8ICAgIDB4MDAwMTI3ODYgICAgICByZXQKXCAgICAgIGAtLT4gMHgwMDAxMjc4NyAgICAgIGNhbGwgc3ltLmltcC5fX3N0YWNrX2Noa19mYWlsCg==
-CMDS64=ZSBhc20ucmVsc3ViPWZhbHNlCmUgYXNtLmJ5dGVzPWZhbHNlCmUgYXNtLmxlYWhpbnRzPWZhbHNlCmUgc2NyLnV0Zjg9ZmFsc2UKZSBzY3IuY29sb3I9ZmFsc2UKZSBhc20ubGluZXMud2lkZT10cnVlCmUgYXNtLmNvbW1lbnRzPTAKYWFhID4vZGV2L251bGwKcyAweDAwMDEyNzQwCnBkZgoK
+EXPECT=<<EOF
+/ (fcn) sub.__stack_chk_fail_12740 76
+|   sub.__stack_chk_fail_12740 (int arg2);
+|           ; var int local_8h @ rbp-0x8
+|           ; arg int arg2 @ rsi
+|           0x00012740      push rbp
+|           0x00012741      mov rbp, rsp
+|           0x00012744      sub rsp, 0x1030
+|           0x0001274b      or qword [rsp], 0
+|           0x00012750      add rsp, 0x1020
+|           0x00012757      mov rax, qword fs:[0x28]
+|           0x00012760      mov qword [local_8h], rax
+|           0x00012764      xor eax, eax
+|           0x00012766      lea rax, [rip + 0xf033]
+|           0x0001276d      test rdi, rdi
+|           0x00012770      cmovne rax, rdi
+|           0x00012774      mov dword [rax], esi
+|           0x00012776      mov rax, qword [local_8h]
+|           0x0001277a      xor rax, qword fs:[0x28]
+|      ,==< 0x00012783      jne 0x12787
+|      |    0x00012785      leave
+|      |    0x00012786      ret
+\      `--> 0x00012787      call sym.imp.__stack_chk_fail
+EOF
+CMDS=<<EOF
+e asm.relsub=false
+e asm.bytes=false
+e asm.leahints=false
+e scr.utf8=false
+e scr.color=false
+e asm.lines.wide=true
+e asm.comments=0
+aaa >/dev/null
+s 0x00012740
+pdf
+EOF
 RUN
+
 NAME=⁝ and XREF cmt
 FILE=../bins/elf/strenc-ctrlchars
-EXPECT64=CuKUjCAoZmNuKSBzeW0uaW1wLnB1dHMgNgrilIIgICBpbnQgc3ltLmltcC5wdXRzIChjb25zdCBjaGFyICpzKTsK4pSCICAgICAgIOKVjiAgIDsgQ0FMTCBYUkVGIGZyb20gc3ltLm1haW4gKDB4NDAwNDA2KQrilJQgICAgICAg4pWOICAgMHgwMDQwMDNmMCAgICAgIGptcCBxd29yZCByZWxvYy5wdXRzICAgICAgICAgICAgICAgICAgICAgICA7IFsweDYwMTAxODo4XT0weDQwMDNmNgogICAgICAgIOKVjiAgIDB4MDA0MDAzZjYgICAgICBwdXNoIDAKICAgICAgICDilJTilIA8IDB4MDA0MDAzZmIgICAgICBqbXAgMHg0MDAzZTAK
-CMDS64=ZSBzY3IudXRmOD10cnVlCmUgYXNtLmJ5dGVzPWZhbHNlCnMgbWFpbgphZgpzIHN5bS5pbXAucHV0cwo/ZQpwZCAzCgo=
+EXPECT=<<EOF
+
+┌ (fcn) sym.imp.puts 6
+│   int sym.imp.puts (const char *s);
+│       ╎   ; CALL XREF from sym.main (0x400406)
+└       ╎   0x004003f0      jmp qword reloc.puts                       ; [0x601018:8]=0x4003f6
+        ╎   0x004003f6      push 0
+        └─< 0x004003fb      jmp 0x4003e0
+EOF
+CMDS=<<EOF
+e scr.utf8=true
+e asm.bytes=false
+s main
+af
+s sym.imp.puts
+?e
+pd 3
+EOF
 RUN
+
 NAME=stackptr
 FILE=../bins/mach0/mac-ls
-EXPECT64=MTA0CjgKNDgtCjQwLQozMi0KMjQtCjE2LQo4LQoK
-CMDS64=cyAweDEwMDAwMzliNgphZgplIGFzbS5saW5lcy5iYj1mYWxzZQplIGFzbS5saW5lcy5mY249ZmFsc2UKZSBhc20uc3RhY2twdHI9dHJ1ZQpwZHJ+MHgxMDAwMDNiMjdbMV0KcGRmfjB4MTAwMDAzYjI3WzFdCnBkcn4weDEwMDAwM2IzZFsxXQpwZHJ+MHgxMDAwMDNiM2VbMV0KcGRyfjB4MTAwMDAzYjQwWzFdCnBkcn4weDEwMDAwM2I0MlsxXQpwZHJ+MHgxMDAwMDNiNDRbMV0KcGRyfjB4MTAwMDAzYjQ2WzFdCgo=
+EXPECT=<<EOF
+104
+8
+48-
+40-
+32-
+24-
+16-
+8-
+EOF
+CMDS=<<EOF
+s 0x1000039b6
+af
+e asm.lines.bb=false
+e asm.lines.fcn=false
+e asm.stackptr=true
+pdr~0x100003b27[1]
+pdf~0x100003b27[1]
+pdr~0x100003b3d[1]
+pdr~0x100003b3e[1]
+pdr~0x100003b40[1]
+pdr~0x100003b42[1]
+pdr~0x100003b44[1]
+pdr~0x100003b46[1]
+EOF
 RUN
+
 NAME=auto string memory reference (iopa)
 FILE=malloc://8096
-EXPECT64=ICA7IFsweDEwNDg6OF09MHg1MDAgIkhlbGxvIgogIDB4MDAwMDAwMDAgICAgICBtb3YgcnNpLCBxd29yZCBbcmlwICsgMHgxMDQxXQoK
-CMDS64=ZSBhc20ucmVsc3ViPWZhbHNlCmUgYXNtLmFyY2ggPSB4ODYKZSBhc20uYml0cz02NAplIHNjci5jb2xvciA9IGZhbHNlCmUgaW8udmE9MAplIGFzbS5saW5lcy5iYj0wCmUgYXNtLmJ5dGVzPTAKZSBhc20uY210LnJpZ2h0PTEwCnd4IDQ4OGIzNTQxMTAwMDAwCnd2OCAweDUwMCBAIDB4MTA0OAp3IEhlbGxvIEAgMHg1MDAKcGQgMQoK
+EXPECT=<<EOF
+  ; [0x1048:8]=0x500 "Hello"
+  0x00000000      mov rsi, qword [rip + 0x1041]
+EOF
+CMDS=<<EOF
+e asm.relsub=false
+e asm.arch = x86
+e asm.bits=64
+e scr.color = false
+e io.va=0
+e asm.lines.bb=0
+e asm.bytes=0
+e asm.cmt.right=10
+wx 488b3541100000
+wv8 0x500 @ 0x1048
+w Hello @ 0x500
+pd 1
+EOF
 RUN
+
 NAME=auto string memory reference (io.va)
 FILE=malloc://8096
-EXPECT64=ICA7IFsweDEwNDg6OF09MHg1MDAgIkhlbGxvIgogIDB4MDAwMDAwMDAgICAgICBtb3YgcnNpLCBxd29yZCBbcmlwICsgMHgxMDQxXQoK
-CMDS64=ZSBhc20ucmVsc3ViPWZhbHNlCmUgYXNtLmFyY2ggPSB4ODYKZSBhc20uYml0cz02NAplIHNjci5jb2xvciA9IGZhbHNlCmUgaW8udmE9MQplIGFzbS5saW5lcy5iYj0wCmUgYXNtLmJ5dGVzPTAKZSBhc20uY210LnJpZ2h0PTEwCnd4IDQ4OGIzNTQxMTAwMDAwCnd2OCAweDUwMCBAIDB4MTA0OAp3IEhlbGxvIEAgMHg1MDAKcGQgMQoK
+EXPECT=<<EOF
+  ; [0x1048:8]=0x500 "Hello"
+  0x00000000      mov rsi, qword [rip + 0x1041]
+EOF
+CMDS=<<EOF
+e asm.relsub=false
+e asm.arch = x86
+e asm.bits=64
+e scr.color = false
+e io.va=1
+e asm.lines.bb=0
+e asm.bytes=0
+e asm.cmt.right=10
+wx 488b3541100000
+wv8 0x500 @ 0x1048
+w Hello @ 0x500
+pd 1
+EOF
 RUN
+
 NAME=no string on jmp
 FILE=malloc://8096
-EXPECT64=ICAgICAgICAsPTwgMHgwMDAwMDAwMCAgICAgIGU5ZmIwMDAwMDAgICAgIGptcCAweDEwMAoK
-CMDS64=ZSBhc20uYXJjaD14ODYKZSBhc20uYml0cz0zMgplIGVtdS5zdHI9dHJ1ZQp3YSBqbXAgMHgxMDAKdyBoZWxsbyBAIDB4MTAwCnBkIDEKCg==
+EXPECT=<<EOF
+        ,=< 0x00000000      e9fb000000     jmp 0x100
+EOF
+CMDS=<<EOF
+e asm.arch=x86
+e asm.bits=32
+e emu.str=true
+wa jmp 0x100
+w hello @ 0x100
+pd 1
+EOF
 RUN
+
 NAME=no string on cbz
 FILE=malloc://8096
-EXPECT64=ICAgICAgICAgICAgMHgwMDAwMDAwMCAgICAgIDE1MDA4MDUyICAgICAgIG1vdnogdzIxLCAwCiAgICAgICAgLD08IDB4MDAwMDAwMDQgICAgICBiNTAwMDAzNCAgICAgICBjYnogdzIxLCAweDE4ICAgICAgICAgICAgICAgOyBsaWtlbHkKCg==
-CMDS64=ZSBhc20uYXJjaD1hcm0KZSBhc20uYml0cz02NAplIGNmZy5iaWdlbmRpYW49ZmFsc2UKZSBlbXUuc3RyPXRydWUKd3YgMHg1MjgwMDAxNQp3diAweDM0MDAwMGI1IEAgNAp3IGhlbGxvIEAgMHgxOApwZCAyCgo=
+EXPECT=<<EOF
+            0x00000000      15008052       movz w21, 0
+        ,=< 0x00000004      b5000034       cbz w21, 0x18               ; likely
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=64
+e cfg.bigendian=false
+e emu.str=true
+wv 0x52800015
+wv 0x340000b5 @ 4
+w hello @ 0x18
+pd 2
+EOF
 RUN
+
 NAME=No function
 FILE=malloc://0x50
-EXPECT64=Cg==
-CMDS64=YWZ0bQoK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+aftm
+EOF
 RUN
+
 NAME=Basic type Matching
 FILE=../bins/elf/analysis/x86-helloworld-gcc
-EXPECT64=MQoK
-CMDS64=cyBzeW0ubWFpbgphYQphZWkKYWVpbQp0ZCBpbnQgcHV0cyhjaGFyICpzKTsKYWZ0CnMgMHgwODA0ODQwOQpwZCAxfmNoYXIgKnM/Cgo=
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+s sym.main
+aa
+aei
+aeim
+td int puts(char *s);
+aft
+s 0x08048409
+pd 1~char *s?
+EOF
 RUN
+
 NAME=call not function
 FILE=../bins/pe/crackme0x00.exe
-EXPECT64=MQoxCgo=
-CMDS64=YWEKcyBzeW0uX21haW4KYWVpCmFlaW0KdGQgaW50IHN0cmNtcChjaGFyICpzMSwgY2hhciAqczIpOwp0ayBmdW5jLnN0cmNtcC5jYz1zdGRjYWxsCmFmdApzIDB4MDA0MDEzNjgKcGQgMX5jaGFyICpzMT8KcyAweDAwNDAxMzcwCnBkIDF+Y2hhciAqczI/Cgo=
+EXPECT=<<EOF
+1
+1
+EOF
+CMDS=<<EOF
+aa
+s sym._main
+aei
+aeim
+td int strcmp(char *s1, char *s2);
+tk func.strcmp.cc=stdcall
+aft
+s 0x00401368
+pd 1~char *s1?
+s 0x00401370
+pd 1~char *s2?
+EOF
 RUN
+
 NAME=1: Wrong calling convention
 FILE=../bins/pe/crackme0x00.exe
-EXPECT64=Cg==
-CMDS64=cyBlbnRyeTAKYWYKdGsgQ1JUU3RhcnR1cD1mdW5jCnRrIGZ1bmMuQ1JUU3RhcnR1cC5hcmdzPTEKdGsgZnVuYy5DUlRTdGFydHVwLmFyZzA9IGludCx3aG9fY2FyZXMKdGsgZnVuYy5DUlRTdGFydHVwLmNjPVRIRV9DQ19USEFUX05FVkVSX0VYSVNURUQKdGsgZnVuYy5DUlRTdGFydHVwLnJldD1lYXgKYWVpCmFlaW0KYWZ0bQoK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+s entry0
+af
+tk CRTStartup=func
+tk func.CRTStartup.args=1
+tk func.CRTStartup.arg0= int,who_cares
+tk func.CRTStartup.cc=THE_CC_THAT_NEVER_EXISTED
+tk func.CRTStartup.ret=eax
+aei
+aeim
+aftm
+EOF
 RUN
+
 NAME=2: Wrong calling convention
 FILE=../bins/mach0/ls-osx-x86_64
-EXPECT64=aW50IGNhdGVnb3J5CmludCBmZAp1bnNpZ25lZCBsb25nIHJlcXVlc3QKCg==
-CMDS64=cyBlbnRyeTAKYWFhCmFmdGEKQ3QuIEAgMHgxMDAwMDE0MTMKQ3QuIEAgMHgxMDAwMDE0NWIKQ3QuIEAgMHgxMDAwMDE0NjAKCg==
+EXPECT=<<EOF
+int category
+int fd
+unsigned long request
+EOF
+CMDS=<<EOF
+s entry0
+aaa
+afta
+Ct. @ 0x100001413
+Ct. @ 0x10000145b
+Ct. @ 0x100001460
+EOF
 RUN
+
 NAME=Function definition
 FILE=../bins/elf/arm1.bin
-EXPECT64=MQoK
-CMDS64=YWZyIEAgbWFpbgpzIDB4MDAwMDgyY2MKcGQgMX4/KnhtYWxsb2MKCg==
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+afr @ main
+s 0x000082cc
+pd 1~?*xmalloc
+EOF
 RUN
+
 NAME=Function definition (autorename)
 FILE=../bins/pe/hello-mingw32
-EXPECT64=MQoK
-CMDS64=YWFhCnMgMHgwMDQwMTI1NQpwZCAxfj9FeGl0UHJvY2VzcyhVSU5UCgo=
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+aaa
+s 0x00401255
+pd 1~?ExitProcess(UINT
+EOF
 RUN
+
 NAME=Function definition
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=MQoK
-CMDS64=YWFhCnMgMHgwODA0ODQ2OQpwZCAxfj9zdHJjbXAoY29uc3QKCg==
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+aaa
+s 0x08048469
+pd 1~?strcmp(const
+EOF
 RUN
+
 NAME=afvt
 FILE=../bins/mach0/arg
-EXPECT64=dmFyIGludCBsb2NhbF8xNGggQCByYnAtMHgxNAp2YXIgaW50IGxvY2FsXzEwaCBAIHJicC0weDEwCnZhciBpbnQgbG9jYWxfOGggQCByYnAtMHg4CmFyZyBpbnQgYXJnMSBAIHJkaQphcmcgaW50IGFyZzIgQCByc2kKCg==
-CMDS64=cyBzeW0uX2NhbGwKYWYKYWZ2Cgo=
+EXPECT=<<EOF
+var int local_14h @ rbp-0x14
+var int local_10h @ rbp-0x10
+var int local_8h @ rbp-0x8
+arg int arg1 @ rdi
+arg int arg2 @ rsi
+EOF
+CMDS=<<EOF
+s sym._call
+af
+afv
+EOF
 RUN
+
 NAME=afvt
 FILE=../bins/mach0/macho
-EXPECT64=dmFyIGludCBsb2NhbF8zMGggQCByYnAtMHgzMAp2YXIgY2hhciBsb2NhbF8zMGggQCByYnAtMHgzMAoK
-CMDS64=cyAweDEwMDAwMGI2MAphZgphZnZ+bG9jYWxfMzBoCmFmdnQgbG9jYWxfMzBoIGNoYXIKYWZ2fmxvY2FsXzMwaAoK
+EXPECT=<<EOF
+var int local_30h @ rbp-0x30
+var char local_30h @ rbp-0x30
+EOF
+CMDS=<<EOF
+s 0x100000b60
+af
+afv~local_30h
+afvt local_30h char
+afv~local_30h
+EOF
 RUN
+
 NAME=afvn
 FILE=../bins/mach0/macho
-EXPECT64=dmFyIGludCBsb2NhbF8zMGggQCByYnAtMHgzMAp2YXIgaW50IG15bG9jYWwgQCByYnAtMHgzMAoK
-CMDS64=cyAweDEwMDAwMGI2MAphZgphZnZ+bG9jYWxfMzBoCmFmdm4gbXlsb2NhbCBsb2NhbF8zMGgKYWZ2fm15bG9jYWwKCg==
+EXPECT=<<EOF
+var int local_30h @ rbp-0x30
+var int mylocal @ rbp-0x30
+EOF
+CMDS=<<EOF
+s 0x100000b60
+af
+afv~local_30h
+afvn mylocal local_30h
+afv~mylocal
+EOF
 RUN
+
 NAME=afvn + afvn
 FILE=../bins/mach0/macho
-EXPECT64=dmFyIGludCBsb2NhbF8zMGggQCByYnAtMHgzMAp2YXIgaW50IGxvY2FsXzMwaCBAIHJicC0weDMwCgo=
-CMDS64=cyAweDEwMDAwMGI2MAphZgphZnZ+bG9jYWxfMzBoCmFmdm4gbXlsb2NhbCBsb2NhbF8zMGgKYWZ2biBsb2NhbF8zMGggbXlsb2NhbAphZnZ+bG9jYWxfMzBoCgo=
+EXPECT=<<EOF
+var int local_30h @ rbp-0x30
+var int local_30h @ rbp-0x30
+EOF
+CMDS=<<EOF
+s 0x100000b60
+af
+afv~local_30h
+afvn mylocal local_30h
+afvn local_30h mylocal
+afv~local_30h
+EOF
 RUN
+
 NAME=afvt + afvn
 FILE=../bins/mach0/macho
-EXPECT64=dmFyIGludCBsb2NhbF8zMGggQCByYnAtMHgzMAp2YXIgY2hhciBteWxvY2FsIEAgcmJwLTB4MzAKCg==
-CMDS64=cyAweDEwMDAwMGI2MAphZgphZnZ+bG9jYWxfMzBoCmFmdm4gbXlsb2NhbCBsb2NhbF8zMGgKYWZ2dCBteWxvY2FsIGNoYXIKYWZ2fm15bG9jYWwKCg==
+EXPECT=<<EOF
+var int local_30h @ rbp-0x30
+var char mylocal @ rbp-0x30
+EOF
+CMDS=<<EOF
+s 0x100000b60
+af
+afv~local_30h
+afvn mylocal local_30h
+afvt mylocal char
+afv~mylocal
+EOF
 RUN
+
 NAME=afvn + afvt
 FILE=../bins/mach0/macho
-EXPECT64=dmFyIGludCBsb2NhbF8zMGggQCByYnAtMHgzMAp2YXIgY2hhciBteWxvY2FsIEAgcmJwLTB4MzAKCg==
-CMDS64=cyAweDEwMDAwMGI2MAphZgphZnZ+bG9jYWxfMzBoCmFmdnQgbG9jYWxfMzBoIGNoYXIKYWZ2biBteWxvY2FsIGxvY2FsXzMwaAphZnZ+bXlsb2NhbAoK
+EXPECT=<<EOF
+var int local_30h @ rbp-0x30
+var char mylocal @ rbp-0x30
+EOF
+CMDS=<<EOF
+s 0x100000b60
+af
+afv~local_30h
+afvt local_30h char
+afvn mylocal local_30h
+afv~mylocal
+EOF
 RUN
+
 NAME=afvt + afvt
 FILE=../bins/mach0/macho
-EXPECT64=dmFyIGludCBsb2NhbF8zMGggQCByYnAtMHgzMAp2YXIgaW50IGxvY2FsXzMwaCBAIHJicC0weDMwCgo=
-CMDS64=cyAweDEwMDAwMGI2MAphZgphZnZ+bG9jYWxfMzBoCmFmdnQgbG9jYWxfMzBoIGNoYXIKYWZ2dCBsb2NhbF8zMGggaW50CmFmdn5sb2NhbF8zMGgKCg==
+EXPECT=<<EOF
+var int local_30h @ rbp-0x30
+var int local_30h @ rbp-0x30
+EOF
+CMDS=<<EOF
+s 0x100000b60
+af
+afv~local_30h
+afvt local_30h char
+afvt local_30h int
+afv~local_30h
+EOF
 RUN
+
 NAME=afva for esp based vars
 FILE=malloc://1024
-EXPECT64=LyAoZmNuKSBmY24uMDAwMDAwMDAgODkKfCAgICAgICAgICAgOyB2YXIgaW50IGxvY2FsXzRoIEAgZXNwKzB4NAp8ICAgICAgICAgICA7IHZhciBpbnQgbG9jYWxfOGggQCBlc3ArMHg4CnwgICAgICAgICAgIDsgdmFyIGludCBsb2NhbF9jaCBAIGVzcCsweGMKfCAgICAgICAgICAgOyBhcmcgaW50IGFyZ18xNGggQCBlc3ArMHgxNAp8ICAgICAgICAgICA7IGFyZyBpbnQgYXJnXzE4aCBAIGVzcCsweDE4CnwgICAgICAgICAgIDsgYXJnIGludCBhcmdfMWNoIEAgZXNwKzB4MWMKfCAgICAgICAgICAgOyBhcmcgaW50IGFyZ18yMGggQCBlc3ArMHgyMAp8ICAgICAgICAgICA7IGFyZyBpbnQgYXJnXzI4aCBAIGVzcCsweDI4CnwgICAgICAgICAgIDsgYXJnIGludCBhcmdfMmNoIEAgZXNwKzB4MmMKfCAgICAgICAgICAgMHgwMDAwMDAwMCAgICAgIDgzZWMxMCAgICAgICAgIHN1YiBlc3AsIDB4MTAKfCAgICAgICAgICAgMHgwMDAwMDAwMyAgICAgIDhiNDQyNDE4ICAgICAgIG1vdiBlYXgsIGR3b3JkIFthcmdfMThoXQp8ICAgICAgICAgICAweDAwMDAwMDA3ICAgICAgOTkgICAgICAgICAgICAgY2RxCnwgICAgICAgICAgIDB4MDAwMDAwMDggICAgICBmNzdjMjQxYyAgICAgICBpZGl2IGR3b3JkIFthcmdfMWNoXQp8ICAgICAgICAgICAweDAwMDAwMDBjICAgICAgOGI0NDI0MTQgICAgICAgbW92IGVheCwgZHdvcmQgW2FyZ18xNGhdCnwgICAgICAgICAgIDB4MDAwMDAwMTAgICAgICAwMWQwICAgICAgICAgICBhZGQgZWF4LCBlZHgKfCAgICAgICAgICAgMHgwMDAwMDAxMiAgICAgIDg5NDQyNDBjICAgICAgIG1vdiBkd29yZCBbbG9jYWxfY2hdLCBlYXgKfCAgICAgICAgICAgMHgwMDAwMDAxNiAgICAgIDhiNDQyNDIwICAgICAgIG1vdiBlYXgsIGR3b3JkIFthcmdfMjBoXQp8ICAgICAgICAgICAweDAwMDAwMDFhICAgICAgOTkgICAgICAgICAgICAgY2RxCnwgICAgICAgICAgIDB4MDAwMDAwMWIgICAgICBmNzdjMjQyOCAgICAgICBpZGl2IGR3b3JkIFthcmdfMjhoXQp8ICAgICAgICAgICAweDAwMDAwMDFmICAgICAgOGI0NDI0MGMgICAgICAgbW92IGVheCwgZHdvcmQgW2xvY2FsX2NoXQp8ICAgICAgICAgICAweDAwMDAwMDIzICAgICAgMDFkMCAgICAgICAgICAgYWRkIGVheCwgZWR4CnwgICAgICAgICAgIDB4MDAwMDAwMjUgICAgICA4OTQ0MjQwOCAgICAgICBtb3YgZHdvcmQgW2xvY2FsXzhoXSwgZWF4CnwgICAgICAgICAgIDB4MDAwMDAwMjkgICAgICA4YjU0MjQxNCAgICAgICBtb3YgZWR4LCBkd29yZCBbYXJnXzE0aF0KfCAgICAgICAgICAgMHgwMDAwMDAyZCAgICAgIDhiNDQyNDBjICAgICAgIG1vdiBlYXgsIGR3b3JkIFtsb2NhbF9jaF0KfCAgICAgICAgICAgMHgwMDAwMDAzMSAgICAgIDhkMGMwMiAgICAgICAgIGxlYSBlY3gsIFtlZHggKyBlYXhdCnwgICAgICAgICAgIDB4MDAwMDAwMzQgICAgICA4YjQ0MjQyYyAgICAgICBtb3YgZWF4LCBkd29yZCBbYXJnXzJjaF0KfCAgICAgICAgICAgMHgwMDAwMDAzOCAgICAgIDk5ICAgICAgICAgICAgIGNkcQp8ICAgICAgICAgICAweDAwMDAwMDM5ICAgICAgZjdmOSAgICAgICAgICAgaWRpdiBlY3gKfCAgICAgICAgICAgMHgwMDAwMDAzYiAgICAgIDhiNDQyNDA4ICAgICAgIG1vdiBlYXgsIGR3b3JkIFtsb2NhbF84aF0KfCAgICAgICAgICAgMHgwMDAwMDAzZiAgICAgIDAxZDAgICAgICAgICAgIGFkZCBlYXgsIGVkeAp8ICAgICAgICAgICAweDAwMDAwMDQxICAgICAgODk0NDI0MDQgICAgICAgbW92IGR3b3JkIFtsb2NhbF80aF0sIGVheAp8ICAgICAgICAgICAweDAwMDAwMDQ1ICAgICAgOGI1NDI0MGMgICAgICAgbW92IGVkeCwgZHdvcmQgW2xvY2FsX2NoXQp8ICAgICAgICAgICAweDAwMDAwMDQ5ICAgICAgOGI0NDI0MDggICAgICAgbW92IGVheCwgZHdvcmQgW2xvY2FsXzhoXQp8ICAgICAgICAgICAweDAwMDAwMDRkICAgICAgMDFjMiAgICAgICAgICAgYWRkIGVkeCwgZWF4CnwgICAgICAgICAgIDB4MDAwMDAwNGYgICAgICA4YjQ0MjQwNCAgICAgICBtb3YgZWF4LCBkd29yZCBbbG9jYWxfNGhdCnwgICAgICAgICAgIDB4MDAwMDAwNTMgICAgICAwMWQwICAgICAgICAgICBhZGQgZWF4LCBlZHgKfCAgICAgICAgICAgMHgwMDAwMDA1NSAgICAgIDgzYzQxMCAgICAgICAgIGFkZCBlc3AsIDB4MTAKXCAgICAgICAgICAgMHgwMDAwMDA1OCAgICAgIGMzICAgICAgICAgICAgIHJldAoK
-CMDS64=ZSBhc20uYml0cz0zMgplIGFzbS5hcmNoID0geDg2CmUgYW5hbC5hcmNoID0geDg2CmUgYXNtLmNhbGxzPWZhbHNlCnd4IDgzZWMxMDhiNDQyNDE4OTlmNzdjMjQxYzhiNDQyNDE0MDFkMDg5NDQyNDBjOGI0NDI0MjA5OWY3N2MyNDI4OGI0NDI0MGMwMWQwODk0NDI0MDg4YjU0MjQxNDhiNDQyNDBjOGQwYzAyOGI0NDI0MmM5OWY3Zjk4YjQ0MjQwODAxZDA4OTQ0MjQwNDhiNTQyNDBjOGI0NDI0MDgwMWMyOGI0NDI0MDQwMWQwODNjNDEwYzM4ZDRjMjQwNDgzZTRmMGZmNzFmYzU1ODllNTUxODNlYzA0NmEwNzZhMDY2YTA1NmEwNDZhMDM2YTAyNmEwMWU4ODNmZmZmZmY4M2M0MWM4M2VjMDg1MDY4NDQ4NTA0MDhlODQ3ZmVmZmZmODNjNDEwYjgwMDAwMDAwMDhiNGRmY2M5OGQ2MWZjYzM2NjkwNjY5MDY2OTA5MDU1NTc1NjUzZTg4N2ZlZmZmZjgxYzMzNzFiMDAwMDgzZWMwYzhiNmMyNDIwOGRiMzBjZmZmZmZmZThkM2ZkZmZmZjhkODMwOGZmZmZmZjI5YzZjMWZlMDI4NWY2NzQyNTMxZmY4ZGI2MDAwMDAwMDA4M2VjMDRmZjc0MjQyY2ZmNzQyNDJjNTVmZjk0YmIwOGZmZmZmZjgzYzcwMTgzYzQxMDM5Zjc3NWUzODNjNDBjNWI1ZTVmCmUgYXNtLmJpdHM9MzIKZSBhc20uY29tbWVudHM9ZmFsc2UKYWEKYWZ2YQpwZGYKCg==
+EXPECT=<<EOF
+/ (fcn) fcn.00000000 89
+|           ; var int local_4h @ esp+0x4
+|           ; var int local_8h @ esp+0x8
+|           ; var int local_ch @ esp+0xc
+|           ; arg int arg_14h @ esp+0x14
+|           ; arg int arg_18h @ esp+0x18
+|           ; arg int arg_1ch @ esp+0x1c
+|           ; arg int arg_20h @ esp+0x20
+|           ; arg int arg_28h @ esp+0x28
+|           ; arg int arg_2ch @ esp+0x2c
+|           0x00000000      83ec10         sub esp, 0x10
+|           0x00000003      8b442418       mov eax, dword [arg_18h]
+|           0x00000007      99             cdq
+|           0x00000008      f77c241c       idiv dword [arg_1ch]
+|           0x0000000c      8b442414       mov eax, dword [arg_14h]
+|           0x00000010      01d0           add eax, edx
+|           0x00000012      8944240c       mov dword [local_ch], eax
+|           0x00000016      8b442420       mov eax, dword [arg_20h]
+|           0x0000001a      99             cdq
+|           0x0000001b      f77c2428       idiv dword [arg_28h]
+|           0x0000001f      8b44240c       mov eax, dword [local_ch]
+|           0x00000023      01d0           add eax, edx
+|           0x00000025      89442408       mov dword [local_8h], eax
+|           0x00000029      8b542414       mov edx, dword [arg_14h]
+|           0x0000002d      8b44240c       mov eax, dword [local_ch]
+|           0x00000031      8d0c02         lea ecx, [edx + eax]
+|           0x00000034      8b44242c       mov eax, dword [arg_2ch]
+|           0x00000038      99             cdq
+|           0x00000039      f7f9           idiv ecx
+|           0x0000003b      8b442408       mov eax, dword [local_8h]
+|           0x0000003f      01d0           add eax, edx
+|           0x00000041      89442404       mov dword [local_4h], eax
+|           0x00000045      8b54240c       mov edx, dword [local_ch]
+|           0x00000049      8b442408       mov eax, dword [local_8h]
+|           0x0000004d      01c2           add edx, eax
+|           0x0000004f      8b442404       mov eax, dword [local_4h]
+|           0x00000053      01d0           add eax, edx
+|           0x00000055      83c410         add esp, 0x10
+\           0x00000058      c3             ret
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e asm.arch = x86
+e anal.arch = x86
+e asm.calls=false
+wx 83ec108b44241899f77c241c8b44241401d08944240c8b44242099f77c24288b44240c01d0894424088b5424148b44240c8d0c028b44242c99f7f98b44240801d0894424048b54240c8b44240801c28b44240401d083c410c38d4c240483e4f0ff71fc5589e55183ec046a076a066a056a046a036a026a01e883ffffff83c41c83ec08506844850408e847feffff83c410b8000000008b4dfcc98d61fcc36690669066909055575653e887feffff81c3371b000083ec0c8b6c24208db30cffffffe8d3fdffff8d8308ffffff29c6c1fe0285f6742531ff8db60000000083ec04ff74242cff74242c55ff94bb08ffffff83c70183c41039f775e383c40c5b5e5f
+e asm.bits=32
+e asm.comments=false
+aa
+afva
+pdf
+EOF
 RUN
+
 NAME=afva for fastcall with no esp vars
 FILE=../bins/elf/analysis/fast
-EXPECT64=ZmFzdGNhbGwKLyAoZmNuKSBzeW0uZmFzdGNhc2xsZWQgNTkKfCAgIHN5bS5mYXN0Y2FzbGxlZCAoaW50IGFyZzIsIGludCBhcmcxLCBpbnQgYXJnXzhoLCBpbnQgYXJnX2NoKTsKfCAgICAgICAgICAgOyB2YXIgaW50IGxvY2FsXzIwaCBAIGVicC0weDIwCnwgICAgICAgICAgIDsgdmFyIGludCBsb2NhbF8xY2ggQCBlYnAtMHgxYwp8ICAgICAgICAgICA7IHZhciBpbnQgbG9jYWxfMTBoIEAgZWJwLTB4MTAKfCAgICAgICAgICAgOyB2YXIgaW50IGxvY2FsX2NoIEAgZWJwLTB4Ywp8ICAgICAgICAgICA7IGFyZyBpbnQgYXJnXzhoIEAgZWJwKzB4OAp8ICAgICAgICAgICA7IGFyZyBpbnQgYXJnX2NoIEAgZWJwKzB4Ywp8ICAgICAgICAgICA7IGFyZyBpbnQgYXJnMiBAIGVkeAp8ICAgICAgICAgICA7IGFyZyBpbnQgYXJnMSBAIGVjeAp8ICAgICAgICAgICA7IENBTEwgWFJFRiBmcm9tIHN5bS5tYWluICgweDgwNDg0YzcpCnwgICAgICAgICAgIDB4MDgwNDg0MWIgICAgICA1NSAgICAgICAgICAgICBwdXNoIGVicAp8ICAgICAgICAgICAweDA4MDQ4NDFjICAgICAgODllNSAgICAgICAgICAgbW92IGVicCwgZXNwCnwgICAgICAgICAgIDB4MDgwNDg0MWUgICAgICA4M2VjMjggICAgICAgICBzdWIgZXNwLCAweDI4ICAgICAgICAgICAgICAgOyAnKCcKfCAgICAgICAgICAgMHgwODA0ODQyMSAgICAgIDg5NGRlNCAgICAgICAgIG1vdiBkd29yZCBbbG9jYWxfMWNoXSwgZWN4ICA7IGFyZzEKfCAgICAgICAgICAgMHgwODA0ODQyNCAgICAgIDg5NTVlMCAgICAgICAgIG1vdiBkd29yZCBbbG9jYWxfMjBoXSwgZWR4ICA7IGFyZzIKfCAgICAgICAgICAgMHgwODA0ODQyNyAgICAgIDhiNTVlNCAgICAgICAgIG1vdiBlZHgsIGR3b3JkIFtsb2NhbF8xY2hdCnwgICAgICAgICAgIDB4MDgwNDg0MmEgICAgICA4YjQ1ZTAgICAgICAgICBtb3YgZWF4LCBkd29yZCBbbG9jYWxfMjBoXQp8ICAgICAgICAgICAweDA4MDQ4NDJkICAgICAgMDFkMCAgICAgICAgICAgYWRkIGVheCwgZWR4CnwgICAgICAgICAgIDB4MDgwNDg0MmYgICAgICA4OTQ1ZjQgICAgICAgICBtb3YgZHdvcmQgW2xvY2FsX2NoXSwgZWF4CnwgICAgICAgICAgIDB4MDgwNDg0MzIgICAgICA4YjQ1ZTAgICAgICAgICBtb3YgZWF4LCBkd29yZCBbbG9jYWxfMjBoXQp8ICAgICAgICAgICAweDA4MDQ4NDM1ICAgICAgMmI0NTBjICAgICAgICAgc3ViIGVheCwgZHdvcmQgW2FyZ19jaF0KfCAgICAgICAgICAgMHgwODA0ODQzOCAgICAgIDg5NDVmMCAgICAgICAgIG1vdiBkd29yZCBbbG9jYWxfMTBoXSwgZWF4CnwgICAgICAgICAgIDB4MDgwNDg0M2IgICAgICBmZjc1MDggICAgICAgICBwdXNoIGR3b3JkIFthcmdfOGhdCnwgICAgICAgICAgIDB4MDgwNDg0M2UgICAgICBmZjc1ZjAgICAgICAgICBwdXNoIGR3b3JkIFtsb2NhbF8xMGhdCnwgICAgICAgICAgIDB4MDgwNDg0NDEgICAgICBmZjc1ZjQgICAgICAgICBwdXNoIGR3b3JkIFtsb2NhbF9jaF0KfCAgICAgICAgICAgMHgwODA0ODQ0NCAgICAgIDY4NzQ4NTA0MDggICAgIHB1c2ggc3RyLmlfX2lfX2kgICAgICAgICAgICA7IDB4ODA0ODU3NCA7ICIlaSAlaSAlaVxuIgp8ICAgICAgICAgICAweDA4MDQ4NDQ5ICAgICAgZThhMmZlZmZmZiAgICAgY2FsbCBzeW0uaW1wLnByaW50ZiAgICAgICAgIDsgaW50IHByaW50Zihjb25zdCBjaGFyICpmb3JtYXQpCnwgICAgICAgICAgIDB4MDgwNDg0NGUgICAgICA4M2M0MTAgICAgICAgICBhZGQgZXNwLCAweDEwCnwgICAgICAgICAgIDB4MDgwNDg0NTEgICAgICA5MCAgICAgICAgICAgICBub3AKfCAgICAgICAgICAgMHgwODA0ODQ1MiAgICAgIGM5ICAgICAgICAgICAgIGxlYXZlClwgICAgICAgICAgIDB4MDgwNDg0NTMgICAgICBjMjA4MDAgICAgICAgICByZXQgOAo=
-CMDS64=YWEKcyBzeW0uZmFzdGNhc2xsZWQKYWZjIGZhc3RjYWxsCmFmYwphZnZhCnBkZgoK
+EXPECT=<<EOF
+fastcall
+/ (fcn) sym.fastcaslled 59
+|   sym.fastcaslled (int arg2, int arg1, int arg_8h, int arg_ch);
+|           ; var int local_20h @ ebp-0x20
+|           ; var int local_1ch @ ebp-0x1c
+|           ; var int local_10h @ ebp-0x10
+|           ; var int local_ch @ ebp-0xc
+|           ; arg int arg_8h @ ebp+0x8
+|           ; arg int arg_ch @ ebp+0xc
+|           ; arg int arg2 @ edx
+|           ; arg int arg1 @ ecx
+|           ; CALL XREF from sym.main (0x80484c7)
+|           0x0804841b      55             push ebp
+|           0x0804841c      89e5           mov ebp, esp
+|           0x0804841e      83ec28         sub esp, 0x28               ; '('
+|           0x08048421      894de4         mov dword [local_1ch], ecx  ; arg1
+|           0x08048424      8955e0         mov dword [local_20h], edx  ; arg2
+|           0x08048427      8b55e4         mov edx, dword [local_1ch]
+|           0x0804842a      8b45e0         mov eax, dword [local_20h]
+|           0x0804842d      01d0           add eax, edx
+|           0x0804842f      8945f4         mov dword [local_ch], eax
+|           0x08048432      8b45e0         mov eax, dword [local_20h]
+|           0x08048435      2b450c         sub eax, dword [arg_ch]
+|           0x08048438      8945f0         mov dword [local_10h], eax
+|           0x0804843b      ff7508         push dword [arg_8h]
+|           0x0804843e      ff75f0         push dword [local_10h]
+|           0x08048441      ff75f4         push dword [local_ch]
+|           0x08048444      6874850408     push str.i__i__i            ; 0x8048574 ; "%i %i %i\n"
+|           0x08048449      e8a2feffff     call sym.imp.printf         ; int printf(const char *format)
+|           0x0804844e      83c410         add esp, 0x10
+|           0x08048451      90             nop
+|           0x08048452      c9             leave
+\           0x08048453      c20800         ret 8
+EOF
+CMDS=<<EOF
+aa
+s sym.fastcaslled
+afc fastcall
+afc
+afva
+pdf
+EOF
 RUN
+
 NAME=afva for cdecl/stdcall with no esp vars
 FILE=../bins/elf/analysis/fast
-EXPECT64=Y2RlY2wKLyAoZmNuKSBzeW0ubm9uZmFzdGNhc2xsZWQgNTEKfCAgICAgICAgICAgOyB2YXIgaW50IGxvY2FsXzEwaCBAIGVicC0weDEwCnwgICAgICAgICAgIDsgdmFyIGludCBsb2NhbF9jaCBAIGVicC0weGMKfCAgICAgICAgICAgOyBhcmcgaW50IGFyZ184aCBAIGVicCsweDgKfCAgICAgICAgICAgOyBhcmcgaW50IGFyZ19jaCBAIGVicCsweGMKfCAgICAgICAgICAgOyBhcmcgaW50IGFyZ18xMGggQCBlYnArMHgxMAp8ICAgICAgICAgICA7IGFyZyBpbnQgYXJnXzE0aCBAIGVicCsweDE0CnwgICAgICAgICAgIDsgQ0FMTCBYUkVGIGZyb20gc3ltLm1haW4gKDB4ODA0ODRkYikKfCAgICAgICAgICAgMHgwODA0ODQ1NiAgICAgIDU1ICAgICAgICAgICAgIHB1c2ggZWJwCnwgICAgICAgICAgIDB4MDgwNDg0NTcgICAgICA4OWU1ICAgICAgICAgICBtb3YgZWJwLCBlc3AKfCAgICAgICAgICAgMHgwODA0ODQ1OSAgICAgIDgzZWMxOCAgICAgICAgIHN1YiBlc3AsIDB4MTgKfCAgICAgICAgICAgMHgwODA0ODQ1YyAgICAgIDhiNTUwOCAgICAgICAgIG1vdiBlZHgsIGR3b3JkIFthcmdfOGhdICAgICA7IFsweDg6NF09LTEgOyA4CnwgICAgICAgICAgIDB4MDgwNDg0NWYgICAgICA4YjQ1MGMgICAgICAgICBtb3YgZWF4LCBkd29yZCBbYXJnX2NoXSAgICAgOyBbMHhjOjRdPS0xIDsgMTIKfCAgICAgICAgICAgMHgwODA0ODQ2MiAgICAgIDAxZDAgICAgICAgICAgIGFkZCBlYXgsIGVkeAp8ICAgICAgICAgICAweDA4MDQ4NDY0ICAgICAgODk0NWY0ICAgICAgICAgbW92IGR3b3JkIFtsb2NhbF9jaF0sIGVheAp8ICAgICAgICAgICAweDA4MDQ4NDY3ICAgICAgOGI0NTBjICAgICAgICAgbW92IGVheCwgZHdvcmQgW2FyZ19jaF0gICAgIDsgWzB4Yzo0XT0tMSA7IDEyCnwgICAgICAgICAgIDB4MDgwNDg0NmEgICAgICAyYjQ1MTQgICAgICAgICBzdWIgZWF4LCBkd29yZCBbYXJnXzE0aF0KfCAgICAgICAgICAgMHgwODA0ODQ2ZCAgICAgIDg5NDVmMCAgICAgICAgIG1vdiBkd29yZCBbbG9jYWxfMTBoXSwgZWF4CnwgICAgICAgICAgIDB4MDgwNDg0NzAgICAgICBmZjc1MTAgICAgICAgICBwdXNoIGR3b3JkIFthcmdfMTBoXQp8ICAgICAgICAgICAweDA4MDQ4NDczICAgICAgZmY3NWYwICAgICAgICAgcHVzaCBkd29yZCBbbG9jYWxfMTBoXQp8ICAgICAgICAgICAweDA4MDQ4NDc2ICAgICAgZmY3NWY0ICAgICAgICAgcHVzaCBkd29yZCBbbG9jYWxfY2hdCnwgICAgICAgICAgIDB4MDgwNDg0NzkgICAgICA2ODc0ODUwNDA4ICAgICBwdXNoIHN0ci5pX19pX19pICAgICAgICAgICAgOyAweDgwNDg1NzQgOyAiJWkgJWkgJWlcbiIKfCAgICAgICAgICAgMHgwODA0ODQ3ZSAgICAgIGU4NmRmZWZmZmYgICAgIGNhbGwgc3ltLmltcC5wcmludGYKfCAgICAgICAgICAgMHgwODA0ODQ4MyAgICAgIDgzYzQxMCAgICAgICAgIGFkZCBlc3AsIDB4MTAKfCAgICAgICAgICAgMHgwODA0ODQ4NiAgICAgIDkwICAgICAgICAgICAgIG5vcAp8ICAgICAgICAgICAweDA4MDQ4NDg3ICAgICAgYzkgICAgICAgICAgICAgbGVhdmUKXCAgICAgICAgICAgMHgwODA0ODQ4OCAgICAgIGMzICAgICAgICAgICAgIHJldAo=
-CMDS64=ZSBhc20uY2FsbHM9ZmFsc2UKYWEKcyBzeW0ubm9uZmFzdGNhc2xsZWQKYWZjCmFmdmEKcGRmCgo=
+EXPECT=<<EOF
+cdecl
+/ (fcn) sym.nonfastcaslled 51
+|           ; var int local_10h @ ebp-0x10
+|           ; var int local_ch @ ebp-0xc
+|           ; arg int arg_8h @ ebp+0x8
+|           ; arg int arg_ch @ ebp+0xc
+|           ; arg int arg_10h @ ebp+0x10
+|           ; arg int arg_14h @ ebp+0x14
+|           ; CALL XREF from sym.main (0x80484db)
+|           0x08048456      55             push ebp
+|           0x08048457      89e5           mov ebp, esp
+|           0x08048459      83ec18         sub esp, 0x18
+|           0x0804845c      8b5508         mov edx, dword [arg_8h]     ; [0x8:4]=-1 ; 8
+|           0x0804845f      8b450c         mov eax, dword [arg_ch]     ; [0xc:4]=-1 ; 12
+|           0x08048462      01d0           add eax, edx
+|           0x08048464      8945f4         mov dword [local_ch], eax
+|           0x08048467      8b450c         mov eax, dword [arg_ch]     ; [0xc:4]=-1 ; 12
+|           0x0804846a      2b4514         sub eax, dword [arg_14h]
+|           0x0804846d      8945f0         mov dword [local_10h], eax
+|           0x08048470      ff7510         push dword [arg_10h]
+|           0x08048473      ff75f0         push dword [local_10h]
+|           0x08048476      ff75f4         push dword [local_ch]
+|           0x08048479      6874850408     push str.i__i__i            ; 0x8048574 ; "%i %i %i\n"
+|           0x0804847e      e86dfeffff     call sym.imp.printf
+|           0x08048483      83c410         add esp, 0x10
+|           0x08048486      90             nop
+|           0x08048487      c9             leave
+\           0x08048488      c3             ret
+EOF
+CMDS=<<EOF
+e asm.calls=false
+aa
+s sym.nonfastcaslled
+afc
+afva
+pdf
+EOF
 RUN
+
 NAME=anal vars crash
 FILE=-
-EXPECT64=Cg==
-CMDS64=YWYKYWZ2ci0qCmFmdnItKgoK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+af
+afvr-*
+afvr-*
+EOF
 RUN
+
 NAME=anal vars crash 2
 FILE=-
-EXPECT64=LyAoZmNuKSBmY24uMDAwMDAwMDAgNjIKfCAgICAgICAgICAgOyB2YXIgaW50IG15X2xvY2FsIEAgcmJwLTB4MTgKfCAgICAgICAgICAgOyBhcmcgaW50IGFyZzEgQCByZGkKfCAgICAgICAgICAgMHgwMDAwMDAwMCAgICAgIDAwMDAgICAgICAgICAgIGFkZCBieXRlIFtyYXhdLCBhbAoK
-CMDS64=ZSBhc20uYml0cz02NAplIGFzbS5hcmNoID0geDg2CmUgYW5hbC5hcmNoID0geDg2CmUgYXNtLmNhbGxzPWZhbHNlCnd4IDU1NDg4OWU1NTM0ODgxZWMzODEwMDAwMDQ4ODMwYzI0MDA0ODgxYzQyMDEwMDAwMDY0NDg4YjA0MjUyODAwMDAwMDQ4ODk0NWU4MzFjMDQ4ODVmZjQ4ODlmYjkwOTA5MDkwOTA5MGMzIEAgMTAKYWEKYWZ2biBuZXdfMSBvbGRfMQphZnZuIG15X2xvY2FsIGxvY2FsXzE4aApwZCAxCgo=
+EXPECT=<<EOF
+/ (fcn) fcn.00000000 62
+|           ; var int my_local @ rbp-0x18
+|           ; arg int arg1 @ rdi
+|           0x00000000      0000           add byte [rax], al
+EOF
+CMDS=<<EOF
+e asm.bits=64
+e asm.arch = x86
+e anal.arch = x86
+e asm.calls=false
+wx 554889e5534881ec3810000048830c24004881c42010000064488b042528000000488945e831c04885ff4889fb909090909090c3 @ 10
+aa
+afvn new_1 old_1
+afvn my_local local_18h
+pd 1
+EOF
 RUN
+
 NAME=afvb & afvn
 FILE=../bins/efi/bootia32.efi
-EXPECT64=MQoxCgo=
-CMDS64=YWYKYWZ2biBJbWFnZUhhbmRsZSBhcmdfOGgKYWZ2biBTeXN0ZW1UYWJsZSBhcmdfY2gKYWZ2Yn4/SW1hZ2VIYW5kbGUKYWZ2Yn4/U3lzdGVtVGFibGUKCg==
+EXPECT=<<EOF
+1
+1
+EOF
+CMDS=<<EOF
+af
+afvn ImageHandle arg_8h
+afvn SystemTable arg_ch
+afvb~?ImageHandle
+afvb~?SystemTable
+EOF
 RUN
+
 NAME=afvb* & afvn
 FILE=../bins/efi/bootia32.efi
-EXPECT64=MQoxCgo=
-CMDS64=YWYKYWZ2biBJbWFnZUhhbmRsZSBhcmdfOGgKYWZ2biBTeXN0ZW1UYWJsZSBhcmdfY2gKYWZ2Yip+P0ltYWdlSGFuZGxlCmFmdmIqfj9TeXN0ZW1UYWJsZQoK
+EXPECT=<<EOF
+1
+1
+EOF
+CMDS=<<EOF
+af
+afvn ImageHandle arg_8h
+afvn SystemTable arg_ch
+afvb*~?ImageHandle
+afvb*~?SystemTable
+EOF
 RUN
+
 NAME=afvb idx... & afvn
 FILE=../bins/efi/bootia32.efi
-EXPECT64=YWZ2YiA4IEltYWdlSGFuZGxlIGJsYWggQCAweDEwMDAyZDhkCgo=
-CMDS64=YWYKYWZ2YiA4IEltYWdlSGFuZGxlIGJsYWggQCAweDEwMDAyZDhkCmFmdmIqfkltYWdlSGFuZGxlCgo=
+EXPECT=<<EOF
+afvb 8 ImageHandle blah @ 0x10002d8d
+EOF
+CMDS=<<EOF
+af
+afvb 8 ImageHandle blah @ 0x10002d8d
+afvb*~ImageHandle
+EOF
 RUN
+
 NAME=afvbj
 FILE=../bins/efi/bootia32.efi
-EXPECT64=MQoK
-CMDS64=YWYKYWZ2YiA4IEltYWdlSGFuZGxlIGJsYWggQCAweDEwMDAyZDhkCmFmdmJqfj9JbWFnZUhhbmRsZQoK
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+af
+afvb 8 ImageHandle blah @ 0x10002d8d
+afvbj~?ImageHandle
+EOF
 RUN
+
 NAME=afvb-ArgName
 FILE=../bins/efi/bootia32.efi
-EXPECT64=MAoK
-CMDS64=YWYKYWZ2YiA4IEltYWdlSGFuZGxlIGJsYWggQCAweDEwMDAyZDhkCmFmdmItSW1hZ2VIYW5kbGUKYWZ2Yn4/SW1hZ2VIYW5kbGUKCg==
+EXPECT=<<EOF
+0
+EOF
+CMDS=<<EOF
+af
+afvb 8 ImageHandle blah @ 0x10002d8d
+afvb-ImageHandle
+afvb~?ImageHandle
+EOF
 RUN
+
 NAME=afvr & afvn
 FILE=../bins/efi/bootia32.efi
-EXPECT64=MQoxCgo=
-CMDS64=YWYKYWZ2ciBlc2kgbXlyZWcgaW50IEAgMHgxMDAwMmQ4ZAphZnZyfj9teXJlZwphZnZuIGJsYWggbXlyZWcKYWZ2cn4/YmxhaAoK
+EXPECT=<<EOF
+1
+1
+EOF
+CMDS=<<EOF
+af
+afvr esi myreg int @ 0x10002d8d
+afvr~?myreg
+afvn blah myreg
+afvr~?blah
+EOF
 RUN
+
 NAME=afvr idx & afvr*
 FILE=../bins/efi/bootia32.efi
-EXPECT64=MQoxCgo=
-CMDS64=YWYKYWZ2ciBlc2kgbXlyZWcgaW50IEAgMHgxMDAwMmQ4ZAphZnZyKn4/bXlyZWcKYWZ2cip+P2ludAoK
+EXPECT=<<EOF
+1
+1
+EOF
+CMDS=<<EOF
+af
+afvr esi myreg int @ 0x10002d8d
+afvr*~?myreg
+afvr*~?int
+EOF
 RUN
+
 NAME=afvr-name
 FILE=../bins/efi/bootia32.efi
-EXPECT64=MAoK
-CMDS64=YWYKYWZ2ciBlc2kgbXlyZWcgaW50IEAgMHgxMDAwMmQ4ZAphZnZyLW15cmVnCmFmdnJ+P215cmVnCgo=
+EXPECT=<<EOF
+0
+EOF
+CMDS=<<EOF
+af
+afvr esi myreg int @ 0x10002d8d
+afvr-myreg
+afvr~?myreg
+EOF
 RUN
+
 NAME=afvb-* afvr-*
 FILE=../bins/efi/bootia32.efi
-EXPECT64=MAowCgo=
-CMDS64=YWYKYWZ2Yi0qCmFmdnItKgphZnZifj8KYWZ2cn4/Cgo=
+EXPECT=<<EOF
+0
+0
+EOF
+CMDS=<<EOF
+af
+afvb-*
+afvr-*
+afvb~?
+afvr~?
+EOF
 RUN
+
 NAME=anal vars count
 FILE=../bins/mach0/ls-osx-x86_64
-EXPECT64=MTMKCg==
-CMDS64=YWYKYWZ2Yn4/Cgo=
+EXPECT=<<EOF
+13
+EOF
+CMDS=<<EOF
+af
+afvb~?
+EOF
 RUN
+
 NAME=anal vars retype
 FILE=../bins/mach0/ls-osx-x86_64
-EXPECT64=dmFyIGNoYXIgbG9jYWxfMzBoIEAgcmJwLTB4MzAKCg==
-CMDS64=YWYKYWZ2dCBsb2NhbF8zMGggY2hhcgphZnZifmxfMzBoCgo=
+EXPECT=<<EOF
+var char local_30h @ rbp-0x30
+EOF
+CMDS=<<EOF
+af
+afvt local_30h char
+afvb~l_30h
+EOF
 RUN
+
 NAME=anal vars rename
 FILE=../bins/mach0/ls-osx-x86_64
-EXPECT64=dmFyIGludCBuZXduYW1lIEAgcmJwLTB4MzAKCg==
-CMDS64=YWYKYWZ2biBuZXduYW1lIGxvY2FsXzMwaAphZnZifm5ld25hbWUKCg==
+EXPECT=<<EOF
+var int newname @ rbp-0x30
+EOF
+CMDS=<<EOF
+af
+afvn newname local_30h
+afvb~newname
+EOF
 RUN
+
 NAME=vars commenting
 FILE=malloc://1024
-EXPECT64=fCAgICAgICAgICAgOyBhcmcgaW50IGxvY2FsXzhoIEAgcmJwKzB4OCAgICA7IGNvbW1lbnQKCg==
-CMDS64=YWYKYWZ2YiA4IGxvY2FsXzhoIGludApDdmIgMHg4IGNvbW1lbnQKcGQxfmNvbW1lbnQKCg==
+EXPECT=<<EOF
+|           ; arg int local_8h @ rbp+0x8    ; comment
+EOF
+CMDS=<<EOF
+af
+afvb 8 local_8h int
+Cvb 0x8 comment
+pd1~comment
+EOF
 RUN
+
 NAME=vars display in debugger
 FILE=../bins/elf/analysis/fast
-EXPECT64=cHhyICR3IEBlYnArMHhjCnB4ciAkdyBAZWJwLTB4MTAKCg==
-CMDS64=YWEKcyAweDA4MDQ4NDNiCmFmdmQgYXJnX2NoCmFmdmQgbG9jYWxfMTBoCgo=
+EXPECT=<<EOF
+pxr $w @ebp+0xc
+pxr $w @ebp-0x10
+EOF
+CMDS=<<EOF
+aa
+s 0x0804843b
+afvd arg_ch
+afvd local_10h
+EOF
 RUN
+
 NAME=afvR and afvW test
 FILE=../bins/elf/crackme0x05
-EXPECT64=CiBsb2NhbF83OGggIDB4ODA0ODU3NywweDgwNDg1OGEKICBsb2NhbF80aCAgCiBsb2NhbF83OGggIAogIGxvY2FsXzRoICAweDgwNDg1N2EKCg==
-CMDS64=YWEKcyBtYWluCj9lCmFmdlIKYWZ2VwoK
+EXPECT=<<EOF
+
+ local_78h  0x8048577,0x804858a
+  local_4h  
+ local_78h  
+  local_4h  0x804857a
+EOF
+CMDS=<<EOF
+aa
+s main
+?e
+afvR
+afvW
+EOF
 RUN
+
 NAME=axt avr
 FILE=../bins/firmware/main.avr
-EXPECT64=ICAgICAgICAgICAgOyBEQVRBIFhSRUYgZnJvbSBzdHIuaGVsbG8gKCkKICAgICAgICAgICAgMHgwMDAwMDI2MCAgICAgIDgwZTAgICAgICAgICAgIGxkaSByMjQsIDB4MDAK
-CMDS64=ZiBzdHIuaGVsbG8gMTIgQCAweDI3NgpDc2EgMTIgQCBzdHIuaGVsbG8KYXhkIDB4MjYwIEAgc3RyLmhlbGxvCnBkIDEgQCAweDI2MAo=
+EXPECT=<<EOF
+            ; DATA XREF from str.hello ()
+            0x00000260      80e0           ldi r24, 0x00
+EOF
+CMDS=<<EOF
+f str.hello 12 @ 0x276
+Csa 12 @ str.hello
+axd 0x260 @ str.hello
+pd 1 @ 0x260
+EOF
 RUN
+
 NAME=axt capstone x86
 FILE=../bins/elf/analysis/main
-EXPECT64=c3ltLm1haW4gMHg0MDA1MGEgW0RBVEFdIG1vdiBlZGksIHN0ci5IZWxsb19Xb3JsZAoK
-CMDS64=ZSBhc20uYXJjaCA9IHg4NgplIGFuYWwuYXJjaCA9IHg4NgplIHNjci5jb2xvcj1mYWxzZQplIHNjci53aGVlbCA9IGZhbHNlCmFhCmF4dCBAIHN0ci5IZWxsb19Xb3JsZAo=
+EXPECT=<<EOF
+sym.main 0x40050a [DATA] mov edi, str.Hello_World
+EOF
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e scr.color=false
+e scr.wheel = false
+aa
+axt @ str.Hello_World
+EOF
 RUN
+
 NAME=axt capstone x86: IOLI0
 FILE=../bins/elf/ioli/crackme0x00
-EXPECT64=bWFpbiAweDgwNDg0M2MgW0RBVEFdIG1vdiBkd29yZCBbZXNwXSwgc3RyLlBhc3N3b3JkOgoK
-CMDS64=ZSBhc20uYXJjaCA9IHg4NgplIGFuYWwuYXJjaCA9IHg4NgplIHNjci5jb2xvcj1mYWxzZQplIHNjci53aGVlbCA9IGZhbHNlCmFhCmF4dCBAIHN0ci5QYXNzd29yZDoK
+EXPECT=<<EOF
+main 0x804843c [DATA] mov dword [esp], str.Password:
+EOF
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e scr.color=false
+e scr.wheel = false
+aa
+axt @ str.Password:
+EOF
 RUN
+
 NAME=axt capstone x86: IOLI7 aa
 FILE=../bins/elf/ioli/crackme0x07
-EXPECT64=c3ViLlBhc3N3b3JkX0luY29ycmVjdF84MDQ4NTI0IDB4ODA0ODUzZCBbQ0FMTF0gY2FsbCBzeW0uaW1wLmV4aXQKc3ViLnNzY2FuZl84MDQ4NTQyIDB4ODA0ODVhYiBbQ0FMTF0gY2FsbCBzeW0uaW1wLmV4aXQKc3ViLnN0cmxlbl84MDQ4NWI5IDB4ODA0ODY2ZiBbQ0FMTF0gY2FsbCBzeW0uaW1wLmV4aXQK
-CMDS64=CmFhYQpheHQgQCBzeW0uaW1wLmV4aXQK
+EXPECT=<<EOF
+sub.Password_Incorrect_8048524 0x804853d [CALL] call sym.imp.exit
+sub.sscanf_8048542 0x80485ab [CALL] call sym.imp.exit
+sub.strlen_80485b9 0x804866f [CALL] call sym.imp.exit
+EOF
+CMDS=<<EOF
+aaa
+axt @ sym.imp.exit
+EOF
 RUN
+
 NAME=axt capstone x86: IOLI7 aa
 FILE=../bins/elf/ioli/crackme0x07
-EXPECT64=c3ViLlBhc3N3b3JkX0luY29ycmVjdF84MDQ4NTI0IDB4ODA0ODUzZCBbQ0FMTF0gY2FsbCBzeW0uaW1wLmV4aXQKc3ViLnNzY2FuZl84MDQ4NTQyIDB4ODA0ODVhYiBbQ0FMTF0gY2FsbCBzeW0uaW1wLmV4aXQKc3ViLnN0cmxlbl84MDQ4NWI5IDB4ODA0ODY2ZiBbQ0FMTF0gY2FsbCBzeW0uaW1wLmV4aXQ=
-CMDS64=CmFhYWEKYXh0IEAgc3ltLmltcC5leGl0Cg==
+EXPECT=<<EOF
+sub.Password_Incorrect_8048524 0x804853d [CALL] call sym.imp.exit
+sub.sscanf_8048542 0x80485ab [CALL] call sym.imp.exit
+sub.strlen_80485b9 0x804866f [CALL] call sym.imp.exit
+EOF
+CMDS=<<EOF
+aaaa
+axt @ sym.imp.exit
+EOF
 RUN
+
 NAME=axt respect relsub
 FILE=../bins/pe/ibknoreloc64.exe
-EXPECT64=ZW50cnkwIDB4ZmZmZmZmZmZmZmZmMTAwYSBbQ0FMTF0gY2FsbCBxd29yZCBbcmlwICsgMHhkOF0KZW50cnkwIDB4ZmZmZmZmZmZmZmZmMTAwYSBbQ0FMTF0gY2FsbCBxd29yZCBzeW0uaW1wLm1zdmNydC5kbGxfcHJpbnRmCgo=
-CMDS64=YWFhCmUgYXNtLnJlbHN1Yj1mYWxzZQpheHQgQCBzeW0uaW1wLm1zdmNydC5kbGxfcHJpbnRmCmUgYXNtLnJlbHN1Yj10cnVlCmF4dCBAIHN5bS5pbXAubXN2Y3J0LmRsbF9wcmludGYKCg==
+EXPECT=<<EOF
+entry0 0xffffffffffff100a [CALL] call qword [rip + 0xd8]
+entry0 0xffffffffffff100a [CALL] call qword sym.imp.msvcrt.dll_printf
+EOF
+CMDS=<<EOF
+aaa
+e asm.relsub=false
+axt @ sym.imp.msvcrt.dll_printf
+e asm.relsub=true
+axt @ sym.imp.msvcrt.dll_printf
+EOF
 RUN
+
 NAME=ax-
 FILE=-
-EXPECT64=MHgwMDAwMDAxNCAtPiAweDAwMDAwMDBhICBVTktOT1dOCgo=
-CMDS64=YXggMTAgMjAKYXhxCmF4LTEwIDIwCmF4cQoK
+EXPECT=<<EOF
+0x00000014 -> 0x0000000a  UNKNOWN
+EOF
+CMDS=<<EOF
+ax 10 20
+axq
+ax-10 20
+axq
+EOF
 RUN
+
 NAME=ax-@
 FILE=-
-EXPECT64=MHgwMDAwMDAxNCAtPiAweDAwMDAwMDBhICBVTktOT1dOCgo=
-CMDS64=cyAyMApheCAxMApheHEKYXgtMTAKYXhxCgo=
+EXPECT=<<EOF
+0x00000014 -> 0x0000000a  UNKNOWN
+EOF
+CMDS=<<EOF
+s 20
+ax 10
+axq
+ax-10
+axq
+EOF
 RUN
+
 NAME=ax-*
 FILE=-
-EXPECT64=ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPyAweDAgLT4gICBVTktOT1dOIC0+IDB4YQo=
-CMDS64=YXggMTAKYXgKYXgtKgpheAoK
+EXPECT=<<EOF
+                                       ? 0x0 ->   UNKNOWN -> 0xa
+EOF
+CMDS=<<EOF
+ax 10
+ax
+ax-*
+ax
+EOF
 RUN
+
 NAME=axt unknown function
 FILE=../bins/pe/lab11.malware
-EXPECT64=KG5vZnVuYykgMHg0MDFhMWQgW0NBTExdIGNhbGwgZmNuLjAwNDAxMjcwCgo=
-CMDS64=YWFhCmF4dCBmY24uMDA0MDEyNzAKCg==
+EXPECT=<<EOF
+(nofunc) 0x401a1d [CALL] call fcn.00401270
+EOF
+CMDS=<<EOF
+aaa
+axt fcn.00401270
+EOF
 RUN
+
 NAME=axf string ref capstone x86
 FILE=../bins/elf/ioli/crackme0x03
-EXPECT64=c3ltLnRlc3QgMHg4MDQ4NDhhIFtEQVRBXSBtb3YgZHdvcmQgW2VzcF0sIHN0ci5TZHZ2enJ1Z19STgpkIDB4ODA0ODQ4YSBtb3YgZHdvcmQgW2VzcF0sIHN0ci5TZHZ2enJ1Z19STgoK
-CMDS64=ZSBhc20uYXJjaCA9IHg4NgplIGFuYWwuYXJjaCA9IHg4NgplIHNjci5jb2xvciA9IGZhbHNlCmUgc2NyLndoZWVsID0gZmFsc2UKYWEKYXh0IHN0ci5TZHZ2enJ1Z19STgpheGYgMHg4MDQ4NDhhCgo=
+EXPECT=<<EOF
+sym.test 0x804848a [DATA] mov dword [esp], str.Sdvvzrug_RN
+d 0x804848a mov dword [esp], str.Sdvvzrug_RN
+EOF
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e scr.color = false
+e scr.wheel = false
+aa
+axt str.Sdvvzrug_RN
+axf 0x804848a
+EOF
 RUN
+
 NAME=x86 ref issue
 FILE=-
-EXPECT64=MHgwMDAwNDQzNAoK
-CMDS64=CmUgYXNtLmJpdHM9NjQKZSBhc20uYXJjaD14ODYKd3ggYzcwNTJhNDQwMDAwNTAwMDAwMDAKYW9+XnB0clsxXQoK
+EXPECT=<<EOF
+0x00004434
+EOF
+CMDS=<<EOF
+e asm.bits=64
+e asm.arch=x86
+wx c7052a44000050000000
+ao~^ptr[1]
+EOF
 RUN
+
 NAME=strings xref issue
 FILE=../bins/elf/redpill
-EXPECT64=bWFpbiAweDE0NTcgW1NUUklOR10gbGVhIGVheCwgc3RyLlRha2VfdGhlX1JlZF9QaWxsCm1haW4gMHgxNDhlIFtTVFJJTkddIGxlYSBlYXgsIHN0ci51c2U6Xy5fZXhwbG9pdDFfUElMTAptYWluIDB4MTRlYiBbU1RSSU5HXSBsZWEgZWF4LCBzdHIuUmVkX1BpbGxfXzB4NTA0NDQ1NTIKbWFpbiAweDE1MDIgW1NUUklOR10gbGVhIGVheCwgc3RyLllvdXJfUGlsbF8weF8wOHgKbWFpbiAweDE1MjMgW1NUUklOR10gbGVhIGVheCwgc3RyLlJlZF9QaWxsCm1haW4gMHgxNTU3IFtTVFJJTkddIGxlYSBlYXgsIHN0ci5md2hpYmJpdAptYWluIDB4MTYxZCBbU1RSSU5HXSBsZWEgZWF4LCBzdHIuQmx1ZV9QaWxsCgo=
-CMDS64=CmUgYW5hbC5zdHJpbmdzPXRydWUKYWEKYWFlCmF4dCAweDAwMDAxZDg5CmF4dCAweDAwMDAxZGEwCmF4dCAweDAwMDAxZGI3CmF4dCAweDAwMDAxZGQxCmF4dCAweDAwMDAxZGU4CmF4dCAweDAwMDAxZGY0CmF4dCAweDAwMDAxZTA5Cgo=
+EXPECT=<<EOF
+main 0x1457 [STRING] lea eax, str.Take_the_Red_Pill
+main 0x148e [STRING] lea eax, str.use:_._exploit1_PILL
+main 0x14eb [STRING] lea eax, str.Red_Pill__0x50444552
+main 0x1502 [STRING] lea eax, str.Your_Pill_0x_08x
+main 0x1523 [STRING] lea eax, str.Red_Pill
+main 0x1557 [STRING] lea eax, str.fwhibbit
+main 0x161d [STRING] lea eax, str.Blue_Pill
+EOF
+CMDS=<<EOF
+e anal.strings=true
+aa
+aae
+axt 0x00001d89
+axt 0x00001da0
+axt 0x00001db7
+axt 0x00001dd1
+axt 0x00001de8
+axt 0x00001df4
+axt 0x00001e09
+EOF
 RUN
+
 NAME=reference to like mov [0x400000], 0x1234
 FILE=../bins/elf/analysis/reference.out
-EXPECT64=c3ltLm1haW4gMHg4MDQ4M2VlIFtEQVRBXSBtb3YgZHdvcmQgb2JqLmEsIDB4MTMzNwoK
-CMDS64=CmFhYQpheHRAMHgwODA0YTAxYwoK
+EXPECT=<<EOF
+sym.main 0x80483ee [DATA] mov dword obj.a, 0x1337
+EOF
+CMDS=<<EOF
+aaa
+axt@0x0804a01c
+EOF
 RUN
+
 NAME=delete references with ax-
 FILE=-
-EXPECT64=MHgwMDAwMDAxNCAtPiAweDAwMDAwMDBhICBVTktOT1dOCjB4MDAwMDAwMTQgLT4gMHgwMDAwMDAwYSAgVU5LTk9XTgoweDAwMDAwMDI4IC0+IDB4MDAwMDAwMWUgIFVOS05PV04KCg==
-CMDS64=CmF4IDEwIDIwCmF4cQpheC0gMTAKYXhxCmF4IDEwIDIwCmF4IDMwIDQwCmF4cQpheC0qCmF4cQoK
+EXPECT=<<EOF
+0x00000014 -> 0x0000000a  UNKNOWN
+0x00000014 -> 0x0000000a  UNKNOWN
+0x00000028 -> 0x0000001e  UNKNOWN
+EOF
+CMDS=<<EOF
+ax 10 20
+axq
+ax- 10
+axq
+ax 10 20
+ax 30 40
+axq
+ax-*
+axq
+EOF
 RUN
+
 NAME=reference PIC binary
 FILE=../bins/elf/analysis/xrefpic
-EXPECT64=bWFpbiAweDgwNDg0MzIgW1NUUklOR10gbGVhIGVheCwgc3RyLkhlbGxvX1BJQwoK
-CMDS64=CmUgYW5hbC5zdHJpbmdzPXRydWUKYWEKYWFlCmF4dEAweDgwNDg0ZTAKCg==
+EXPECT=<<EOF
+main 0x8048432 [STRING] lea eax, str.Hello_PIC
+EOF
+CMDS=<<EOF
+e anal.strings=true
+aa
+aae
+axt@0x80484e0
+EOF
 RUN
+
 NAME=strings xref issue without relsub
 FILE=../bins/elf/redpill
-EXPECT64=bWFpbiAweDE0NTcgW1NUUklOR10gbGVhIGVheCwgW2VzaSAtIDB4MjI3N10KbWFpbiAweDE0OGUgW1NUUklOR10gbGVhIGVheCwgW2VzaSAtIDB4MjI2MF0KbWFpbiAweDE0ZWIgW1NUUklOR10gbGVhIGVheCwgW2VzaSAtIDB4MjI0OV0KbWFpbiAweDE1MDIgW1NUUklOR10gbGVhIGVheCwgW2VzaSAtIDB4MjIyZl0KbWFpbiAweDE1MjMgW1NUUklOR10gbGVhIGVheCwgW2VzaSAtIDB4MjIxOF0KbWFpbiAweDE1NTcgW1NUUklOR10gbGVhIGVheCwgW2VzaSAtIDB4MjIwY10KbWFpbiAweDE2MWQgW1NUUklOR10gbGVhIGVheCwgW2VzaSAtIDB4MjFmN10KCg==
-CMDS64=CmUgYW5hbC5zdHJpbmdzPXRydWUKZSBhc20ucmVsc3ViPWZhbHNlCmFhCmFhZQpheHQgMHgwMDAwMWQ4OQpheHQgMHgwMDAwMWRhMApheHQgMHgwMDAwMWRiNwpheHQgMHgwMDAwMWRkMQpheHQgMHgwMDAwMWRlOApheHQgMHgwMDAwMWRmNApheHQgMHgwMDAwMWUwOQoK
+EXPECT=<<EOF
+main 0x1457 [STRING] lea eax, [esi - 0x2277]
+main 0x148e [STRING] lea eax, [esi - 0x2260]
+main 0x14eb [STRING] lea eax, [esi - 0x2249]
+main 0x1502 [STRING] lea eax, [esi - 0x222f]
+main 0x1523 [STRING] lea eax, [esi - 0x2218]
+main 0x1557 [STRING] lea eax, [esi - 0x220c]
+main 0x161d [STRING] lea eax, [esi - 0x21f7]
+EOF
+CMDS=<<EOF
+e anal.strings=true
+e asm.relsub=false
+aa
+aae
+axt 0x00001d89
+axt 0x00001da0
+axt 0x00001db7
+axt 0x00001dd1
+axt 0x00001de8
+axt 0x00001df4
+axt 0x00001e09
+EOF
 RUN
+
 NAME=reference PIC binary without relsub
 FILE=../bins/elf/analysis/xrefpic
-EXPECT64=bWFpbiAweDgwNDg0MzIgW1NUUklOR10gbGVhIGVheCwgW2VieCAtIDB4MWIyMF0KCg==
-CMDS64=CmUgYW5hbC5zdHJpbmdzPXRydWUKZSBhc20ucmVsc3ViPWZhbHNlCmFhCmFhZQpheHRAMHg4MDQ4NGUwCgo=
+EXPECT=<<EOF
+main 0x8048432 [STRING] lea eax, [ebx - 0x1b20]
+EOF
+CMDS=<<EOF
+e anal.strings=true
+e asm.relsub=false
+aa
+aae
+axt@0x80484e0
+EOF
 RUN
+
 NAME=refs on PIC binary disassembly
 FILE=../bins/elf/analysis/xrefpic
-EXPECT64=fCAgICAgICAgICAgMHgwODA0ODQzMiAgICAgIDhkODNlMGU0ZmZmZiAgIGxlYSBlYXgsIHN0ci5IZWxsb19QSUMgICAgICA7IDB4ODA0ODRlMCA7ICJIZWxsbyBQSUMhIgoK
-CMDS64=CmUgYW5hbC5zdHJpbmdzPXRydWUKYWEKYWFlCnBkIDEgQCAweDA4MDQ4NDMyCgo=
+EXPECT=<<EOF
+|           0x08048432      8d83e0e4ffff   lea eax, str.Hello_PIC      ; 0x80484e0 ; "Hello PIC!"
+EOF
+CMDS=<<EOF
+e anal.strings=true
+aa
+aae
+pd 1 @ 0x08048432
+EOF
 RUN
+
 NAME=refs on PIC binary disassembly (color)
 FILE=../bins/elf/analysis/xrefpic
-EXPECT64=G1szNm18G1swbSAbWzM2bSAgICAgICAgICAbWzBtG1szMm0weDA4MDQ4NDMyG1swbSAgICAgIBtbMzdtbGVhG1szNm0gZWF4G1swbSwbWzM2bSAbWzBtG1szM21zdHIuSGVsbG9fUElDG1swbRtbMzZtG1swbRtbMG0KCg==
-CMDS64=CmUgYXNtLmJ5dGVzPWZhbHNlCmUgYXNtLmNvbW1lbnRzPWZhbHNlCmUgc2NyLmNvbG9yPTEKZSBhbmFsLnN0cmluZ3M9dHJ1ZQphYQphYWUKcGQgMSBAIDB4MDgwNDg0MzIKCg==
+EXPECT=<<EOF
+[36m|[0m [36m          [0m[32m0x08048432[0m      [37mlea[36m eax[0m,[36m [0m[33mstr.Hello_PIC[0m[36m[0m[0m
+EOF
+CMDS=<<EOF
+e asm.bytes=false
+e asm.comments=false
+e scr.color=1
+e anal.strings=true
+aa
+aae
+pd 1 @ 0x08048432
+EOF
 RUN
+
 NAME=axs
 FILE=-
-EXPECT64=MHgwMDAwMDAwMCAtPiAweDAwMDAwMDEwICBTVFJJTkcKCg==
-CMDS64=CmF4cyAweDEwCmF4cQoK
+EXPECT=<<EOF
+0x00000000 -> 0x00000010  STRING
+EOF
+CMDS=<<EOF
+axs 0x10
+axq
+EOF
 RUN
+
 NAME=refs with aar
 FILE=../bins/elf/crackme
-EXPECT64=Oy0tIF9fbGliY19jc3VfZmluaToKOyBEQVRBIFhSRUYgZnJvbSBlbnRyeTAgKCsweGYpCjB4MDA0MDA3MzAgICAgICBmM2MzICAgICAgICAgICByZXQKOyBDT0RFIFhSRUYgZnJvbSBzeW0uX19kb19nbG9iYWxfY3RvcnNfYXV4ICgrMHgyZCkKMHgwMDQwMDdmMCAgICAgIDQ4ODNlYjA4ICAgICAgIHN1YiByYngsIDgKOy0tIF9fZG9fZ2xvYmFsX2R0b3JzX2F1eDoKOyBDQUxMIFhSRUYgZnJvbSBzZWN0aW9uLi5maW5pICgrMHg0KQoweDAwNDAwNjEwICAgICAgNTUgICAgICAgICAgICAgcHVzaCByYnAK
-CMDS64=CmUgYXNtLmxpbmVzLmJiPWZhbHNlCmUgYXNtLmxpbmVzLmZjbj1mYWxzZQphYXIKcGQgMSBAMHg0MDA3MzAKcGQgMSBAMHg0MDA3ZjAKcGQgMSBAMHg0MDA2MTAK
+EXPECT=<<EOF
+;-- __libc_csu_fini:
+; DATA XREF from entry0 (+0xf)
+0x00400730      f3c3           ret
+; CODE XREF from sym.__do_global_ctors_aux (+0x2d)
+0x004007f0      4883eb08       sub rbx, 8
+;-- __do_global_dtors_aux:
+; CALL XREF from section..fini (+0x4)
+0x00400610      55             push rbp
+EOF
+CMDS=<<EOF
+e asm.lines.bb=false
+e asm.lines.fcn=false
+aar
+pd 1 @0x400730
+pd 1 @0x4007f0
+pd 1 @0x400610
+EOF
 RUN
+
 NAME=refs with afr
 FILE=../bins/elf/crackme
-EXPECT64=KGZjbikgc3ltLl9fbGliY19jc3VfZmluaSAyCiAgc3ltLl9fbGliY19jc3VfZmluaSAoKTsKOyBEQVRBIFhSRUYgZnJvbSBlbnRyeTAgKDB4NDAwNWNmKQoweDAwNDAwNzMwICAgICAgZjNjMyAgICAgICAgICAgcmV0CjsgQ09ERSBYUkVGIGZyb20gc3ltLl9fZG9fZ2xvYmFsX2N0b3JzX2F1eCAoMHg0MDA3ZmQpCjB4MDA0MDA3ZjAgICAgICA0ODgzZWIwOCAgICAgICBzdWIgcmJ4LCA4CihmY24pIHN5bS5fX2RvX2dsb2JhbF9kdG9yc19hdXggMTAwCiAgc3ltLl9fZG9fZ2xvYmFsX2R0b3JzX2F1eCAoKTsKOyBDQUxMIFhSRUYgZnJvbSBzeW0uX2ZpbmkgKDB4NDAwODBjKQoweDAwNDAwNjEwICAgICAgNTUgICAgICAgICAgICAgcHVzaCByYnAK
-CMDS64=CmUgYXNtLmxpbmVzLmJiPWZhbHNlCmUgYXNtLmxpbmVzLmZjbj1mYWxzZQplIGFuYWwuY2ptcHJlZj10cnVlCmFhCmFmcgpwZCAxIEAweDQwMDczMApwZCAxIEAweDQwMDdmMApwZCAxIEAweDQwMDYxMAo=
+EXPECT=<<EOF
+(fcn) sym.__libc_csu_fini 2
+  sym.__libc_csu_fini ();
+; DATA XREF from entry0 (0x4005cf)
+0x00400730      f3c3           ret
+; CODE XREF from sym.__do_global_ctors_aux (0x4007fd)
+0x004007f0      4883eb08       sub rbx, 8
+(fcn) sym.__do_global_dtors_aux 100
+  sym.__do_global_dtors_aux ();
+; CALL XREF from sym._fini (0x40080c)
+0x00400610      55             push rbp
+EOF
+CMDS=<<EOF
+e asm.lines.bb=false
+e asm.lines.fcn=false
+e anal.cjmpref=true
+aa
+afr
+pd 1 @0x400730
+pd 1 @0x4007f0
+pd 1 @0x400610
+EOF
 RUN
+
 NAME=cjmp data refs with aar
 FILE=malloc://10000
-EXPECT64=OyBEQVRBIFhSRUYgZnJvbSB1bmsgKCkKMHgxMDAwMDAyZSAgICAgIDAwICAgICAgICAgICAgIG5vcAo=
-CMDS64=CmUgYXNtLmFyY2g9ODA1MQplIGFzbS5saW5lcy5iYj1mYWxzZQplIGFzbS5saW5lcy5mY249ZmFsc2UKd3ggMzA3NDAxMDAwMDIyCmFhcgpwZCAxIEBfaWRhdGErMHgyZQo=
+EXPECT=<<EOF
+; DATA XREF from unk ()
+0x1000002e      00             nop
+EOF
+CMDS=<<EOF
+e asm.arch=8051
+e asm.lines.bb=false
+e asm.lines.fcn=false
+wx 307401000022
+aar
+pd 1 @_idata+0x2e
+EOF
 RUN
+
 NAME=cjmp data refs with afr
 FILE=malloc://10000
-EXPECT64=OyBEQVRBIFhSRUYgZnJvbSBmY24uMDAwMDAwMDAgKCkKMHgxMDAwMDAyZSAgICAgIDAwICAgICAgICAgICAgIG5vcAo=
-CMDS64=CmUgYXNtLmFyY2g9ODA1MQplIGFzbS5saW5lcy5iYj1mYWxzZQplIGFzbS5saW5lcy5mY249ZmFsc2UKd3ggMzA3NDAxMDAwMDIyCmFhCmFmcgpwZCAxIEBfaWRhdGErMHgyZQo=
+EXPECT=<<EOF
+; DATA XREF from fcn.00000000 ()
+0x1000002e      00             nop
+EOF
+CMDS=<<EOF
+e asm.arch=8051
+e asm.lines.bb=false
+e asm.lines.fcn=false
+wx 307401000022
+aa
+afr
+pd 1 @_idata+0x2e
+EOF
 RUN
+
 NAME=xtensa stackframe
 FILE=malloc://512
-EXPECT64=dmFyIGludCBsb2NhbF80aCBAIGExKzB4NAp2YXIgaW50IGxvY2FsXzhoIEAgYTErMHg4CnZhciBpbnQgbG9jYWxfY2ggQCBhMSsweGMKCg==
-CMDS64=ZSBhc20uYXJjaD14dGVuc2EKZSBhc20uYml0cz0zMgp3eCAxMmMxZjBkOTExNDBkMzgyYzkyMTNkMGQwOTMxMDFmNWViYzAwMDAwY2QwMjhjODIwYzAzNGQwZDAxMTJlNGMwMDAwMDA4MzEyZDBjZDgxMWM4MjExMmMxMTAwZGYwCmFmCmFmdnMKCg==
+EXPECT=<<EOF
+var int local_4h @ a1+0x4
+var int local_8h @ a1+0x8
+var int local_ch @ a1+0xc
+EOF
+CMDS=<<EOF
+e asm.arch=xtensa
+e asm.bits=32
+wx 12c1f0d91140d382c9213d0d093101f5ebc00000cd028c820c034d0d0112e4c0000008312d0cd811c82112c1100df0
+af
+afvs
+EOF
 RUN
+
 NAME=xrefs and overlapping basic blocks
 FILE=../bins/elf/analysis/ls-linux-x86_64-zlul
 CMDS=<<EXPECT

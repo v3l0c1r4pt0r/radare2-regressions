@@ -1,15 +1,41 @@
 NAME=ppc-elf
 FILE=../bins/elf/analysis/elf-ppc-execstack
-EXPECT64=MHgxMDAwMTRlMCAgICAgICAgICAgICA3YzI5MGI3OCAgbXIgcjksIHIxCjB4MTAwMDE0ZTQgICAgICAgICAgICAgNTQyMTAwMzYgIHJsd2lubSByMSwgcjEsIDAsIDAsIDB4MWIKMHgxMDAwMTRlOCAgICAgICAgICAgICAzODAwMDAwMCAgbGkgcjAsIDAKMHgxMDAwMTRlYyAgICAgICAgICAgICA5NDIxZmZmMCAgc3R3dSByMSwgLTB4MTAocjEpCgo=
-CMDS64=ZSBhc20uZmxhZ3M9ZmFsc2UKcGlkIDQK
+EXPECT=<<EOF
+0x100014e0             7c290b78  mr r9, r1
+0x100014e4             54210036  rlwinm r1, r1, 0, 0, 0x1b
+0x100014e8             38000000  li r0, 0
+0x100014ec             9421fff0  stwu r1, -0x10(r1)
+EOF
+CMDS=<<EOF
+e asm.flags=false
+pid 4
+EOF
 RUN
+
 NAME=ppc-elf entry0 name issue
 FILE=../bins/elf/analysis/elf-ppc-execstack
-EXPECT64=CjB4MTAwMDE0ZTAgICAgc2VjdGlvbi4udGV4dDoKMHgxMDAwMTRlMCAgICAgICAgICAgICA3YzI5MGI3OCAgbXIgcjksIHIxCmVudHJ5MAoK
-CMDS64=P2UKZSBhc20uZmxhZ3M9dHJ1ZQpwaWQgMQphZgphZml+bmFtZVsxXQoK
+EXPECT=<<EOF
+
+0x100014e0    section..text:
+0x100014e0             7c290b78  mr r9, r1
+entry0
+EOF
+CMDS=<<EOF
+?e
+e asm.flags=true
+pid 1
+af
+afi~name[1]
+EOF
 RUN
+
 NAME=ppc-elf relocs
 FILE=../bins/elf/analysis/elf-ppc-execstack
-EXPECT64=YiBzeW0uaW1wLl9fbGliY19zdGFydF9tYWluCgo=
-CMDS64=cyAweDEwMDAxNTAwCnBpIDEKCg==
+EXPECT=<<EOF
+b sym.imp.__libc_start_main
+EOF
+CMDS=<<EOF
+s 0x10001500
+pi 1
+EOF
 RUN
