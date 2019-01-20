@@ -13,7 +13,7 @@ aaa 2> /dev/null
 agCd~2110
 EXPECT=<<EOF
   "0x00002110" [label="entry0" URL="entry0/0x00002110"];
-  "0x00002110" -> "0x00008f30" [label="reloc.__libc_start_main" color="green" URL="reloc.__libc_start_main/0x00008f30"];
+  "0x00002110" -> "0x00008f30" [color="#61afef" URL="reloc.__libc_start_main/0x00008f30"];
 EOF
 RUN
 
