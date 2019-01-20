@@ -548,17 +548,7 @@ class NewRegressions {
             line = debase64(line.substring(9)).replace(/\n+$/, '');
             if (line.startsWith('[') && line.endsWith(']') ||
                 line.startsWith('{') && line.endsWith('}')) { // JSON
-              const delims = '\'"%';
-              let delim = null;
-              for(let i = 0; i < delims.length; i++) {
-                if (!line.includes(delims.charAt(i))) {
-                  delim = delims.charAt(i);
-                  break;
-                }
-              }
-              if (delim === null) {
-                throw new Error("No suitable delim char found from [" + delims + "]");
-              }
+              let delim = common.getSuitableDelim(line);
               newTests.push('EXPECT=' + delim + line + '\n' + delim);
             } else {
               newTests.push('EXPECT=<<EOF');
@@ -747,12 +737,10 @@ class NewRegressions {
         if (test.expect64) {
           console.log('EXPECT64=' + base64(test.stdout));
         } else if (test.expect64 !== undefined) {
-          if (test.expectEndString !== undefined) {
+          if (test.expectEndString !== undefined && test.stdout.endsWith('\n')) {
             common.highlightTrailingWs(null, '\nEXPECT=<<' + test.expectEndString + '\n' + test.stdout);
           } else {
-            if (test.expectDelim === undefined) {
-              test.expectDelim = '%';
-            }
+            test.expectDelim = common.getSuitableDelim(test.stdout);
             common.highlightTrailingWs(null, '\nEXPECT=' + test.expectDelim + test.stdout + test.expectDelim + '\n');
           }
         }
@@ -763,12 +751,10 @@ class NewRegressions {
         }
         if (test.stderrFail) {
           if ((test.stderr.match(/\n/g) || []).length > 1) {
-            if (test.expectErrEndString !== undefined) {
+            if (test.expectErrEndString !== undefined && test.stderr.endsWith('\n')) {
               common.highlightTrailingWs(null, 'EXPECT_ERR=<<' + test.expectErrEndString + '\n' + test.stderr);
             } else {
-              if (test.expectErrDelim === undefined) {
-                test.expectErrDelim = '%';
-              }
+              test.expectErrDelim = common.getSuitableDelim(test.stderr);
               common.highlightTrailingWs(null, 'EXPECT_ERR=' + test.expectErrDelim + test.stderr +
                                          test.expectErrDelim + '\n');
             }

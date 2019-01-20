@@ -348,7 +348,7 @@ RUN
 NAME=rasm2 -Aj 0x55
 FILE=-
 CMDS=!rasm2 -Aj 0x55
-EXPECT64=W3sib3Bjb2RlIjogIjB4MDAwMDAwMDAiLCJieXRlcyI6ICI1NSIsInR5cGUiOiAidXB1c2giLCJzdGFja29wIjogInVua25vd24iLCJlc2lsIjogInJicCw4LHJzcCwtLD1bOF0sOCxyc3AsLT0iLCJzdGFja3B0ciI6ICIweDAwMDAwMDA4In1dCg==
+EXPECT='[{"opcode": "0x00000000","bytes": "55","type": "upush","stackop": "unknown","esil": "rbp,8,rsp,-,=[8],8,rsp,-=","stackptr": "0x00000008"}]'
 RUN
 
 NAME=rasm2 -L

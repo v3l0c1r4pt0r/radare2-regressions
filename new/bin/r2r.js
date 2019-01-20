@@ -337,10 +337,11 @@ function fixTest (test, next) {
             while (!lines[i].startsWith(endString)) {
               i++;
             }
-            i--;
-            output += 'EXPECT=<<' + endString + '\n' + test.stdout;
+            if (endString !== 'EOF') {
+              i--;
+            }
           } else {
-            let delim = valTrim.charAt(0);
+            const delim = valTrim.charAt(0);
             if (delims.test(delim)) {
               const startDelim = val.indexOf(delim);
               const endDelim = val.indexOf(delim, startDelim + 1);
@@ -350,9 +351,12 @@ function fixTest (test, next) {
                   i++;
                 }
               }
-            } else {
-              delim = '%';
             }
+          }
+          if (test.stdout.endsWith('\n') && endString !== undefined) {
+            output += 'EXPECT=<<' + endString + '\n' + test.stdout;
+          } else {
+            const delim = common.getSuitableDelim(test.stdout);
             output += 'EXPECT=' + delim + test.stdout + delim + '\n';
           }
         } else if (line.startsWith('EXPECT_ERR=')) {
@@ -365,10 +369,11 @@ function fixTest (test, next) {
               while (!lines[i].startsWith(endString)) {
                 i++;
               }
-              i--;
-              output += 'EXPECT_ERR=<<' + endString + '\n' + test.stderr;
+              if (endString !== 'EOF') {
+                i--;
+              }
             } else {
-              let delim = valTrim.charAt(0);
+              const delim = valTrim.charAt(0);
               if (delims.test(delim)) {
                 const startDelim = val.indexOf(delim);
                 const endDelim = val.indexOf(delim, startDelim + 1);
@@ -378,9 +383,12 @@ function fixTest (test, next) {
                     i++;
                   }
                 }
-              } else {
-                delim = '%';
               }
+            }
+            if (test.stderr.endsWith('\n') && endString !== undefined) {
+              output += 'EXPECT_ERR=<<' + endString + '\n' + test.stderr;
+            } else {
+              const delim = common.getSuitableDelim(test.stderr);
               output += 'EXPECT_ERR=' + delim + test.stderr + delim + '\n';
             }
           } else {
