@@ -1,40 +1,160 @@
 NAME=iphone-arm-esil tests
 FILE=../bins/mach0/FileDP
-EXPECT64=ICAgICAgICAgICAgMHgwMDAwMjhlYyAgICAgIGIwNDAyZGU5ICAgICAgIHB1c2gge3I0LCByNSwgcjcsIGxyfSAgICAgICA7IHNwPTB4MTc3ZmYwCiAgICAgICAgICAgIDB4MDAwMDI4ZjAgICAgICAwODcwOGRlMiAgICAgICBhZGQgcjcsIHNwLCA4ICAgICAgICAgICAgICAgOyByNz0weDE3N2ZmOAogICAgICAgICAgICAweDAwMDAyOGY0ICAgICAgMDVkZDRkZTIgICAgICAgc3ViIHNwLCBzcCwgMHgxNDAgICAgICAgICAgIDsgc3A9MHgxNzdlYjAKICAgICAgICAgICAgMHgwMDAwMjhmOCAgICAgIDA3ZDBjZGUzICAgICAgIGJpYyBzcCwgc3AsIDcgICAgICAgICAgICAgICA7IHNwPTB4MTc3ZWIwCgo=
-CMDS64=cyBtYWluCmFlaQphZWltCmUgYXNtLmVtdT10cnVlCmUgYXNtLmVtdXN0cj1mYWxzZQpwZCA0fiEtLQoK
+EXPECT=<<EOF
+            0x000028ec      b0402de9       push {r4, r5, r7, lr}       ; sp=0x177ff0
+            0x000028f0      08708de2       add r7, sp, 8               ; r7=0x177ff8
+            0x000028f4      05dd4de2       sub sp, sp, 0x140           ; sp=0x177eb0
+            0x000028f8      07d0cde3       bic sp, sp, 7               ; sp=0x177eb0
+EOF
+CMDS=<<EOF
+s main
+aei
+aeim
+e asm.emu=true
+e asm.emustr=false
+pd 4~!--
+EOF
 RUN
+
 NAME=iphone-arm-esil pdsf
 FILE=../bins/mach0/FileDP
-EXPECT64=MHgwMDAwMjkxOCAiYWxsb2MiCjB4MDAwMDI5MjAgYXJndgoweDAwMDAyOTIwIHN0ci5hbGxvYwoweDAwMDAyOTI4IGJsIHN5bS5pbXAub2JqY19tc2dTZW5kCjB4MDAwMDI5MzQgImluaXQiCjB4MDAwMDI5M2MgYXJndgoweDAwMDAyOTNjIHN0ci5pbml0CjB4MDAwMDI5NDAgYmwgc3ltLmltcC5vYmpjX21zZ1NlbmQKMHgwMDAwMjk0YyAiWFx4MTBceDlkXHhlNSIKMHgwMDAwMjk1OCBhcmd2CjB4MDAwMDI5NWMgYmwgc3ltLmltcC5vYmpjX21zZ1NlbmQKMHgwMDAwMjk2OCBhcmdjCjB4MDAwMDI5NzAgYmwgc3ltLmltcC5vYmpjX21zZ1NlbmQKMHgwMDAwMjk5OCAiVXNhZ2U6IEZpbGVEUCBbLWYvLWRdIFtGdWxsIHBhdGggdG8gZmlsZS9kaXJlY3RvcnldICIKMHgwMDAwMjk5YyBibCBzeW0uaW1wLnB1dHMKMHgwMDAwMmU5MCBbMDJdIC1yLXggc2VjdGlvbiBzaXplIDE0OSBuYW1lZCAyLl9fVEVYVC5fX2NzdHJpbmcKMHgwMDAwMjliYyBhcmd2CjB4MDAwMDI5YzggYmwgc3ltLmltcC5zdHJjbXAKMHgwMDAwMjlmNCBlbnZwCjB4MDAwMDI5ZjggZW52cAoweDAwMDAyOWZjIGVudnAKMHgwMDAwMmEwMCBlbnZwCjB4MDAwMDJhMWMgYmwgc3ltLmltcC5vYmpjX21zZ1NlbmQKMHgwMDAwMmEzOCBibCBzeW0uaW1wLm9iamNfbXNnU2VuZAoweDAwMDAyYTY0IGJsIHN5bS5pbXAub2JqY19tc2dTZW5kCjB4MDAwMDJhODAgYXJnYwoweDAwMDAyYTkwIGJsIHN5bS5pbXAub2JqY19tc2dTZW5kCjB4MDAwMDJhYTQgYmwgc3ltLmltcC5OU0xvZwoweDAwMDAyYWIwIHN0ci5GaWxlX05vdF9Gb3VuZAoweDAwMDAyYWI0IGJsIHN5bS5pbXAucHV0cwoweDAwMDAyYWQ4IGVudnAKMHgwMDAwMmFkYyBlbnZwCjB4MDAwMDJhZTAgZW52cAoweDAwMDAyYWU0IGVudnAKMHgwMDAwMmIwMCBibCBzeW0uaW1wLm9iamNfbXNnU2VuZAoweDAwMDAyYjFjIGJsIHN5bS5pbXAub2JqY19tc2dTZW5kCjB4MDAwMDJiNDggYmwgc3ltLmltcC5vYmpjX21zZ1NlbmQKMHgwMDAwMmI2NCBibCBzeW0uaW1wLm9iamNfbXNnU2VuZAoweDAwMDAyYmE0IGJsIHN5bS5pbXAub2JqY19tc2dTZW5kCjB4MDAwMDJjMDAgYmwgc3ltLmltcC5vYmpjX21zZ1NlbmQKMHgwMDAwMmMyMCBhcmdjCjB4MDAwMDJjMzQgYXJnYwoweDAwMDAyYzU0IGJsIHN5bS5pbXAub2JqY19lbnVtZXJhdGlvbk11dGF0aW9uCjB4MDAwMDJjNjAgYXJnYwoweDAwMDAyYzY0IGFyZ2MKMHgwMDAwMmM2OCBhcmdjCjB4MDAwMDJjNmMgYXJnYwoweDAwMDAyY2EwIGJsIHN5bS5pbXAub2JqY19tc2dTZW5kCjB4MDAwMDJjYzAgYmwgc3ltLmltcC5vYmpjX21zZ1NlbmQKMHgwMDAwMmNkYyBhcmdjCjB4MDAwMDJjZWMgYmwgc3ltLmltcC5vYmpjX21zZ1NlbmQKMHgwMDAwMmNmYyBzdHIuY3N0ci5maWxlX25hbWVfaXM6X19fX19wcm90ZWN0aW9uX2NsYXNzOgoweDAwMDAyZDA0IGJsIHN5bS5pbXAuTlNMb2cKMHgwMDAwMmQ1MCBibCBzeW0uaW1wLm9iamNfbXNnU2VuZAoweDAwMDAyZDg0IHN0ci5EaXJlY3RvcnlfTm90X2ZvdW5kCjB4MDAwMDJkODggYmwgc3ltLmltcC5wdXRzCjB4MDAwMDJkYWMgYmwgc3ltLmltcC5vYmpjX21zZ1NlbmQKMHgwMDAwMmRjYyBieCBscgo=
-CMDS64=ZSBhc20uZmxhZ3M9ZmFsc2UKcyBtYWluCmUgaW8uc2VjdG9ubHk9dHJ1ZQplIGFzbS5lbXU9dHJ1ZQplIGFzbS5lbXVzdHI9dHJ1ZQphZgpwZHNmCgo=
+EXPECT=<<EOF
+0x00002918 "alloc"
+0x00002920 argv
+0x00002920 str.alloc
+0x00002928 bl sym.imp.objc_msgSend
+0x00002934 "init"
+0x0000293c argv
+0x0000293c str.init
+0x00002940 bl sym.imp.objc_msgSend
+0x0000294c "X\x10\x9d\xe5"
+0x00002958 argv
+0x0000295c bl sym.imp.objc_msgSend
+0x00002968 argc
+0x00002970 bl sym.imp.objc_msgSend
+0x00002998 "Usage: FileDP [-f/-d] [Full path to file/directory] "
+0x0000299c bl sym.imp.puts
+0x00002e90 [02] -r-x section size 149 named 2.__TEXT.__cstring
+0x000029bc argv
+0x000029c8 bl sym.imp.strcmp
+0x000029f4 envp
+0x000029f8 envp
+0x000029fc envp
+0x00002a00 envp
+0x00002a1c bl sym.imp.objc_msgSend
+0x00002a38 bl sym.imp.objc_msgSend
+0x00002a64 bl sym.imp.objc_msgSend
+0x00002a80 argc
+0x00002a90 bl sym.imp.objc_msgSend
+0x00002aa4 bl sym.imp.NSLog
+0x00002ab0 str.File_Not_Found
+0x00002ab4 bl sym.imp.puts
+0x00002ad8 envp
+0x00002adc envp
+0x00002ae0 envp
+0x00002ae4 envp
+0x00002b00 bl sym.imp.objc_msgSend
+0x00002b1c bl sym.imp.objc_msgSend
+0x00002b48 bl sym.imp.objc_msgSend
+0x00002b64 bl sym.imp.objc_msgSend
+0x00002ba4 bl sym.imp.objc_msgSend
+0x00002c00 bl sym.imp.objc_msgSend
+0x00002c20 argc
+0x00002c34 argc
+0x00002c54 bl sym.imp.objc_enumerationMutation
+0x00002c60 argc
+0x00002c64 argc
+0x00002c68 argc
+0x00002c6c argc
+0x00002ca0 bl sym.imp.objc_msgSend
+0x00002cc0 bl sym.imp.objc_msgSend
+0x00002cdc argc
+0x00002cec bl sym.imp.objc_msgSend
+0x00002cfc str.cstr.file_name_is:_____protection_class:
+0x00002d04 bl sym.imp.NSLog
+0x00002d50 bl sym.imp.objc_msgSend
+0x00002d84 str.Directory_Not_found
+0x00002d88 bl sym.imp.puts
+0x00002dac bl sym.imp.objc_msgSend
+0x00002dcc bx lr
+EOF
+CMDS=<<EOF
+e asm.flags=false
+s main
+e io.sectonly=true
+e asm.emu=true
+e asm.emustr=true
+af
+pdsf
+EOF
 RUN
+
 NAME=thumb emulation arm issue
 FILE=../bins/mach0/FileDP
-EXPECT64=MzIKCg==
-CMDS64=YWVzCmUgYXNtLmJpdHMK
+EXPECT=<<EOF
+32
+EOF
+CMDS=<<EOF
+aes
+e asm.bits
+EOF
 RUN
+
 NAME=string refs: thumb
 FILE=../bins/mach0/test-thumb
-EXPECT64=NgoK
-CMDS64=YWYKZSBhc20uZW11PXRydWUKZSBlbXUuc3RyPXRydWUKcGRmfj9zdHIuc3RyaW5nCgo=
+EXPECT=<<EOF
+6
+EOF
+CMDS=<<EOF
+af
+e asm.emu=true
+e emu.str=true
+pdf~?str.string
+EOF
 RUN
+
 NAME=string refs: arm32
 FILE=../bins/mach0/test-arm32
-EXPECT64=NgoK
-CMDS64=YWYKZSBhc20uZW11PXRydWUKZSBhc20uZW11c3RyPXRydWUKcGRmfj9zdHIuc3RyaW5nCgo=
+EXPECT=<<EOF
+6
+EOF
+CMDS=<<EOF
+af
+e asm.emu=true
+e asm.emustr=true
+pdf~?str.string
+EOF
 RUN
+
 NAME=string refs: arm64
 FILE=../bins/mach0/test-arm64
-EXPECT64=NgoK
-CMDS64=YWYKZSBhc20uZW11PXRydWUKZSBhc20uZW11c3RyPXRydWUKcGRmfj9zdHIuc3RyaW5nCgo=
+EXPECT=<<EOF
+6
+EOF
+CMDS=<<EOF
+af
+e asm.emu=true
+e asm.emustr=true
+pdf~?str.string
+EOF
 RUN
+
 NAME=arm32: thumb
 FILE=../bins/mach0/arm32-ofp.lzh
-EXPECT64=MQoK
-CMDS64=cGQgMn4/cHVzaAoK
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+pd 2~?push
+EOF
 RUN
+
 NAME=thumb: arm32
 FILE=../bins/mach0/arm16-ofp.lzh
-EXPECT64=MQoK
-CMDS64=cGQgMn4/cHVzaAoK
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+pd 2~?push
+EOF
 RUN

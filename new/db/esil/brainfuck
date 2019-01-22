@@ -1,18 +1,88 @@
 NAME=hello world
 FILE=../bins/bf/hello-ok.bf
 ARGS=-b32
-EXPECT64=SGVsbG8gV29ybGQhCiAgICAgICAgLD08IDB4MDAwMDAwMGEgICAgICA1YiAgICAgICAgICAgICB3aGlsZSBbcHRyXQogICAgICAgIHwgICAweDAwMDAwMDBiICAgICAgM2UgICAgICAgICAgICAgaW5jIHB0cgogICAgICAgIHwgICAweDAwMDAwMDBjICAgICAgMmIyYjJiMmIyYjJiLiAgYWRkIFtwdHJdLCA3Cgo=
-CMDS64=CmUgYXNtLmFyY2ggPSBiZgplIGFuYWwuYXJjaCA9IGJmCmYgaW5wdXQgMTI4IDB4MzAwMApvIG1hbGxvYzovLzEyOCAweDMwMDB+egpmIHNjcmVlbiA4MCoyNSAweDQwMDAKbyBtYWxsb2M6Ly84MCoyNSAweDQwMDB+egpmIHN0YWNrIDB4MjAwIDB4NTAwMApvIG1hbGxvYzovLzB4MjAwIDB4NTAwMH56CmYgZGF0YSAweDEwMDAgMHg2MDAwCm8gbWFsbG9jOi8vMHgxMDAwIDB4NjAwMH56CmFyID4gL2Rldi9udWxsCmFyIGJyaz1zdGFjawphciBzY3I9c2NyZWVuCmFyIGtiZD1pbnB1dAphciBwdHI9ZGF0YQpzIDAKMTUwYWVzCnBzIDEyIEAgc2NyZWVuCnBkIDMgQCAweGEKCg==
+EXPECT=<<EOF
+Hello World!
+        ,=< 0x0000000a      5b             while [ptr]
+        |   0x0000000b      3e             inc ptr
+        |   0x0000000c      2b2b2b2b2b2b.  add [ptr], 7
+EOF
+CMDS=<<EOF
+e asm.arch = bf
+e anal.arch = bf
+f input 128 0x3000
+o malloc://128 0x3000~z
+f screen 80*25 0x4000
+o malloc://80*25 0x4000~z
+f stack 0x200 0x5000
+o malloc://0x200 0x5000~z
+f data 0x1000 0x6000
+o malloc://0x1000 0x6000~z
+ar > /dev/null
+ar brk=stack
+ar scr=screen
+ar kbd=input
+ar ptr=data
+s 0
+150aes
+ps 12 @ screen
+pd 3 @ 0xa
+EOF
 RUN
+
 NAME=hello world - unbalanced loop
 FILE=../bins/bf/hello-unbalanced-loop.bf
 ARGS=-b32
-EXPECT64=ICAgICAgICAgICAgMHgwMDAwMDAwYSAgICAgIDViICAgICAgICAgICAgIHdoaWxlIFtwdHJdCiAgICAgICAgICAgIDB4MDAwMDAwMGIgICAgICAzZSAgICAgICAgICAgICBpbmMgcHRyCiAgICAgICAgICAgIDB4MDAwMDAwMGMgICAgICAyYjJiMmIyYjJiMmIuICBhZGQgW3B0cl0sIDcKCg==
-CMDS64=CmUgYXNtLmFyY2ggPSBiZgplIGFuYWwuYXJjaCA9IGJmCmYgaW5wdXQgMTI4IDB4MzAwMApvIG1hbGxvYzovLzEyOCAweDMwMDB+egpmIHNjcmVlbiA4MCoyNSAweDQwMDAKbyBtYWxsb2M6Ly84MCoyNSAweDQwMDB+egpmIHN0YWNrIDB4MjAwIDB4NTAwMApvIG1hbGxvYzovLzB4MjAwIDB4NTAwMH56CmYgZGF0YSAweDEwMDAgMHg2MDAwCm8gbWFsbG9jOi8vMHgxMDAwIDB4NjAwMH56CmFyID4gL2Rldi9udWxsCmFyIGJyaz1zdGFjawphciBzY3I9c2NyZWVuCmFyIGtiZD1pbnB1dAphciBwdHI9ZGF0YQpzIDAKcGQgMyBAIDB4YQoK
+EXPECT=<<EOF
+            0x0000000a      5b             while [ptr]
+            0x0000000b      3e             inc ptr
+            0x0000000c      2b2b2b2b2b2b.  add [ptr], 7
+EOF
+CMDS=<<EOF
+e asm.arch = bf
+e anal.arch = bf
+f input 128 0x3000
+o malloc://128 0x3000~z
+f screen 80*25 0x4000
+o malloc://80*25 0x4000~z
+f stack 0x200 0x5000
+o malloc://0x200 0x5000~z
+f data 0x1000 0x6000
+o malloc://0x1000 0x6000~z
+ar > /dev/null
+ar brk=stack
+ar scr=screen
+ar kbd=input
+ar ptr=data
+s 0
+pd 3 @ 0xa
+EOF
 RUN
+
 NAME=loopy hello world
 FILE=../bins/bf/hello-loops.bf
 ARGS=-b32
-EXPECT64=SGVsbG8gV29ybGQhCgo=
-CMDS64=CmUgYXNtLmFyY2ggPSBiZgplIGFuYWwuYXJjaCA9IGJmCmYgaW5wdXQgMTI4IDB4MzAwMApvIG1hbGxvYzovLzEyOCAweDMwMDB+egpmIHNjcmVlbiA4MCoyNSAweDQwMDAKbyBtYWxsb2M6Ly84MCoyNSAweDQwMDB+egpmIHN0YWNrIDB4MjAwIDB4NTAwMApvIG1hbGxvYzovLzB4MjAwIDB4NTAwMH56CmYgZGF0YSAweDEwMDAgMHg2MDAwCm8gbWFsbG9jOi8vMHgxMDAwIDB4NjAwMH56CmFyID4gL2Rldi9udWxsCmFyIGJyaz1zdGFjawphciBzY3I9c2NyZWVuCmFyIGtiZD1pbnB1dAphciBwdHI9ZGF0YQpzIDAKNzAwYWVzCnBzIDEyIEAgc2NyZWVuCgo=
+EXPECT=<<EOF
+Hello World!
+EOF
+CMDS=<<EOF
+e asm.arch = bf
+e anal.arch = bf
+f input 128 0x3000
+o malloc://128 0x3000~z
+f screen 80*25 0x4000
+o malloc://80*25 0x4000~z
+f stack 0x200 0x5000
+o malloc://0x200 0x5000~z
+f data 0x1000 0x6000
+o malloc://0x1000 0x6000~z
+ar > /dev/null
+ar brk=stack
+ar scr=screen
+ar kbd=input
+ar ptr=data
+s 0
+700aes
+ps 12 @ screen
+EOF
 RUN

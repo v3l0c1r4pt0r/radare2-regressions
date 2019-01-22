@@ -1,17 +1,53 @@
 NAME=dh esil
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDEwN2ZmYwoweDEyMzQKCg==
-CMDS64=CmFlaQphZWltCmFlaXAKZHIgZXNwPTB4MDAxMDgwMDAKLmRyKgoid2EgbW92IGVheCwgMHgxMjM0O3B1c2ggZWF4IgpkcyAyCi5kcioKZHI/ZXNwCj92IFtlc3BdCgo=
+EXPECT=<<EOF
+0x00107ffc
+0x1234
+EOF
+CMDS=<<EOF
+aei
+aeim
+aeip
+dr esp=0x00108000
+.dr*
+"wa mov eax, 0x1234;push eax"
+ds 2
+.dr*
+dr?esp
+?v [esp]
+EOF
 RUN
+
 NAME=aek-
 FILE=-
-EXPECT64=MQowCgo=
-CMDS64=ZSBhc20uYXJjaCA9IHg4NgplIGFuYWwuYXJjaCA9IHg4NgplIGVzaWwuc3RhdHMgPSB0cnVlCnd4IDQxNTc0MTU2NDE1NTQxNTQ0OTg5ZjQ1NTUzODlmZDQ4ODFlY2E4MDMwMDAwNDg4YjNlNjQ0ODhiMDQyNTI4CmFlaQphZWltCmFlaXAKYWVzCmFlayAqfj9tZW0ud3JpdGUKYWVrLQphZWsgKn4/Cgo=
+EXPECT=<<EOF
+1
+0
+EOF
+CMDS=<<EOF
+e asm.arch = x86
+e anal.arch = x86
+e esil.stats = true
+wx 41574156415541544989f4555389fd4881eca8030000488b3e64488b042528
+aei
+aeim
+aeip
+aes
+aek *~?mem.write
+aek-
+aek *~?
+EOF
 RUN
+
 NAME=aek- - crash
 FILE=-
 BROKEN=1
-EXPECT64=MQowCgo=
-CMDS64=YWVrLQo=
+EXPECT=<<EOF
+1
+0
+EOF
+CMDS=<<EOF
+aek-
+EOF
 RUN

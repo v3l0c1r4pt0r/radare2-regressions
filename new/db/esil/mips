@@ -1,494 +1,1774 @@
 NAME=add zero, zero, 5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTUKd3ggMjAwMDAyMDAKYWVpCmFlaW0KYWVpcAphZXMKYXIgemVybwoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=5
+wx 20000200
+aei
+aeim
+aeip
+aes
+ar zero
+EOF
 RUN
+
 NAME=add a1, zero, 5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTUKd3ggMjAyODAyMDAKYWVpCmFlaW0KYWVpcAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0x00000005
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=5
+wx 20280200
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=add a1, 0xFFFFFFFF, 5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4RkZGRkZGRkYKYXIgdjE9MHg1Cnd4IDIwMjg0MzAwCmFlaQphZWltCmFlaXAKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xFFFFFFFF
+ar v1=0x5
+wx 20284300
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=addi zero, zero, 5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IDA1MDAwMDIwCmFlaQphZWltCmFlaXAKYWVzCmFyIHplcm8KCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx 05000020
+aei
+aeim
+aeip
+aes
+ar zero
+EOF
 RUN
+
 NAME=addi a1, zero, 5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTUKd3ggMDUwMDA1MjAKYWVpCmFlaW0KYWVpcAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0x00000005
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=5
+wx 05000520
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=addi a1, zero, -5
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmZmZmYgoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTUKd3ggZmJmZjA1MjAKYWVpCmFlaW0KYWVpcAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0xfffffffb
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=5
+wx fbff0520
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=addi a1, 6, -5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTYKd3ggZmJmZjQ1MjAKYWVpCmFlaW0KYWVpcAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=6
+wx fbff4520
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=addu zero, zero, 5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTUKd3ggMjEwMDAyMDAKYWVpCmFlaW0KYWVpcAphZXMKYXIgemVybwoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=5
+wx 21000200
+aei
+aeim
+aeip
+aes
+ar zero
+EOF
 RUN
+
 NAME=addu a1, zero, 5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTUKd3ggMjEyODAyMDAKYWVpCmFlaW0KYWVpcAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0x00000005
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=5
+wx 21280200
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=addu a1, 0xFFFFFFFF, 5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4RkZGRkZGRkYKYXIgdjE9MHg1Cnd4IDIxMjg0MzAwCmFlaQphZWltCmFlaXAKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xFFFFFFFF
+ar v1=0x5
+wx 21284300
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=addiu zero, zero, 5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IDA1MDAwMDI0CmFlaQphZWltCmFlaXAKYWVzCmFyIHplcm8KCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx 05000024
+aei
+aeim
+aeip
+aes
+ar zero
+EOF
 RUN
+
 NAME=addiu a1, zero, 5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTUKd3ggMDUwMDA1MjQKYWVpCmFlaW0KYWVpcAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0x00000005
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=5
+wx 05000524
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=addiu a1, zero, -5
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmZmZmYgoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTUKd3ggZmJmZjA1MjQKYWVpCmFlaW0KYWVpcAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0xfffffffb
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=5
+wx fbff0524
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=addiu a1, 6, -5
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTYKd3ggZmJmZjQ1MjQKYWVpCmFlaW0KYWVpcAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=6
+wx fbff4524
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=sub zero, 5, 1
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTUKYXIgdjE9MQp3eCAyMjAwNDMwMAphZWkKYWVpbQphZWlwCmFlcwphciB6ZXJvCgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=5
+ar v1=1
+wx 22004300
+aei
+aeim
+aeip
+aes
+ar zero
+EOF
 RUN
+
 NAME=sub a1, 1, 5
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmZmZmYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTEKYXIgdjE9NQp3eCAyMjI4NDMwMAphZWkKYWVpbQphZWlwCmFlcwphciBhMQoK
+EXPECT=<<EOF
+0xfffffffc
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=1
+ar v1=5
+wx 22284300
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=sub a1, 0xFFFFFFFF, 5
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmZmZmYQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4RkZGRkZGRkYKYXIgdjE9MHg1Cnd4IDIyMjg0MzAwCmFlaQphZWltCmFlaXAKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0xfffffffa
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xFFFFFFFF
+ar v1=0x5
+wx 22284300
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=subu a1, 1, 5
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmZmZmYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTEKYXIgdjE9NQp3eCAyMzI4NDMwMAphZWkKYWVpbQphZWlwCmFlcwphciBhMQoK
+EXPECT=<<EOF
+0xfffffffc
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=1
+ar v1=5
+wx 23284300
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=subu a1, 0xFFFFFFFF, 5
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmZmZmYQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4RkZGRkZGRkYKYXIgdjE9MHg1Cnd4IDIzMjg0MzAwCmFlaQphZWltCmFlaXAKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0xfffffffa
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xFFFFFFFF
+ar v1=0x5
+wx 23284300
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=and a1, 0xFFFFFFFF, 0x10101010
 FILE=malloc://0x200
-EXPECT64=MHgxMDEwMTAxMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZmZmZmYKYXIgdjE9MHgxMDEwMTAxMAp3eCAyNDI4NDMwMAphZWkKYWVpbQphZWlwCmFlcwphciBhMQoK
+EXPECT=<<EOF
+0x10101010
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xffffffff
+ar v1=0x10101010
+wx 24284300
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=andi a1, 0xFFFFFFFF, 0xFFFF
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwZmZmZgoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZmZmZmYKd3ggZmZmZjQ1MzAKYWVpCmFlaW0KYWVpcAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0x0000ffff
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xffffffff
+wx ffff4530
+aei
+aeim
+aeip
+aes
+ar a1
+EOF
 RUN
+
 NAME=andi a1, 0xFFFFFFFF, 1
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZmZmZmYKd3ggMDEwMDQ1MzAKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xffffffff
+wx 01004530
+aes
+ar a1
+EOF
 RUN
+
 NAME=or zero, zero, 0x10101010
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTAxMDEwMTAKd3ggMjUwMDAyMDAKYWVzCmFyIHplcm8KCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x10101010
+wx 25000200
+aes
+ar zero
+EOF
 RUN
+
 NAME=or a1, zero, 0x10101010
 FILE=malloc://0x200
-EXPECT64=MHgxMDEwMTAxMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTAxMDEwMTAKd3ggMjUyODAyMDAKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0x10101010
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x10101010
+wx 25280200
+aes
+ar a1
+EOF
 RUN
+
 NAME=or a1, 0x01010111, 0x10101010
 FILE=malloc://0x200
-EXPECT64=MHgxMTExMTExMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYxPTB4MDEwMTAxMTEKYXIgdjA9MHgxMDEwMTAxMAp3eCAyNTI4NDMwMAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0x11111111
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v1=0x01010111
+ar v0=0x10101010
+wx 25284300
+aes
+ar a1
+EOF
 RUN
+
 NAME=ori zero, zero, 0xFFFF
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IGZmZmYwMDM0CmFlcwphciB6ZXJvCgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx ffff0034
+aes
+ar zero
+EOF
 RUN
+
 NAME=ori a1, zero, 0xFFFF
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwZmZmZgoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IGZmZmYwNTM0CmFlcwphciBhMQoK
+EXPECT=<<EOF
+0x0000ffff
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx ffff0534
+aes
+ar a1
+EOF
 RUN
+
 NAME=ori a1, 0xFFFF0000, 1
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZjAwMDAKd3ggMDEwMDQ1MzQKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0xffff0001
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xffff0000
+wx 01004534
+aes
+ar a1
+EOF
 RUN
+
 NAME=xor zero, zero, 0x10101010
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTAxMDEwMTAKd3ggMjYwMDAyMDAKYWVzCmFyIHplcm8KCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x10101010
+wx 26000200
+aes
+ar zero
+EOF
 RUN
+
 NAME=xor a1, zero, 0x10101010
 FILE=malloc://0x200
-EXPECT64=MHgxMDEwMTAxMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTAxMDEwMTAKd3ggMjYyODAyMDAKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0x10101010
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x10101010
+wx 26280200
+aes
+ar a1
+EOF
 RUN
+
 NAME=xor a1, 0x01010111, 0x10101010
 FILE=malloc://0x200
-EXPECT64=MHgxMTExMTEwMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDEwMTAxMTEKYXIgdjE9MHgxMDEwMTAxMAp3eCAyNjI4NDMwMAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0x11111101
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x01010111
+ar v1=0x10101010
+wx 26284300
+aes
+ar a1
+EOF
 RUN
+
 NAME=xori zero, zero, 0xFFFF
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IGZmZmYwMDM4CmFlcwphciB6ZXJvCgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx ffff0038
+aes
+ar zero
+EOF
 RUN
+
 NAME=xori a1, zero, 0xFFFF
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwZmZmZgoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IGZmZmYwNTM4CmFlcwphciBhMQoK
+EXPECT=<<EOF
+0x0000ffff
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx ffff0538
+aes
+ar a1
+EOF
 RUN
+
 NAME=xori a1, 0xFFFF0000, 1
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZjAwMDAKd3ggMDEwMDQ1MzgKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0xffff0001
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xffff0000
+wx 01004538
+aes
+ar a1
+EOF
 RUN
+
 NAME=xori a1, 0xFFFF00FF, 0xF1
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmMDAwZQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZjAwZmYKd3ggZjEwMDQ1MzgKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0xffff000e
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xffff00ff
+wx f1004538
+aes
+ar a1
+EOF
 RUN
+
 NAME=nor zero, zero, 0x10101010
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTAxMDEwMTAKd3ggMjcwMDAyMDAKYWVzCmFyIHplcm8KCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x10101010
+wx 27000200
+aes
+ar zero
+EOF
 RUN
+
 NAME=nor a1, zero, 0x10101010
 FILE=malloc://0x200
-EXPECT64=MHhlZmVmZWZlZgoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTAxMDEwMTAKd3ggMjcyODAyMDAKYWVzCmFyIGExCgo=
+EXPECT=<<EOF
+0xefefefef
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x10101010
+wx 27280200
+aes
+ar a1
+EOF
 RUN
+
 NAME=nor a1, 0x10101010, 0xFFFF0000
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwZWZlZgoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTAxMDEwMTAKYXIgdjE9MHhmZmZmMDAwMAp3eCAyNzI4NDMwMAphZXMKYXIgYTEKCg==
+EXPECT=<<EOF
+0x0000efef
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x10101010
+ar v1=0xffff0000
+wx 27284300
+aes
+ar a1
+EOF
 RUN
+
 NAME=lh v1, (v0)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwYmJhYQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMDAwMDQKcyA0Cnd4IGFhYmJjY2RkMDAwMDQzODQKcyA4CmFlaQphZWltCmFlaXAKYWVzCmFyIHYxCgo=
+EXPECT=<<EOF
+0x0000bbaa
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00000004
+s 4
+wx aabbccdd00004384
+s 8
+aei
+aeim
+aeip
+aes
+ar v1
+EOF
 RUN
+
 NAME=lh v1, -2(v0)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwYmJhYQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMDAwMDYKcyA0Cnd4IGFhYmJjY2RkZmVmZjQzODQKcyA4CmFlaQphZWltCmFlaXAKYWVzCmFyIHYxCgo=
+EXPECT=<<EOF
+0x0000bbaa
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00000006
+s 4
+wx aabbccddfeff4384
+s 8
+aei
+aeim
+aeip
+aes
+ar v1
+EOF
 RUN
+
 NAME=lh v1, 2(v0)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwZGRjYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMDAwMDAKd3ggYWFiYmNjZGQwMjAwNDM4NApzIDQKYWVpCmFlaW0KYWVpcAphZXMKYXIgdjEKCg==
+EXPECT=<<EOF
+0x0000ddcc
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00000000
+wx aabbccdd02004384
+s 4
+aei
+aeim
+aeip
+aes
+ar v1
+EOF
 RUN
+
 NAME=lw v1, (v0)
 FILE=malloc://0x200
-EXPECT64=MHhkZGNjYmJhYQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMDAwMDQKcyA0Cnd4IGFhYmJjY2RkMTEyMjMzNDQwMDAwNDM4YwpzICs4CmFlaQphZWltCmFlaXAKYWVzCmFyIHYxCgo=
+EXPECT=<<EOF
+0xddccbbaa
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00000004
+s 4
+wx aabbccdd112233440000438c
+s +8
+aei
+aeim
+aeip
+aes
+ar v1
+EOF
 RUN
+
 NAME=lw v1, -4(v0)
 FILE=malloc://0x200
-EXPECT64=MHhkZGNjYmJhYQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMDAwMDgKcyAweDQKd3ggYWFiYmNjZGQxMTIyMzM0NGZjZmY0MzhjCnMgKzgKYWVpCmFlaW0KYWVpcAphZXMKYXIgdjEKCg==
+EXPECT=<<EOF
+0xddccbbaa
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00000008
+s 0x4
+wx aabbccdd11223344fcff438c
+s +8
+aei
+aeim
+aeip
+aes
+ar v1
+EOF
 RUN
+
 NAME=lw v1, 4(v0)
 FILE=malloc://0x200
-EXPECT64=MHg0NDMzMjIxMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMDAwMDAKd3ggYWFiYmNjZGQxMTIyMzM0NDA0MDA0MzhjCnMgOAphZWkKYWVpbQphZWlwCmFlcwphciB2MQoK
+EXPECT=<<EOF
+0x44332211
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00000000
+wx aabbccdd112233440400438c
+s 8
+aei
+aeim
+aeip
+aes
+ar v1
+EOF
 RUN
+
 NAME=sw v0, 0(v1)
 FILE=malloc://0x200
-EXPECT64=YmIyMmFhMTEKCg==
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTFhYTIyYmIKYXIgdjE9MHgxMApzIDQKd3ggMDAwMDYyYWMKYWVpCmFlaW0KYWVpcAphZXMKcDggNCBAIDB4MTAKCg==
+EXPECT=<<EOF
+bb22aa11
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x11aa22bb
+ar v1=0x10
+s 4
+wx 000062ac
+aei
+aeim
+aeip
+aes
+p8 4 @ 0x10
+EOF
 RUN
+
 NAME=sw v0, -4(v1)
 FILE=malloc://0x200
-EXPECT64=YmIyMmFhMTEKCg==
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTFhYTIyYmIKYXIgdjE9MHgxNApzIDQKd3ggZmNmZjYyYWMKYWVpCmFlaW0KYWVpcAphZXMKcDggNCBAIDB4MTAKCg==
+EXPECT=<<EOF
+bb22aa11
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x11aa22bb
+ar v1=0x14
+s 4
+wx fcff62ac
+aei
+aeim
+aeip
+aes
+p8 4 @ 0x10
+EOF
 RUN
+
 NAME=sh v0, 0(v1)
 FILE=malloc://0x200
-EXPECT64=YmIyMjAwMDAKCg==
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTFhYTIyYmIKYXIgdjE9MHgxMAp3eCAwMDAwMDAwMDAwMDA2MmE0CnMgNAphZWkKYWVpbQphZWlwCmFlcwpwOCA0IEAgMHgxMAoK
+EXPECT=<<EOF
+bb220000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x11aa22bb
+ar v1=0x10
+wx 00000000000062a4
+s 4
+aei
+aeim
+aeip
+aes
+p8 4 @ 0x10
+EOF
 RUN
+
 NAME=sh v0, 2(v1)
 FILE=malloc://0x200
-EXPECT64=YmIyMjAwMDAKCg==
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTFhYTIyYmIKYXIgdjE9MHgxMAp3eCAwMDAwMDAwMDAyMDA2MmE0CnMgNAphZWkKYWVpbQphZWlwCmFlcwpwOCA0IEAgMHgxMgoK
+EXPECT=<<EOF
+bb220000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x11aa22bb
+ar v1=0x10
+wx 00000000020062a4
+s 4
+aei
+aeim
+aeip
+aes
+p8 4 @ 0x12
+EOF
 RUN
+
 NAME=sb v0, 0(v1)
 FILE=malloc://0x200
-EXPECT64=YmIwMDAwMDAKCg==
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTFhYTIyYmIKYXIgdjE9MHgxMAp3eCAwMDAwMDAwMDAwMDA2MmEwCnMgNAphZWkKYWVpbQphZWlwCmFlcwpwOCA0IEAgMHgxMAoK
+EXPECT=<<EOF
+bb000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x11aa22bb
+ar v1=0x10
+wx 00000000000062a0
+s 4
+aei
+aeim
+aeip
+aes
+p8 4 @ 0x10
+EOF
 RUN
+
 NAME=sb v0, 3(v1)
 FILE=malloc://0x200
-EXPECT64=MDAwMDAwYmIwMwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MTFhYTIyYmIKYXIgdjE9MAp3eCAwMDAwMDAwMDAzMDA2MmEwCnMgNAphZWkKYWVpbQphZWlwCmFlcwpwOCA1IEAgMAoK
+EXPECT=<<EOF
+000000bb03
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x11aa22bb
+ar v1=0
+wx 00000000030062a0
+s 4
+aei
+aeim
+aeip
+aes
+p8 5 @ 0
+EOF
 RUN
+
 NAME=sll v0, v0, 16
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMWZmZmYKd3ggMDAxNDAyMDAKYWVzCmFyIHYwCgo=
+EXPECT=<<EOF
+0xffff0000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x0001ffff
+wx 00140200
+aes
+ar v0
+EOF
 RUN
+
 NAME=sllv v0, v0, v1
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMWZmZmYKYXIgdjE9MTYKd3ggMDQxMDYyMDAKYWVzCmFyIHYwCgo=
+EXPECT=<<EOF
+0xffff0000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x0001ffff
+ar v1=16
+wx 04106200
+aes
+ar v0
+EOF
 RUN
+
 NAME=mult v0, v1
 FILE=malloc://0x200
-EXPECT64=MHgwMDA0OTJjYwoweGMyODYzN2I1Cg==
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAxMTIyMzMKYXIgdjE9MHg0NDU1NjY3Nwp3eCAxODAwNDMwMAphZXMKYXIgaGkKYXIgbG8KCg==
+EXPECT=<<EOF
+0x000492cc
+0xc28637b5
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00112233
+ar v1=0x44556677
+wx 18004300
+aes
+ar hi
+ar lo
+EOF
 RUN
+
 NAME=mult v1, v0
 FILE=malloc://0x200
-EXPECT64=MHgwMDA0OTJjYwoweGMyODYzN2I1Cg==
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAxMTIyMzMKYXIgdjE9MHg0NDU1NjY3Nwp3eCAxODAwNDMwMAphZXMKYXIgaGkKYXIgbG8KCg==
+EXPECT=<<EOF
+0x000492cc
+0xc28637b5
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00112233
+ar v1=0x44556677
+wx 18004300
+aes
+ar hi
+ar lo
+EOF
 RUN
+
 NAME=mul s0, a0, v0
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDBmYwoweDAwMDAwMDAwCjB4MDAwMDAwZmMKMHhjMjg2MzdiNQoweDAwMDQ5MmNjCjB4YzI4NjM3YjUK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCnd4IDAyODA4MjcwCmFyID4gL2Rldi9udWxsCmFyIGEwPTIxCmFyIHYwPTEyCmFlcwphciBzMAphciBoaQphciBsbwphciA+IC9kZXYvbnVsbAphciBhMD0weDQ0NTU2Njc3CmFyIHYwPTB4MDAxMTIyMzMKYWVpcAphZXMKYXIgczAKYXIgaGkKYXIgbG8KCg==
+EXPECT=<<EOF
+0x000000fc
+0x00000000
+0x000000fc
+0xc28637b5
+0x000492cc
+0xc28637b5
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+wx 02808270
+ar > /dev/null
+ar a0=21
+ar v0=12
+aes
+ar s0
+ar hi
+ar lo
+ar > /dev/null
+ar a0=0x44556677
+ar v0=0x00112233
+aeip
+aes
+ar s0
+ar hi
+ar lo
+EOF
 RUN
+
 NAME=mflo v0
 FILE=malloc://0x200
-EXPECT64=MHgxMjM0NTY3OAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAxMTIyMzMKYXIgbG89MHhmZmZmZmZmZjEyMzQ1Njc4Cnd4IDEyMTAwMDAwCmFlcwphciB2MAoK
+EXPECT=<<EOF
+0x12345678
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00112233
+ar lo=0xffffffff12345678
+wx 12100000
+aes
+ar v0
+EOF
 RUN
+
 NAME=mfhi v0
 FILE=malloc://0x200
-EXPECT64=MHgxMjM0NTY3OAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAxMTIyMzMKYXIgaGk9MHhmZmZmZmZmZjEyMzQ1Njc4Cnd4IDEwMTAwMDAwCmFlcwphciB2MAoK
+EXPECT=<<EOF
+0x12345678
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00112233
+ar hi=0xffffffff12345678
+wx 10100000
+aes
+ar v0
+EOF
 RUN
+
 NAME=mflo zero
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIGxvPTB4ZmZmZmZmZmYxMjM0NTY3OAp3eCAxMjEwMDAwMAphZXMKYXIgemVybwoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar lo=0xffffffff12345678
+wx 12100000
+aes
+ar zero
+EOF
 RUN
+
 NAME=mfhi zero
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIGhpPTB4ZmZmZmZmZmYxMjM0NTY3OAp3eCAxMDEwMDAwMAphZXMKYXIgemVybwoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar hi=0xffffffff12345678
+wx 10100000
+aes
+ar zero
+EOF
 RUN
+
 NAME=mtlo v0
 FILE=malloc://0x200
-EXPECT64=MHgwMDExMjIzMwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAxMTIyMzMKYXIgbG89MHhmZmZmZmZmZjEyMzQ1Njc4Cnd4IDEzMDA0MDAwCmFlcwphciBsbwoK
+EXPECT=<<EOF
+0x00112233
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00112233
+ar lo=0xffffffff12345678
+wx 13004000
+aes
+ar lo
+EOF
 RUN
+
 NAME=mthi v0
 FILE=malloc://0x200
-EXPECT64=MHgwMDExMjIzMwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAxMTIyMzMKYXIgaGk9MHhmZmZmZmZmZjEyMzQ1Njc4Cnd4IDExMDA0MDAwCmFlcwphciBoaQoK
+EXPECT=<<EOF
+0x00112233
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00112233
+ar hi=0xffffffff12345678
+wx 11004000
+aes
+ar hi
+EOF
 RUN
+
 NAME=mthi v0 (negative)
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmZmZmZgo=
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZmZmZmYKYXIgaGk9MHhmZmZmZmZmZjEyMzQ1Njc4Cnd4IDExMDA0MDAwCmFlcwphciBoaQoK
+EXPECT=<<EOF
+0xffffffff
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xffffffff
+ar hi=0xffffffff12345678
+wx 11004000
+aes
+ar hi
+EOF
 RUN
+
 NAME=bne v0, v1, 0x3c (not taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAxMTIyMzMKYXIgdjE9MHgwMDExMjIzMwp3eCAwZTAwNDMxNAphZXAgMAphZXMKYXIgcGMKCg==
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00112233
+ar v1=0x00112233
+wx 0e004314
+aep 0
+aes
+ar pc
+EOF
 RUN
+
 NAME=bne v0, v1, 0x3c (taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAzYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAyMjIyMzMKYXIgdjE9MHgwMDExMjIzMwp3eCAwZTAwNDMxNAphZXMKYXIgcGMKCg==
+EXPECT=<<EOF
+0x0000003c
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00222233
+ar v1=0x00112233
+wx 0e004314
+aes
+ar pc
+EOF
 RUN
+
 NAME=beq v0, v1, 0x3c (not taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAyMjIyMzMKYXIgdjE9MHgwMDExMjIzMwp3eCAwZTAwNDMxMAphZXMKYXIgcGMKCg==
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00222233
+ar v1=0x00112233
+wx 0e004310
+aes
+ar pc
+EOF
 RUN
+
 NAME=beq v0, v1, 0x3c (taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAzYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAxMTIyMzMKYXIgdjE9MHgwMDExMjIzMwp3eCAwZTAwNDMxMAphZXMKYXIgcGMKCg==
+EXPECT=<<EOF
+0x0000003c
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00112233
+ar v1=0x00112233
+wx 0e004310
+aes
+ar pc
+EOF
 RUN
+
 NAME=bnez s4, 0xc (not taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHM0PTB4MDAwMDAwMDAKd3ggMDIwMDgwMTYKYWVzCmFyIHBjCgo=
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar s4=0x00000000
+wx 02008016
+aes
+ar pc
+EOF
 RUN
+
 NAME=bnez s4, 0xc (taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHM0PTB4MDAxMTIyMzMKd3ggMDIwMDgwMTYKYWVzCmFyIHBjCgo=
+EXPECT=<<EOF
+0x0000000c
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar s4=0x00112233
+wx 02008016
+aes
+ar pc
+EOF
 RUN
+
 NAME=blez v0, 0x3c (not taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMDAwMDEKd3ggMGUwMDQwMTgKYWVzCmFyIHBjCgo=
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00000001
+wx 0e004018
+aes
+ar pc
+EOF
 RUN
+
 NAME=blez v0, 0x3c (taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAzYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZmZmZmMKd3ggMGUwMDQwMTgKYWVzCmFyIHBjCgo=
+EXPECT=<<EOF
+0x0000003c
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xfffffffc
+wx 0e004018
+aes
+ar pc
+EOF
 RUN
+
 NAME=blez zero, 0x3c (taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAzYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IDBlMDAwMDE4CmFlcwphciBwYwoK
+EXPECT=<<EOF
+0x0000003c
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx 0e000018
+aes
+ar pc
+EOF
 RUN
+
 NAME=bgez v0, 0x3c (taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAzYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMDAwMDEKd3ggMGUwMDQxMDQKYWVzCmFyIHBjCgo=
+EXPECT=<<EOF
+0x0000003c
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00000001
+wx 0e004104
+aes
+ar pc
+EOF
 RUN
+
 NAME=bgez v0, 0x3c (not taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZmZmZmMKd3ggMGUwMDQxMDQKYWVzCmFyIHBjCgo=
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xfffffffc
+wx 0e004104
+aes
+ar pc
+EOF
 RUN
+
 NAME=bgez zero, 0x3c (taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAzYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IDBlMDAwMTA0CmFlcwphciBwYwoK
+EXPECT=<<EOF
+0x0000003c
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx 0e000104
+aes
+ar pc
+EOF
 RUN
+
 NAME=bltz v0, 0x3c (not taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMDAwMDEKd3ggMGUwMDQwMDQKYWVzCmFyIHBjCgo=
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00000001
+wx 0e004004
+aes
+ar pc
+EOF
 RUN
+
 NAME=bltz v0, 0x3c (taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAzYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZmZmZmMKd3ggMGUwMDQwMDQKYWVzCmFyIHBjCgo=
+EXPECT=<<EOF
+0x0000003c
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xfffffffc
+wx 0e004004
+aes
+ar pc
+EOF
 RUN
+
 NAME=bltz zero, 0x3c (not taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IDBlMDAwMDA0CmFlcwphciBwYwoK
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx 0e000004
+aes
+ar pc
+EOF
 RUN
+
 NAME=bgtz v0, 0x3c (taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAzYwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4MDAwMDAwMDEKd3ggMGUwMDQwMWMKYWVzCmFyIHBjCgo=
+EXPECT=<<EOF
+0x0000003c
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0x00000001
+wx 0e00401c
+aes
+ar pc
+EOF
 RUN
+
 NAME=bgtz v0, 0x3c (not taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZmZmZmMKd3ggMGUwMDQwMWMKYWVzCmFyIHBjCgo=
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xfffffffc
+wx 0e00401c
+aes
+ar pc
+EOF
 RUN
+
 NAME=bgtz zero, 0x3c (not taken)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwNAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IDBlMDAwMDFjCmFlcwphciBwYwoK
+EXPECT=<<EOF
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx 0e00001c
+aes
+ar pc
+EOF
 RUN
+
 NAME=jal 16
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAxMAoweDAwMDAwMDA4Cgo=
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCnd4IDA0MDAwMDBjCmFlcwphciBwYwphciByYQoK
+EXPECT=<<EOF
+0x00000010
+0x00000008
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+wx 0400000c
+aes
+ar pc
+ar ra
+EOF
 RUN
+
 NAME=jalr t9
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAxMAoweDAwMDAwMDA4Cgo=
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHQ5PTE2Cnd4IDA5ZjgyMDAzCmFlcwphciBwYwphciByYQoK
+EXPECT=<<EOF
+0x00000010
+0x00000008
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar t9=16
+wx 09f82003
+aes
+ar pc
+ar ra
+EOF
 RUN
+
 NAME=jalr t4, t9
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAxMAoweDAwMDAwMDA4Cgo=
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHQ5PTE2Cnd4IDA5NjAyMDAzCmFlcwphciBwYwphciB0NAoK
+EXPECT=<<EOF
+0x00000010
+0x00000008
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar t9=16
+wx 09602003
+aes
+ar pc
+ar t4
+EOF
 RUN
+
 NAME=jalr t4, t9 (invalid delay instruction)
 FILE=malloc://8
-EXPECT64=MHgwMDAwMDAxMAoweDAwMDAwMDA4Cgo=
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHQ5PTE2Cnd4IDA5NjAyMDAzZjY3MzY0MwphZXMKYXIgcGMKYXIgdDQKCg==
+EXPECT=<<EOF
+0x00000010
+0x00000008
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar t9=16
+wx 09602003f673643
+aes
+ar pc
+ar t4
+EOF
 RUN
+
 NAME=slt s0, v0, v1 (1<2=1)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTEKYXIgdjE9Mgp3eCAyYTgwNDMwMAphZXMKYXIgczAKCg==
+EXPECT=<<EOF
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=1
+ar v1=2
+wx 2a804300
+aes
+ar s0
+EOF
 RUN
+
 NAME=slt s0, v0, v1 (0<0=0)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTAKYXIgdjE9MAp3eCAyYTgwNDMwMAphZXMKYXIgczAKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0
+ar v1=0
+wx 2a804300
+aes
+ar s0
+EOF
 RUN
+
 NAME=slt s0, v0, v1 (2<1=0)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTIKYXIgdjE9MQp3eCAyYTgwNDMwMAphZXMKYXIgczAKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=2
+ar v1=1
+wx 2a804300
+aes
+ar s0
+EOF
 RUN
+
 NAME=slt s0, v0, v1 (-1<1=1)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPS0xCmFyIHYxPTEKd3ggMmE4MDQzMDAKYWVzCmFyIHMwCgo=
+EXPECT=<<EOF
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=-1
+ar v1=1
+wx 2a804300
+aes
+ar s0
+EOF
 RUN
+
 NAME=sltu s0, v0, v1 (0xffffffff<1=0)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTB4ZmZmZmZmZmYKYXIgdjE9MQp3eCAyYjgwNDMwMAphZXMKYXIgczAKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0xffffffff
+ar v1=1
+wx 2b804300
+aes
+ar s0
+EOF
 RUN
+
 NAME=sltu s0, v0, v1 (0<0xffffffff=1)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYwPTAKYXIgdjE9MHhmZmZmZmZmZgp3eCAyYjgwNDMwMAphZXMKYXIgczAKCg==
+EXPECT=<<EOF
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=0
+ar v1=0xffffffff
+wx 2b804300
+aes
+ar s0
+EOF
 RUN
+
 NAME=negu v1, v0 (neg -1 = 1)
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYxPTAKYXIgdjA9LTEKd3ggMjMxODAyMDAKYWVzCmFyIHYxCgo=
+EXPECT=<<EOF
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v1=0
+ar v0=-1
+wx 23180200
+aes
+ar v1
+EOF
 RUN
+
 NAME=negu v1, v0 (neg 1 = -1)
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmZmZmZgoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYxPTAKYXIgdjA9MQp3eCAyMzE4MDIwMAphZXMKYXIgdjEKCg==
+EXPECT=<<EOF
+0xffffffff
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v1=0
+ar v0=1
+wx 23180200
+aes
+ar v1
+EOF
 RUN
+
 NAME=negu v1, v0 (neg 3497 = -3497)
 FILE=malloc://0x200
-EXPECT64=MHhmZmZmZjI1NwoK
-CMDS64=CmUgYXNtLmFyY2g9bWlwcwplIGFzbS5iaXRzPTMyCmFyID4gL2Rldi9udWxsCmFyIHYxPTAKYXIgdjA9MzQ5Nwp3eCAyMzE4MDIwMAphZXMKYXIgdjEKCg==
+EXPECT=<<EOF
+0xfffff257
+EOF
+CMDS=<<EOF
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v1=0
+ar v0=3497
+wx 23180200
+aes
+ar v1
+EOF
 RUN
+
 NAME=negative mem reference
 FILE=malloc://0x200
 ARGS=-m 0x410984
-EXPECT64=MHgxMTIyMzM0NAoK
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGFzbS5hcmNoPW1pcHMKZSBhc20uYml0cz0zMgplIGNmZy5iaWdlbmRpYW49dHJ1ZQphZWkKYWVpbQphZWlwCmFyID4gL2Rldi9udWxsCmFyIHQ5PTAKYXIgZ3A9MAp3eCAzYzFjMDA0MjI3OWM4OTQwOGY5OTgwNTAxMTIyMzM0NAphZXMKYWVzCmFlcwphciB0OQoK
+EXPECT=<<EOF
+0x11223344
+EOF
+CMDS=<<EOF
+e io.va=true
+e asm.arch=mips
+e asm.bits=32
+e cfg.bigendian=true
+aei
+aeim
+aeip
+ar > /dev/null
+ar t9=0
+ar gp=0
+wx 3c1c0042279c89408f99805011223344
+aes
+aes
+aes
+ar t9
+EOF
 RUN
+
 NAME=complex function
 FILE=malloc://0x800
 ARGS=-m 0x0040092c
-EXPECT64=U0xPV0RPV05XT01BTgoK
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGFzbS5hcmNoPW1pcHMKZSBhc20uYml0cz0zMgphciA+IC9kZXYvbnVsbAphciB0OT0wCmFyIHYwPTE0CmFyIGEwPTB4MDA0MDBhN2MKYXIgZnA9MHgwMDQwMTAwMAp3eCAyMDAwYzJhZjFjMDBjMGFmNDIwMDAwMTAyNTA4MjAwMDFjMDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMDAwMDQyODAyNTA4MjAwMDQxMDA0MjI4MmUwMDQwMTQyNTA4MjAwMDFjMDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMDAwMDQyODAyNTA4MjAwMDdiMDA0MjI4MjUwMDQwMTAyNTA4MjAwMDFjMDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMDAwMDQyODAyNTA4MjAwMDYxMDA0MjI4MWYwMDQwMTQyNTA4MjAwMDFjMDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMDAwMDQyODAyNTA4MjAwMDdiMDA0MjI4MTkwMDQwMTAyNTA4MjAwMDFjMDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMWMwMGMzOGYzMDAwYzQ4ZjI1MDgyMDAwMjExODgzMDAwMDAwNjM4MDI1MDgyMDAwZmYwMDYzMzBlMGZmNjMyNGZmMDA2MzMwMDAxZTAzMDAwMzFlMDMwMDAwMDA0M2EwMDgwMDAwMTAyNTA4MjAwMDE4MDBjMGEzMDUwMDAwMTAyNTA4MjAwMDI1MDgyMDAwMDIwMDAwMTAyNTA4MjAwMDI1MDgyMDAwMWMwMGMyOGYyNTA4MjAwMDAxMDA0MjI0MWMwMGMyYWYyMDAwYzI4ZjI1MDgyMDAwZmZmZjQzMjQxYzAwYzI4ZjI1MDgyMDAwMmExMDQzMDBiOGZmNDAxNDI1MDgyMDAwMTgwMGMyOTMyMWU4YzAwMzJjMDBiZjhmMjgwMGJlOGYzMDAwYmQyNzA4MDBlMDAzMjUwODIwMDA3MzZjNmY3NzY0NmY3NzZlNzc2ZjZkNjE2ZTAwCnd4IDdjMGE0MDAwIEAgMHgwMDQwMTAzMAp3eCAwZDAwMDAwMCBAIDB4MDA0MDEwMjAKYWVpcAphZXN1IDB4MDA0MDBhNzQKcyAweDAwNDAwYTdjCnBzegoK
+EXPECT=<<EOF
+SLOWDOWNWOMAN
+EOF
+CMDS=<<EOF
+e io.va=true
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar t9=0
+ar v0=14
+ar a0=0x00400a7c
+ar fp=0x00401000
+wx 2000c2af1c00c0af42000010250820001c00c28f3000c38f25082000211062000000428025082000410042282e004014250820001c00c28f3000c38f250820002110620000004280250820007b00422825004010250820001c00c28f3000c38f25082000211062000000428025082000610042281f004014250820001c00c28f3000c38f250820002110620000004280250820007b00422819004010250820001c00c28f3000c38f25082000211062001c00c38f3000c48f25082000211883000000638025082000ff006330e0ff6324ff006330001e0300031e0300000043a008000010250820001800c0a30500001025082000250820000200001025082000250820001c00c28f25082000010042241c00c2af2000c28f25082000ffff43241c00c28f250820002a104300b8ff4014250820001800c29321e8c0032c00bf8f2800be8f3000bd270800e00325082000736c6f77646f776e776f6d616e00
+wx 7c0a4000 @ 0x00401030
+wx 0d000000 @ 0x00401020
+aeip
+aesu 0x00400a74
+s 0x00400a7c
+psz
+EOF
 RUN
+
 NAME=complex function 2
 FILE=malloc://0x800
 ARGS=-m 0x0040092c
-EXPECT64=TjNNNC9QUjBCTDNNNAoK
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGFzbS5hcmNoPW1pcHMKZSBhc20uYml0cz0zMgphciA+IC9kZXYvbnVsbAphciB0OT0wCmFyIHYwPTE0CmFyIGEwPTB4MDA0MDBhN2MKYXIgZnA9MHgwMDQwMTAwMAp3eCAyMDAwYzJhZjFjMDBjMGFmNDIwMDAwMTAyNTA4MjAwMDFjMDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMDAwMDQyODAyNTA4MjAwMDQxMDA0MjI4MmUwMDQwMTQyNTA4MjAwMDFjMDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMDAwMDQyODAyNTA4MjAwMDdiMDA0MjI4MjUwMDQwMTAyNTA4MjAwMDFjMDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMDAwMDQyODAyNTA4MjAwMDYxMDA0MjI4MWYwMDQwMTQyNTA4MjAwMDFjMDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMDAwMDQyODAyNTA4MjAwMDdiMDA0MjI4MTkwMDQwMTAyNTA4MjAwMDFjMDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMWMwMGMzOGYzMDAwYzQ4ZjI1MDgyMDAwMjExODgzMDAwMDAwNjM4MDI1MDgyMDAwZmYwMDYzMzBlMGZmNjMyNGZmMDA2MzMwMDAxZTAzMDAwMzFlMDMwMDAwMDA0M2EwMDgwMDAwMTAyNTA4MjAwMDE4MDBjMGEzMDUwMDAwMTAyNTA4MjAwMDI1MDgyMDAwMDIwMDAwMTAyNTA4MjAwMDI1MDgyMDAwMWMwMGMyOGYyNTA4MjAwMDAxMDA0MjI0MWMwMGMyYWYyMDAwYzI4ZjI1MDgyMDAwZmZmZjQzMjQxYzAwYzI4ZjI1MDgyMDAwMmExMDQzMDBiOGZmNDAxNDI1MDgyMDAwMTgwMGMyOTMyMWU4YzAwMzJjMDBiZjhmMjgwMGJlOGYzMDAwYmQyNzA4MDBlMDAzMjUwODIwMDA2ZTMzNmQzNDJmNzA3MjMwNjI2YzMzNmQzNDAwCnd4IDdjMGE0MDAwIEAgMHgwMDQwMTAzMAp3eCAwZDAwMDAwMCBAIDB4MDA0MDEwMjAKYWVpcAphZXN1IDB4MDA0MDBhNzQKcyAweDAwNDAwYTdjCnBzegoK
+EXPECT=<<EOF
+N3M4/PR0BL3M4
+EOF
+CMDS=<<EOF
+e io.va=true
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar t9=0
+ar v0=14
+ar a0=0x00400a7c
+ar fp=0x00401000
+wx 2000c2af1c00c0af42000010250820001c00c28f3000c38f25082000211062000000428025082000410042282e004014250820001c00c28f3000c38f250820002110620000004280250820007b00422825004010250820001c00c28f3000c38f25082000211062000000428025082000610042281f004014250820001c00c28f3000c38f250820002110620000004280250820007b00422819004010250820001c00c28f3000c38f25082000211062001c00c38f3000c48f25082000211883000000638025082000ff006330e0ff6324ff006330001e0300031e0300000043a008000010250820001800c0a30500001025082000250820000200001025082000250820001c00c28f25082000010042241c00c2af2000c28f25082000ffff43241c00c28f250820002a104300b8ff4014250820001800c29321e8c0032c00bf8f2800be8f3000bd270800e003250820006e336d342f707230626c336d3400
+wx 7c0a4000 @ 0x00401030
+wx 0d000000 @ 0x00401020
+aeip
+aesu 0x00400a74
+s 0x00400a7c
+psz
+EOF
 RUN
+
 NAME=complex function 3
 FILE=malloc://0x800
 ARGS=-m 0x00400ac0
-EXPECT64=MHgwMDAwMzVkZgoK
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGFzbS5hcmNoPW1pcHMKZSBhc20uYml0cz0zMgphciA+IC9kZXYvbnVsbAphciB2MD04CmFyIGEwPTB4MDA0MDBiNDgKYXIgZnA9MHgwMDQwMTAwMAp3eCAyMDAwYzJhZjE4MDBjMGFmMGUwMDAwMTAyNTA4MjAwMDE4MDBjMjhmMzAwMGMzOGYyNTA4MjAwMDIxMTA2MjAwMDAwMDQyODAxYzAwYzM4ZjI1MDgyMDAwMjExMDYyMDAxYzAwYzJhZjE4MDBjMjhmMjUwODIwMDAwMTAwNDIyNDE4MDBjMmFmMjAwMGMyOGYyNTA4MjAwMGZmZmY0MzI0MTgwMGMyOGYyNTA4MjAwMDJhMTA0MzAwZWNmZjQwMTQyNTA4MjAwMDFjMDBjMjhmMjUwODIwMDAyMTM0NDIzODIxZThjMDAzMmMwMGJmOGYyODAwYmU4ZjMwMDBiZDI3MDgwMGUwMDMyNTA4MjAwMDQ0NDk0NzQ5NTQ0MTRjMDAKd3ggNDgwYjQwMDAgQCAweDAwNDAxMDMwCnd4IDA4MDAwMDAwIEAgMHgwMDQwMTAyMAphZXN1IDB4MDA0MDBiNDAKYXIgdjAKCg==
+EXPECT=<<EOF
+0x000035df
+EOF
+CMDS=<<EOF
+e io.va=true
+e asm.arch=mips
+e asm.bits=32
+ar > /dev/null
+ar v0=8
+ar a0=0x00400b48
+ar fp=0x00401000
+wx 2000c2af1800c0af0e000010250820001800c28f3000c38f2508200021106200000042801c00c38f25082000211062001c00c2af1800c28f25082000010042241800c2af2000c28f25082000ffff43241800c28f250820002a104300ecff4014250820001c00c28f250820002134423821e8c0032c00bf8f2800be8f3000bd270800e003250820004449474954414c00
+wx 480b4000 @ 0x00401030
+wx 08000000 @ 0x00401020
+aesu 0x00400b40
+ar v0
+EOF
 RUN
+
 NAME=asm.emu with meta
 FILE=../bins/elf/analysis/crackmips
-EXPECT64=MHg0MTU0MjQKCg==
-CMDS64=CnMgMHgwMDQwMDgyMAphZgplIGFzbS5lbXU9dHJ1ZQplIGVtdS53cml0ZT10cnVlCmUgYXNtLmxpbmVzLmJiPWZhbHNlCmUgYXNtLmxpbmVzLmZjbj1mYWxzZQplIGFzbS5pbW0uc3RyPWZhbHNlCmFlaQphZWltCnBkZn4weDAwNDAwODI4WzddCgo=
+EXPECT=<<EOF
+0x415424
+EOF
+CMDS=<<EOF
+s 0x00400820
+af
+e asm.emu=true
+e emu.write=true
+e asm.lines.bb=false
+e asm.lines.fcn=false
+e asm.imm.str=false
+aei
+aeim
+pdf~0x00400828[7]
+EOF
 RUN

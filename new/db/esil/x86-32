@@ -1,630 +1,2319 @@
 NAME=2step push x86-32
 FILE=-
-EXPECT64=MHgwMDEwN2ZmYwoweDEyMzQKCg==
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCmFlciBlc3A9MHgwMDEwODAwMAouYWVyKgoid2EgbW92IGVheCwgMHgxMjM0O3B1c2ggZWF4IgoyYWVzCi5hZXIqCmFlcj9lc3AKP3YgW2VzcF0KCg==
+EXPECT=<<EOF
+0x00107ffc
+0x1234
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+.aer*
+"wa mov eax, 0x1234;push eax"
+2aes
+.aer*
+aer?esp
+?v [esp]
+EOF
 RUN
+
 NAME=movsb 1 byte x86-32
 FILE=-
-EXPECT64=MHgyMDAwMDAwMQoweDEwMDAwMDAxCjB4MDAwMDAwMTIKCg==
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCmFlciBlc3A9MHgwMDEwODAwMAphZWltIDB4MTAwMDAwMDAgMTAgc291cmNlCnd4IDEyIEAgMHgxMDAwMDAwMAphZWltIDB4MjAwMDAwMDAgMTAgZGVzdGluYXRpb24KYWVyIGVkaT0weDIwMDAwMDAwCmFlciBlc2k9MHgxMDAwMDAwMAouYWVyKgoid3ggYTQiCjJhZXMKLmFlcioKYWVyP2VkaQphZXI/ZXNpCnB2IEAweDIwMDAwMDAwCgo=
+EXPECT=<<EOF
+0x20000001
+0x10000001
+0x00000012
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+wx 12 @ 0x10000000
+aeim 0x20000000 10 destination
+aer edi=0x20000000
+aer esi=0x10000000
+.aer*
+"wx a4"
+2aes
+.aer*
+aer?edi
+aer?esi
+pv @0x20000000
+EOF
 RUN
+
 NAME=mov eax, 1 x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMQoK
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCi5hZXIqCiJ3eCBiODAxMDAwMDAwIgoxYWVzCi5hZXIqCmFlcj9lYXgKCg==
+EXPECT=<<EOF
+0x00000001
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+.aer*
+"wx b801000000"
+1aes
+.aer*
+aer?eax
+EOF
 RUN
+
 NAME=rep movsb string x86-32
 FILE=-
-EXPECT64=MHgyMDAwMDAwYQoweDEwMDAwMDBhCjB4Nzg1NjM0MTIKMHgwMDAwMDAwMAoK
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCmFlciBlc3A9MHgwMDEwODAwMAphZWltIDB4MTAwMDAwMDAgMTAgc291cmNlCnd4IDEyMzQ1Njc4OTAgQCAweDEwMDAwMDAwCmFlaW0gMHgyMDAwMDAwMCAxMCBkZXN0aW5hdGlvbgphZXIgZWRpPTB4MjAwMDAwMDAKYWVyIGVzaT0weDEwMDAwMDAwCmFlciBlY3g9MTAKLmFlcioKInd4IGYzYTQiCmFlcwouYWVyKgphZXI/ZWRpCmFlcj9lc2kKcHYgQDB4MjAwMDAwMDAKYWVyP2VjeAoK
+EXPECT=<<EOF
+0x2000000a
+0x1000000a
+0x78563412
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+wx 1234567890 @ 0x10000000
+aeim 0x20000000 10 destination
+aer edi=0x20000000
+aer esi=0x10000000
+aer ecx=10
+.aer*
+"wx f3a4"
+aes
+.aer*
+aer?edi
+aer?esi
+pv @0x20000000
+aer?ecx
+EOF
 RUN
+
 NAME=mov byte [0x20000000], 0x64 x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDA2NAoK
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCmFlciBlc3A9MHgwMDEwODAwMAp3eCAxMjM0NTY3ODkwIEAgMHgxMDAwMDAwMAphZWltIDB4MjAwMDAwMDAgMTAgZGVzdGluYXRpb24KLmFlcioKInd4IGM2MDUwMDAwMDAyMDY0IgphZXMKLmFlcioKcHYgQDB4MjAwMDAwMDAKCg==
+EXPECT=<<EOF
+0x00000064
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+wx 1234567890 @ 0x10000000
+aeim 0x20000000 10 destination
+.aer*
+"wx c6050000002064"
+aes
+.aer*
+pv @0x20000000
+EOF
 RUN
+
 NAME=mov eax, [esp + 4] x86-32
 FILE=-
-EXPECT64=MHgwMDAwMTMzNwoK
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCmFlaW0gMHgyMDAwMDAwMCAxMCBkZXN0aW5hdGlvbgphZXIgZXNwPTB4MjAwMDAwMDAKd3ggMzcxMyBAIDB4MjAwMDAwMDQKLmFlcioKInd4IDhiNDQyNDA0IgphZXMKLmFlcioKYWVyP2VheAoK
+EXPECT=<<EOF
+0x00001337
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aeim 0x20000000 10 destination
+aer esp=0x20000000
+wx 3713 @ 0x20000004
+.aer*
+"wx 8b442404"
+aes
+.aer*
+aer?eax
+EOF
 RUN
+
 NAME=mov [esp + 4], eax x86-32
 FILE=-
-EXPECT64=MHgwMDAwMTMzNwoK
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCmFlaW0gMHgyMDAwMDAwMCAxMCBkZXN0aW5hdGlvbgphZXIgZXNwPTB4MjAwMDAwMDAKYWVyIGVheD0weDEzMzcKLmFlcioKInd4IDg5NDQyNDA0IgphZXMKLmFlcioKcHYgQCAweDIwMDAwMDA0Cgo=
+EXPECT=<<EOF
+0x00001337
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aeim 0x20000000 10 destination
+aer esp=0x20000000
+aer eax=0x1337
+.aer*
+"wx 89442404"
+aes
+.aer*
+pv @ 0x20000004
+EOF
 RUN
+
 NAME=rep movsb 0x1000 randombytes x86-32
 FILE=-
 BROKEN=1
-EXPECT64=MHgyMDAwMTAwMAoweDEwMDAxMDAwCjB4MDAwMDAwMDAKCg==
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCmFlciBlc3A9MHgwMDEwODAwMAphZWltIDB4MTAwMDAwMDAgMHgxMDAwIHNvdXJjZQphZWltIDB4MjAwMDAwMDAgMHgxMDAwIGRlc3RpbmF0aW9uCndyIDB4MTAwMCBAIDB4MTAwMDAwMDAKYWVyIGVkaT0weDIwMDAwMDAwCmFlciBlc2k9MHgxMDAwMDAwMAphZXIgZWN4PTB4MTAwMAouYWVyKgoid3ggZjNhNCIKYWVzCi5hZXIqCnMgMHgxMDAwMDAwMApjWCAweDIwMDAwMDAwCmFlcj9lZGkKYWVyP2VzaQphZXI/ZWN4Cgo=
+EXPECT=<<EOF
+0x20001000
+0x10001000
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 0x1000 source
+aeim 0x20000000 0x1000 destination
+wr 0x1000 @ 0x10000000
+aer edi=0x20000000
+aer esi=0x10000000
+aer ecx=0x1000
+.aer*
+"wx f3a4"
+aes
+.aer*
+s 0x10000000
+cX 0x20000000
+aer?edi
+aer?esi
+aer?ecx
+EOF
 RUN
+
 NAME=lodsb ++ x86-32
 FILE=-
-EXPECT64=MHgxMDAwMDAwMQoweDAwMDAwMDEyCgo=
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCmFlciBlc3A9MHgwMDEwODAwMAphZWltIDB4MTAwMDAwMDAgMTAgc291cmNlCnd4IDEyIEAgMHgxMDAwMDAwMAphZXIgZXNpPTB4MTAwMDAwMDAKLmFlcioKInd4IGZjYWMiCjJhZXMKLmFlcioKYWVyP2VzaQphZXI/YWwKCg==
+EXPECT=<<EOF
+0x10000001
+0x00000012
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+wx 12 @ 0x10000000
+aer esi=0x10000000
+.aer*
+"wx fcac"
+2aes
+.aer*
+aer?esi
+aer?al
+EOF
 RUN
+
 NAME=lodsb -- x86-32
 FILE=-
-EXPECT64=MHgwZmZmZmZmZgoweDAwMDAwMDEyCgo=
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCmFlciBlc3A9MHgwMDEwODAwMAphZWltIDB4MTAwMDAwMDAgMTAgc291cmNlCnd4IDEyIEAgMHgxMDAwMDAwMAphZXIgZXNpPTB4MTAwMDAwMDAKLmFlcioKInd4IGZkYWMiCjJhZXMKLmFlcioKYWVyP2VzaQphZXI/YWwKCg==
+EXPECT=<<EOF
+0x0fffffff
+0x00000012
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+wx 12 @ 0x10000000
+aer esi=0x10000000
+.aer*
+"wx fdac"
+2aes
+.aer*
+aer?esi
+aer?al
+EOF
 RUN
+
 NAME=lodsw ++ x86-32
 FILE=-
-EXPECT64=MHgxMDAwMDAwMgoweDAwMDAxMjM0Cgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKd3ggMzQxMiBAIDB4MTAwMDAwMDAKYWVyIGVzaT0weDEwMDAwMDAwCi5hZXIqCiJ3eCBmYzY2YWQiCjJhZXMKLmFlcioKYWVyP2VzaQphZXI/YXgKCg==
+EXPECT=<<EOF
+0x10000002
+0x00001234
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+wx 3412 @ 0x10000000
+aer esi=0x10000000
+.aer*
+"wx fc66ad"
+2aes
+.aer*
+aer?esi
+aer?ax
+EOF
 RUN
+
 NAME=lodsw -- x86-32
 FILE=-
-EXPECT64=MHgwZmZmZmZmZQoweDAwMDAxMjM0Cgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKd3ggMzQxMiBAIDB4MTAwMDAwMDAKYWVyIGVzaT0weDEwMDAwMDAwCi5hZXIqCiJ3eCBmZDY2YWQiCjJhZXMKLmFlcioKYWVyP2VzaQphZXI/YXgKCg==
+EXPECT=<<EOF
+0x0ffffffe
+0x00001234
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+wx 3412 @ 0x10000000
+aer esi=0x10000000
+.aer*
+"wx fd66ad"
+2aes
+.aer*
+aer?esi
+aer?ax
+EOF
 RUN
+
 NAME=lodsd ++ x86-32
 FILE=-
-EXPECT64=MHgxMDAwMDAwNAoweDAwMTIzNDU2Cgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKd3ggNTYzNDEyIEAgMHgxMDAwMDAwMAphZXIgZXNpPTB4MTAwMDAwMDAKLmFlcioKInd4IGZjYWQiCjJhZXMKLmFlcioKYWVyP2VzaQphZXI/ZWF4Cgo=
+EXPECT=<<EOF
+0x10000004
+0x00123456
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+wx 563412 @ 0x10000000
+aer esi=0x10000000
+.aer*
+"wx fcad"
+2aes
+.aer*
+aer?esi
+aer?eax
+EOF
 RUN
+
 NAME=lodsd -- x86-32
 FILE=-
-EXPECT64=MHgwZmZmZmZmYwoweDAwMTIzNDU2Cgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKd3ggNTYzNDEyIEAgMHgxMDAwMDAwMAphZXIgZXNpPTB4MTAwMDAwMDAKLmFlcioKInd4IGZkYWQiCjJhZXMKLmFlcioKYWVyP2VzaQphZXI/ZWF4Cgo=
+EXPECT=<<EOF
+0x0ffffffc
+0x00123456
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+wx 563412 @ 0x10000000
+aer esi=0x10000000
+.aer*
+"wx fdad"
+2aes
+.aer*
+aer?esi
+aer?eax
+EOF
 RUN
+
 NAME=stosb ++ x86-32
 FILE=-
-EXPECT64=MHgxMDAwMDAwMQoweDAwMDAwMDEyCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKYWVyIGFsPTB4MTIKYWVyIGVkaT0weDEwMDAwMDAwCi5hZXIqCiJ3eCBmY2FhIgoyYWVzCi5hZXIqCmFlcj9lZGkKcHYgQDB4MTAwMDAwMDAKCg==
+EXPECT=<<EOF
+0x10000001
+0x00000012
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+aer al=0x12
+aer edi=0x10000000
+.aer*
+"wx fcaa"
+2aes
+.aer*
+aer?edi
+pv @0x10000000
+EOF
 RUN
+
 NAME=stosb -- x86-32
 FILE=-
-EXPECT64=MHgwZmZmZmZmZgoweDAwMDAwMDEyCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKYWVyIGFsPTB4MTIKYWVyIGVkaT0weDEwMDAwMDAwCi5hZXIqCiJ3eCBmZGFhIgoyYWVzCi5hZXIqCmFlcj9lZGkKcHYgQDB4MTAwMDAwMDAKCg==
+EXPECT=<<EOF
+0x0fffffff
+0x00000012
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+aer al=0x12
+aer edi=0x10000000
+.aer*
+"wx fdaa"
+2aes
+.aer*
+aer?edi
+pv @0x10000000
+EOF
 RUN
+
 NAME=stosw ++ x86-32
 FILE=-
-EXPECT64=MHgxMDAwMDAwMgoweDAwMDAxMjM0Cgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKYWVyIGF4ID0gMHgxMjM0CmFlciBlZGk9MHgxMDAwMDAwMAouYWVyKgoid3ggZmM2NmFiIgoyYWVzCi5hZXIqCmFlcj9lZGkKcHYgQDB4MTAwMDAwMDAKCg==
+EXPECT=<<EOF
+0x10000002
+0x00001234
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+aer ax = 0x1234
+aer edi=0x10000000
+.aer*
+"wx fc66ab"
+2aes
+.aer*
+aer?edi
+pv @0x10000000
+EOF
 RUN
+
 NAME=stosw -- x86-32
 FILE=-
-EXPECT64=MHgwZmZmZmZmZQoweDAwMDAxMjM0Cgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKYWVyIGF4ID0gMHgxMjM0CmFlciBlZGk9MHgxMDAwMDAwMAouYWVyKgoid3ggZmQ2NmFiIgoyYWVzCi5hZXIqCmFlcj9lZGkKcHYgQDB4MTAwMDAwMDAKCg==
+EXPECT=<<EOF
+0x0ffffffe
+0x00001234
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+aer ax = 0x1234
+aer edi=0x10000000
+.aer*
+"wx fd66ab"
+2aes
+.aer*
+aer?edi
+pv @0x10000000
+EOF
 RUN
+
 NAME=stosd ++ x86-32
 FILE=-
-EXPECT64=MHgxMDAwMDAwNAoweDAwMTIzNDU2Cgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKYWVyIGVheCA9IDB4MTIzNDU2CmFlciBlZGk9MHgxMDAwMDAwMAouYWVyKgoid3ggZmNhYiIKMmFlcwouYWVyKgphZXI/ZWRpCnB2IEAweDEwMDAwMDAwCgo=
+EXPECT=<<EOF
+0x10000004
+0x00123456
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+aer eax = 0x123456
+aer edi=0x10000000
+.aer*
+"wx fcab"
+2aes
+.aer*
+aer?edi
+pv @0x10000000
+EOF
 RUN
+
 NAME=stosd -- x86-32
 FILE=-
-EXPECT64=MHgwZmZmZmZmYwoweDAwMTIzNDU2Cgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKYWVyIGVheCA9IDB4MTIzNDU2CmFlciBlZGk9MHgxMDAwMDAwMAouYWVyKgoid3ggZmRhYiIKMmFlcwouYWVyKgphZXI/ZWRpCnB2IEAweDEwMDAwMDAwCgo=
+EXPECT=<<EOF
+0x0ffffffc
+0x00123456
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+aer eax = 0x123456
+aer edi=0x10000000
+.aer*
+"wx fdab"
+2aes
+.aer*
+aer?edi
+pv @0x10000000
+EOF
 RUN
+
 NAME=shr eax(9) >> 1 x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwNAoweDAwMDAwMDAxCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKYWVyIGVheCA9IDkKYWVyIGVkaT0weDEwMDAwMDAwCi5hZXIqCiJ3eCBkMWU4IgoxYWVzCi5hZXIqCmFlcj9lYXgKYWVyP2NmCgo=
+EXPECT=<<EOF
+0x00000004
+0x00000001
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+aer eax = 9
+aer edi=0x10000000
+.aer*
+"wx d1e8"
+1aes
+.aer*
+aer?eax
+aer?cf
+EOF
 RUN
+
 NAME=shr eax(0x1b) >> 1 x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwZAoweDAwMDAwMDAxCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKYWVyIGVheCA9IDB4MWIKYWVyIGVkaT0weDEwMDAwMDAwCi5hZXIqCiJ3eCBkMWU4IgoxYWVzCi5hZXIqCmFlcj9lYXgKYWVyP2NmCgo=
+EXPECT=<<EOF
+0x0000000d
+0x00000001
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+aer eax = 0x1b
+aer edi=0x10000000
+.aer*
+"wx d1e8"
+1aes
+.aer*
+aer?eax
+aer?cf
+EOF
 RUN
+
 NAME=shr eax(5) >> 2 x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMQoweDAwMDAwMDAwCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgxMDAwMDAwMCAxMCBzb3VyY2UKYWVyIGVheCA9IDUKYWVyIGVkaT0weDEwMDAwMDAwCi5hZXIqCiJ3eCBjMWU4MDIiCjFhZXMKLmFlcioKYWVyP2VheAphZXI/Y2YKCg==
+EXPECT=<<EOF
+0x00000001
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aeim 0x10000000 10 source
+aer eax = 5
+aer edi=0x10000000
+.aer*
+"wx c1e802"
+1aes
+.aer*
+aer?eax
+aer?cf
+EOF
 RUN
+
 NAME=shr byte [esp + 4], 2 x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMQoweDAwMDAwMDAwCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVpbSAweDEwMDAwMDAwIDEwIHNvdXJjZQphZXIgZXNwPTB4MTAwMDAwMDAKd3ggMDUgQCAweDEwMDAwMDA0Ci5hZXIqCiJ3eCBjMDZjMjQwNDAyIgoxYWVzCi5hZXIqCnB2IEAgMHgxMDAwMDAwNAphZXI/Y2YKCg==
+EXPECT=<<EOF
+0x00000001
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aeim 0x10000000 10 source
+aer esp=0x10000000
+wx 05 @ 0x10000004
+.aer*
+"wx c06c240402"
+1aes
+.aer*
+pv @ 0x10000004
+aer?cf
+EOF
 RUN
+
 NAME=add byte [esp + 4], 0xa x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwOQoweDAwMDAwMDAxCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVpbSAweDIwMDAwMDAwIDEwIGRlc3RpbmF0aW9uCmFlciBlc3A9MHgyMDAwMDAwMAp3eCBmZiBAIDB4MjAwMDAwMDQKLmFlcioKInd4IDgwNDQyNDA0MGEiCmFlcwouYWVyKgpwdiBAIDB4MjAwMDAwMDQKYWVyP2NmCgo=
+EXPECT=<<EOF
+0x00000009
+0x00000001
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aeim 0x20000000 10 destination
+aer esp=0x20000000
+wx ff @ 0x20000004
+.aer*
+"wx 804424040a"
+aes
+.aer*
+pv @ 0x20000004
+aer?cf
+EOF
 RUN
+
 NAME=add eax, [esp + 4] x86-32
 FILE=-
-EXPECT64=MHgwMDAwMTMzNwoK
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVpbSAweDIwMDAwMDAwIDEwIGRlc3RpbmF0aW9uCmFlciBlc3A9MHgyMDAwMDAwMAp3eCAzNzEzIEAgMHgyMDAwMDAwNAouYWVyKgoid3ggMDM0NDI0MDQiCmFlcwouYWVyKgphZXI/ZWF4Cgo=
+EXPECT=<<EOF
+0x00001337
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aeim 0x20000000 10 destination
+aer esp=0x20000000
+wx 3713 @ 0x20000004
+.aer*
+"wx 03442404"
+aes
+.aer*
+aer?eax
+EOF
 RUN
+
 NAME=add dword [0x20000000], eax x86-32
 FILE=-
-EXPECT64=MHgwMDAwMTMzNwoK
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVpbSAweDIwMDAwMDAwIDEwIGRlc3RpbmF0aW9uCmFlciBlc3A9MHgyMDAwMDAwMAphZXIgZWF4PTB4MTMzNwouYWVyKgoid3ggMDEwNTAwMDAwMDIwIgphZXMKLmFlcioKcHYgQCAweDIwMDAwMDAwCgo=
+EXPECT=<<EOF
+0x00001337
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aeim 0x20000000 10 destination
+aer esp=0x20000000
+aer eax=0x1337
+.aer*
+"wx 010500000020"
+aes
+.aer*
+pv @ 0x20000000
+EOF
 RUN
+
 NAME=add byte cf,zf check x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoweDAwMDAwMDAxCjB4MDAwMDAwMDEKCg==
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlciBkbCA9IDB4ODAKLmFlcioKInd4IDAwZDIiCjFhZXMKLmFlcioKYWVyP2RsCmFlcj9jZgphZXI/emYKCg==
+EXPECT=<<EOF
+0x00000000
+0x00000001
+0x00000001
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aer dl = 0x80
+.aer*
+"wx 00d2"
+1aes
+.aer*
+aer?dl
+aer?cf
+aer?zf
+EOF
 RUN
+
 NAME=add word cf,zf check x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoweDAwMDAwMDAxCjB4MDAwMDAwMDEKCg==
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlciBkeCA9IDB4ODAwMAouYWVyKgoid3ggNjYwMWQyIgoxYWVzCi5hZXIqCmFlcj9keAphZXI/Y2YKYWVyP3pmCgo=
+EXPECT=<<EOF
+0x00000000
+0x00000001
+0x00000001
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aer dx = 0x8000
+.aer*
+"wx 6601d2"
+1aes
+.aer*
+aer?dx
+aer?cf
+aer?zf
+EOF
 RUN
+
 NAME=add dword cf,zf check x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoweDAwMDAwMDAxCjB4MDAwMDAwMDEKCg==
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlciBlZHggPSAweDgwMDAwMDAwCi5hZXIqCiJ3eCAwMWQyIgoxYWVzCi5hZXIqCmFlcj9lZHgKYWVyP2NmCmFlcj96ZgoK
+EXPECT=<<EOF
+0x00000000
+0x00000001
+0x00000001
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aer edx = 0x80000000
+.aer*
+"wx 01d2"
+1aes
+.aer*
+aer?edx
+aer?cf
+aer?zf
+EOF
 RUN
+
 NAME=adc byte cf,zf check x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMQoweDAwMDAwMDAxCjB4MDAwMDAwMDAKCg==
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGNmPTEKYWVyIGVzcD0weDAwMTA4MDAwCmFlciBkbCA9IDB4ODAKLmFlcioKInd4IDEwZDIiCjFhZXMKLmFlcioKYWVyP2RsCmFlcj9jZgphZXI/emYKCg==
+EXPECT=<<EOF
+0x00000001
+0x00000001
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer cf=1
+aer esp=0x00108000
+aer dl = 0x80
+.aer*
+"wx 10d2"
+1aes
+.aer*
+aer?dl
+aer?cf
+aer?zf
+EOF
 RUN
+
 NAME=adc word cf,zf check x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMQoweDAwMDAwMDAxCjB4MDAwMDAwMDAKCg==
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGNmPTEKYWVyIGVzcD0weDAwMTA4MDAwCmFlciBkeCA9IDB4ODAwMAouYWVyKgoid3ggNjYxMWQyIgoxYWVzCi5hZXIqCmFlcj9keAphZXI/Y2YKYWVyP3pmCgo=
+EXPECT=<<EOF
+0x00000001
+0x00000001
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer cf=1
+aer esp=0x00108000
+aer dx = 0x8000
+.aer*
+"wx 6611d2"
+1aes
+.aer*
+aer?dx
+aer?cf
+aer?zf
+EOF
 RUN
+
 NAME=adc dword cf,zf check x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMQoweDAwMDAwMDAxCjB4MDAwMDAwMDAKCg==
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGNmPTEKYWVyIGVzcD0weDAwMTA4MDAwCmFlciBlZHggPSAweDgwMDAwMDAwCi5hZXIqCiJ3eCAxMWQyIgoxYWVzCi5hZXIqCmFlcj9lZHgKYWVyP2NmCmFlcj96ZgoK
+EXPECT=<<EOF
+0x00000001
+0x00000001
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer cf=1
+aer esp=0x00108000
+aer edx = 0x80000000
+.aer*
+"wx 11d2"
+1aes
+.aer*
+aer?edx
+aer?cf
+aer?zf
+EOF
 RUN
+
 NAME=dec byte [edi] check zf x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMQoweDAwMDAwMDAwCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGNmPTEKYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgyMDAwMDAwMCAxMCBtZW0KYWVyIGVkaSA9IDB4MjAwMDAwMDAKd3ggMDEgQCAweDIwMDAwMDAwCi5hZXIqCiJ3eCBmZTBmIgoxYWVzCi5hZXIqCmFlcj96ZgpwdiBAIDB4MjAwMDAwMDAKCg==
+EXPECT=<<EOF
+0x00000001
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer cf=1
+aer esp=0x00108000
+aeim 0x20000000 10 mem
+aer edi = 0x20000000
+wx 01 @ 0x20000000
+.aer*
+"wx fe0f"
+1aes
+.aer*
+aer?zf
+pv @ 0x20000000
+EOF
 RUN
+
 NAME=dec byte [edi] check sf x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMQoweDAwMDAwMGZmCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGNmPTEKYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgyMDAwMDAwMCAxMCBtZW0KYWVyIGVkaSA9IDB4MjAwMDAwMDAKd3ggMDAgQCAweDIwMDAwMDAwCi5hZXIqCiJ3eCBmZTBmIgoxYWVzCi5hZXIqCmFlcj9zZgpwdiBAIDB4MjAwMDAwMDAKCg==
+EXPECT=<<EOF
+0x00000001
+0x000000ff
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer cf=1
+aer esp=0x00108000
+aeim 0x20000000 10 mem
+aer edi = 0x20000000
+wx 00 @ 0x20000000
+.aer*
+"wx fe0f"
+1aes
+.aer*
+aer?sf
+pv @ 0x20000000
+EOF
 RUN
+
 NAME=inc byte [edi] check zf x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMQoweDAwMDAwMDAwCjB4MDAwMDAwMDAKCg==
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIHNmPTEKYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgyMDAwMDAwMCAxMCBtZW0KYWVyIGVkaSA9IDB4MjAwMDAwMDAKd3ggZmYgQCAweDIwMDAwMDAwCi5hZXIqCiJ3eCBmZTA3IgoxYWVzCi5hZXIqCmFlcj96ZgphZXI/c2YKcHYgQCAweDIwMDAwMDAwCgo=
+EXPECT=<<EOF
+0x00000001
+0x00000000
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer sf=1
+aer esp=0x00108000
+aeim 0x20000000 10 mem
+aer edi = 0x20000000
+wx ff @ 0x20000000
+.aer*
+"wx fe07"
+1aes
+.aer*
+aer?zf
+aer?sf
+pv @ 0x20000000
+EOF
 RUN
+
 NAME=inc byte [edi] check sf x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoweDAwMDAwMDAxCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIHNmPTEKYWVyIGVzcD0weDAwMTA4MDAwCmFlaW0gMHgyMDAwMDAwMCAxMCBtZW0KYWVyIGVkaSA9IDB4MjAwMDAwMDAKd3ggMDAgQCAweDIwMDAwMDAwCi5hZXIqCiJ3eCBmZTA3IgoxYWVzCi5hZXIqCmFlcj9zZgpwdiBAIDB4MjAwMDAwMDAKCg==
+EXPECT=<<EOF
+0x00000000
+0x00000001
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer sf=1
+aer esp=0x00108000
+aeim 0x20000000 10 mem
+aer edi = 0x20000000
+wx 00 @ 0x20000000
+.aer*
+"wx fe07"
+1aes
+.aer*
+aer?sf
+pv @ 0x20000000
+EOF
 RUN
+
 NAME=adc [esi + 0x14], ecx x86-32
 FILE=-
-EXPECT64=MHgwMDAwMTM0OAoK
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVpbSAweDIwMDAwMDAwIDEzMCBkZXN0aW5hdGlvbgphZXIgY2YgPSAxCmFlciBlY3ggPSAweDEwCmFlciBlc2k9MHgyMDAwMDAwMAp3eCAzNzEzIEAgMHgyMDAwMDAxNAouYWVyKgoid3ggMTE0ZTE0IgphZXMKLmFlcioKcHYgQCAweDIwMDAwMDE0Cgo=
+EXPECT=<<EOF
+0x00001348
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aeim 0x20000000 130 destination
+aer cf = 1
+aer ecx = 0x10
+aer esi=0x20000000
+wx 3713 @ 0x20000014
+.aer*
+"wx 114e14"
+aes
+.aer*
+pv @ 0x20000014
+EOF
 RUN
+
 NAME=div cl x86-32
 FILE=-
-EXPECT64=MHhjYWZlMDEwMgoK
-CMDS64=CmUgaW8udmE9dHJ1ZQplIGVzaWwuZGVidWc9dHJ1ZQplIGFzbS5hcmNoPXg4NgplIGFzbS5iaXRzPTMyCmFlaQphZWltCmFlciBlc3A9MHgwMDEwODAwMAouYWVyKgoid3ggYjgwNTAwZmVjYWIyMDJmNmYyIgozYWVzCi5hZXIqCmFlcj9lYXgKCg==
+EXPECT=<<EOF
+0xcafe0102
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+.aer*
+"wx b80500fecab202f6f2"
+3aes
+.aer*
+aer?eax
+EOF
 RUN
+
 NAME=pushal(pushad in intel documentation) x86_32
 FILE=-
-EXPECT64=MHgxMTExMTExMQoweDIyMjIyMjIyCjB4MzMzMzMzMzMKMHg0NDQ0NDQ0NAoweDAwMTA4MDAwCjB4NTU1NTU1NTUKMHg2NjY2NjY2NgoweDc3Nzc3Nzc3Cgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVheD0weDExMTExMTExCmFlciBlY3g9MHgyMjIyMjIyMgphZXIgZWR4PTB4MzMzMzMzMzMKYWVyIGVieD0weDQ0NDQ0NDQ0CmFlciBlc3A9MHgwMDEwODAwMAphZXIgZWJwPTB4NTU1NTU1NTUKYWVyIGVzaT0weDY2NjY2NjY2CmFlciBlZGk9MHg3Nzc3Nzc3NwouYWVyKgoid3ggNjAiCmFlcwouYWVyKgpwdiBAIDB4MDAxMDdmZmMKcHYgQCAweDAwMTA3ZmY4CnB2IEAgMHgwMDEwN2ZmNApwdiBAIDB4MDAxMDdmZjAKcHYgQCAweDAwMTA3ZmVjCnB2IEAgMHgwMDEwN2ZlOApwdiBAIDB4MDAxMDdmZTQKcHYgQCAweDAwMTA3ZmUwCgo=
+EXPECT=<<EOF
+0x11111111
+0x22222222
+0x33333333
+0x44444444
+0x00108000
+0x55555555
+0x66666666
+0x77777777
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer eax=0x11111111
+aer ecx=0x22222222
+aer edx=0x33333333
+aer ebx=0x44444444
+aer esp=0x00108000
+aer ebp=0x55555555
+aer esi=0x66666666
+aer edi=0x77777777
+.aer*
+"wx 60"
+aes
+.aer*
+pv @ 0x00107ffc
+pv @ 0x00107ff8
+pv @ 0x00107ff4
+pv @ 0x00107ff0
+pv @ 0x00107fec
+pv @ 0x00107fe8
+pv @ 0x00107fe4
+pv @ 0x00107fe0
+EOF
 RUN
+
 NAME=popal(popad in intel documentation) x86_32
 FILE=-
-EXPECT64=MHgxMTExMTExMQoweDIyMjIyMjIyCjB4MzMzMzMzMzMKMHg0NDQ0NDQ0NAoweDAwMTA4MDAwCjB4NTU1NTU1NTUKMHg2NjY2NjY2NgoweDc3Nzc3Nzc3Cgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVheD0weDExMTExMTExCmFlciBlY3g9MHgyMjIyMjIyMgphZXIgZWR4PTB4MzMzMzMzMzMKYWVyIGVieD0weDQ0NDQ0NDQ0CmFlciBlc3A9MHgwMDEwODAwMAphZXIgZWJwPTB4NTU1NTU1NTUKYWVyIGVzaT0weDY2NjY2NjY2CmFlciBlZGk9MHg3Nzc3Nzc3NwouYWVyKgoid3ggNjA2MSIKYWVzCi5hZXIqCmFlciBlYXg9MHgwMDAwMDAwMAphZXIgZWN4PTB4MDAwMDAwMDAKYWVyIGVkeD0weDAwMDAwMDAwCmFlciBlYng9MHgwMDAwMDAwMAphZXIgZWJwPTB4MDAwMDAwMDAKYWVyIGVzaT0weDAwMDAwMDAwCmFlciBlZGk9MHgwMDAwMDAwMAouYWVyKgphZXMKLmFlcioKYWVyP2VheAphZXI/ZWN4CmFlcj9lZHgKYWVyP2VieAphZXI/ZXNwCmFlcj9lYnAKYWVyP2VzaQphZXI/ZWRpCi5hZXIqCgo=
+EXPECT=<<EOF
+0x11111111
+0x22222222
+0x33333333
+0x44444444
+0x00108000
+0x55555555
+0x66666666
+0x77777777
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer eax=0x11111111
+aer ecx=0x22222222
+aer edx=0x33333333
+aer ebx=0x44444444
+aer esp=0x00108000
+aer ebp=0x55555555
+aer esi=0x66666666
+aer edi=0x77777777
+.aer*
+"wx 6061"
+aes
+.aer*
+aer eax=0x00000000
+aer ecx=0x00000000
+aer edx=0x00000000
+aer ebx=0x00000000
+aer ebp=0x00000000
+aer esi=0x00000000
+aer edi=0x00000000
+.aer*
+aes
+.aer*
+aer?eax
+aer?ecx
+aer?edx
+aer?ebx
+aer?esp
+aer?ebp
+aer?esi
+aer?edi
+.aer*
+EOF
 RUN
+
 NAME=pop x86-32
 FILE=-
-EXPECT64=MHgxMTExMTExMQoweDAwMTA4MDAwCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlciBlYXg9MHgxMTExMTExMQouYWVyKgoid3ggNTA1OCIKYWVzCi5hZXIqCmFlciBlYXg9MHgwMDAwMDAwMAouYWVyKgphZXMKLmFlcioKYWVyP2VheAphZXI/ZXNwCi5hZXIqCgo=
+EXPECT=<<EOF
+0x11111111
+0x00108000
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aer eax=0x11111111
+.aer*
+"wx 5058"
+aes
+.aer*
+aer eax=0x00000000
+.aer*
+aes
+.aer*
+aer?eax
+aer?esp
+.aer*
+EOF
 RUN
+
 NAME=pushd followed by popfd x86-32
 FILE=-
-EXPECT64=MHgwMDAwMDAwMQoweDAwMDAwMDAxCjB4MDAwMDAwMDEKMHgwMDAwMDAwMQoweDAwMDAwMDAxCjB4MDAwMDAwMDEKMHgwMDAwMDAwMQoweDAwMDAwMDAxCjB4MDAwMDAwMDEKMHgwMDAwMDAwMQoweDAwMDAwMDAxCjB4MDAwMDAwMDEKCg==
-CMDS64=ZSBpby52YT10cnVlCmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0gMCAweDIwMDAKLmFlcioKInd4IDljOWQiCmFlciBjZiA9IDEKYWVyIHBmID0gMQphZXIgYWYgPSAxCmFlciB6ZiA9IDEKYWVyIHNmID0gMQphZXIgdGYgPSAxCmFlciBpZiA9IDEKYWVyIGRmID0gMQphZXIgb2YgPSAxCmFlciBudCA9IDEKYWVyIHJmID0gMQphZXIgdm0gPSAxCi5hZXIqCmFlcwphZXIgY2YgPSAwCmFlciBwZiA9IDAKYWVyIGFmID0gMAphZXIgemYgPSAwCmFlciBzZiA9IDAKYWVyIHRmID0gMAphZXIgaWYgPSAwCmFlciBkZiA9IDAKYWVyIG9mID0gMAphZXIgbnQgPSAwCmFlciByZiA9IDAKYWVyIHZtID0gMAphZXMKLmFlcioKYWVyP2NmCmFlcj9wZgphZXI/YWYKYWVyP3pmCmFlcj9zZgphZXI/dGYKYWVyP2lmCmFlcj9kZgphZXI/b2YKYWVyP250CmFlcj9yZgphZXI/dm0KCg==
+EXPECT=<<EOF
+0x00000001
+0x00000001
+0x00000001
+0x00000001
+0x00000001
+0x00000001
+0x00000001
+0x00000001
+0x00000001
+0x00000001
+0x00000001
+0x00000001
+EOF
+CMDS=<<EOF
+e io.va=true
+e esil.debug=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim 0 0x2000
+.aer*
+"wx 9c9d"
+aer cf = 1
+aer pf = 1
+aer af = 1
+aer zf = 1
+aer sf = 1
+aer tf = 1
+aer if = 1
+aer df = 1
+aer of = 1
+aer nt = 1
+aer rf = 1
+aer vm = 1
+.aer*
+aes
+aer cf = 0
+aer pf = 0
+aer af = 0
+aer zf = 0
+aer sf = 0
+aer tf = 0
+aer if = 0
+aer df = 0
+aer of = 0
+aer nt = 0
+aer rf = 0
+aer vm = 0
+aes
+.aer*
+aer?cf
+aer?pf
+aer?af
+aer?zf
+aer?sf
+aer?tf
+aer?if
+aer?df
+aer?of
+aer?nt
+aer?rf
+aer?vm
+EOF
 RUN
+
 NAME=tmctf re100
 FILE=../bins/other/tmctf_re100
 ARGS=-a x86 -b 32
-EXPECT64=VE1DVEZ7ZGF0YWxvc3N3b250c3RvcHVzfQoK
-CMDS64=ZSBpby52YT10cnVlCmUgaW8uY2FjaGUgPSB0cnVlCnMgMHgyNzgKYWVpCmFlaW0KYWVpcAoxM2FlcwoqZWJwKzB4OCA9IDB4MDkKYWVzdSAweDQ2MApwcyBAIGVicCAtIDB4MjQKCg==
+EXPECT=<<EOF
+TMCTF{datalosswontstopus}
+EOF
+CMDS=<<EOF
+e io.va=true
+e io.cache = true
+s 0x278
+aei
+aeim
+aeip
+13aes
+*ebp+0x8 = 0x09
+aesu 0x460
+ps @ ebp - 0x24
+EOF
 RUN
+
 NAME=call [esp]
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHhkZWFkYmVlZgoK
-CMDS64=CmFlaQphZWltCmFlaXAKd3ggYjhlZmJlYWRkZTUwZmYxNDI0CjNhZXMKYWVyIGVpcAoK
+EXPECT=<<EOF
+0xdeadbeef
+EOF
+CMDS=<<EOF
+aei
+aeim
+aeip
+wx b8efbeadde50ff1424
+3aes
+aer eip
+EOF
 RUN
+
 NAME=inline x86 pic thunk
 FILE=../bins/elf/redpill
-EXPECT64=ICAgICAgICAgICAgMHgwMDAwMTU1NyAgICAgIGxlYSBlYXgsIFtlc2kgLSAweDIyMGNdICAgICAgICAgICAgICAgICAgICA7ICIgIGZ3aGliYml0eyIgc3RyLmZ3aGliYml0CiAgICAgICAgICAgIDB4MDAwMDExYzAgICAgICBsZWEgZWF4LCBbZWJ4IC0gMHgyNDQ4XSAgICAgICAgICAgICAgICAgICAgOyAiICAgLW9zLS0vc29zZG1tTk5NTU55ICAgICAgICAgLisvLyAiIHN0ci5vc19fX3Nvc2RtbU5OTU1OeV9fX19fX19fXy4KICAgICAgICAgICAgMHgwMDAwMTUyMyAgICAgIGxlYSBlYXgsIFtlc2kgLSAweDIyMThdICAgICAgICAgICAgICAgICAgICA7ICJcbiAgUmVkIFBpbGwiIHN0ci5SZWRfUGlsbAo=
-CMDS64=ZSBhc20uYnl0ZXM9ZmFsc2UKZSBlbXUucHJlPXRydWUKZSBlbXUuc3RyPXRydWUKcGQgMSBAIDB4MTU1NwpwZCAxIEAgMHgxMWMwCnBkIDEgQCAweDE1MjMKCg==
+EXPECT=<<EOF
+            0x00001557      lea eax, [esi - 0x220c]                    ; "  fwhibbit{" str.fwhibbit
+            0x000011c0      lea eax, [ebx - 0x2448]                    ; "   -os--/sosdmmNNMMNy         .+// " str.os___sosdmmNNMMNy_________.
+            0x00001523      lea eax, [esi - 0x2218]                    ; "\n  Red Pill" str.Red_Pill
+EOF
+CMDS=<<EOF
+e asm.bytes=false
+e emu.pre=true
+e emu.str=true
+pd 1 @ 0x1557
+pd 1 @ 0x11c0
+pd 1 @ 0x1523
+EOF
 RUN
+
 NAME=cmova eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdmEgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmova eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmova eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92YSBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmova eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmova eax, ecx aer cf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgY2Y9MQp3YSBjbW92YSBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer cf=1
+wa cmova eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovae eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdmFlIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovae eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovae eax, ecx aer cf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgY2Y9MQp3YSBjbW92YWUgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer cf=1
+wa cmovae eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovb eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92YiBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmovb eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovb eax, ecx aer cf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgY2Y9MQp3YSBjbW92YiBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer cf=1
+wa cmovb eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovbe eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdmJlIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovbe eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovbe eax, ecx aer cf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgY2Y9MQp3YSBjbW92YmUgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer cf=1
+wa cmovbe eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovc eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdmMgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovc eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovc eax, ecx aer cf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgY2Y9MQp3YSBjbW92YyBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer cf=1
+wa cmovc eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmove eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdmUgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmove eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmove eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92ZSBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmove eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovg eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdmcgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovg eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovg eax, ecx aer sf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgc2Y9MQp3YSBjbW92ZyBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer sf=1
+wa cmovg eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovge eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdmdlIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovge eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovge eax, ecx aer sf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgc2Y9MQp3YSBjbW92Z2UgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer sf=1
+wa cmovge eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovl eax, ecx aer sf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgc2Y9MQp3YSBjbW92bCBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer sf=1
+wa cmovl eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovl eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdmwgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovl eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovle eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92bGUgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmovle eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovle eax, ecx aer sf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgc2Y9MQp3YSBjbW92bGUgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer sf=1
+wa cmovle eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovle eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdmxlIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovle eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovna eax, ecx aer cf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgY2Y9MQp3YSBjbW92bmEgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer cf=1
+wa cmovna eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovna eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92bmEgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmovna eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovna eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5hIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovna eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnae eax, ecx aer cf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgY2Y9MQp3YSBjbW92bmFlIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer cf=1
+wa cmovnae eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnae eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5hZSBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovnae eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnb eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5iIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovnb eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnb eax, ecx aer cf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgY2Y9MQp3YSBjbW92bmIgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer cf=1
+wa cmovnb eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnbe eax, ecx aer cf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgY2Y9MQp3YSBjbW92bmJlIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer cf=1
+wa cmovnbe eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnbe eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92bmJlIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmovnbe eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnbe eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5iZSBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovnbe eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnc eax, ecx aer cf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgY2Y9MQp3YSBjbW92bmMgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer cf=1
+wa cmovnc eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnc eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5jIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovnc eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovne eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92bmUgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmovne eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovne eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5lIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovne eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovng eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92bmcgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmovng eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovng eax, ecx aer sf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgc2Y9MQp3YSBjbW92bmcgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer sf=1
+wa cmovng eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovng eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5nIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovng eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnge eax, ecx aer sf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgc2Y9MQp3YSBjbW92bmdlIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer sf=1
+wa cmovnge eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnge eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5nZSBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovnge eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnl eax, ecx aer sf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgc2Y9MQp3YSBjbW92bmwgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer sf=1
+wa cmovnl eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnl eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5sIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovnl eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnle eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5sZSBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovnle eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnle eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92bmxlIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmovnle eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovno eax, ecx aer of=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgb2Y9MQp3YSBjbW92bm8gZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer of=1
+wa cmovno eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovno eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5vIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovno eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnp eax, ecx aer pf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgcGY9MQp3YSBjbW92bnAgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer pf=1
+wa cmovnp eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnp eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5wIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovnp eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovns eax, ecx aer sf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgc2Y9MQp3YSBjbW92bnMgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer sf=1
+wa cmovns eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovns eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm5zIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovns eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnz eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92bnogZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmovnz eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovnz eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm56IGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovnz eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovo eax, ecx aer of=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgb2Y9MQp3YSBjbW92byBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer of=1
+wa cmovo eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovo eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdm8gZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovo eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovp eax, ecx aer pf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgcGY9MQp3YSBjbW92cCBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer pf=1
+wa cmovp eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovp eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdnAgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovp eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovpe eax, ecx aer pf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgcGY9MQp3YSBjbW92cGUgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer pf=1
+wa cmovpe eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovpe eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdnBlIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovpe eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovpo eax, ecx aer pf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgcGY9MQp3YSBjbW92cG8gZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer pf=1
+wa cmovpo eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovpo eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdnBvIGVheCwgZWN4CmFlcwphZXIgZWF4Cgo=
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovpo eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovs eax, ecx aer sf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgc2Y9MQp3YSBjbW92cyBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer sf=1
+wa cmovs eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovs eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdnMgZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovs eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovz eax, ecx aer zf=1
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwOAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAphZXIgemY9MQp3YSBjbW92eiBlYXgsIGVjeAphZXMKYWVyIGVheAoK
+EXPECT=<<EOF
+0x00000008
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+aer zf=1
+wa cmovz eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=cmovz eax, ecx
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=ZSBpby52YT10cnVlCmFlciBlY3g9OAoKd2EgY21vdnogZWF4LCBlY3gKYWVzCmFlciBlYXgKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e io.va=true
+aer ecx=8
+
+wa cmovz eax, ecx
+aes
+aer eax
+EOF
 RUN
+
 NAME=push esp (push old value of esp, as in IA-32 documentation) x86_32
 FILE=-
-EXPECT64=MHgwMDEwODAwMAoweDExMTExMTExCgo=
-CMDS64=ZSBpby52YT10cnVlCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKYWVpCmFlaW0KYWVyIGVzcD0weDAwMTA4MDAwCmFlciBlYXg9MHgxMTExMTExMTEKLmFlcioKInd4IDU0NTAiCjJhZXMKLmFlcioKcHYgQCAweDAwMTA3ZmZjCnB2IEAgMHgwMDEwN2ZmOAoK
+EXPECT=<<EOF
+0x00108000
+0x11111111
+EOF
+CMDS=<<EOF
+e io.va=true
+e asm.arch=x86
+e asm.bits=32
+aei
+aeim
+aer esp=0x00108000
+aer eax=0x111111111
+.aer*
+"wx 5450"
+2aes
+.aer*
+pv @ 0x00107ffc
+pv @ 0x00107ff8
+EOF
 RUN
 
 NAME=pdj: bts dword [esp], eax (#12575)

@@ -1,18 +1,32 @@
 NAME=capstone pade 31ed
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=ZWJwLGVicCxePSwkeix6Ziw9LCRwLHBmLD0sJHMsc2YsPSwkMCxjZiw9LCQwLG9mLD0K
-CMDS64=cGFkZSAzMWVkCgo=
+EXPECT=<<EOF
+ebp,ebp,^=,$z,zf,=,$p,pf,=,$s,sf,=,$0,cf,=,$0,of,=
+EOF
+CMDS=<<EOF
+pade 31ed
+EOF
 RUN
+
 NAME=pade 40
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=ZWF4LCsrPSwkbyxvZiw9LCRzLHNmLD0sJHosemYsPSwkcCxwZiw9Cgo=
-CMDS64=cGFkZSA0MAoK
+EXPECT=<<EOF
+eax,++=,$o,of,=,$s,sf,=,$z,zf,=,$p,pf,=
+EOF
+CMDS=<<EOF
+pade 40
+EOF
 RUN
+
 NAME=pade 48
 FILE=-
 ARGS=-a x86 -b 32
-EXPECT64=ZWF4LC0tPSwkbyxvZiw9LCRzLHNmLD0sJHosemYsPSwkcCxwZiw9Cgo=
-CMDS64=cGFkZSA0OAoK
+EXPECT=<<EOF
+eax,--=,$o,of,=,$s,sf,=,$z,zf,=,$p,pf,=
+EOF
+CMDS=<<EOF
+pade 48
+EOF
 RUN

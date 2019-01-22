@@ -1,10 +1,21 @@
 NAME=intreg $$
 FILE=-
-EXPECT64=MHhhCgo=
-CMDS64=cyAxMAoiYWUgJCQsMCwrIgo=
+EXPECT=<<EOF
+0xa
+EOF
+CMDS=<<EOF
+s 10
+"ae $$,0,+"
+EOF
 RUN
+
 NAME=intreg $$
 FILE=-
-EXPECT64=MHhhCgo=
-CMDS64=cyAxMAoiYWUgMCwkJCwrIgo=
+EXPECT=<<EOF
+0xa
+EOF
+CMDS=<<EOF
+s 10
+"ae 0,$$,+"
+EOF
 RUN

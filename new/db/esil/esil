@@ -1,120 +1,321 @@
 NAME=ar comma
 FILE=-
 ARGS=-a x86 -b 64
-EXPECT64=MHgwMDAwMDAyMQoweDAwMDAwMDJjCgo=
-CMDS64=YXIgcmF4PTMzCmFyIHJieD00NAphciByYXgscmJ4Cgo=
+EXPECT=<<EOF
+0x00000021
+0x0000002c
+EOF
+CMDS=<<EOF
+ar rax=33
+ar rbx=44
+ar rax,rbx
+EOF
 RUN
+
 NAME=add
 FILE=-
-EXPECT64=MHg2CjB4MAoK
-CMDS64=YWUgMywzLCsKYWUgMywzLC0KCg==
+EXPECT=<<EOF
+0x6
+0x0
+EOF
+CMDS=<<EOF
+ae 3,3,+
+ae 3,3,-
+EOF
 RUN
+
 NAME=inc/dec
 FILE=-
-EXPECT64=MHgwCjB4NAoweDIKMHhmZmZmZmZmZmZmZmZmZmZmCgo=
-CMDS64=CmFlIDB4ZmZmZmZmZmZmZmZmZmZmZiwrKwphZSAzLCsrCmFlIDMsLS0KYWUgMCwtLQoK
+EXPECT=<<EOF
+0x0
+0x4
+0x2
+0xffffffffffffffff
+EOF
+CMDS=<<EOF
+ae 0xffffffffffffffff,++
+ae 3,++
+ae 3,--
+ae 0,--
+EOF
 RUN
+
 NAME=sub
 FILE=-
-EXPECT64=MHgyCgo=
-CMDS64=YWUgMSwzLC0KCg==
+EXPECT=<<EOF
+0x2
+EOF
+CMDS=<<EOF
+ae 1,3,-
+EOF
 RUN
+
 NAME=subeq
 FILE=-
-EXPECT64=MHgyCgo=
-CMDS64=ZSBhc20uYml0cz0zMgplIGFzbS5hcmNoPXg4NgphZWkKYWUgMyxlYXgsPSwxLGVheCwtPSxlYXgsMCwrCgo=
+EXPECT=<<EOF
+0x2
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e asm.arch=x86
+aei
+ae 3,eax,=,1,eax,-=,eax,0,+
+EOF
 RUN
+
 NAME=shift-left
 FILE=-
-EXPECT64=MHg4CjB4NgoK
-CMDS64=ImFlIDMsMSw8PCIKImFlIDEsMyw8PCIKCg==
+EXPECT=<<EOF
+0x8
+0x6
+EOF
+CMDS=<<EOF
+"ae 3,1,<<"
+"ae 1,3,<<"
+EOF
 RUN
+
 NAME=shift-right
 FILE=-
-EXPECT64=MHg0CjB4MAoK
-CMDS64=ImFlIDEsOCw+PiIKImFlIDgsMSw+PiIKCg==
+EXPECT=<<EOF
+0x4
+0x0
+EOF
+CMDS=<<EOF
+"ae 1,8,>>"
+"ae 8,1,>>"
+EOF
 RUN
+
 NAME=sub
 FILE=-
-EXPECT64=MHhmZmZmZmZmZmZmZmZmZmZlCgo=
-CMDS64=YWUgMywxLC0KCg==
+EXPECT=<<EOF
+0xfffffffffffffffe
+EOF
+CMDS=<<EOF
+ae 3,1,-
+EOF
 RUN
+
 NAME=neg
 FILE=-
-EXPECT64=MHgwCjB4MQoK
-CMDS64=YWUgMywzLCssIQphZSAzLDMsLSwhCgo=
+EXPECT=<<EOF
+0x0
+0x1
+EOF
+CMDS=<<EOF
+ae 3,3,+,!
+ae 3,3,-,!
+EOF
 RUN
+
 NAME=condition
 FILE=-
-EXPECT64=MHg4MAoK
-CMDS64=YWUgMyw/eywweDgwLH0KCg==
+EXPECT=<<EOF
+0x80
+EOF
+CMDS=<<EOF
+ae 3,?{,0x80,}
+EOF
 RUN
+
 NAME=memory write (MIPS little endian)
 FILE=-
 ARGS=-a mips
-EXPECT64=ZmdoaQoK
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPWZhbHNlCmFlaW0KZSBpby5jYWNoZT10cnVlCiJhZSAweDY5Njg2NzY2LDB4MDAxMDAwMDAsPVs0XSIKcHN6IEAweDAwMTAwMDAwCgo=
+EXPECT=<<EOF
+fghi
+EOF
+CMDS=<<EOF
+e cfg.bigendian=false
+aeim
+e io.cache=true
+"ae 0x69686766,0x00100000,=[4]"
+psz @0x00100000
+EOF
 RUN
+
 NAME=memory write (MIPS big endian)
 FILE=-
 ARGS=-a mips
-EXPECT64=aWhnZgoK
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPXRydWUKYWVpbQplIGlvLmNhY2hlPXRydWUKImFlIDB4Njk2ODY3NjYsMHgwMDEwMDAwMCw9WzRdIgpwc3ogQDB4MDAxMDAwMDAKCg==
+EXPECT=<<EOF
+ihgf
+EOF
+CMDS=<<EOF
+e cfg.bigendian=true
+aeim
+e io.cache=true
+"ae 0x69686766,0x00100000,=[4]"
+psz @0x00100000
+EOF
 RUN
+
 NAME=memory write (non-MIPS big endian)
 FILE=-
 BROKEN=1
-EXPECT64=aWhnZgoK
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPXRydWUKYWVpbQplIGlvLmNhY2hlPXRydWUKImFlIDB4Njk2ODY3NjYsMHgwMDEwMDAwMCw9WzRdIgpwc3ogQDB4MDAxMDAwMDAKCg==
+EXPECT=<<EOF
+ihgf
+EOF
+CMDS=<<EOF
+e cfg.bigendian=true
+aeim
+e io.cache=true
+"ae 0x69686766,0x00100000,=[4]"
+psz @0x00100000
+EOF
 RUN
+
 NAME=esil poke some (32-bits ARM big endian)
 FILE=
 ARGS=-a arm -b 32
-EXPECT64=Njk2ODY3NjYKCg==
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPXRydWUKYWVpbQplIGlvLmNhY2hlPXRydWUKYXIgcjA9MHgwMDEwMDAwMAphciByMT0weDY5Njg2NzY2CiJhZSByMSwxLHIwLD1bKl0iCnA4IDRAMHgwMDEwMDAwMAoK
+EXPECT=<<EOF
+69686766
+EOF
+CMDS=<<EOF
+e cfg.bigendian=true
+aeim
+e io.cache=true
+ar r0=0x00100000
+ar r1=0x69686766
+"ae r1,1,r0,=[*]"
+p8 4@0x00100000
+EOF
 RUN
+
 NAME=esil poke some (64-bits ARM big endian)
 FILE=-
 ARGS=-a arm -b 64
-EXPECT64=MDAwMDAwMDA2OTY4Njc2NgoK
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPXRydWUKYWVpbQplIGlvLmNhY2hlPXRydWUKYXIgeDA9MHgwMDEwMDAwMAphciB4MT0weDY5Njg2NzY2CiJhZSB4MSwxLHgwLD1bKl0iCnA4IDhAMHgwMDEwMDAwMAoK
+EXPECT=<<EOF
+0000000069686766
+EOF
+CMDS=<<EOF
+e cfg.bigendian=true
+aeim
+e io.cache=true
+ar x0=0x00100000
+ar x1=0x69686766
+"ae x1,1,x0,=[*]"
+p8 8@0x00100000
+EOF
 RUN
+
 NAME=esil poke some (32-bits ARM little endian)
 FILE=-
 ARGS=-a arm -b 32
-EXPECT64=NjY2NzY4NjkKCg==
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPWZhbHNlCmFlaW0KZSBpby5jYWNoZT10cnVlCmFyIHIwPTB4MDAxMDAwMDAKYXIgcjE9MHg2OTY4Njc2NgoiYWUgcjEsMSxyMCw9WypdIgpwOCA0QDB4MDAxMDAwMDAKCg==
+EXPECT=<<EOF
+66676869
+EOF
+CMDS=<<EOF
+e cfg.bigendian=false
+aeim
+e io.cache=true
+ar r0=0x00100000
+ar r1=0x69686766
+"ae r1,1,r0,=[*]"
+p8 4@0x00100000
+EOF
 RUN
+
 NAME=esil poke some (64-bits ARM little endian)
 FILE=-
 ARGS=-a arm -b 64
-EXPECT64=NjY2NzY4NjkwMDAwMDAwMAoK
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPWZhbHNlCmFlaW0KZSBpby5jYWNoZT10cnVlCmFyIHgwPTB4MDAxMDAwMDAKYXIgeDE9MHg2OTY4Njc2NgoiYWUgeDEsMSx4MCw9WypdIgpwOCA4QDB4MDAxMDAwMDAKCg==
+EXPECT=<<EOF
+6667686900000000
+EOF
+CMDS=<<EOF
+e cfg.bigendian=false
+aeim
+e io.cache=true
+ar x0=0x00100000
+ar x1=0x69686766
+"ae x1,1,x0,=[*]"
+p8 8@0x00100000
+EOF
 RUN
+
 NAME=esil poke some (count too long)
 FILE=-
 ARGS=-a arm -b 64
-EXPECT64=NjY2NzY4NjkwMDAwMDAwMAoK
-CMDS64=ZSBjZmcuYmlnZW5kaWFuPWZhbHNlCmFlaW0KZSBpby5jYWNoZT10cnVlCmFyIHgwPTB4MDAxMDAwMDAKYXIgeDE9MHg2OTY4Njc2NgoiYWUgeDEsMHhmZmZmZmZmZix4MCw9WypdIgpwOCA4QDB4MDAxMDAwMDAKCg==
+EXPECT=<<EOF
+6667686900000000
+EOF
+CMDS=<<EOF
+e cfg.bigendian=false
+aeim
+e io.cache=true
+ar x0=0x00100000
+ar x1=0x69686766
+"ae x1,0xffffffff,x0,=[*]"
+p8 8@0x00100000
+EOF
 RUN
+
 NAME=rol
 FILE=-
-EXPECT64=MHgwMDAwMDAyMQoK
-CMDS64=ZSBhc20uYml0cz0zMgplIGFzbS5hcmNoPXg4NgphZWkKYXIgZWF4PTB4ODAwMDAwMTAKImFlIDB4MSxlYXgsPDw8LGVheCw9IgphciBlYXgKCg==
+EXPECT=<<EOF
+0x00000021
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e asm.arch=x86
+aei
+ar eax=0x80000010
+"ae 0x1,eax,<<<,eax,="
+ar eax
+EOF
 RUN
+
 NAME=ror
 FILE=-
-EXPECT64=MHg4MTAwMDAwMAoK
-CMDS64=ZSBhc20uYml0cz0zMgplIGFzbS5hcmNoPXg4NgphZWkKYXIgZWF4PTB4MDIwMDAwMDEKImFlIDB4MSxlYXgsPj4+LGVheCw9IgphciBlYXgKCg==
+EXPECT=<<EOF
+0x81000000
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e asm.arch=x86
+aei
+ar eax=0x02000001
+"ae 0x1,eax,>>>,eax,="
+ar eax
+EOF
 RUN
+
 NAME=or-mem-dst
 FILE=-
-EXPECT64=MHhmZgoK
-CMDS64=ZSBhc20uYml0cz0zMgplIGFzbS5hcmNoPXg4NgphZWkKYXIgZWF4PTB4MDAwMDAwMGIKImFlIDB4ZixlYXgsPVs0XSIKImFlIDB4ZjAsZWF4LHw9WzRdIgoiYWUgZWF4LFs0XSIKCg==
+EXPECT=<<EOF
+0xff
+EOF
+CMDS=<<EOF
+e asm.bits=32
+e asm.arch=x86
+aei
+ar eax=0x0000000b
+"ae 0xf,eax,=[4]"
+"ae 0xf0,eax,|=[4]"
+"ae eax,[4]"
+EOF
 RUN
+
 NAME=rep stosq
 FILE=../bins/elf/analysis/x64-rep-stosq
 ARGS=-e io.cache=1
-EXPECT64=MHgwMDAwMDAwMQoweDAwNjAwMGQwCjB4MDA0MDAwYzAKMHgwMDAwMDAwMAoweDAwNjAwMGQ4CjB4MDA0MDAwYzMKCg==
-CMDS64=CmFlaQphZWlwCjNhZXMKYXIgcmN4CmFyIHJkaQphciByaXAKYWVzCmFyIHJjeAphciByZGkKYXIgcmlwCgo=
+EXPECT=<<EOF
+0x00000001
+0x006000d0
+0x004000c0
+0x00000000
+0x006000d8
+0x004000c3
+EOF
+CMDS=<<EOF
+aei
+aeip
+3aes
+ar rcx
+ar rdi
+ar rip
+aes
+ar rcx
+ar rdi
+ar rip
+EOF
 RUN

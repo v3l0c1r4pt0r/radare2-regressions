@@ -1,106 +1,278 @@
 NAME=aecs
 FILE=-
 ARGS=-ax86 -b32
-EXPECT64=Cg==
-CMDS64=CiJ3YSBtb3YgZWF4LDMzO2ludCAweDgwIgphZWNzCgo=
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+"wa mov eax,33;int 0x80"
+aecs
+EOF
 RUN
+
 NAME=cmd.esil.intr unset
 FILE=-
-EXPECT64=Cg==
-CMDS64=Cnd4IGI4MDEwMDAwMDAwZjM0YjgwMTAwMDAwMGNkODBlYmZlCjEwYWVzCgo=
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+wx b8010000000f34b801000000cd80ebfe
+10aes
+EOF
 RUN
+
 NAME=cmd.esil.intr set
 FILE=-
-EXPECT64=U1lTQ0FMTCAxMjggMAoK
-CMDS64=CmUgYXNtLmJpdHM9NjQKZSBhc20uYXJjaCA9IHg4NgplIGFuYWwuYXJjaCA9IHg4Ngp3eCBiODAxMDAwMDAwMGYzNGI4MDEwMDAwMDBjZDgwZWJmZQplIGNtZC5lc2lsLmludHI9P2UgU1lTQ0FMTAoxMGFlcwoK
+EXPECT=<<EOF
+SYSCALL 128 0
+EOF
+CMDS=<<EOF
+e asm.bits=64
+e asm.arch = x86
+e anal.arch = x86
+wx b8010000000f34b801000000cd80ebfe
+e cmd.esil.intr=?e SYSCALL
+10aes
+EOF
 RUN
+
 NAME=x86-64 linux syscall
 FILE=../bins/elf/syscall_x86
-EXPECT64=ICAweDAwNDAwMGYxICAgICAgc3lzY2FsbCAgICAgOyAxID0gd3JpdGUgKDEsICJIZWxsbywgd29ybGQhLiIsIDE0KQoK
-CMDS64=CmUgYXNtLmJ5dGVzPTAKZSBhc20ubGluZXMuYmI9MAplIGVtdS5zdHI9MQplIGFzbS5jbXQuY29sPTMwCnBkIDV+d3JpdGUKCg==
+EXPECT=<<EOF
+  0x004000f1      syscall     ; 1 = write (1, "Hello, world!.", 14)
+EOF
+CMDS=<<EOF
+e asm.bytes=0
+e asm.lines.bb=0
+e emu.str=1
+e asm.cmt.col=30
+pd 5~write
+EOF
 RUN
+
 NAME=x86-64 linux syscall emulation
 FILE=../bins/elf/syscall_x86
-EXPECT64=MSA9IHdyaXRlICgxLCAiSGVsbG8sIHdvcmxkIS4iLCAxNCkKCg==
-CMDS64=CnMgZW50cnkwCmRyIHJpcD0kJAo0YWVzCnMuLmYxCmFzCgo=
+EXPECT=<<EOF
+1 = write (1, "Hello, world!.", 14)
+EOF
+CMDS=<<EOF
+s entry0
+dr rip=$$
+4aes
+s..f1
+as
+EOF
 RUN
+
 NAME=x86-64 linux syscall emulation
 FILE=../bins/elf/syscall_x86
-EXPECT64=MSA9IHdyaXRlICgxLCAiSGVsbG8sIHdvcmxkIS4iLCAxNCkKCg==
-CMDS64=CnMgZW50cnkwCmRyIHJpcD0kJAo0ZHMKcy4uZjEKYXMKCg==
+EXPECT=<<EOF
+1 = write (1, "Hello, world!.", 14)
+EOF
+CMDS=<<EOF
+s entry0
+dr rip=$$
+4ds
+s..f1
+as
+EOF
 RUN
+
 NAME=x86-16 dos syscall
 FILE=-
 ARGS=-ax86 -b16 -kdos
-EXPECT64=NDggPSBHZXRET1NWZXJzaW9uICgpCgo=
-CMDS64=CiJ3YSBtb3YgYWgsMHgzMDtpbnQgMHgyMSIKYWVjdSAweDQKYXMKCg==
+EXPECT=<<EOF
+48 = GetDOSVersion ()
+EOF
+CMDS=<<EOF
+"wa mov ah,0x30;int 0x21"
+aecu 0x4
+as
+EOF
 RUN
+
 NAME=arm s110 syscalls esil
 BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
-CMDS64=d3ggMDUyMjBhYTE3Y2RmCmUgZW11LnN0cj0xCnBkIDMK
-EXPECT64=ICAgICAgICAgICAgMHgwMDAwMDAwMCAgICAgIDA1MjIgICAgICAgICAgIG1vdnMgcjIsIDUKICAgICAgICAgICAgMHgwMDAwMDAwMiAgICAgIDBhYTEgICAgICAgICAgIGFkciByMSwgMHgyOCAgICAgICAgICAgICAgICA7IDB4MmMgOyAnLCcKICAgICAgICAgICAgMHgwMDAwMDAwNCAgICAgIDdjZGYgICAgICAgICAgIHN2YyAweDdjICAgICAgICAgICAgICAgICAgICA7ICd8JyA7IDEyNCA9IHNkX2JsZV9nYXBfZGV2aWNlX25hbWVfc2V0ICgweDAwMDAwMDAwLCAweDAwMDAwMDI4LCAweDAwMDAwMDA1KQo=
+CMDS=<<EOF
+wx 05220aa17cdf
+e emu.str=1
+pd 3
+EOF
+EXPECT=<<EOF
+            0x00000000      0522           movs r2, 5
+            0x00000002      0aa1           adr r1, 0x28                ; 0x2c ; ','
+            0x00000004      7cdf           svc 0x7c                    ; '|' ; 124 = sd_ble_gap_device_name_set (0x00000000, 0x00000028, 0x00000005)
+EOF
 RUN
+
 NAME=arm s110 syscalls as
 BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
-CMDS64=d3ggMDUyMjBhYTE3Y2RmCmUgZW11LnN0cj0xCnMrNAphcwpwZCAxCg==
-EXPECT64=MTI0ID0gc2RfYmxlX2dhcF9kZXZpY2VfbmFtZV9zZXQgKDB4MDAwMDAwMDAsIDB4MDAwMDAwMDAsIDB4MDAwMDAwMDApCiAgICAgICAgICAgIDB4MDAwMDAwMDQgICAgICA3Y2RmICAgICAgICAgICBzdmMgMHg3YyAgICAgICAgICAgICAgICAgICAgOyAnfCcgOyAxMjQgPSBzZF9ibGVfZ2FwX2RldmljZV9uYW1lX3NldCAoMHgwMDAwMDAwMCwgMHgwMDAwMDAwMCwgMHgwMDAwMDAwMCkK
+CMDS=<<EOF
+wx 05220aa17cdf
+e emu.str=1
+s+4
+as
+pd 1
+EOF
+EXPECT=<<EOF
+124 = sd_ble_gap_device_name_set (0x00000000, 0x00000000, 0x00000000)
+            0x00000004      7cdf           svc 0x7c                    ; '|' ; 124 = sd_ble_gap_device_name_set (0x00000000, 0x00000000, 0x00000000)
+EOF
 RUN
+
 NAME=arm s110 syscalls as num
 BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
-CMDS64=d3ggMDUyMjBhYTE3Y2RmCmUgZW11LnN0cj0xCnMrNAphcyAxMjMKcGQgMQo=
-EXPECT64=MTIzID0gc2RfYmxlX2dhcF9wcGNwX2dldCAoMHgwMDAwMDAwMCkKICAgICAgICAgICAgMHgwMDAwMDAwNCAgICAgIDdjZGYgICAgICAgICAgIHN2YyAweDdjICAgICAgICAgICAgICAgICAgICA7ICd8JyA7IDEyNCA9IHNkX2JsZV9nYXBfZGV2aWNlX25hbWVfc2V0ICgweDAwMDAwMDAwLCAweDAwMDAwMDAwLCAweDAwMDAwMDAwKQo=
+CMDS=<<EOF
+wx 05220aa17cdf
+e emu.str=1
+s+4
+as 123
+pd 1
+EOF
+EXPECT=<<EOF
+123 = sd_ble_gap_ppcp_get (0x00000000)
+            0x00000004      7cdf           svc 0x7c                    ; '|' ; 124 = sd_ble_gap_device_name_set (0x00000000, 0x00000000, 0x00000000)
+EOF
 RUN
+
 NAME=arm s110 syscalls /c svc
 FILE=../bins/elf/BLE_Beacon2.NRF51822_OTA.bin
 ARGS=-aarm -b16 -easm.os=s110 -m 0x16000
-CMDS64=L2Mgc3ZjCg==
-EXPECT64=MHgwMDAxNjhkMCAgICMgMjogc3ZjIDB4NTEKMHgwMDAxNjhmMiAgICMgMjogc3ZjIDB4NjEKMHgwMDAxNmI0MiAgICMgMjogc3ZjIDB4N2YKMHgwMDAxNmMxYyAgICMgMjogc3ZjIDB4N2MKMHgwMDAxNmMyOCAgICMgMjogc3ZjIDB4NzgKMHgwMDAxNmMzMiAgICMgMjogc3ZjIDB4N2EKMHgwMDAxNmMzYSAgICMgMjogc3ZjIDB4NzcKMHgwMDAxNmNlNCAgICMgMjogc3ZjIDB4YTAKMHgwMDAxNmVkNiAgICMgMjogc3ZjIDB4YTkKMHgwMDAxNzFiMiAgICMgMjogc3ZjIDB4NzMKMHgwMDAxNzIxMiAgICMgMjogc3ZjIDB4NzIKMHgwMDAxNzIxZSAgICMgMjogc3ZjIDB4NzgKMHgwMDAxNzQwOCAgICMgMjogc3ZjIDB4NDAKMHgwMDAxNzdmNiAgICMgMjogc3ZjIDB4M2MKMHgwMDAxNzdmOCAgICMgMjogc3ZjIDB4MTEKMHgwMDAxNzgyMCAgICMgMjogc3ZjIDB4MTMKMHgwMDAxNzg1YyAgICMgMjogc3ZjIDB4NjAKMHgwMDAxNzg2NCAgICMgMjogc3ZjIDB4NzEKMHgwMDAxNzg2YyAgICMgMjogc3ZjIDB4NzAKMHgwMDAxNzk0YyAgICMgMjogc3ZjIDB4YTIKMHgwMDAxNzk5ZSAgICMgMjogc3ZjIDB4YTMKMHgwMDAxN2ExYSAgICMgMjogc3ZjIDB4NjMKMHgwMDAxN2Q1ZSAgICMgMjogc3ZjIDB4MTAKMHgwMDAxN2Q2YSAgICMgMjogc3ZjIDB4MjYKMHgwMDAxODY2MCAgICMgMjogc3ZjIDB4YTQK
+CMDS=<<EOF
+/c svc
+EOF
+EXPECT=<<EOF
+0x000168d0   # 2: svc 0x51
+0x000168f2   # 2: svc 0x61
+0x00016b42   # 2: svc 0x7f
+0x00016c1c   # 2: svc 0x7c
+0x00016c28   # 2: svc 0x78
+0x00016c32   # 2: svc 0x7a
+0x00016c3a   # 2: svc 0x77
+0x00016ce4   # 2: svc 0xa0
+0x00016ed6   # 2: svc 0xa9
+0x000171b2   # 2: svc 0x73
+0x00017212   # 2: svc 0x72
+0x0001721e   # 2: svc 0x78
+0x00017408   # 2: svc 0x40
+0x000177f6   # 2: svc 0x3c
+0x000177f8   # 2: svc 0x11
+0x00017820   # 2: svc 0x13
+0x0001785c   # 2: svc 0x60
+0x00017864   # 2: svc 0x71
+0x0001786c   # 2: svc 0x70
+0x0001794c   # 2: svc 0xa2
+0x0001799e   # 2: svc 0xa3
+0x00017a1a   # 2: svc 0x63
+0x00017d5e   # 2: svc 0x10
+0x00017d6a   # 2: svc 0x26
+0x00018660   # 2: svc 0xa4
+EOF
 RUN
+
 NAME=arm s110 syscalls /as
 BROKEN=1
 FILE=../bins/elf/BLE_Beacon2.NRF51822_OTA.bin
 ARGS=-aarm -b16 -easm.os=s110 -m 0x16000
-CMDS64=L2FzCg==
-EXPECT64=MHgwMDAxNjhkMCBzZF9ldnRfZ2V0CjB4MDAwMTY4ZjIgc2RfYmxlX2V2dF9nZXQKMHgwMDAxNmI0MiBzZF9ibGVfZ2FwX3NlY19wYXJhbXNfcmVwbHkKMHgwMDAxNmMxYyBzZF9ibGVfZ2FwX2RldmljZV9uYW1lX3NldAoweDAwMDE2YzI4IHNkX2JsZV9nYXBfYXBwZWFyYW5jZV9zZXQKMHgwMDAxNmMzMiBzZF9ibGVfZ2FwX3BwY3Bfc2V0CjB4MDAwMTZjM2Egc2RfYmxlX2dhcF90eF9wb3dlcl9zZXQKMHgwMDAxNmNlNCBzZF9ibGVfZ2F0dHNfc2VydmljZV9hZGQKMHgwMDAxNmVkNiBzZF9ibGVfZ2F0dHNfc3lzX2F0dHJfc2V0CjB4MDAwMTcxYjIgc2RfYmxlX2dhcF9hZHZfc3RhcnQKMHgwMDAxNzIxMiBzZF9ibGVfZ2FwX2Fkdl9kYXRhX3NldAoweDAwMDE3MjFlIHNkX2JsZV9nYXBfYXBwZWFyYW5jZV9zZXQKMHgwMDAxNzQwOCBzZF9wb3dlcl9wb2ZfdGhyZXNob2xkX3NldAoweDAwMDE3N2Y2IHNkX3Bvd2VyX3N5c3RlbV9vZmYKMHgwMDAxNzdmOCBzZF9zb2Z0ZGV2aWNlX2Rpc2FibGUKMHgwMDAxNzgyMCBzZF9zb2Z0ZGV2aWNlX3ZlY3Rvcl90YWJsZV9iYXNlX3NldAoweDAwMDE3ODVjIHNkX2JsZV9lbmFibGUKMHgwMDAxNzg2NCBzZF9ibGVfZ2FwX2FkZHJlc3NfZ2V0CjB4MDAwMTc4NmMgc2RfYmxlX2dhcF9hZGRyZXNzX3NldAoweDAwMDE3OTRjIHNkX2JsZV9nYXR0c19jaGFyYWN0ZXJpc3RpY19hZGQKMHgwMDAxNzk5ZSBzZF9ibGVfZ2F0dHNfZGVzY3JpcHRvcl9hZGQKMHgwMDAxN2ExYSBzZF9ibGVfdXVpZF92c19hZGQKMHgwMDAxN2Q1ZSBzZF9zb2Z0ZGV2aWNlX2VuYWJsZQoweDAwMDE3ZDZhIHNkX3BwaV9ncm91cF9hc3NpZ24KMHgwMDAxODY2MCBzZF9ibGVfZ2F0dHNfdmFsdWVfc2V0Cg==
+CMDS=<<EOF
+/as
+EOF
+EXPECT=<<EOF
+0x000168d0 sd_evt_get
+0x000168f2 sd_ble_evt_get
+0x00016b42 sd_ble_gap_sec_params_reply
+0x00016c1c sd_ble_gap_device_name_set
+0x00016c28 sd_ble_gap_appearance_set
+0x00016c32 sd_ble_gap_ppcp_set
+0x00016c3a sd_ble_gap_tx_power_set
+0x00016ce4 sd_ble_gatts_service_add
+0x00016ed6 sd_ble_gatts_sys_attr_set
+0x000171b2 sd_ble_gap_adv_start
+0x00017212 sd_ble_gap_adv_data_set
+0x0001721e sd_ble_gap_appearance_set
+0x00017408 sd_power_pof_threshold_set
+0x000177f6 sd_power_system_off
+0x000177f8 sd_softdevice_disable
+0x00017820 sd_softdevice_vector_table_base_set
+0x0001785c sd_ble_enable
+0x00017864 sd_ble_gap_address_get
+0x0001786c sd_ble_gap_address_set
+0x0001794c sd_ble_gatts_characteristic_add
+0x0001799e sd_ble_gatts_descriptor_add
+0x00017a1a sd_ble_uuid_vs_add
+0x00017d5e sd_softdevice_enable
+0x00017d6a sd_ppi_group_assign
+0x00018660 sd_ble_gatts_value_set
+EOF
 RUN
+
 NAME=arm s110 syscalls aae
 BROKEN=1
 FILE=../bins/elf/BLE_Beacon2.NRF51822_OTA.bin
 ARGS=-aarm -b16 -easm.os=s110 -m 0x16000
-CMDS64=ZSBiaW4uYmFkZHIgPSAweDE2MDAwOwphYWUgJHMgQCAweDAwMDE2MDAwCmZzCg==
-EXPECT64=MCAgICAwICogc2VjdGlvbnMKMSAgICAwICogc2VnbWVudHMKMiAgICAwICogcmVsb2NzCjMgICAgMCAqIHN5bWJvbHMKNCAgIDI1ICogc3lzY2FsbHMKNSAgICA1ICogc3RyaW5ncwo=
+CMDS=<<EOF
+e bin.baddr = 0x16000;
+aae $s @ 0x00016000
+fs
+EOF
+EXPECT=<<EOF
+0    0 * sections
+1    0 * segments
+2    0 * relocs
+3    0 * symbols
+4   25 * syscalls
+5    5 * strings
+EOF
 RUN
+
 NAME=arm s110 syscalls asl ascii
 BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
-CMDS64=YXNsIHNkX2V2dF9nZXQK
-EXPECT64=ODE=
+CMDS=<<EOF
+asl sd_evt_get
+EOF
+EXPECT=<<EOF
+81
+EOF
 RUN
+
 NAME=arm s110 syscalls asl num
 BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
-CMDS64=YXNsIDB4NTEK
-EXPECT64=c2RfZXZ0X2dldAo=
+CMDS=<<EOF
+asl 0x51
+EOF
+EXPECT=<<EOF
+sd_evt_get
+EOF
 RUN
+
 NAME=arm s110 syscalls asc num
 BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
-CMDS64=YXNjIDB4NTEK
-EXPECT64=I2RlZmluZSBTWVNfc2RfZXZ0X2dldCA4MQo=
+CMDS=<<EOF
+asc 0x51
+EOF
+EXPECT=<<EOF
+#define SYS_sd_evt_get 81
+EOF
 RUN
+
 NAME=arm s110 syscalls asca num
 BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
-CMDS64=YXNjYSAweDUxCg==
-EXPECT64=LmVxdSBTWVNfc2RfZXZ0X2dldCA4MQo=
+CMDS=<<EOF
+asca 0x51
+EOF
+EXPECT=<<EOF
+.equ SYS_sd_evt_get 81
+EOF
 RUN

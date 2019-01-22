@@ -1,133 +1,450 @@
 NAME=ands (opcode) triggers zf
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTAKYWVyIGNwc3I9MAp3eCAwMjIwMTJlMAphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=0
+aer cpsr=0
+wx 022012e0
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=ands (opcode) triggers zf off
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3eCAwMjIwMTJlMAphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=5
+aer cpsr=0x40000000
+wx 022012e0
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=ands triggers zf
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTAKYWVyIGNwc3I9MAp3YSBhbmRzIHIyLCByMgphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=0
+aer cpsr=0
+wa ands r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=ands triggers zf off
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3YSBhbmRzIHIyLCByMgphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=5
+aer cpsr=0x40000000
+wa ands r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=and (no s flag) does not trigger zf
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTAKYWVyIGNwc3I9MHgwMDAwMDAwMAp3YSBhbmQgcjIsIHIyCmFlcwphZXI/Y3BzcgoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=0
+aer cpsr=0x00000000
+wa and r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=and (no s flag) does not trigger zf off
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3YSBhbmQgcjIsIHIyCmFlcwphZXI/Y3BzcgoK
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=5
+aer cpsr=0x40000000
+wa and r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=orrs triggers zf
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTAKYWVyIGNwc3I9MAp3YSBvcnJzIHIyLCByMgphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=0
+aer cpsr=0
+wa orrs r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=orrs triggers zf off
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3YSBvcnJzIHIyLCByMgphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=5
+aer cpsr=0x40000000
+wa orrs r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=orrs (opcode) triggers zf
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTAKYWVyIGNwc3I9MAp3eCAwMjIwOTJlMQphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=0
+aer cpsr=0
+wx 022092e1
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=orrs (opcode) triggers zf off
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3eCAwMjIwOTJlMQphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=5
+aer cpsr=0x40000000
+wx 022092e1
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=orr (no s flag) does not trigger zf
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTAKYWVyIGNwc3I9MHgwMDAwMDAwMAp3YSBvcnIgcjIsIHIyCmFlcwphZXI/Y3BzcgoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=0
+aer cpsr=0x00000000
+wa orr r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=orr (no s flag) does not trigger zf off
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3YSBvcnIgcjIsIHIyCmFlcwphZXI/Y3BzcgoK
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=5
+aer cpsr=0x40000000
+wa orr r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=adds triggers zf
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTAKYWVyIGNwc3I9MAp3YSBhZGRzIHIyLCByMgphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=0
+aer cpsr=0
+wa adds r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=adds triggers zf off
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTIKYWVyIHIxPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3YSBhZGRzIHIxLHIyIAphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=2
+aer r1=5
+aer cpsr=0x40000000
+wa adds r1,r2 
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=add (no s flag) does not trigger zf
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTAKYWVyIGNwc3I9MAp3YSBhZGQgcjIsIHIyCmFlcwphZXI/Y3BzcgoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=0
+aer cpsr=0
+wa add r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=add (no s flag) does not trigger zf off
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTIKYWVyIHIxPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3YSBhZGQgcjEsIHIyCmFlcwphZXI/Y3BzcgoK
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=2
+aer r1=5
+aer cpsr=0x40000000
+wa add r1, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=eors (opcode) triggers zf
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTEKYWVyIGNwc3I9MAp3eCAwMjIwMzJlMAphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=1
+aer cpsr=0
+wx 022032e0
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=eors (opcode) triggers zf off
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTIKYWVyIHIxPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3eCAwMjEwMzFlMAphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=2
+aer r1=5
+aer cpsr=0x40000000
+wx 021031e0
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=eors triggers zf
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTEKYWVyIGNwc3I9MAp3YSBlb3JzIHIyLCByMgphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=1
+aer cpsr=0
+wa eors r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=eors triggers zf off
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTIKYWVyIHIxPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3YSBlb3JzIHIxLHIyIAphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=2
+aer r1=5
+aer cpsr=0x40000000
+wa eors r1,r2 
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=eor (no s flag) does not trigger zf
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTEKYWVyIGNwc3I9MAp3YSBlb3IgcjIsIHIyCmFlcwphZXI/Y3BzcgoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=1
+aer cpsr=0
+wa eor r2, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=eor (no s flag) does not trigger zf off
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTIKYWVyIHIxPTUKYWVyIGNwc3I9MHg0MDAwMDAwMAp3YSBlb3IgcjEsIHIyCmFlcwphZXI/Y3BzcgoK
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=2
+aer r1=5
+aer cpsr=0x40000000
+wa eor r1, r2
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=subs triggers zf
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTEKYWVyIGNwc3I9MAp3YSBzdWJzIHIyLCByMiwgMQphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=1
+aer cpsr=0
+wa subs r2, r2, 1
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=subs triggers zf off
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTIKYWVyIGNwc3I9MHg0MDAwMDAwMAp3YSBzdWJzIHIyLCByMiwgMQphZXMKYWVyP2Nwc3IKCg==
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=2
+aer cpsr=0x40000000
+wa subs r2, r2, 1
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=sub (no s flag) does not trigger zf
 FILE=-
-EXPECT64=MHgwMDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTEKYWVyIGNwc3I9MAp3YSBzdWIgcjIsIHIyLCAxCmFlcwphZXI/Y3BzcgoK
+EXPECT=<<EOF
+0x00000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=1
+aer cpsr=0
+wa sub r2, r2, 1
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=sub (no s flag) does not trigger zf off
 FILE=-
-EXPECT64=MHg0MDAwMDAwMAoK
-CMDS64=CmUgZXNpbC5kZWJ1Zz10cnVlCmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYWVyIHIyPTIKYWVyIGNwc3I9MHg0MDAwMDAwMAp3YSBzdWIgcjIsIHIyLCAxCmFlcwphZXI/Y3BzcgoK
+EXPECT=<<EOF
+0x40000000
+EOF
+CMDS=<<EOF
+e esil.debug=true
+e asm.arch=arm
+e asm.bits=32
+aer r2=2
+aer cpsr=0x40000000
+wa sub r2, r2, 1
+aes
+aer?cpsr
+EOF
 RUN
+
 NAME=cmp neq unchanged zf
 FILE=malloc://0x200
 CMDS=<<EXPECT
@@ -202,438 +519,1802 @@ RUN
 
 NAME=ldr r0, [r1, 7]
 FILE=malloc://0x200
-EXPECT64=MHhiYmJiYmJiYgoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgPiAvZGV2L251bGwKYXIgcjA9MAphciByMT0xCnd4IDA3MDA5MWU1Cnd4IGFhYWFhYWFhYmJiYmJiYmI0NDMzMjIxMUA0CmFlcwphciByMAoK
+EXPECT=<<EOF
+0xbbbbbbbb
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar > /dev/null
+ar r0=0
+ar r1=1
+wx 070091e5
+wx aaaaaaaabbbbbbbb44332211@4
+aes
+ar r0
+EOF
 RUN
+
 NAME=ldr r0, [r0, 7]
 FILE=malloc://0x200
-EXPECT64=MHhiYmJiYmJhYQoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgPiAvZGV2L251bGwKYXIgcjA9MAp3eCAwNzAwOTBlNQp3eCBhYWFhYWFhYWJiYmJiYmJiNDQzMzIyMTFANAphZXMKYXIgcjAKCg==
+EXPECT=<<EOF
+0xbbbbbbaa
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar > /dev/null
+ar r0=0
+wx 070090e5
+wx aaaaaaaabbbbbbbb44332211@4
+aes
+ar r0
+EOF
 RUN
+
 NAME=ldr r0, [r0, r1]
 FILE=malloc://0x200
-EXPECT64=MHhiYmJiYWFhYQoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgPiAvZGV2L251bGwKYXIgcjA9NAphciByMT0yCnd4IDAxMDA5MGU3Cnd4IGFhYWFhYWFhYmJiYmJiYmI0NDMzMjIxMUA0CmFlcwphciByMAoK
+EXPECT=<<EOF
+0xbbbbaaaa
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar > /dev/null
+ar r0=4
+ar r1=2
+wx 010090e7
+wx aaaaaaaabbbbbbbb44332211@4
+aes
+ar r0
+EOF
 RUN
+
 NAME=ldr r2, [r3, r1]
 FILE=malloc://0x200
-EXPECT64=MHhmZmVlZGRjYwoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjM9NAphciByMT0yCnd4IDAxMjA5M2U3YWFiYmNjZGRlZWZmCmFlcwphciByMgoK
+EXPECT=<<EOF
+0xffeeddcc
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r3=4
+ar r1=2
+wx 012093e7aabbccddeeff
+aes
+ar r2
+EOF
 RUN
+
 NAME=str r2, [r3, 4]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAwCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjI9MHhkZWFkYmVlZgphciByMz0wCnd4IDA0MjA4M2U1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA0CmFyIHIyCmFyIHIzCgo=
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r2=0xdeadbeef
+ar r3=0
+wx 042083e5aabbccddeeff
+aes
+p8 4 @4
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r2, [r3, 5]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAwCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjI9MHhkZWFkYmVlZgphciByMz0wCnd4IDA1MjA4M2U1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA1CmFyIHIyCmFyIHIzCgo=
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000000
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r2=0xdeadbeef
+ar r3=0
+wx 052083e5aabbccddeeff
+aes
+p8 4 @5
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r2, [r3, r1]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA0CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjI9MHhkZWFkYmVlZgphciByMz00CmFyIHIxPTIKd3ggMDEyMDgzZTdhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjIKYXIgcjMKYXIgcjEKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000004
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r2=0xdeadbeef
+ar r3=4
+ar r1=2
+wx 012083e7aabbccddeeff
+aes
+p8 4 @6
+ar r2
+ar r3
+ar r1
+EOF
 RUN
+
 NAME=str r2, [r3, r1]; ldr r2, [r3, r1]
 FILE=malloc://0x200
-EXPECT64=MHhkZWFkYmVlZgoweDAwMDAwMDA4CjB4MDAwMDAwMDQKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjI9MHhkZWFkYmVlZgphciByMz04CmFyIHIxPTQKd3ggMDEyMDgzZTcwMTIwOTNlN2FhYmJjY2RkZWVmZjExMjIzMzQ0CmFlcwphZXMKYXIgcjIKYXIgcjMKYXIgcjEKCg==
+EXPECT=<<EOF
+0xdeadbeef
+0x00000008
+0x00000004
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r2=0xdeadbeef
+ar r3=8
+ar r1=4
+wx 012083e7012093e7aabbccddeeff11223344
+aes
+aes
+ar r2
+ar r3
+ar r1
+EOF
 RUN
+
 NAME=str r1, [r2, r3, lsl 1]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA0CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTIKd3ggODMxMDgyZTdhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDgKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000004
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=2
+wx 831082e7aabbccddeeff
+aes
+p8 4 @8
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r1, [r2, r3, lsr 1]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA0CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTIKd3ggYTMxMDgyZTdhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDUKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000004
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=2
+wx a31082e7aabbccddeeff
+aes
+p8 4 @5
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r1, [r2, r3, asr 1]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA0CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTIKd3ggYzMxMDgyZTdhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDUKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000004
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=2
+wx c31082e7aabbccddeeff
+aes
+p8 4 @5
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r1, [r2, r3, ror 23]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA0CjB4MDAwMDAwMDEKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTEKd3ggZTMxYzgyZTdhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDB4ODQKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000004
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=1
+wx e31c82e7aabbccddeeff
+aes
+p8 4 @0x84
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r2, [r3], 5
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA1Cgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjI9MHhkZWFkYmVlZgphciByMz0wCnd4IDA1MjA4M2U0YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA1CmFyIHIyCmFyIHIzCgo=
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000005
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r2=0xdeadbeef
+ar r3=0
+wx 052083e4aabbccddeeff
+aes
+p8 4 @5
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r2, [r3], r1
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA2CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjI9MHhkZWFkYmVlZgphciByMz00CmFyIHIxPTIKd3ggMDEyMDgzZTZhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjIKYXIgcjMKYXIgcjEKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000006
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r2=0xdeadbeef
+ar r3=4
+ar r1=2
+wx 012083e6aabbccddeeff
+aes
+p8 4 @6
+ar r2
+ar r3
+ar r1
+EOF
 RUN
+
 NAME=str r1, [r2], r3, lsl 1
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA4CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTIKd3ggODMxMDgyZTZhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDgKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000008
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=2
+wx 831082e6aabbccddeeff
+aes
+p8 4 @8
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r1, [r2], r3, lsr 1
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA1CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTIKd3ggYTMxMDgyZTZhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDUKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000005
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=2
+wx a31082e6aabbccddeeff
+aes
+p8 4 @5
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r1, [r2], r3, asr 1
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA1CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTIKd3ggYzMxMDgyZTZhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDUKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000005
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=2
+wx c31082e6aabbccddeeff
+aes
+p8 4 @5
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r1, [r2], r3, ror 23
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDg0CjB4MDAwMDAwMDEKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTEKd3ggZTMxYzgyZTZhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDB4ODQKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000084
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=1
+wx e31c82e6aabbccddeeff
+aes
+p8 4 @0x84
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r2, [r3, 5]!
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA1Cgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjI9MHhkZWFkYmVlZgphciByMz0wCnd4IDA1MjBhM2U1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA1CmFyIHIyCmFyIHIzCgo=
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000005
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r2=0xdeadbeef
+ar r3=0
+wx 0520a3e5aabbccddeeff
+aes
+p8 4 @5
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r2, [r3, -5]!
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA1Cgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjI9MHhkZWFkYmVlZgphciByMz0xMAp3eCAwNTIwMjNlNWFhYmJjY2RkZWVmZgphZXMKcDggNCBANQphciByMgphciByMwoK
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000005
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r2=0xdeadbeef
+ar r3=10
+wx 052023e5aabbccddeeff
+aes
+p8 4 @5
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r2, [r3, r1]!
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA2CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjI9MHhkZWFkYmVlZgphciByMz00CmFyIHIxPTIKd3ggMDEyMGEzZTdhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjIKYXIgcjMKYXIgcjEKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000006
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r2=0xdeadbeef
+ar r3=4
+ar r1=2
+wx 0120a3e7aabbccddeeff
+aes
+p8 4 @6
+ar r2
+ar r3
+ar r1
+EOF
 RUN
+
 NAME=str r2, [r3, r1]! (negative r1)
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA2CjB4ZmZmZmZmZmUKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjI9MHhkZWFkYmVlZgphciByMz04CmFyIHIxPS0yCnd4IDAxMjBhM2U3YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHIyCmFyIHIzCmFyIHIxCgo=
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000006
+0xfffffffe
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r2=0xdeadbeef
+ar r3=8
+ar r1=-2
+wx 0120a3e7aabbccddeeff
+aes
+p8 4 @6
+ar r2
+ar r3
+ar r1
+EOF
 RUN
+
 NAME=str r1, [r2, r3, lsl 1]!
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA4CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTIKd3ggODMxMGEyZTdhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDgKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000008
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=2
+wx 8310a2e7aabbccddeeff
+aes
+p8 4 @8
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r1, [r2, r3, lsr 1]!
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA1CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTIKd3ggYTMxMGEyZTdhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDUKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000005
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=2
+wx a310a2e7aabbccddeeff
+aes
+p8 4 @5
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r1, [r2, r3, asr 1]!
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDA1CjB4MDAwMDAwMDIKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTIKd3ggYzMxMGEyZTdhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDUKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000005
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=2
+wx c310a2e7aabbccddeeff
+aes
+p8 4 @5
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=str r1, [r2, r3, ror 23]!
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDg0CjB4MDAwMDAwMDEKCg==
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhkZWFkYmVlZgphciByMj00CmFyIHIzPTEKd3ggZTMxY2EyZTdhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDB4ODQKYXIgcjEKYXIgcjIKYXIgcjMKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000084
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xdeadbeef
+ar r2=4
+ar r3=1
+wx e31ca2e7aabbccddeeff
+aes
+p8 4 @0x84
+ar r1
+ar r2
+ar r3
+EOF
 RUN
+
 NAME=streq r5, [r6, 5]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MQphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2MDVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508605aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=streq r5, [r6, 5] zf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MAphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2MDVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508605aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strne r5, [r6, 5]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MAphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2MTVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508615aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strne r5, [r6, 5] zf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MQphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2MTVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508615aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strhs r5, [r6, 5]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MQphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2MjVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508625aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strhs r5, [r6, 5] cf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MAphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2MjVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508625aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strlo r5, [r6, 5]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MAphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2MzVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508635aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strlo r5, [r6, 5] cf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MQphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2MzVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508635aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strmi r5, [r6, 5]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MQphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2NDVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508645aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strmi r5, [r6, 5] nf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MAphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2NDVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508645aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strpl r5, [r6, 5]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MAphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2NTVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508655aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strpl r5, [r6, 5] nf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MQphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2NTVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508655aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strvs r5, [r6, 5]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgdmY9MQphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2NjVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508665aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strvs r5, [r6, 5] vf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgdmY9MAphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2NjVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508665aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strvc r5, [r6, 5]
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgdmY9MAphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2NzVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508675aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strvc r5, [r6, 5] vf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgdmY9MQphciByNT0weGRlYWRiZWVmCmFyIHI2PTEKd3ggMDU1MDg2NzVhYWJiY2NkZGVlZmYKYWVzCnA4IDQgQDYKYXIgcjUKYXIgcjYKCg==
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508675aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strhi r5, [r6, 5] cf==0, zf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MAphciB6Zj0wCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODY4NWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=0
+ar zf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508685aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strhi r5, [r6, 5] cf==0, zf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MAphciB6Zj0xCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODY4NWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=0
+ar zf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508685aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strhi r5, [r6, 5] cf==1, zf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MQphciB6Zj0xCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODY4NWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=1
+ar zf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508685aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strhi r5, [r6, 5] zf==0 cf==1
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MQphciB6Zj0wCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODY4NWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=1
+ar zf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508685aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strls r5, [r6, 5] zf==1 cf==0
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MAphciB6Zj0xCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODY5NWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=0
+ar zf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508695aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strls r5, [r6, 5] cf==0, zf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MAphciB6Zj0wCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODY5NWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=0
+ar zf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508695aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strls r5, [r6, 5] cf==1, zf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MQphciB6Zj0wCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODY5NWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=1
+ar zf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508695aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strls r5, [r6, 5] cf==1, zf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgY2Y9MQphciB6Zj0xCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODY5NWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar cf=1
+ar zf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 05508695aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strge r5, [r6, 5] nf==1, vf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MQphciB2Zj0wCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODZhNWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=1
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086a5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strge r5, [r6, 5] nf==0, vf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MAphciB2Zj0xCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODZhNWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=0
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086a5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strge r5, [r6, 5] nf==1 vf==1
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MQphciB2Zj0xCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODZhNWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=1
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086a5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strge r5, [r6, 5] nf==0 vf==0
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MAphciB2Zj0wCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODZhNWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=0
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086a5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strlt r5, [r6, 5] nf==1 vf==0
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MQphciB2Zj0wCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODZiNWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=1
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086b5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strlt r5, [r6, 5] nf==0 vf==1
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MAphciB2Zj0xCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODZiNWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=0
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086b5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strlt r5, [r6, 5] nf==0, vf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MAphciB2Zj0wCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODZiNWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=0
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086b5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strlt r5, [r6, 5] nf==1, vf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgbmY9MQphciB2Zj0xCmFyIHI1PTB4ZGVhZGJlZWYKYXIgcjY9MQp3eCAwNTUwODZiNWFhYmJjY2RkZWVmZgphZXMKcDggNCBANgphciByNQphciByNgoK
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar nf=1
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086b5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strgt r5, [r6, 5] zf==1 nf==1, vf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MQphciBuZj0xCmFyIHZmPTEKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmM1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=1
+ar nf=1
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086c5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strgt r5, [r6, 5] zf==1 nf==0, vf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MQphciBuZj0wCmFyIHZmPTEKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmM1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=1
+ar nf=0
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086c5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strgt r5, [r6, 5] zf==1 nf==0, vf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MQphciBuZj0wCmFyIHZmPTAKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmM1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=1
+ar nf=0
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086c5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strgt r5, [r6, 5] zf==0 nf==0, vf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MAphciBuZj0wCmFyIHZmPTEKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmM1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=0
+ar nf=0
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086c5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strgt r5, [r6, 5] zf==0 nf==1, vf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MAphciBuZj0xCmFyIHZmPTAKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmM1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=0
+ar nf=1
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086c5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strgt r5, [r6, 5] zf==0 nf==0, vf==0
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MAphciBuZj0wCmFyIHZmPTAKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmM1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=0
+ar nf=0
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086c5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strgt r5, [r6, 5] zf==0 nf==1, vf==1
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MAphciBuZj0xCmFyIHZmPTEKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmM1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=0
+ar nf=1
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086c5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strle r5, [r6, 5] zf==1 nf==1, vf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MQphciBuZj0xCmFyIHZmPTEKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmQ1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=1
+ar nf=1
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086d5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strle r5, [r6, 5] zf==1 nf==0, vf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MQphciBuZj0wCmFyIHZmPTAKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmQ1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=1
+ar nf=0
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086d5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strle r5, [r6, 5] zf==0 nf==0, vf==0
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MAphciBuZj0wCmFyIHZmPTAKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmQ1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=0
+ar nf=0
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086d5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strle r5, [r6, 5] zf==0 nf==0, vf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MAphciBuZj0wCmFyIHZmPTEKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmQ1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=0
+ar nf=0
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086d5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strle r5, [r6, 5] zf==0 nf==0, vf==1
 FILE=malloc://0x200
-EXPECT64=Y2NkZGVlZmYKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MAphciBuZj0wCmFyIHZmPTEKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmQ1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+ccddeeff
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=0
+ar nf=0
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086d5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strle r5, [r6, 5] zf==1 nf==1, vf==0
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MQphciBuZj0xCmFyIHZmPTAKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmQ1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=1
+ar nf=1
+ar vf=0
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086d5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=strle r5, [r6, 5] zf==1 nf==0, vf==1
 FILE=malloc://0x200
-EXPECT64=ZWZiZWFkZGUKMHhkZWFkYmVlZgoweDAwMDAwMDAxCgo=
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgemY9MQphciBuZj0wCmFyIHZmPTEKYXIgcjU9MHhkZWFkYmVlZgphciByNj0xCnd4IDA1NTA4NmQ1YWFiYmNjZGRlZWZmCmFlcwpwOCA0IEA2CmFyIHI1CmFyIHI2Cgo=
+EXPECT=<<EOF
+efbeadde
+0xdeadbeef
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar zf=1
+ar nf=0
+ar vf=1
+ar r5=0xdeadbeef
+ar r6=1
+wx 055086d5aabbccddeeff
+aes
+p8 4 @6
+ar r5
+ar r6
+EOF
 RUN
+
 NAME=add reg
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMwoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MQphciByMj0yCnd2IDB4ZTA4MTAwMDIKYWVzCmFyIHIwCgo=
+EXPECT=<<EOF
+0x00000003
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=1
+ar r2=2
+wv 0xe0810002
+aes
+ar r0
+EOF
 RUN
+
 NAME=add reg in place
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMwoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjA9MQphciByMT0yCnd2IDB4ZTA4MDAwMDEKYWVzCmFyIHIwCgo=
+EXPECT=<<EOF
+0x00000003
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r0=1
+ar r1=2
+wv 0xe0800001
+aes
+ar r0
+EOF
 RUN
+
 NAME=add reg shifted
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMwoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MQphciByMj00Cnd2IDB4ZTA4MTAwYTIKYWVzCmFyIHIwCgo=
+EXPECT=<<EOF
+0x00000003
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=1
+ar r2=4
+wv 0xe08100a2
+aes
+ar r0
+EOF
 RUN
+
 NAME=add reg asr
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MgphciByMj0tMQp3diAweGUwODEwMGMyCmFlcwphciByMAoK
+EXPECT=<<EOF
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=2
+ar r2=-1
+wv 0xe08100c2
+aes
+ar r0
+EOF
 RUN
+
 NAME=add imm
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMwoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MQp3diAweGUyODEwMDAyCmFlcwphciByMAoK
+EXPECT=<<EOF
+0x00000003
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=1
+wv 0xe2810002
+aes
+ar r0
+EOF
 RUN
+
 NAME=add imm rotated
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMwoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9Mgp3diAweGUyODEwMTA0CmFlcwphciByMAoK
+EXPECT=<<EOF
+0x00000003
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=2
+wv 0xe2810104
+aes
+ar r0
+EOF
 RUN
+
 NAME=sub imm rotated
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwOQoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhhCnd2IDB4ZTI0MTAxMDQKYWVzCmFyIHIwCgo=
+EXPECT=<<EOF
+0x00000009
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xa
+wv 0xe2410104
+aes
+ar r0
+EOF
 RUN
+
 NAME=mul reg
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAxNAoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhhCmFyIHIyPTB4Mgp3diAweGUwMDAwMjkxCmFlcwphciByMAoK
+EXPECT=<<EOF
+0x00000014
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xa
+ar r2=0x2
+wv 0xe0000291
+aes
+ar r0
+EOF
 RUN
+
 NAME=and imm rotated
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMQoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhmCnd2IDB4ZTIwMTAxMDQKYWVzCmFyIHIwCgo=
+EXPECT=<<EOF
+0x00000001
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xf
+wv 0xe2010104
+aes
+ar r0
+EOF
 RUN
+
 NAME=orr imm rotated
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMwoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHgyCnd2IDB4ZTM4MTAxMDQKYWVzCmFyIHIwCgo=
+EXPECT=<<EOF
+0x00000003
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0x2
+wv 0xe3810104
+aes
+ar r0
+EOF
 RUN
+
 NAME=eor imm rotated
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwZQoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhmCnd2IDB4ZTIyMTAxMDQKYWVzCmFyIHIwCgo=
+EXPECT=<<EOF
+0x0000000e
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xf
+wv 0xe2210104
+aes
+ar r0
+EOF
 RUN
+
 NAME=lsr reg
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwMgoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhhCmFyIHIyPTB4Mgp3diAweGUxYTAwMjMxCmFlcwphciByMAoK
+EXPECT=<<EOF
+0x00000002
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xa
+ar r2=0x2
+wv 0xe1a00231
+aes
+ar r0
+EOF
 RUN
+
 NAME=lsl reg
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAyOAoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHhhCmFyIHIyPTB4Mgp3diAweGUxYTAwMjExCmFlcwphciByMAoK
+EXPECT=<<EOF
+0x00000028
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0xa
+ar r2=0x2
+wv 0xe1a00211
+aes
+ar r0
+EOF
 RUN
+
 NAME=add pc op1
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwYQoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKd3YgMHhlMjhmMDAwMgphZXMKYXIgcjAKCg==
+EXPECT=<<EOF
+0x0000000a
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+wv 0xe28f0002
+aes
+ar r0
+EOF
 RUN
+
 NAME=add pc op2
 FILE=malloc://0x200
-EXPECT64=MHgwMDAwMDAwYQoK
-CMDS64=CmUgYXNtLmFyY2g9YXJtCmUgYXNtLmJpdHM9MzIKYXIgcjE9MHgyCnd2IDB4ZTA4MTAwMGYKYWVzCmFyIHIwCgo=
+EXPECT=<<EOF
+0x0000000a
+EOF
+CMDS=<<EOF
+e asm.arch=arm
+e asm.bits=32
+ar r1=0x2
+wv 0xe081000f
+aes
+ar r0
+EOF
 RUN
 
 NAME=pc points to next instruction
