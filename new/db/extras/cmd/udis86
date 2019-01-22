@@ -1,7 +1,16 @@
 NAME=String udis86
 FILE=../../bins/elf/analysis/main
-EXPECT64=fCAgICAgICAgICAgMHgwMDQwMDUwYSAgICAgIGJmYzQwNTQwMDAgICAgIG1vdiBlZGksIHN0ci5IZWxsb19Xb3JsZCAgICA7IDB4NDAwNWM0IDsgIkhlbGxvIFdvcmxkIgoK
-CMDS64=ZSBhc20uYXJjaCA9IHg4Ni51ZGlzCmUgYXNtLmFyY2g9eDg2CmUgYXNtLmJpdHM9MzIKZSBzY3IuY29sdW1ucyA9IDkwCmFhCnBkIDEgQCAweDAwNDAwNTBhCgo=
+EXPECT=<<EOF
+|           0x0040050a      bfc4054000     mov edi, str.Hello_World    ; 0x4005c4 ; "Hello World"
+EOF
+CMDS=<<EOF
+e asm.arch = x86.udis
+e asm.arch=x86
+e asm.bits=32
+e scr.columns = 90
+aa
+pd 1 @ 0x0040050a
+EOF
 RUN
 
 
