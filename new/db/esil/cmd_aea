@@ -6,7 +6,7 @@ EXPECT=<<EOF
  A: rsp rbp rax eax rdx cf edx zf pf sf of
  R: rsp eax edx
  W: rbp rax rdx cf edx zf pf sf eax of
-NW: rsp
+ N: rsp
 EOF
 CMDS=<<EOF
 wx 4889e5b8ffff000089c2c1ea1f01d0;aea 5
@@ -70,7 +70,7 @@ EXPECT=<<EOF
  A: rsp rbp rax eax rdx cf edx zf pf sf of
  R: rsp eax edx
  W: rbp rax rdx cf edx zf pf sf eax of
-NW: rsp
+ N: rsp
 EOF
 CMDS=<<EOF
 wx 4889e5b8ffff000089c2c1ea1f01d0;aeA 15
