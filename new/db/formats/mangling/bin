@@ -20,3 +20,25 @@ FILE=../bins/pe/libzmq-v100-mt-4_0_4.dll
 CMDS=f~0x1004e0f4[2]
 EXPECT=sym.public:_void___thiscall_std::basic_ostream_char__struct_std::char_traits_char__::_Osfx_void
 RUN
+NAME=C++ demangle relocs
+FILE=../bins/elf/libstdc++.so.6
+EXPECT=<<CMDS
+            0x00091004      488b159d880f.  mov rdx, qword [reloc.vtableforstd::bad_alloc_168] ; [0x1898a8:8]=0
+CMDS=<<RUN
+pd 1 @0x00091004
+RUN
+NAME=C++ demangle exported GLIBCXX symbols
+FILE=../bins/elf/libstdc++.so.6
+EXPECT=<<CMDS
+3770 0x0008ce50 0x0008ce50 GLOBAL   FUNC  609 std::istream::ignore(long)
+3771 0x0008ce50 0x0008ce50 GLOBAL   FUNC  609 std::istream::ignore(long)
+5087 0x0008ce50 0x0008ce50 GLOBAL   FUNC  609 std::istream::ignore(long)
+5345 0x0008ce50 0x0008ce50 GLOBAL   FUNC  609 std::istream::ignore(long)
+CMDS=<<RUN
+iE~0x0008ce50
+RUN
+NAME=demangle in irj
+FILE=../bins/elf/demangle-test-cpp
+EXPECT={"name":"_ZSt20__throw_length_errorPKc","demname":"std::__throw_length_error(charconst*)","type":"SET_64","vaddr":16424,"paddr":12328,"is_ifunc":false}
+CMDS=irj~{9}
+RUN
