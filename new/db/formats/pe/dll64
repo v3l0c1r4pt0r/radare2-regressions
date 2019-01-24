@@ -1,6 +1,10 @@
 NAME=PE32+: dll64 - exports
 FILE=../bins/pe/kernel32.dll
 BROKEN=1
-EXPECT64=MTU4MwoK
-CMDS64=aUV+Pwo=
+EXPECT=<<EOF
+1583
+EOF
+CMDS=<<EOF
+iE~?
+EOF
 RUN

@@ -1,10 +1,19 @@
 NAME=elf swift
 FILE=../bins/elf/analysis/hello-swift
-EXPECT64=c3dpZnQKCg==
-CMDS64=aX5sYW5nWzFdCg==
+EXPECT=<<EOF
+swift
+EOF
+CMDS=<<EOF
+i~lang[1]
+EOF
 RUN
+
 NAME=elf swift demangle (requires swift-demangle program)
 FILE=../bins/elf/analysis/hello-swift
-EXPECT64=MHgwMDQwMDllMCAxNiBTd2lmdC5TdHJpbmcuaW5pdCAoX2J1aWx0aW5TdHJpbmdMaXRlcmFsKEJ1aWx0aW4uUmF3UG9pbnRlciBieXRlU2l6ZV9fQnVpbHRpbi5Xb3JkIGlzQVNDSUlfX0J1aWx0aW4uSW50MSBfKSAtPiBTdHJpbmcKCg==
-CMDS64=aXNxfjB4MDA0MDA5ZTAK
+EXPECT=<<EOF
+0x004009e0 16 Swift.String.init (_builtinStringLiteral(Builtin.RawPointer byteSize__Builtin.Word isASCII__Builtin.Int1 _) -> String
+EOF
+CMDS=<<EOF
+isq~0x004009e0
+EOF
 RUN

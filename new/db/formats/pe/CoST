@@ -1,26 +1,56 @@
 NAME=PE: corkami CoST.exe - open and analyze
 FILE=../bins/pe/CoST.exe
 ARGS=-A
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN
+
 NAME=PE: corkami CoST.exe - entrypoint VA
 FILE=../bins/pe/CoST.exe
-EXPECT64=W0VudHJ5cG9pbnRzXQp2YWRkcj0weDdlZmQwMDAwIHBhZGRyPTB4MDAwMDAwMDAgaGFkZHI9MHgwMDAwNTA2YyB0eXBlPXByb2dyYW0KCjEgZW50cnlwb2ludHMK
-CMDS64=aWUK
+EXPECT=<<EOF
+[Entrypoints]
+vaddr=0x7efd0000 paddr=0x00000000 haddr=0x0000506c type=program
+
+1 entrypoints
+EOF
+CMDS=<<EOF
+ie
+EOF
 RUN
+
 NAME=PE: corkami CoST.exe - tls VA
 FILE=../bins/pe/CoST.exe
-EXPECT64=W0NvbnN0cnVjdG9yc10KdmFkZHI9MHg3ZWZkMDE0OCBwYWRkcj0weDAwMDAwMTQ4IGhwYWRkcj0weDAwMDAwMWNjIHR5cGU9dGxzCgoxIGVudHJ5cG9pbnRzCg==
-CMDS64=aWVlCg==
+EXPECT=<<EOF
+[Constructors]
+vaddr=0x7efd0148 paddr=0x00000148 hpaddr=0x000001cc type=tls
+
+1 entrypoints
+EOF
+CMDS=<<EOF
+iee
+EOF
 RUN
+
 NAME=PE: corkami CoST.exe - sections list
 FILE=../bins/pe/CoST.exe
-EXPECT64=IDEgZmQ6IDMgKzB4MDAwMDAwMDAgMHg3ZWZkMDAwMCAtIDB4N2VmZDUxNjkgci14IGZtYXAuYmxvYgo=
-CMDS64=b20K
+EXPECT=<<EOF
+ 1 fd: 3 +0x00000000 0x7efd0000 - 0x7efd5169 r-x fmap.blob
+EOF
+CMDS=<<EOF
+om
+EOF
 RUN
+
 NAME=PE: corkami CoST.exe - pi 1
 FILE=../bins/pe/CoST.exe
-EXPECT64=ZGVjIGVicAoK
-CMDS64=ZSBhc20uZmlsdGVyPWZhbHNlCnBpIDEKCg==
+EXPECT=<<EOF
+dec ebp
+EOF
+CMDS=<<EOF
+e asm.filter=false
+pi 1
+EOF
 RUN

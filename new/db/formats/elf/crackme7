@@ -1,11 +1,20 @@
 NAME=ELF: IOLI - crackme7 - with -A
 FILE=../bins/elf/ioli/crackme0x07
 ARGS=-A
-EXPECT64=c2l6ZTogOTkKCg==
-CMDS64=YWZpIDB4ODA0ODY3ZH5zaXplCg==
+EXPECT=<<EOF
+size: 99
+EOF
+CMDS=<<EOF
+afi 0x804867d~size
+EOF
 RUN
+
 NAME=ELF: IOLI - crackme7 - with aa
 FILE=../bins/elf/ioli/crackme0x07
-EXPECT64=c2l6ZTogOTkKCg==
-CMDS64=YWE7YWZpIDB4ODA0ODY3ZH5zaXplCg==
+EXPECT=<<EOF
+size: 99
+EOF
+CMDS=<<EOF
+aa;afi 0x804867d~size
+EOF
 RUN

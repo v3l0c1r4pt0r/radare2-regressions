@@ -1,5 +1,8 @@
 NAME=PE: corkami gui.exe - open
 FILE=../bins/pe/gui.exe
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN

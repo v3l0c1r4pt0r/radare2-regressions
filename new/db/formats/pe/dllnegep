@@ -1,5 +1,8 @@
 NAME=PE: corkami dllnegep.dll - open
 FILE=../bins/pe/dllnegep.dll
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN

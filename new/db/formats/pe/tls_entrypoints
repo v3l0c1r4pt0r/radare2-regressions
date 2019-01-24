@@ -1,24 +1,67 @@
 NAME=PE: tls 1
 FILE=../bins/pe/tls.exe
 ARGS=-A
-EXPECT64=W0VudHJ5cG9pbnRzXQp2YWRkcj0weDAwNDAxMDAwIHBhZGRyPTB4MDAwMDAyMDAgaGFkZHI9MHgwMDAwMDA2OCB0eXBlPXByb2dyYW0KCjEgZW50cnlwb2ludHMKW0NvbnN0cnVjdG9yc10KdmFkZHI9MHgwMDQwMTAyMCBwYWRkcj0weDAwMDAwMjIwIGhwYWRkcj0weDAwMDAwMzg0IHR5cGU9dGxzCgoxIGVudHJ5cG9pbnRzCg==
-CMDS64=aWU7aWVlCg==
+EXPECT=<<EOF
+[Entrypoints]
+vaddr=0x00401000 paddr=0x00000200 haddr=0x00000068 type=program
+
+1 entrypoints
+[Constructors]
+vaddr=0x00401020 paddr=0x00000220 hpaddr=0x00000384 type=tls
+
+1 entrypoints
+EOF
+CMDS=<<EOF
+ie;iee
+EOF
 RUN
+
 NAME=PE: tls 2
 FILE=../bins/pe/tls_hello.exe
 ARGS=-A
-EXPECT64=W0VudHJ5cG9pbnRzXQp2YWRkcj0weDAwNDAxNGM4IHBhZGRyPTB4MDAwMDA4YzggaGFkZHI9MHgwMDAwMDA5OCB0eXBlPXByb2dyYW0KCjEgZW50cnlwb2ludHMKW0NvbnN0cnVjdG9yc10KdmFkZHI9MHgwMDQwMTYxOCBwYWRkcj0weDAwMDAwYTE4IGhwYWRkcj0weDAwMDA3ZmIwIHR5cGU9dGxzCgoxIGVudHJ5cG9pbnRzCg==
-CMDS64=aWU7aWVlCg==
+EXPECT=<<EOF
+[Entrypoints]
+vaddr=0x004014c8 paddr=0x000008c8 haddr=0x00000098 type=program
+
+1 entrypoints
+[Constructors]
+vaddr=0x00401618 paddr=0x00000a18 hpaddr=0x00007fb0 type=tls
+
+1 entrypoints
+EOF
+CMDS=<<EOF
+ie;iee
+EOF
 RUN
+
 NAME=1: PE: tls 3
 FILE=../bins/pe/tls_obfuscation.exe
 ARGS=-A
-EXPECT64=W0VudHJ5cG9pbnRzXQp2YWRkcj0weDAwNDAxMDAwIHBhZGRyPTB4MDAwMDAyMDAgaGFkZHI9MHgwMDAwMDA2OCB0eXBlPXByb2dyYW0KCjEgZW50cnlwb2ludHMK
-CMDS64=aWUK
+EXPECT=<<EOF
+[Entrypoints]
+vaddr=0x00401000 paddr=0x00000200 haddr=0x00000068 type=program
+
+1 entrypoints
+EOF
+CMDS=<<EOF
+ie
+EOF
 RUN
+
 NAME=2: PE: tls 3
 FILE=../bins/pe/tls_obfuscation.exe
 ARGS=-A
-EXPECT64=W0NvbnN0cnVjdG9yc10KdmFkZHI9MHgwMDQwMTAxNiBwYWRkcj0weDAwMDAwMjE2IGhwYWRkcj0weDAwMDAwMzMwIHR5cGU9dGxzCnZhZGRyPTB4MDA0MDEwMDEgcGFkZHI9MHgwMDAwMDIwMSBocGFkZHI9MHgwMDAwMDMzNCB0eXBlPXRscwp2YWRkcj0weDAwNDAxMDA2IHBhZGRyPTB4MDAwMDAyMDYgaHBhZGRyPTB4MDAwMDAzMzggdHlwZT10bHMKdmFkZHI9MHgwMDQwMTAwZiBwYWRkcj0weDAwMDAwMjBmIGhwYWRkcj0weDAwMDAwMzNjIHR5cGU9dGxzCnZhZGRyPTB4MDA0MDEwMTEgcGFkZHI9MHgwMDAwMDIxMSBocGFkZHI9MHgwMDAwMDM0MCB0eXBlPXRscwoKNSBlbnRyeXBvaW50cwo=
-CMDS64=aWVlCg==
+EXPECT=<<EOF
+[Constructors]
+vaddr=0x00401016 paddr=0x00000216 hpaddr=0x00000330 type=tls
+vaddr=0x00401001 paddr=0x00000201 hpaddr=0x00000334 type=tls
+vaddr=0x00401006 paddr=0x00000206 hpaddr=0x00000338 type=tls
+vaddr=0x0040100f paddr=0x0000020f hpaddr=0x0000033c type=tls
+vaddr=0x00401011 paddr=0x00000211 hpaddr=0x00000340 type=tls
+
+5 entrypoints
+EOF
+CMDS=<<EOF
+iee
+EOF
 RUN

@@ -1,6 +1,9 @@
 NAME=PE: corkami tls_onthefly.exe - open
 FILE=../bins/pe/tls_onthefly.exe
 ARGS=-A
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN

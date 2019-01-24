@@ -1,5 +1,19 @@
 NAME=PE: corkami imports.exe - open
 FILE=../bins/pe/imports.exe
-EXPECT64=W0ltcG9ydHNdCk51bSAgVmFkZHIgICAgICAgQmluZCAgICAgIFR5cGUgTmFtZQogICAxIDB4MDA0MDEwYzAgICAgTk9ORSAgICBGVU5DIGtlcm5lbDMyLmRsbF9FeGl0UHJvY2VzcwogICAxIDB4MDA0MDEwYzggICAgTk9ORSAgICBGVU5DIG1zdmNydC5kbGxfcHJpbnRmCltTeW1ib2xzXQpOdW0gUGFkZHIgICAgICBWYWRkciAgICAgIEJpbmQgICAgIFR5cGUgU2l6ZSBOYW1lCjAwMSAweDAwMDAwMmMwIDB4MDA0MDEwYzAgICBOT05FICAgRlVOQyAgICAwIGltcC5rZXJuZWwzMi5kbGxfRXhpdFByb2Nlc3MKMDAxIDB4MDAwMDAyYzggMHgwMDQwMTBjOCAgIE5PTkUgICBGVU5DICAgIDAgaW1wLm1zdmNydC5kbGxfcHJpbnRmCjB4NDAxMGM4Cg==
-CMDS64=aWkKaXMKP3Ygc3ltLmltcC5tc3ZjcnQuZGxsX3ByaW50ZgoK
+EXPECT=<<EOF
+[Imports]
+Num  Vaddr       Bind      Type Name
+   1 0x004010c0    NONE    FUNC kernel32.dll_ExitProcess
+   1 0x004010c8    NONE    FUNC msvcrt.dll_printf
+[Symbols]
+Num Paddr      Vaddr      Bind     Type Size Name
+001 0x000002c0 0x004010c0   NONE   FUNC    0 imp.kernel32.dll_ExitProcess
+001 0x000002c8 0x004010c8   NONE   FUNC    0 imp.msvcrt.dll_printf
+0x4010c8
+EOF
+CMDS=<<EOF
+ii
+is
+?v sym.imp.msvcrt.dll_printf
+EOF
 RUN

@@ -1,23 +1,41 @@
 NAME=PE: corkami normal.exe - open
 FILE=../bins/pe/normal.exe
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN
+
 NAME=PE: corkami normal.exe - bits 32
 FILE=../bins/pe/normal.exe
 ARGS=-n
-EXPECT64=Yml0cyAgICAgMzIKCg==
-CMDS64=IXJhYmluMiAtSSAuLi9iaW5zL3BlL25vcm1hbC5leGUgfCBncmVwIGJpdHMgCg==
+EXPECT=<<EOF
+bits     32
+EOF
+CMDS=<<EOF
+!rabin2 -I ../bins/pe/normal.exe | grep bits 
+EOF
 RUN
+
 NAME=PE: corkami normal.exe - machine i386
 FILE=../bins/pe/normal.exe
 ARGS=-n
-EXPECT64=bWFjaGluZSAgaTM4NgoK
-CMDS64=IXJhYmluMiAtSSAuLi9iaW5zL3BlL25vcm1hbC5leGUgfCBncmVwICJtYWNoaW5lICBpMzg2IiAK
+EXPECT=<<EOF
+machine  i386
+EOF
+CMDS=<<EOF
+!rabin2 -I ../bins/pe/normal.exe | grep "machine  i386" 
+EOF
 RUN
+
 NAME=PE: corkami normal.exe - class PE32
 FILE=../bins/pe/normal.exe
 ARGS=-n
-EXPECT64=Y2xhc3MgICAgUEUzMgoK
-CMDS64=IXJhYmluMiAtSSAuLi9iaW5zL3BlL25vcm1hbC5leGUgfCBncmVwICJjbGFzcyAgICBQRTMyIiAK
+EXPECT=<<EOF
+class    PE32
+EOF
+CMDS=<<EOF
+!rabin2 -I ../bins/pe/normal.exe | grep "class    PE32" 
+EOF
 RUN

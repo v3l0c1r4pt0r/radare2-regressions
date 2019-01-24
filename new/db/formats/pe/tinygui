@@ -1,10 +1,18 @@
 NAME=PE: corkami tinygui.exe - open
 FILE=../bins/pe/tinygui.exe
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN
+
 NAME=PE: corkami tinygui.exe - open
 FILE=../bins/pe/tinygui.exe
-EXPECT64=Q0NhIGVudHJ5MCB1c2VyMzIuZGxsCgo=
-CMDS64=aWwqCg==
+EXPECT=<<EOF
+CCa entry0 user32.dll
+EOF
+CMDS=<<EOF
+il*
+EOF
 RUN

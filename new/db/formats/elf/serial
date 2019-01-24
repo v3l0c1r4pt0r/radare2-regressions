@@ -1,5 +1,18 @@
 NAME=serial relsub
 FILE=../bins/elf/analysis/serial
-EXPECT64=ICAweDAwNDAwYjM1ICAgICAgbGVhIHJheCwgWzB4MDA0MDA3M2RdCiAgMHgwMDQwMGIzNSAgICAgIGxlYSByYXgsIFtmY24uMDA0MDA3M2RdCgo=
-CMDS64=cyAweDAwNDAwYjM1CmUgYXNtLmxlYWhpbnRzPWZhbHNlCmUgYXNtLmJ5dGVzPWZhbHNlCmUgYXNtLmxpbmVzLmJiPWZhbHNlCmUgYXNtLnJlbHN1Yj10cnVlCmUgYXNtLmNvbW1lbnRzPWZhbHNlCnBkIDEKYWYgQCAweDAwNDAwNzNkCnBkIDEKCg==
+EXPECT=<<EOF
+  0x00400b35      lea rax, [0x0040073d]
+  0x00400b35      lea rax, [fcn.0040073d]
+EOF
+CMDS=<<EOF
+s 0x00400b35
+e asm.leahints=false
+e asm.bytes=false
+e asm.lines.bb=false
+e asm.relsub=true
+e asm.comments=false
+pd 1
+af @ 0x0040073d
+pd 1
+EOF
 RUN

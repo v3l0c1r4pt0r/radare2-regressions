@@ -1,21 +1,40 @@
 NAME=MZ: unzip.exe - open
 FILE=../bins/mz/unzip.exe
 ARGS=-A
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN
+
 NAME=MZ: unzip.exe - entrypoint
 FILE=../bins/mz/unzip.exe
-EXPECT64=MHgxNTZhMAo=
-CMDS64=CnMKCg==
+EXPECT=<<EOF
+0x156a0
+EOF
+CMDS=<<EOF
+s
+EOF
 RUN
+
 NAME=MZ: unzip.exe - pi 1
 FILE=../bins/mz/unzip.exe
-EXPECT64=bW92IGJwLCBheAoK
-CMDS64=CnBpIDEKCg==
+EXPECT=<<EOF
+mov bp, ax
+EOF
+CMDS=<<EOF
+pi 1
+EOF
 RUN
+
 NAME=MZ: unzip.exe segments
 FILE=../bins/mz/unzip.exe
-EXPECT64=ZnMgc2VjdGlvbnMKMDAgMHgwMDAwMDIwMCA5MDA2MiAweDAwMDAwMDAwIDkwMDYyIC1yd3ggc2VnXzAwMAo=
-CMDS64=aVMqCg==
+EXPECT=<<EOF
+fs sections
+00 0x00000200 90062 0x00000000 90062 -rwx seg_000
+EOF
+CMDS=<<EOF
+iS*
+EOF
 RUN

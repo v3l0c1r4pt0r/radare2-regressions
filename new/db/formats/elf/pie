@@ -1,7 +1,11 @@
 NAME=ELF: entrypoint
 FILE=../bins/elf/analysis/pie
-EXPECT64=dmFkZHI9MHgwMDAwMDQ1MCBwYWRkcj0weDAwMDAwNDUwIGhhZGRyPTB4MDAwMDAwMTggaHZhZGRyPTB4MDAwMDAwMTggdHlwZT1wcm9ncmFtCg==
-CMDS64=aWV+YWRkcgo=
+EXPECT=<<EOF
+vaddr=0x00000450 paddr=0x00000450 haddr=0x00000018 hvaddr=0x00000018 type=program
+EOF
+CMDS=<<EOF
+ie~addr
+EOF
 RUN
 
 NAME=ELF: entrypoint with baddr
@@ -27,35 +31,82 @@ RUN
 
 NAME=ELF: sym.main
 FILE=../bins/elf/analysis/pie
-EXPECT64=MHg1YzUKCg==
-CMDS64=P3Ygc3ltLm1haW4K
+EXPECT=<<EOF
+0x5c5
+EOF
+CMDS=<<EOF
+?v sym.main
+EOF
 RUN
+
 NAME=ELF: simple.elf - code
 FILE=../bins/elf/analysis/pie
 ARGS=-n
-EXPECT64=MHg1YzUKcHVzaCBlYnAKbW92IGVicCwgZXNwCmludDMKcG9wIGVicApyZXQKCg==
-CMDS64=LiFyYWJpbjIgLXJwcyAuLi9iaW5zL2VsZi9hbmFseXNpcy9waWUKP3Ygc3ltLm1haW4KZSBhc20uYml0cz0zMgpwaSA1IEAgc3ltLm1haW4K
+EXPECT=<<EOF
+0x5c5
+push ebp
+mov ebp, esp
+int3
+pop ebp
+ret
+EOF
+CMDS=<<EOF
+.!rabin2 -rps ../bins/elf/analysis/pie
+?v sym.main
+e asm.bits=32
+pi 5 @ sym.main
+EOF
 RUN
+
 NAME=ELF: simple.elf - code
 FILE=../bins/elf/analysis/pie
 ARGS=-n -b32
-EXPECT64=cHVzaCBlYnAKbW92IGVicCwgZXNwCmludDMKcG9wIGVicApyZXQKCg==
-CMDS64=LiFyYWJpbjIgLXJwcyAuLi9iaW5zL2VsZi9hbmFseXNpcy9waWUKZSBhc20uYml0cz0zMgpwaSA1IEAgc3ltLm1haW4K
+EXPECT=<<EOF
+push ebp
+mov ebp, esp
+int3
+pop ebp
+ret
+EOF
+CMDS=<<EOF
+.!rabin2 -rps ../bins/elf/analysis/pie
+e asm.bits=32
+pi 5 @ sym.main
+EOF
 RUN
+
 NAME=ELF: simple.elf - baddr - code
 FILE=../bins/elf/analysis/pie
 ARGS=-b32 -B 0x100000
-EXPECT64=cHVzaCBlYnAKbW92IGVicCwgZXNwCmludDMKcG9wIGVicApyZXQKCg==
-CMDS64=ZSBhc20uYml0cz0zMjtwaSA1IEAgc3ltLm1haW4K
+EXPECT=<<EOF
+push ebp
+mov ebp, esp
+int3
+pop ebp
+ret
+EOF
+CMDS=<<EOF
+e asm.bits=32;pi 5 @ sym.main
+EOF
 RUN
+
 NAME=ELF: Candypop, main detection
 FILE=../bins/elf/analysis/candypop
 ARGS=-A
-EXPECT64=MQoK
-CMDS64=PyBtYWlufj8weDEyMzUK
+EXPECT=<<EOF
+1
+EOF
+CMDS=<<EOF
+? main~?0x1235
+EOF
 RUN
+
 NAME=ELF: pd around a reloc with asm.flags.middle
 FILE=../bins/elf/analysis/hello-linux-i386-pie
-EXPECT64=MAoK
-CMDS64=ZSBhc20uZmxhZ3MubWlkZGxlPTI7cGQgMyBAMHgwMDAwMDRhNiB+P2ludmFsaWQK
+EXPECT=<<EOF
+0
+EOF
+CMDS=<<EOF
+e asm.flags.middle=2;pd 3 @0x000004a6 ~?invalid
+EOF
 RUN

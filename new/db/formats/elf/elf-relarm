@@ -1,7 +1,21 @@
 NAME=ELF: arm relocs
 FILE=../bins/elf/analysis/arm-relocs
-EXPECT64=MTEKZnMgcmVsb2NzCmYgcmVsb2MucjAgQCAweDA4MDAwMDM0CmYgcmVsb2MucjIgQCAweDA4MDAwMDNjCmYgcmVsb2MucjMgQCAweDA4MDAwMDQwCmYgcmVsb2MucjQgQCAweDA4MDAwMDQ0CmYgcmVsb2MucjAgQCAweDA4MDAwMDRjCmYgcmVsb2MucjIgQCAweDA4MDAwMDU0CmYgcmVsb2MucjMgQCAweDA4MDAwMDU4CmYgcmVsb2MucjQgQCAweDA4MDAwMDVjCgo=
-CMDS64=aXIqfnJlbG9jPwppcip+ITEK
+EXPECT=<<EOF
+11
+fs relocs
+f reloc.r0 @ 0x08000034
+f reloc.r2 @ 0x0800003c
+f reloc.r3 @ 0x08000040
+f reloc.r4 @ 0x08000044
+f reloc.r0 @ 0x0800004c
+f reloc.r2 @ 0x08000054
+f reloc.r3 @ 0x08000058
+f reloc.r4 @ 0x0800005c
+EOF
+CMDS=<<EOF
+ir*~reloc?
+ir*~!1
+EOF
 RUN
 
 NAME='ELF: ppc relocs'

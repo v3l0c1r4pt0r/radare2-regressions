@@ -1,31 +1,68 @@
 NAME=Java class parsing errors
 FILE=../bins/java/TryWithResources.class
-EXPECT64=bm9wCgo=
-CMDS64=P2Ugbm9wCgo=
+EXPECT=<<EOF
+nop
+EOF
+CMDS=<<EOF
+?e nop
+EOF
 RUN
 
 NAME=detect kotlin in java classes
 FILE=../bins/java/HiKt.class
-EXPECT64=a290bGluCgo=
-CMDS64=aX5sYW5nWzFdCgo=
+EXPECT=<<EOF
+kotlin
+EOF
+CMDS=<<EOF
+i~lang[1]
+EOF
 RUN
+
 NAME=java disasm crash
 FILE=../bins/java/ExCaseTableSwitch.class
-EXPECT64=Cg==
-CMDS64=cGQgMTAgPi9kZXYvbnVsbAoK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+pd 10 >/dev/null
+EOF
 RUN
+
 NAME=java switch crash
 FILE=../bins/fuzzed/zin7a5.class
-EXPECT64=Cg==
-CMDS64=ZSBzY3IubnVsbD10cnVlCnBkIDEwMAoK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+e scr.null=true
+pd 100
+EOF
 RUN
+
 NAME=java classes
 FILE=../bins/java/DemoTest.class
-EXPECT64=MHgwMDAwMDAwMCBbMHgwMDAwMDE5MCAtIDB4MDAwMDAyMTFdIChzeiAxMjkpIGNsYXNzIDAgRGVtb1Rlc3Qgc3VwZXI6IGphdmEvbGFuZy9PYmplY3QKMHgwMDAwMDE5MCBtZXRob2QgMCAgICAgIGZ1bgoweDAwMDAwMWI5IG1ldGhvZCAxICAgICAgPGluaXQ+CjB4MDAwMDAxZTggbWV0aG9kIDIgICAgICByZXMKMHgwMDAwMDIxMSBtZXRob2QgMyAgICAgIG1haW4KCg==
-CMDS64=aWMKCg==
+EXPECT=<<EOF
+0x00000000 [0x00000190 - 0x00000211] (sz 129) class 0 DemoTest super: java/lang/Object
+0x00000190 method 0      fun
+0x000001b9 method 1      <init>
+0x000001e8 method 2      res
+0x00000211 method 3      main
+EOF
+CMDS=<<EOF
+ic
+EOF
 RUN
+
 NAME=java classes summary
 FILE=../bins/java/DemoTest.class
-EXPECT64=U3VtbWFyeSBmb3IgLi4vYmlucy9qYXZhL0RlbW9UZXN0LmNsYXNzOgogIFNpemUgMHgwOgogIENvbnN0YW50cyAgc2l6ZTogMHgxNjYgY291bnQ6IDM0OgogIE1ldGhvZHMgICAgc2l6ZTogMHhiNiBjb3VudDogNDoKICBGaWVsZHMgICAgIHNpemU6IDB4MiBjb3VudDogMDoKICBBdHRyaWJ1dGVzIHNpemU6IDB4YSBjb3VudDogMToKICBJbnRlcmZhY2VzIHNpemU6IDB4MiBjb3VudDogMDoKCg==
-CMDS64=amF2YSBzdW1tYXJ5Cgo=
+EXPECT=<<EOF
+Summary for ../bins/java/DemoTest.class:
+  Size 0x0:
+  Constants  size: 0x166 count: 34:
+  Methods    size: 0xb6 count: 4:
+  Fields     size: 0x2 count: 0:
+  Attributes size: 0xa count: 1:
+  Interfaces size: 0x2 count: 0:
+EOF
+CMDS=<<EOF
+java summary
+EOF
 RUN

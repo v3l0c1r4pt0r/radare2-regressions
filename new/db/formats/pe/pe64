@@ -1,5 +1,9 @@
 NAME=pe64 msvc main
 FILE=../bins/pe/testapp-msvc64.exe
-EXPECT64=dmFkZHI9MHgxNDAwMDEwMDAgcGFkZHI9MHgwMDAwMDQwMAoK
-CMDS64=aU1+YWRkcgoK
+EXPECT=<<EOF
+vaddr=0x140001000 paddr=0x00000400
+EOF
+CMDS=<<EOF
+iM~addr
+EOF
 RUN

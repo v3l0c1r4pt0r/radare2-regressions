@@ -1,140 +1,295 @@
 NAME=fatmach0 string location
 FILE=../bins/mach0/BatteryLife
 BROKEN=1
-EXPECT64=YmF0dGVyeUxldmVsCgo=
-CMDS64=cyBzdHIuYmF0dGVyeUxldmVsCnBzCgo=
+EXPECT=<<EOF
+batteryLevel
+EOF
+CMDS=<<EOF
+s str.batteryLevel
+ps
+EOF
 RUN
+
 NAME=fatmach0 -b64
 FILE=../bins/mach0/BatteryLife
 ARGS=-aarm -b64
-EXPECT64=NjQKICAweDEwMDAxMGY3YyAgICAgIHN0cCB4MjIsIHgyMSwgW3NwLCAtMHgzMF0hCgo=
-CMDS64=ZSBhc20uYml0cwplIGFzbS5ieXRlcz0wCmUgYXNtLmZsYWdzPTAKZSBhc20ubGluZXMuYmI9MApwZCAxCgo=
+EXPECT=<<EOF
+64
+  0x100010f7c      stp x22, x21, [sp, -0x30]!
+EOF
+CMDS=<<EOF
+e asm.bits
+e asm.bytes=0
+e asm.flags=0
+e asm.lines.bb=0
+pd 1
+EOF
 RUN
+
 NAME=fatmach0 -b64
 FILE=../bins/mach0/BatteryLife
 ARGS=-b64
 BROKEN=1
-EXPECT64=NjQKICAweDEwMDAxMGY3YyAgICAgIHN0cCB4MjIsIHgyMSwgW3NwLCAtMHgzMF0hCgo=
-CMDS64=ZSBhc20uYml0cwplIGFzbS5ieXRlcz0wCmUgYXNtLmZsYWdzPTAKZSBhc20ubGluZXMuYmI9MApwZCAxCgo=
+EXPECT=<<EOF
+64
+  0x100010f7c      stp x22, x21, [sp, -0x30]!
+EOF
+CMDS=<<EOF
+e asm.bits
+e asm.bytes=0
+e asm.flags=0
+e asm.lines.bb=0
+pd 1
+EOF
 RUN
+
 NAME=fatmach0 arm64
 FILE=../bins/mach0/BatteryLife.arm_64.1
-EXPECT64=ICAweDEwMDAxMGY3YyAgICAgIHN0cCB4MjIsIHgyMSwgW3NwLCAtMHgzMF0hCgo=
-CMDS64=CmUgYXNtLmJ5dGVzPTAKZSBhc20uZmxhZ3M9MAplIGFzbS5saW5lcy5iYj0wCnBkIDEKCg==
+EXPECT=<<EOF
+  0x100010f7c      stp x22, x21, [sp, -0x30]!
+EOF
+CMDS=<<EOF
+e asm.bytes=0
+e asm.flags=0
+e asm.lines.bb=0
+pd 1
+EOF
 RUN
+
 NAME=fatmach0 arm32 string location
 FILE=../bins/mach0/BatteryLife.arm_32.0
-EXPECT64=YmF0dGVyeUxldmVsCgo=
-CMDS64=cyBzdHIuYmF0dGVyeUxldmVsCnBzCgo=
+EXPECT=<<EOF
+batteryLevel
+EOF
+CMDS=<<EOF
+s str.batteryLevel
+ps
+EOF
 RUN
+
 NAME=fatmach0 arm16 symbol alignment
 FILE=../bins/mach0/a.out
-EXPECT64=cHVzaCB7cjcsIGxyfQoK
-CMDS64=cyBzeW0uX2NhbGwKcGkgMQoK
+EXPECT=<<EOF
+push {r7, lr}
+EOF
+CMDS=<<EOF
+s sym._call
+pi 1
+EOF
 RUN
+
 NAME=mach0 arm16 symbol alignment
 FILE=../bins/mach0/a.out.fat/a.out.arm_32.0
-EXPECT64=cHVzaCB7cjcsIGxyfQoK
-CMDS64=cyBzeW0uX2NhbGwKcGkgMQoK
+EXPECT=<<EOF
+push {r7, lr}
+EOF
+CMDS=<<EOF
+s sym._call
+pi 1
+EOF
 RUN
+
 NAME=fatmach0 arm64 symbol alignment
 FILE=../bins/mach0/a.out
 ARGS=-a arm -b 64
-EXPECT64=c3RwIHgyOSwgeDMwLCBbc3AsIC0weDEwXSEKCg==
-CMDS64=cyBzeW0uX2NhbGwKcGkgMQoK
+EXPECT=<<EOF
+stp x29, x30, [sp, -0x10]!
+EOF
+CMDS=<<EOF
+s sym._call
+pi 1
+EOF
 RUN
+
 NAME=mach0 arm64 symbol alignment
 FILE=../bins/mach0/a.out.fat/a.out.arm_64.1
-EXPECT64=c3RwIHgyOSwgeDMwLCBbc3AsIC0weDEwXSEKCg==
-CMDS64=cyBzeW0uX2NhbGwKcGkgMQoK
+EXPECT=<<EOF
+stp x29, x30, [sp, -0x10]!
+EOF
+CMDS=<<EOF
+s sym._call
+pi 1
+EOF
 RUN
+
 NAME=fatmach0 archs
 FILE=../bins/mach0/fatmach0-3true
-EXPECT64=MDAwIDB4MDAwMDEwMDAgMTM3OTIgeDg2XzY0IHg4NiA2NCBhbGwKMDAxIDB4MDAwMDUwMDAgMTM3NjAgeDg2XzMyIDM4NgowMDIgMHgwMDAwOTAwMCAxMzYxNiBwcGNfMzIgNzQwMAoK
-CMDS64=aUEK
+EXPECT=<<EOF
+000 0x00001000 13792 x86_64 x86 64 all
+001 0x00005000 13760 x86_32 386
+002 0x00009000 13616 ppc_32 7400
+EOF
+CMDS=<<EOF
+iA
+EOF
 RUN
+
 NAME=fatmach0 entry0
 FILE=../bins/mach0/fatmach0-3true
-EXPECT64=MHgxMDAwMDBlZjgKCg==
-CMDS64=P3YgZW50cnkwCg==
+EXPECT=<<EOF
+0x100000ef8
+EOF
+CMDS=<<EOF
+?v entry0
+EOF
 RUN
+
 NAME=fatmach0 entry0 data
 FILE=../bins/mach0/fatmach0-3true
-EXPECT64=NmEwMDQ4ODllNTQ4ODNlNGYwNDg4YjdkMDg0ODhkNzUKCg==
-CMDS64=cDggMTYgQCBlbnRyeTAK
+EXPECT=<<EOF
+6a004889e54883e4f0488b7d08488d75
+EOF
+CMDS=<<EOF
+p8 16 @ entry0
+EOF
 RUN
+
 NAME=fatmach0 entry1
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-a x86 -b 32
-EXPECT64=MHgxZjQ0Cgo=
-CMDS64=P3YgZW50cnkwCg==
+EXPECT=<<EOF
+0x1f44
+EOF
+CMDS=<<EOF
+?v entry0
+EOF
 RUN
+
 NAME=fatmach0 entry1 data
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-a x86 -b 32
-EXPECT64=NmEwMDg5ZTU4M2U0ZjA4M2VjMTA4YjVkMDQ4OTFjMjQKCg==
-CMDS64=cDggMTYgQCBlbnRyeTAK
+EXPECT=<<EOF
+6a0089e583e4f083ec108b5d04891c24
+EOF
+CMDS=<<EOF
+p8 16 @ entry0
+EOF
 RUN
+
 NAME=fatmach0 entry1 rabin2
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-n
-EXPECT64=MHgwMDAwMWY0NAoK
-CMDS64=IXJhYmluMiAtYSB4ODYgLWIgMzIgLXFlIC4uL2JpbnMvbWFjaDAvZmF0bWFjaDAtM3RydWUK
+EXPECT=<<EOF
+0x00001f44
+EOF
+CMDS=<<EOF
+!rabin2 -a x86 -b 32 -qe ../bins/mach0/fatmach0-3true
+EOF
 RUN
+
 NAME=fatmach0 entry1 rabin2
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-n
-EXPECT64=MHgwMDAwNWY0NAoK
-CMDS64=IXJhYmluMiAtcCAtYSB4ODYgLWIgMzIgLXFlIC4uL2JpbnMvbWFjaDAvZmF0bWFjaDAtM3RydWUK
+EXPECT=<<EOF
+0x00005f44
+EOF
+CMDS=<<EOF
+!rabin2 -p -a x86 -b 32 -qe ../bins/mach0/fatmach0-3true
+EOF
 RUN
+
 NAME=fatmach0 entry1 rabin2 (2)
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-n
-EXPECT64=dmFkZHI9MHgwMDAwMWY0NCBwYWRkcj0weDAwMDA1ZjQ0IGhhZGRyPTB4MDAwMDA0MjAgdHlwZT1wcm9ncmFtCg==
-CMDS64=IXJhYmluMiAtYSB4ODYgLWIgMzIgLWUgLi4vYmlucy9tYWNoMC9mYXRtYWNoMC0zdHJ1ZSB8IGdyZXAgcGFkZHI9Cg==
+EXPECT=<<EOF
+vaddr=0x00001f44 paddr=0x00005f44 haddr=0x00000420 type=program
+EOF
+CMDS=<<EOF
+!rabin2 -a x86 -b 32 -e ../bins/mach0/fatmach0-3true | grep paddr=
+EOF
 RUN
+
 NAME=fatmach0 entry2
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-a ppc -b 32
-EXPECT64=MHgxZjY0Cgo=
-CMDS64=P3YgZW50cnkwCg==
+EXPECT=<<EOF
+0x1f64
+EOF
+CMDS=<<EOF
+?v entry0
+EOF
 RUN
+
 NAME=fatmach0 entry2 data
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-a ppc -b 32
-EXPECT64=N2MzYTBiNzgzODIxZmZmYzU0MjEwMDM0MzgwMDAwMDAKCg==
-CMDS64=cDggMTYgQCBlbnRyeTAK
+EXPECT=<<EOF
+7c3a0b783821fffc5421003438000000
+EOF
+CMDS=<<EOF
+p8 16 @ entry0
+EOF
 RUN
+
 NAME=fatmach0 archs
 FILE=../bins/mach0/mach0-x86-64
-EXPECT64=MDAwIDB4MDAwMDAwMDAgODQ5NiB4ODZfNjQKCg==
-CMDS64=aUEK
+EXPECT=<<EOF
+000 0x00000000 8496 x86_64
+EOF
+CMDS=<<EOF
+iA
+EOF
 RUN
+
 NAME=fatmach0 rabin2 archs iA
 FILE=../bins/mach0/fatmach0-3true
-EXPECT64=MDAwIDB4MDAwMDEwMDAgMTM3OTIgeDg2XzY0IHg4NiA2NCBhbGwKMDAxIDB4MDAwMDUwMDAgMTM3NjAgeDg2XzMyIDM4NgowMDIgMHgwMDAwOTAwMCAxMzYxNiBwcGNfMzIgNzQwMAoK
-CMDS64=aUEK
+EXPECT=<<EOF
+000 0x00001000 13792 x86_64 x86 64 all
+001 0x00005000 13760 x86_32 386
+002 0x00009000 13616 ppc_32 7400
+EOF
+CMDS=<<EOF
+iA
+EOF
 RUN
+
 NAME=fatmach0 rabin2 archs
 FILE=../bins/mach0/fatmach0-3true
-EXPECT64=MDAwIDB4MDAwMDEwMDAgMTM3OTIgeDg2XzY0IHg4NiA2NCBhbGwKMDAxIDB4MDAwMDUwMDAgMTM3NjAgeDg2XzMyIDM4NgowMDIgMHgwMDAwOTAwMCAxMzYxNiBwcGNfMzIgNzQwMAoK
-CMDS64=IXJhYmluMiAtQSAuLi9iaW5zL21hY2gwL2ZhdG1hY2gwLTN0cnVlCg==
+EXPECT=<<EOF
+000 0x00001000 13792 x86_64 x86 64 all
+001 0x00005000 13760 x86_32 386
+002 0x00009000 13616 ppc_32 7400
+EOF
+CMDS=<<EOF
+!rabin2 -A ../bins/mach0/fatmach0-3true
+EOF
 RUN
+
 NAME=fatmach0 extract
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-n
-EXPECT64=ZmF0bWFjaDAtM3RydWUuZmF0L2ZhdG1hY2gwLTN0cnVlLng4Nl82NC4wIGNyZWF0ZWQgKDEzNzkyKQpmYXRtYWNoMC0zdHJ1ZS5mYXQvZmF0bWFjaDAtM3RydWUueDg2XzMyLjEgY3JlYXRlZCAoMTM3NjApCmZhdG1hY2gwLTN0cnVlLmZhdC9mYXRtYWNoMC0zdHJ1ZS5wcGNfMzIuMiBjcmVhdGVkICgxMzYxNikKCg==
-CMDS64=IXJhYmluMiAteCAuLi9iaW5zL21hY2gwL2ZhdG1hY2gwLTN0cnVlOyFybSAtcmYgZmF0bWFjaDAtM3RydWUuZmF0Cg==
+EXPECT=<<EOF
+fatmach0-3true.fat/fatmach0-3true.x86_64.0 created (13792)
+fatmach0-3true.fat/fatmach0-3true.x86_32.1 created (13760)
+fatmach0-3true.fat/fatmach0-3true.ppc_32.2 created (13616)
+EOF
+CMDS=<<EOF
+!rabin2 -x ../bins/mach0/fatmach0-3true;!rm -rf fatmach0-3true.fat
+EOF
 RUN
+
 NAME=fatmach0 sections
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-a x86 -b 64
-EXPECT64=MTAKCg==
-CMDS64=b21+Pwo=
+EXPECT=<<EOF
+10
+EOF
+CMDS=<<EOF
+om~?
+EOF
 RUN
+
 NAME=fatmach0 rebase
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-a x86 -b32 -B 0x90000000
-EXPECT64=W1N5bWJvbHNdCk51bSBQYWRkciAgICAgIFZhZGRyICAgICAgQmluZCAgICAgVHlwZSBTaXplIE5hbWUKMDAwIDB4MDAwMDUwMDAgMHg5MDAwMDAwMCBHTE9CQUwgICBGVU5DICAgIDAgX19taF9leGVjdXRlX2hlYWRlcgowMDEgMHgwMDAwNTAwMCAweDk1NjEzNTQyICBMT0NBTCAgIEZVTkMgICAgMCByYWRyOi8vNTYxNDU0MgowMDIgMHgwMDAwNWY5NCAweDkwMDAwZjk0ICBMT0NBTCAgIEZVTkMgICAgMCBpbXAuZXhpdAo=
-CMDS64=aXMK
+EXPECT=<<EOF
+[Symbols]
+Num Paddr      Vaddr      Bind     Type Size Name
+000 0x00005000 0x90000000 GLOBAL   FUNC    0 __mh_execute_header
+001 0x00005000 0x95613542  LOCAL   FUNC    0 radr://5614542
+002 0x00005f94 0x90000f94  LOCAL   FUNC    0 imp.exit
+EOF
+CMDS=<<EOF
+is
+EOF
 RUN

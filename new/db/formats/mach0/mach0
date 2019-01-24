@@ -1,30 +1,60 @@
 NAME=mach0 entrypoint
 FILE=../bins/mach0/hello-osx-i386
-EXPECT64=dmFkZHI9MHgwMDAwMWYxNCBwYWRkcj0weDAwMDAwZjE0IGhhZGRyPTB4MDAwMDA0NjQgdHlwZT1wcm9ncmFtCg==
-CMDS64=aWV+YWRkcgoK
+EXPECT=<<EOF
+vaddr=0x00001f14 paddr=0x00000f14 haddr=0x00000464 type=program
+EOF
+CMDS=<<EOF
+ie~addr
+EOF
 RUN
+
 NAME=mach0 entry0 data
 FILE=../bins/mach0/hello-osx-i386
-EXPECT64=NmEwMDg5ZTU4M2U0ZjA4M2VjMTAKCg==
-CMDS64=cDggMTAgQCBlbnRyeTAKCg==
+EXPECT=<<EOF
+6a0089e583e4f083ec10
+EOF
+CMDS=<<EOF
+p8 10 @ entry0
+EOF
 RUN
+
 NAME=mach0 entrypoint i386 LC_MAIN
 FILE=../bins/mach0/mach0-i386
-EXPECT64=dmFkZHI9MHgwMDAwMWY4MCBwYWRkcj0weDAwMDAwZjgwIGhhZGRyPTB4MDAwMDAyNDAgdHlwZT1wcm9ncmFtCg==
-CMDS64=aWV+YWRkcgoK
+EXPECT=<<EOF
+vaddr=0x00001f80 paddr=0x00000f80 haddr=0x00000240 type=program
+EOF
+CMDS=<<EOF
+ie~addr
+EOF
 RUN
+
 NAME=mach0 entrypoint x86_64 LC_MAIN
 FILE=../bins/mach0/mach0_2-x86_64
-EXPECT64=dmFkZHI9MHgxMDAwMDBmNzAgcGFkZHI9MHgwMDAwMGY3MCBoYWRkcj0weDAwMDAwMmUwIHR5cGU9cHJvZ3JhbQo=
-CMDS64=aWV+YWRkcgoK
+EXPECT=<<EOF
+vaddr=0x100000f70 paddr=0x00000f70 haddr=0x000002e0 type=program
+EOF
+CMDS=<<EOF
+ie~addr
+EOF
 RUN
+
 NAME=osx mach0 entrypoint
 FILE=../bins/mach0/ls-osx-x86_64
-EXPECT64=dmFkZHI9MHgxMDAwMDEzZDggcGFkZHI9MHgwMDAwMTNkOCBoYWRkcj0weDAwMDAwNjQ4IHR5cGU9cHJvZ3JhbQo=
-CMDS64=aWV+YWRkcgoK
+EXPECT=<<EOF
+vaddr=0x1000013d8 paddr=0x000013d8 haddr=0x00000648 type=program
+EOF
+CMDS=<<EOF
+ie~addr
+EOF
 RUN
+
 NAME=osx mach0 ik
 FILE=../bins/mach0/ls-osx-x86_64
-EXPECT64=bWFjaDBfY21kXzguY21kPXV1aWQKdXVpZC4wPWZmNGQ2YzJlMWRjMDM2OWQ5OGQwZDMwNDBhODA0OWU4Cgo=
-CMDS64=aWt+dXVpZAoK
+EXPECT=<<EOF
+mach0_cmd_8.cmd=uuid
+uuid.0=ff4d6c2e1dc0369d98d0d3040a8049e8
+EOF
+CMDS=<<EOF
+ik~uuid
+EOF
 RUN

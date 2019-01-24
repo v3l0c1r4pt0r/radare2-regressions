@@ -1,16 +1,40 @@
 NAME=PE: corkami tls_noEP.exe - open
 FILE=../bins/pe/tls_noEP.exe
 ARGS=-A
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN
+
 NAME=1: PE: tls_noEP - entrypoint
 FILE=../bins/pe/tls_noEP.exe
-EXPECT64=W0NvbnN0cnVjdG9yc10KdmFkZHI9MHgwMDQwMTAwMCBwYWRkcj0weDAwMDAwMjAwIGhwYWRkcj0weDAwMDAwMzg0IHR5cGU9dGxzCgoxIGVudHJ5cG9pbnRzCltFbnRyeXBvaW50c10KdmFkZHI9MHgwMDQwMTAwMCBwYWRkcj0weDAwMDAwMjAwIGhhZGRyPTB4MDAwMDAwNjggdHlwZT1wcm9ncmFtCgoxIGVudHJ5cG9pbnRzCg==
-CMDS64=aWVlZQo=
+EXPECT=<<EOF
+[Constructors]
+vaddr=0x00401000 paddr=0x00000200 hpaddr=0x00000384 type=tls
+
+1 entrypoints
+[Entrypoints]
+vaddr=0x00401000 paddr=0x00000200 haddr=0x00000068 type=program
+
+1 entrypoints
+EOF
+CMDS=<<EOF
+ieee
+EOF
 RUN
+
 NAME=2: PE: tls_noEP - entrypoint
 FILE=../bins/pe/tls_noEP.exe
-EXPECT64=cHVzaCAweDQwMTAyNApjYWxsIGR3b3JkIFtzeW0uaW1wLm1zdmNydC5kbGxfcHJpbnRmXQphZGQgZXNwLCA0Cm5vcAptb3YgZHdvcmQgWzB4NDAxMTg0XSwgMHg0MDEwNzAKCg==
-CMDS64=cGkgNQo=
+EXPECT=<<EOF
+push 0x401024
+call dword [sym.imp.msvcrt.dll_printf]
+add esp, 4
+nop
+mov dword [0x401184], 0x401070
+EOF
+CMDS=<<EOF
+pi 5
+EOF
 RUN

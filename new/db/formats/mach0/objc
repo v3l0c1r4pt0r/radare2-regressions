@@ -1,25 +1,57 @@
 NAME=objc hello-objc not encrypted
 FILE=../bins/mach0/hello-objc
-EXPECT64=MHgxMDAwMDExODAgWzB4MTAwMDAwZGEwIC0gMHgxMDAwMDBlMjBdIChzeiAxMjgpIGNsYXNzIDAgUGVyc29uCjB4MTAwMDAwZGEwIG1ldGhvZCAwICAgICAgc2F5SGVsbG8KMHgxMDAwMDBkZjAgbWV0aG9kIDEgICAgICBuYW1lCjB4MTAwMDAwZTIwIG1ldGhvZCAyICAgICAgc2V0TmFtZToKCg==
-CMDS64=aWMKCg==
+EXPECT=<<EOF
+0x100001180 [0x100000da0 - 0x100000e20] (sz 128) class 0 Person
+0x100000da0 method 0      sayHello
+0x100000df0 method 1      name
+0x100000e20 method 2      setName:
+EOF
+CMDS=<<EOF
+ic
+EOF
 RUN
+
 NAME=objc generics-objc
 FILE=../bins/mach0/generics-objc
-EXPECT64=MHgxMDAwMDExMjAgWzB4MTAwMDAwZTcwIC0gMHgxMDAwMDBlNzBdIChzeiAwKSBjbGFzcyAwIE15Q3VzdG9tQ2xhc3MKMHgxMDAwMDBlNzAgbWV0aG9kIDAgICAgICBkb1NvbWV0aGluZ1dpdGhHZW5lcmljOgoK
-CMDS64=aWMKCg==
+EXPECT=<<EOF
+0x100001120 [0x100000e70 - 0x100000e70] (sz 0) class 0 MyCustomClass
+0x100000e70 method 0      doSomethingWithGeneric:
+EOF
+CMDS=<<EOF
+ic
+EOF
 RUN
+
 NAME=objc method flags (ic ViewController)
 FILE=../bins/mach0/TestMethods
-EXPECT64=Y2xhc3MgVmlld0NvbnRyb2xsZXIKMHgxMDAwMDY3NmMgbWV0aG9kIFZpZXdDb250cm9sbGVyICAgICAgdmlld0RpZExvYWQKMHgxMDAwMDY3ZDAgbWV0aG9kIFZpZXdDb250cm9sbGVyICAgICAgZGlkUmVjZWl2ZU1lbW9yeVdhcm5pbmcKMHgxMDAwMDY3YmMgbWV0aG9kIFZpZXdDb250cm9sbGVyIGMgICAgdGhpc0lzQUNsYXNzTWV0aG9kCjB4MTAwMDA2ODIwIG1ldGhvZCBWaWV3Q29udHJvbGxlciBjICAgIGFuZEFub3RoZXJPbmUKCg==
-CMDS64=aWMgVmlld0NvbnRyb2xsZXIKCg==
+EXPECT=<<EOF
+class ViewController
+0x10000676c method ViewController      viewDidLoad
+0x1000067d0 method ViewController      didReceiveMemoryWarning
+0x1000067bc method ViewController c    thisIsAClassMethod
+0x100006820 method ViewController c    andAnotherOne
+EOF
+CMDS=<<EOF
+ic ViewController
+EOF
 RUN
+
 NAME=objc method flags (icj)
 FILE=../bins/mach0/TestMethods
-EXPECT64=Y2xhc3MKCg==
-CMDS64=aWNqfntbMF0ubWV0aG9kc1syXS5mbGFnc1swXX0KCg==
+EXPECT=<<EOF
+class
+EOF
+CMDS=<<EOF
+icj~{[0].methods[2].flags[0]}
+EOF
 RUN
+
 NAME=objc method flags (ic*)
 FILE=../bins/mach0/TestMethods
-EXPECT64=ImYgbWV0aG9kLmNsYXNzLlZpZXdDb250cm9sbGVyLnRoaXNJc0FDbGFzc01ldGhvZCA9IDB4MTAwMDA2N2JjIgoK
-CMDS64=aWMqfnRoaXNJc0FDbGFzc01ldGhvZAoK
+EXPECT=<<EOF
+"f method.class.ViewController.thisIsAClassMethod = 0x1000067bc"
+EOF
+CMDS=<<EOF
+ic*~thisIsAClassMethod
+EOF
 RUN

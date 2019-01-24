@@ -1,16 +1,31 @@
 NAME=PE: corkami dep.exe - open
 FILE=../bins/pe/dep.exe
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN
-NAME=PE: corkami dep.exe - dep not enabled
+
+NAME=1: PE: corkami dep.exe - dep not enabled
 FILE=../bins/pe/no_dep.exe
 ARGS=-n
-EXPECT64=ZmFsc2UKCgo=
-CMDS64=IXJhYmluMiAtayAncGUubngnIC4uL2JpbnMvcGUvbm9fZGVwLmV4ZQo=
+EXPECT=<<EOF
+false
+
+EOF
+CMDS=<<EOF
+!rabin2 -k 'pe.nx' ../bins/pe/no_dep.exe
+EOF
 RUN
-NAME=PE: corkami dep.exe - dep not enabled
+
+NAME=2: PE: corkami dep.exe - dep not enabled
 FILE=../bins/pe/no_dep.exe
-EXPECT64=ZmFsc2UKCgo=
-CMDS64=ayBiaW4vY3VyL3BlLm54Cg==
+EXPECT=<<EOF
+false
+
+EOF
+CMDS=<<EOF
+k bin/cur/pe.nx
+EOF
 RUN

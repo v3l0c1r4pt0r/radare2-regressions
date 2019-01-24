@@ -1,61 +1,144 @@
 NAME=PE: corkami cm01.exe - open
 FILE=../bins/pe/cm01.exe
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - sections
 FILE=../bins/pe/cm01.exe
 ARGS=-n
-EXPECT64=W1NlY3Rpb25zXQpObSBQYWRkciAgICAgICBTaXplIFZhZGRyICAgICAgTWVtc3ogUGVybXMgTmFtZQowMCAweDAwMDAwNjAwICAxNTM2IDB4MDA0MDEwMDAgIDQwOTYgLXIteCBDT0RFCjAxIDB4MDAwMDBjMDAgICA1MTIgMHgwMDQwMjAwMCAgNDA5NiAtcnctIERBVEEKMDIgMHgwMDAwMGUwMCAgMjA0OCAweDAwNDAzMDAwICA0MDk2IC1ydy0gLmlkYXRhCjAzIDB4MDAwMDE2MDAgICA1MTIgMHgwMDQwNDAwMCAgNDA5NiAtci0tIC5lZGF0YQowNCAweDAwMDAxODAwICAgNTEyIDB4MDA0MDUwMDAgIDQwOTYgc3ItLSAucmVsb2MKMDUgMHgwMDAwMWEwMCAgNTEyMCAweDAwNDA2MDAwICA4MTkyIHNyLS0gLnJzcmMK
-CMDS64=IXJhYmluMiAtUyAuLi9iaW5zL3BlL2NtMDEuZXhlCg==
+EXPECT=<<EOF
+[Sections]
+Nm Paddr       Size Vaddr      Memsz Perms Name
+00 0x00000600  1536 0x00401000  4096 -r-x CODE
+01 0x00000c00   512 0x00402000  4096 -rw- DATA
+02 0x00000e00  2048 0x00403000  4096 -rw- .idata
+03 0x00001600   512 0x00404000  4096 -r-- .edata
+04 0x00001800   512 0x00405000  4096 sr-- .reloc
+05 0x00001a00  5120 0x00406000  8192 sr-- .rsrc
+EOF
+CMDS=<<EOF
+!rabin2 -S ../bins/pe/cm01.exe
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - section seek 1
 FILE=../bins/pe/cm01.exe
-EXPECT64=Zm1hcC5DT0RFCg==
-CMDS64=cyAweDAwNDAxMDAwCm9tLn5bMTBdCg==
+EXPECT=<<EOF
+fmap.CODE
+EOF
+CMDS=<<EOF
+s 0x00401000
+om.~[10]
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - section seek 2
 FILE=../bins/pe/cm01.exe
-EXPECT64=Zm1hcC5EQVRBCg==
-CMDS64=cyAweDAwNDAyMDAwCm9tLn5bMTBdCg==
+EXPECT=<<EOF
+fmap.DATA
+EOF
+CMDS=<<EOF
+s 0x00402000
+om.~[10]
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - section seek 3
 FILE=../bins/pe/cm01.exe
-EXPECT64=Zm1hcC4uaWRhdGEK
-CMDS64=cyAweDAwNDAzMDAwCm9tLn5bMTBdCg==
+EXPECT=<<EOF
+fmap..idata
+EOF
+CMDS=<<EOF
+s 0x00403000
+om.~[10]
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - section seek 4
 FILE=../bins/pe/cm01.exe
-EXPECT64=Zm1hcC4uZWRhdGEK
-CMDS64=cyAweDAwNDA0MDAwCm9tLn5bMTBdCg==
+EXPECT=<<EOF
+fmap..edata
+EOF
+CMDS=<<EOF
+s 0x00404000
+om.~[10]
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - section seek 5
 FILE=../bins/pe/cm01.exe
-EXPECT64=Zm1hcC4ucmVsb2MK
-CMDS64=cyAweDAwNDA1MDAwCm9tLn5bMTBdCg==
+EXPECT=<<EOF
+fmap..reloc
+EOF
+CMDS=<<EOF
+s 0x00405000
+om.~[10]
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - section seek 6
 FILE=../bins/pe/cm01.exe
-EXPECT64=Zm1hcC4ucnNyYwo=
-CMDS64=cyAweDAwNDA2MDAwCm9tLn5bMTBdCg==
+EXPECT=<<EOF
+fmap..rsrc
+EOF
+CMDS=<<EOF
+s 0x00406000
+om.~[10]
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - section refs 1
 FILE=../bins/pe/cm01.exe
-EXPECT64=cHVzaCBzdHIuQ3JhY2tNZV92MS4wCnB1c2ggc3RyLk5vX25lZWRfdG9fZGlzYXNtX3RoZV9jb2RlCgo=
-CMDS64=ZSBhbmFsLnN0cmluZ3MgPSB0cnVlCmFhYQpwaSAyIEAgMHgwMDQwMTBiNwo=
+EXPECT=<<EOF
+push str.CrackMe_v1.0
+push str.No_need_to_disasm_the_code
+EOF
+CMDS=<<EOF
+e anal.strings = true
+aaa
+pi 2 @ 0x004010b7
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - section refs 2
 FILE=../bins/pe/cm01.exe
-EXPECT64=cHVzaCBzdHIuTm9fbHVjawpwdXNoIHN0ci5Ob19sdWNrX3RoZXJlX19tYXRlCgo=
-CMDS64=ZSBhbmFsLnN0cmluZ3MgPSB0cnVlCmFhYQpwaSAyIEAgMHgwMDQwMTM2Ygo=
+EXPECT=<<EOF
+push str.No_luck
+push str.No_luck_there__mate
+EOF
+CMDS=<<EOF
+e anal.strings = true
+aaa
+pi 2 @ 0x0040136b
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - section refs 3
 FILE=../bins/pe/cm01.exe
-EXPECT64=cHVzaCBzdHIuTm9fbHVjawpwdXNoIHN0ci5Ob19sdWNrX3RoZXJlX19tYXRlCgo=
-CMDS64=ZSBhbmFsLnN0cmluZ3MgPSB0cnVlCmFhYQpwaSAyIEAgMHgwMDQwMTNhZgo=
+EXPECT=<<EOF
+push str.No_luck
+push str.No_luck_there__mate
+EOF
+CMDS=<<EOF
+e anal.strings = true
+aaa
+pi 2 @ 0x004013af
+EOF
 RUN
+
 NAME=PE: corkami cm01.exe - section refs 4
 FILE=../bins/pe/cm01.exe
-EXPECT64=cHVzaCBzdHIuR29vZF93b3JrCnB1c2ggc3RyLkdyZWF0X3dvcmtfX21hdGVfX05vd190cnlfdGhlX25leHRfQ3JhY2tNZQoK
-CMDS64=ZSBhbmFsLnN0cmluZ3MgPSB0cnVlCmFhYQpwaSAyIEAgMHgwMDQwMTM0Zgo=
+EXPECT=<<EOF
+push str.Good_work
+push str.Great_work__mate__Now_try_the_next_CrackMe
+EOF
+CMDS=<<EOF
+e anal.strings = true
+aaa
+pi 2 @ 0x0040134f
+EOF
 RUN

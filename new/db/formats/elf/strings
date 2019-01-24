@@ -1,41 +1,92 @@
 NAME=pdf dwarf
 FILE=../bins/elf/analysis/main
-EXPECT64=MHgwMDQwMDVjNCAxMiBzdHIuSGVsbG9fV29ybGQKCg==
-CMDS64=ZnMgKgpmfnN0ci4KCg==
+EXPECT=<<EOF
+0x004005c4 12 str.Hello_World
+EOF
+CMDS=<<EOF
+fs *
+f~str.
+EOF
 RUN
+
 NAME=iz (utf-16)
 FILE=../bins/elf/analysis/hello-utf-16
 BROKEN=1
-EXPECT64=dmFkZHI9MHgwMDQwMDVlOCBwYWRkcj0weDAwMDAwNWU4IG9yZGluYWw9MDAwIHN6PTI0IGxlbj0xMSBzZWN0aW9uPS5yb2RhdGEgdHlwZT13aWRlIHN0cmluZz1IZWxsbyBXb3JsZAp8ICAgICAgICAgICAweDAwNDAwNTJlICAgICAgNDhjNzQ1ZjhlODA1LiAgbW92IHF3b3JkIFtsb2NhbF84aF0sIHN0ci5IZWxsb19Xb3JsZAoK
-CMDS64=aXp+SGVsbG8KcyBzeW0ubWFpbgphZgpwZGZ+c3RyLkhlbGxvCgo=
+EXPECT=<<EOF
+vaddr=0x004005e8 paddr=0x000005e8 ordinal=000 sz=24 len=11 section=.rodata type=wide string=Hello World
+|           0x0040052e      48c745f8e805.  mov qword [local_8h], str.Hello_World
+EOF
+CMDS=<<EOF
+iz~Hello
+s sym.main
+af
+pdf~str.Hello
+EOF
 RUN
+
 NAME=iz (utf-32)
 FILE=../bins/elf/analysis/hello-utf-32
 BROKEN=1
-EXPECT64=dmFkZHI9MHgwMDQwMDVlOCBwYWRkcj0weDAwMDAwNWU4IG9yZGluYWw9MDAwIHN6PTU2IGxlbj0xMyBzZWN0aW9uPS5yb2RhdGEgdHlwZT13aWRlMzIgc3RyaW5nPUhlbGxvIFdvcmxkCnwgICAgICAgICAgIDB4MDA0MDA1MmUgICAgICA0OGM3NDVmOGU4MDUuICBtb3YgcXdvcmQgW2xvY2FsXzhoXSwgc3RyLkhlbGxvX1dvcmxkCgo=
-CMDS64=aXp+SGVsbG8KcyBzeW0ubWFpbgphZgpwZGZ+c3RyLkhlbGxvCgo=
+EXPECT=<<EOF
+vaddr=0x004005e8 paddr=0x000005e8 ordinal=000 sz=56 len=13 section=.rodata type=wide32 string=Hello World
+|           0x0040052e      48c745f8e805.  mov qword [local_8h], str.Hello_World
+EOF
+CMDS=<<EOF
+iz~Hello
+s sym.main
+af
+pdf~str.Hello
+EOF
 RUN
+
 NAME=iz (utf-16le)
 FILE=../bins/elf/analysis/hello-utf-16le
 BROKEN=1
-EXPECT64=dmFkZHI9MHgwMDQwMDVlOCBwYWRkcj0weDAwMDAwNWU4IG9yZGluYWw9MDAwIHN6PTI0IGxlbj0xMSBzZWN0aW9uPS5yb2RhdGEgdHlwZT13aWRlIHN0cmluZz1IZWxsbyBXb3JsZAp8ICAgICAgICAgICAweDAwNDAwNTJlICAgICAgNDhjNzQ1ZjhlODA1LiAgbW92IHF3b3JkIFtsb2NhbF84aF0sIHN0ci5IZWxsb19Xb3JsZAoK
-CMDS64=aXp+SGVsbG8KcyBzeW0ubWFpbgphZgpwZGZ+c3RyLkhlbGxvCgo=
+EXPECT=<<EOF
+vaddr=0x004005e8 paddr=0x000005e8 ordinal=000 sz=24 len=11 section=.rodata type=wide string=Hello World
+|           0x0040052e      48c745f8e805.  mov qword [local_8h], str.Hello_World
+EOF
+CMDS=<<EOF
+iz~Hello
+s sym.main
+af
+pdf~str.Hello
+EOF
 RUN
+
 NAME=iz (utf-32le)
 FILE=../bins/elf/analysis/hello-utf-32le
 BROKEN=1
-EXPECT64=dmFkZHI9MHgwMDQwMDVlOCBwYWRkcj0weDAwMDAwNWU4IG9yZGluYWw9MDAwIHN6PTU2IGxlbj0xMyBzZWN0aW9uPS5yb2RhdGEgdHlwZT13aWRlMzIgc3RyaW5nPUhlbGxvIFdvcmxkCnwgICAgICAgICAgIDB4MDA0MDA1MmUgICAgICA0OGM3NDVmOGU4MDUuICBtb3YgcXdvcmQgW2xvY2FsXzhoXSwgc3RyLkhlbGxvX1dvcmxkCgo=
-CMDS64=aXp+SGVsbG8KcyBzeW0ubWFpbgphZgpwZGZ+c3RyLkhlbGxvCgo=
+EXPECT=<<EOF
+vaddr=0x004005e8 paddr=0x000005e8 ordinal=000 sz=56 len=13 section=.rodata type=wide32 string=Hello World
+|           0x0040052e      48c745f8e805.  mov qword [local_8h], str.Hello_World
+EOF
+CMDS=<<EOF
+iz~Hello
+s sym.main
+af
+pdf~str.Hello
+EOF
 RUN
+
 NAME=iz
 FILE=../bins/elf/analysis/hello-utf-16
 BROKEN=1
-EXPECT64=dmFkZHI9MHgwMDQwMDVlOCBwYWRkcj0weDAwMDAwNWU4IG9yZGluYWw9MDAwIHN6PTI0IGxlbj0xMSBzZWN0aW9uPS5yb2RhdGEgdHlwZT13aWRlIHN0cmluZz1IZWxsbyBXb3JsZAoK
-CMDS64=aXp+SGVsbG8KCg==
+EXPECT=<<EOF
+vaddr=0x004005e8 paddr=0x000005e8 ordinal=000 sz=24 len=11 section=.rodata type=wide string=Hello World
+EOF
+CMDS=<<EOF
+iz~Hello
+EOF
 RUN
+
 NAME=iz
 FILE=../bins/elf/analysis/hello-utf-32
 BROKEN=1
-EXPECT64=dmFkZHI9MHgwMDQwMDVlOCBwYWRkcj0weDAwMDAwNWU4IG9yZGluYWw9MDAwIHN6PTU2IGxlbj0xMyBzZWN0aW9uPS5yb2RhdGEgdHlwZT13aWRlMzIgc3RyaW5nPUhlbGxvIFdvcmxkCgo=
-CMDS64=aXp+SGVsbG8KCg==
+EXPECT=<<EOF
+vaddr=0x004005e8 paddr=0x000005e8 ordinal=000 sz=56 len=13 section=.rodata type=wide32 string=Hello World
+EOF
+CMDS=<<EOF
+iz~Hello
+EOF
 RUN

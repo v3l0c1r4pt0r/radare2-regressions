@@ -14,16 +14,34 @@ RUN
 
 NAME=avr main address
 FILE=../bins/elf/analysis/bugurtos-avr.elf
-EXPECT64=MHgzMDgKCg==
-CMDS64=P3Ygc3ltLm1haW4KCg==
+EXPECT=<<EOF
+0x308
+EOF
+CMDS=<<EOF
+?v sym.main
+EOF
 RUN
+
 NAME=avr use va
 FILE=../bins/elf/analysis/bugurtos-avr.elf
-EXPECT64=MGM5NDQ2MDAwYzk0MzAwNjBjOTQKZWY5MmZmOTIwZjkzZGY5M2NmOTMKCg==
-CMDS64=cDggMTAgQCBlbnRyeTAKcDggMTAgQCBzeW0ubWFpbgoK
+EXPECT=<<EOF
+0c9446000c9430060c94
+ef92ff920f93df93cf93
+EOF
+CMDS=<<EOF
+p8 10 @ entry0
+p8 10 @ sym.main
+EOF
 RUN
+
 NAME=avr main code
 FILE=../bins/elf/analysis/bugurtos-avr.elf
-EXPECT64=cHVzaCByMTQKcHVzaCByMTUKcHVzaCByMTYKCg==
-CMDS64=cGkgMyBAIHN5bS5tYWluCgo=
+EXPECT=<<EOF
+push r14
+push r15
+push r16
+EOF
+CMDS=<<EOF
+pi 3 @ sym.main
+EOF
 RUN

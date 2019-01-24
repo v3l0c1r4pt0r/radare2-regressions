@@ -1,60 +1,111 @@
 NAME=ELF: main
 FILE=../bins/elf/analysis/main
-EXPECT64=MHg0MDA1MDYKCg==
-CMDS64=P3YgbWFpbgo=
+EXPECT=<<EOF
+0x400506
+EOF
+CMDS=<<EOF
+?v main
+EOF
 RUN
+
 NAME=ELF: main rebased 0
 FILE=../bins/elf/analysis/pie-main
 ARGS=-B 0x200000
-EXPECT64=MHgyMDNiZDAKCg==
-CMDS64=P3YgbWFpbgo=
+EXPECT=<<EOF
+0x203bd0
+EOF
+CMDS=<<EOF
+?v main
+EOF
 RUN
+
 NAME=ELF: main rebased 1
 FILE=../bins/elf/analysis/pie-main
 ARGS=-B 0x100000
-EXPECT64=MHgxMDNiZDAKCg==
-CMDS64=P3YgbWFpbgo=
+EXPECT=<<EOF
+0x103bd0
+EOF
+CMDS=<<EOF
+?v main
+EOF
 RUN
+
 NAME=ELF: main rebased 2
 FILE=../bins/elf/analysis/main
 ARGS=-B 0x200000
-EXPECT64=MHgyMDA1MDYKCg==
-CMDS64=P3YgbWFpbgo=
+EXPECT=<<EOF
+0x200506
+EOF
+CMDS=<<EOF
+?v main
+EOF
 RUN
+
 NAME=ELF: main rebased 3
 FILE=-
 ARGS=-B 0x200000
-EXPECT64=MjA5ODQzOAo=
-CMDS64=IXJhYmluMiAtcU1CIDB4MjAwMDAwIC4uL2JpbnMvZWxmL2FuYWx5c2lzL21haW4K
-RUN
-NAME=ELF: sym.main
-FILE=../bins/elf/analysis/main
-EXPECT64=MHg0MDA1MDYKCg==
-CMDS64=P3Ygc3ltLm1haW4K
-RUN
-NAME=ELF: pie main
-FILE=../bins/elf/analysis/pie-main
-EXPECT64=MHgzYmQwCgo=
-CMDS64=P3YgbWFpbgo=
-RUN
-NAME=MIPS: main
-FILE=../bins/elf/analysis/mips-main
-EXPECT64=MHg0MDA2ZjAKCg==
-CMDS64=P3YgbWFpbgo=
-RUN
-NAME=main non common LD script
-FILE=../bins/elf/analysis/custom_ldscript
-EXPECT64=MHgxYzAwODQ0Cgo=
-CMDS64=P3YgbWFpbgo=
-RUN
-NAME=main wrong sections
-FILE=../bins/elf/analysis/main_wrong_sect
-EXPECT64=MHg0MDA1MDYKCg==
-CMDS64=P3YgbWFpbgo=
-RUN
-NAME=main detection linux64 endbr64
-FILE=../bins/elf/analysis/linux_x64_endbr64
-CMDS64=P3YgbWFpbgo=
-EXPECT64=MHg0MDcwCgo=
+EXPECT='2098438'
+CMDS=<<EOF
+!rabin2 -qMB 0x200000 ../bins/elf/analysis/main
+EOF
 RUN
 
+NAME=ELF: sym.main
+FILE=../bins/elf/analysis/main
+EXPECT=<<EOF
+0x400506
+EOF
+CMDS=<<EOF
+?v sym.main
+EOF
+RUN
+
+NAME=ELF: pie main
+FILE=../bins/elf/analysis/pie-main
+EXPECT=<<EOF
+0x3bd0
+EOF
+CMDS=<<EOF
+?v main
+EOF
+RUN
+
+NAME=MIPS: main
+FILE=../bins/elf/analysis/mips-main
+EXPECT=<<EOF
+0x4006f0
+EOF
+CMDS=<<EOF
+?v main
+EOF
+RUN
+
+NAME=main non common LD script
+FILE=../bins/elf/analysis/custom_ldscript
+EXPECT=<<EOF
+0x1c00844
+EOF
+CMDS=<<EOF
+?v main
+EOF
+RUN
+
+NAME=main wrong sections
+FILE=../bins/elf/analysis/main_wrong_sect
+EXPECT=<<EOF
+0x400506
+EOF
+CMDS=<<EOF
+?v main
+EOF
+RUN
+
+NAME=main detection linux64 endbr64
+FILE=../bins/elf/analysis/linux_x64_endbr64
+CMDS=<<EOF
+?v main
+EOF
+EXPECT=<<EOF
+0x4070
+EOF
+RUN

@@ -1,10 +1,24 @@
 NAME=ELF: corkami tiny.elf - entry0
 FILE=../bins/elf/analysis/tiny.elf
-EXPECT64=MHgxMDAyMAoweDAwMDEwMDIwICAgIGVudHJ5MDoKMHgwMDAxMDAyMCAgICAgICAgICAgICAgICAgYjMyYSAgbW92IGJsLCAweDJhCjB4MDAwMTAwMjIgICAgICAgICAgICAgICAgIDMxYzAgIHhvciBlYXgsIGVheAoweDAwMDEwMDI0ICAgICAgICAgICAgICAgICAgIDQwICBpbmMgZWF4CjB4MDAwMTAwMjUgICAgICAgICAgICAgICAgIGNkODAgIGludCAweDgwCgo=
-CMDS64=P3YgZW50cnkwO3BpZCA0IEAgZW50cnkwCg==
+EXPECT=<<EOF
+0x10020
+0x00010020    entry0:
+0x00010020                 b32a  mov bl, 0x2a
+0x00010022                 31c0  xor eax, eax
+0x00010024                   40  inc eax
+0x00010025                 cd80  int 0x80
+EOF
+CMDS=<<EOF
+?v entry0;pid 4 @ entry0
+EOF
 RUN
+
 NAME=ELF: corkami tiny.elf - sections
 FILE=../bins/elf/analysis/tiny.elf
-EXPECT64=IDEgZmQ6IDMgKzB4MDAwMDAwMDAgMHgwMDAxMDAwMCAtIDB4MDAwMTAwMmMgci14IGZtYXAudXBoZHIK
-CMDS64=b20K
+EXPECT=<<EOF
+ 1 fd: 3 +0x00000000 0x00010000 - 0x0001002c r-x fmap.uphdr
+EOF
+CMDS=<<EOF
+om
+EOF
 RUN

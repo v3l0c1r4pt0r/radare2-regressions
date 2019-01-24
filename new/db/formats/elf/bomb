@@ -1,15 +1,29 @@
 NAME=ELF: bomb - open
 FILE=../bins/elf/bomb
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN
+
 NAME=ELF: bomb - entrypoint
 FILE=../bins/elf/bomb
-EXPECT64=MHg0MDBjOTAKCg==
-CMDS64=CnMKCg==
+EXPECT=<<EOF
+0x400c90
+EOF
+CMDS=<<EOF
+s
+EOF
 RUN
+
 NAME=ELF: bomb - pi 1
 FILE=../bins/elf/bomb
-EXPECT64=eG9yIGVicCwgZWJwCgo=
-CMDS64=ZSBhc20uZmlsdGVyPWZhbHNlCnBpIDEKCg==
+EXPECT=<<EOF
+xor ebp, ebp
+EOF
+CMDS=<<EOF
+e asm.filter=false
+pi 1
+EOF
 RUN

@@ -1,30 +1,61 @@
 NAME=cxx compatibility
 FILE=-
-EXPECT64=c3RkOjpfX2N4eDExOjpiYXNpY19zdHJpbmc8Y2hhcixzdGQ6OmNoYXJfdHJhaXRzPGNoYXI+LHN0ZDo6YWxsb2NhdG9yPGNoYXI+Pjo6fmJhc2ljX3N0cmluZygpCgo=
-CMDS64=IiFyYWJpbjIgLUQgcnVzdCBfWk5TdDdfX2N4eDExMTJiYXNpY19zdHJpbmdJY1N0MTFjaGFyX3RyYWl0c0ljRVNhSWNFRUQxRXYiCg==
+EXPECT=<<EOF
+std::__cxx11::basic_string<char,std::char_traits<char>,std::allocator<char>>::~basic_string()
+EOF
+CMDS=<<EOF
+"!rabin2 -D rust _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev"
+EOF
 RUN
+
 NAME=rust basic nested type
 FILE=-
-EXPECT64=YWxsb2M6Om9vbTo6b29tOjpoNzIyNjQ4YjcyN2I4YmNkMAoK
-CMDS64=IiFyYWJpbjIgLUQgcnVzdCBfWk41YWxsb2Mzb29tM29vbTE3aDcyMjY0OGI3MjdiOGJjZDBFIgo=
+EXPECT=<<EOF
+alloc::oom::oom::h722648b727b8bcd0
+EOF
+CMDS=<<EOF
+"!rabin2 -D rust _ZN5alloc3oom3oom17h722648b727b8bcd0E"
+EOF
 RUN
+
 NAME=rust basic nested type with hash
 FILE=-
-EXPECT64=Y29yZTo6Zm10OjpXcml0ZTo6d3JpdGVfY2hhcjo6aGNjNTE0NGE5YTg0ZjJiMTUKCg==
-CMDS64=IiFyYWJpbjIgLUQgcnVzdCBfWk40Y29yZTNmbXQ1V3JpdGUxMHdyaXRlX2NoYXIxN2hjYzUxNDRhOWE4NGYyYjE1RSIK
+EXPECT=<<EOF
+core::fmt::Write::write_char::hcc5144a9a84f2b15
+EOF
+CMDS=<<EOF
+"!rabin2 -D rust _ZN4core3fmt5Write10write_char17hcc5144a9a84f2b15E"
+EOF
 RUN
+
 NAME=rust static type
 FILE=-
-EXPECT64=PFRlc3QgKyAnc3RhdGljIGFzIGZvbzo6QmFyPFRlc3Q+Pjo6YmFyCgo=
-CMDS64=IiFyYWJpbjIgLUQgcnVzdCBfWk43MV9cJExUXCRUZXN0XCR1MjBcJFwkdTJiXCRcJHUyMFwkXCR1MjdcJHN0YXRpY1wkdTIwXCRhc1wkdTIwXCRmb28uLkJhclwkTFRcJFRlc3RcJEdUXCRcJEdUXCQzYmFyRSIK
+EXPECT=<<EOF
+<Test + 'static as foo::Bar<Test>>::bar
+EOF
+CMDS=<<EOF
+"!rabin2 -D rust _ZN71_\$LT\$Test\$u20\$\$u2b\$\$u20\$\$u27\$static\$u20\$as\$u20\$foo..Bar\$LT\$Test\$GT\$\$GT\$3barE"
+EOF
 RUN
+
 NAME=rust static type with hash
 FILE=-
-EXPECT64=PGNvcmU6OmZtdDo6V3JpdGU6OndyaXRlX2ZtdDo6QWRhcHRlcjwnYSwgVD4gYXMgY29yZTo6Zm10OjpXcml0ZT46OndyaXRlX3N0cjo6aGU0ZjQ3NjhhMmY0NDZmYWMKCg==
-CMDS64=IiFyYWJpbjIgLUQgcnVzdCBfWk45Nl9cJExUXCRjb3JlLi5mbXQuLldyaXRlLi53cml0ZV9mbXQuLkFkYXB0ZXJcJExUXCRcJHUyN1wkYVwkQ1wkXCR1MjBcJFRcJEdUXCRcJHUyMFwkYXNcJHUyMFwkY29yZS4uZm10Li5Xcml0ZVwkR1RcJDl3cml0ZV9zdHIxN2hlNGY0NzY4YTJmNDQ2ZmFjRSIK
+EXPECT=<<EOF
+<core::fmt::Write::write_fmt::Adapter<'a, T> as core::fmt::Write>::write_str::he4f4768a2f446fac
+EOF
+CMDS=<<EOF
+"!rabin2 -D rust _ZN96_\$LT\$core..fmt..Write..write_fmt..Adapter\$LT\$\$u27\$a\$C\$\$u20\$T\$GT\$\$u20\$as\$u20\$core..fmt..Write\$GT\$9write_str17he4f4768a2f446facE"
+EOF
 RUN
+
 NAME=rust function in file
 FILE=../bins/elf/rust
-EXPECT64=MHgwMDAwMmIzMCAgICAyIDE1ICAgICAgICAgICBzeW0uX2V4YW1wbGU6OkZvb19hc19leGFtcGxlOjpCYXJfOjpiYXI6OmgyNmRjNjA4NjY0MjY0ZmI2CjB4MDAwMDJiNDAgICAgMSAzMSAgICAgICAgICAgc3ltLmV4YW1wbGU6Om1haW46OmhmNDU5MDNhMjBlZjJhZDIxCgo=
-CMDS64=YWEKYWZsfmV4YW1wbGUK
+EXPECT=<<EOF
+0x00002b30    2 15           sym._example::Foo_as_example::Bar_::bar::h26dc608664264fb6
+0x00002b40    1 31           sym.example::main::hf45903a20ef2ad21
+EOF
+CMDS=<<EOF
+aa
+afl~example
+EOF
 RUN

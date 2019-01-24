@@ -1,16 +1,33 @@
 NAME=PE: corkami winver.exe - open
 FILE=../bins/pe/winver.exe
 ARGS=-A
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN
+
 NAME=PE: corkami winver.exe - entrypoint
 FILE=../bins/pe/winver.exe
-EXPECT64=MHg0MDEwMDAKCg==
-CMDS64=CnMKCg==
+EXPECT=<<EOF
+0x401000
+EOF
+CMDS=<<EOF
+s
+EOF
 RUN
+
 NAME=PE: corkami winver.exe - linked libraries
 FILE=../bins/pe/winver.exe
-EXPECT64=W0xpbmtlZCBsaWJyYXJpZXNdCmtlcm5lbDMyLmRsbAptc3ZjcnQuZGxsCgoyIGxpYnJhcmllcwoK
-CMDS64=CmlsCgo=
+EXPECT=<<EOF
+[Linked libraries]
+kernel32.dll
+msvcrt.dll
+
+2 libraries
+EOF
+CMDS=<<EOF
+il
+EOF
 RUN

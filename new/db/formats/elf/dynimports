@@ -1,5 +1,9 @@
 NAME=ELF: dynimports
 FILE=../bins/elf/analysis/dynimports
-EXPECT64=Nwo=
-CMDS64=aWl+Pwo=
+EXPECT=<<EOF
+7
+EOF
+CMDS=<<EOF
+ii~?
+EOF
 RUN

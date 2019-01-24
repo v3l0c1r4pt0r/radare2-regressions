@@ -1,7 +1,14 @@
 NAME=mach0 swift demangle methods
 FILE=../bins/mach0/swift-main
-EXPECT64=MHgxMDAwMDQ3YTAgMCBGb29DbGFzcy5iYXIubWV0aG9kX19TdHJpbmcuLmluaXQud2l0bmVzc3RhYmxlCjB4MTAwMDA0Nzg4IDAgRm9vQ2xhc3MuZm9vLm1ldGhvZF9fU3dpZnQuSW50Li5pbml0LndpdG5lc3N0YWJsZQoweDEwMDAwMTdhMCAwIG1haW4uRm9vQ2xhc3MuZm9vLm1ldGhvZF9fU3dpZnQuSW50CjB4MTAwMDAxODYwIDAgbWFpbi5Gb29DbGFzcy5iYXIubWV0aG9kX19TdHJpbmcKCg==
-CMDS64=aXNxfiZGb29DbGFzcyxtZXRob2QKCg==
+EXPECT=<<EOF
+0x1000047a0 0 FooClass.bar.method__String..init.witnesstable
+0x100004788 0 FooClass.foo.method__Swift.Int..init.witnesstable
+0x1000017a0 0 main.FooClass.foo.method__Swift.Int
+0x100001860 0 main.FooClass.bar.method__String
+EOF
+CMDS=<<EOF
+isq~&FooClass,method
+EOF
 RUN
 
 NAME=mach0 swift-x86-64 aav

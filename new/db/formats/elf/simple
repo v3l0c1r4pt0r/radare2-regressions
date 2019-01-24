@@ -1,38 +1,88 @@
 NAME=ELF: long symbol names
 FILE=../bins/elf/analysis/longsym
-EXPECT64=MTk0Cgo=
-CMDS64=P2xxIGBpc3F+cGF0YWA7P3ZpCg==
+EXPECT=<<EOF
+194
+EOF
+CMDS=<<EOF
+?lq `isq~pata`;?vi
+EOF
 RUN
+
 NAME=ELF: simple.elf - code
 FILE=../bins/elf/analysis/simple.elf
-EXPECT64=MHgwODAwMDA2MCAgICBzZWN0aW9uLi50ZXh0OgoweDA4MDAwMDYwICAgICAgICAgICBiOTkwMDAwMDA4ICBtb3YgZWN4LCAweDgwMDAwOTAKMHgwODAwMDA2NSAgICAgICAgICAgYmEwZDAwMDAwMCAgbW92IGVkeCwgMHhkCjB4MDgwMDAwNmEgICAgICAgICAgIGJiMDEwMDAwMDAgIG1vdiBlYngsIDEKMHgwODAwMDA2ZiAgICAgICAgICAgYjgwNDAwMDAwMCAgbW92IGVheCwgNAoK
-CMDS64=ZSBhc20uZmlsdGVyPWZhbHNlCnBpZCA0IEAgZW50cnkwCg==
+EXPECT=<<EOF
+0x08000060    section..text:
+0x08000060           b990000008  mov ecx, 0x8000090
+0x08000065           ba0d000000  mov edx, 0xd
+0x0800006a           bb01000000  mov ebx, 1
+0x0800006f           b804000000  mov eax, 4
+EOF
+CMDS=<<EOF
+e asm.filter=false
+pid 4 @ entry0
+EOF
 RUN
+
 NAME=ELF: asm.flags.middle=0 + local symbols
 FILE=../bins/elf/analysis/example.elf
-EXPECT64=ICAgICAgICA6ICAgMHgwMDAwMDM1NiAgICAgIDAwZjAzM2Y5ICAgICAgIGJsIHN5bS5hcHBfdWFydF9nZXQKICAgICAgICA6ICAgMHgwMDAwMDM1YSAgICAgIDAwMjggICAgICAgICAgIGNtcCByMCwgMAogICAgICAgIGA9PCAweDAwMDAwMzVjICAgICAgZmFkMSAgICAgICAgICAgYm5lIDB4MzU0Cgo=
-CMDS64=ZSBhc20uZmxhZ3MubWlkZGxlPTA7cGQgMyBAIDB4MzU2Cg==
+EXPECT=<<EOF
+        :   0x00000356      00f033f9       bl sym.app_uart_get
+        :   0x0000035a      0028           cmp r0, 0
+        `=< 0x0000035c      fad1           bne 0x354
+EOF
+CMDS=<<EOF
+e asm.flags.middle=0;pd 3 @ 0x356
+EOF
 RUN
+
 NAME=ELF: asm.flags.middle=1 + local symbols
 FILE=../bins/elf/analysis/example.elf
-EXPECT64=ICAgICAgICA6ICAgOy0tICRkOgogICAgICAgIDogICAweDAwMDAwMzU2ICB+ICAgMDBmMDMzZjkgICAgICAgYmwgc3ltLmFwcF91YXJ0X2dldAogICAgICAgIDogICAweDAwMDAwMzVhICAgICAgMDAyOCAgICAgICAgICAgY21wIHIwLCAwCiAgICAgICAgYD08IDB4MDAwMDAzNWMgICAgICBmYWQxICAgICAgICAgICBibmUgMHgzNTQKCg==
-CMDS64=ZSBhc20uZmxhZ3MubWlkZGxlPTE7cGQgMyBAIDB4MzU2Cg==
+EXPECT=<<EOF
+        :   ;-- $d:
+        :   0x00000356  ~   00f033f9       bl sym.app_uart_get
+        :   0x0000035a      0028           cmp r0, 0
+        `=< 0x0000035c      fad1           bne 0x354
+EOF
+CMDS=<<EOF
+e asm.flags.middle=1;pd 3 @ 0x356
+EOF
 RUN
+
 NAME=ELF: asm.flags.middle + local symbols
 FILE=../bins/elf/analysis/example.elf
-EXPECT64=ICAgICAgICA6ICAgMHgwMDAwMDM1NiAgfiAgIDAwZjAzM2Y5ICAgICAgIGJsIHN5bS5hcHBfdWFydF9nZXQKICAgICAgICA6ICAgMHgwMDAwMDM1YSAgICAgIDAwMjggICAgICAgICAgIGNtcCByMCwgMAogICAgICAgIGA9PCAweDAwMDAwMzVjICAgICAgZmFkMSAgICAgICAgICAgYm5lIDB4MzU0Cgo=
-CMDS64=cGQgMyBAIDB4MzU2Cg==
+EXPECT=<<EOF
+        :   0x00000356  ~   00f033f9       bl sym.app_uart_get
+        :   0x0000035a      0028           cmp r0, 0
+        `=< 0x0000035c      fad1           bne 0x354
+EOF
+CMDS=<<EOF
+pd 3 @ 0x356
+EOF
 RUN
+
 NAME=ELF: asm.flags.middle2 + local symbols
 FILE=../bins/elf/analysis/example.elf
-EXPECT64=ICAgICAgICA6ICAgMHgwMDAwMDM1NiAgICAgIDAwZjAzM2Y5ICAgICAgIGJsIHN5bS5hcHBfdWFydF9nZXQKICAgICAgICA6ICAgMHgwMDAwMDM1YSAgICAgIDAwMjggICAgICAgICAgIGNtcCByMCwgMAogICAgICAgIGA9PCAweDAwMDAwMzVjICAgICAgZmFkMSAgICAgICAgICAgYm5lIDB4MzU0Cgo=
-CMDS64=ZSBhc20uZmxhZ3MubWlkZGxlPTAKcGQgMyBAIDB4MzU2Cg==
+EXPECT=<<EOF
+        :   0x00000356      00f033f9       bl sym.app_uart_get
+        :   0x0000035a      0028           cmp r0, 0
+        `=< 0x0000035c      fad1           bne 0x354
+EOF
+CMDS=<<EOF
+e asm.flags.middle=0
+pd 3 @ 0x356
+EOF
 RUN
+
 NAME=ELF: local symbols
 FILE=../bins/elf/analysis/example.elf
-EXPECT64=ZiBzeW0uZF80MSAwIDB4MDAwMDBhZTAKCg==
-CMDS64=aXMqfmRfNDEK
+EXPECT=<<EOF
+f sym.d_41 0 0x00000ae0
+EOF
+CMDS=<<EOF
+is*~d_41
+EOF
 RUN
+
 NAME=ELF: phdr override
 FILE=../bins/elf/analysis/phdr-override
 EXPECT=<<CMDS
@@ -41,6 +91,7 @@ __libc_start_main
 __gmon_start__
 CMDS=iiq
 RUN
+
 NAME=ELF: phdr override 2
 FILE=../bins/elf/busybox-phdr-shdr
 EXPECT=<<CMDS

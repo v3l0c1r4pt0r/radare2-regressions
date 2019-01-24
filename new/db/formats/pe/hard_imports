@@ -1,5 +1,8 @@
 NAME=PE: corkami hard_imports.exe - open
 FILE=../bins/pe/hard_imports.exe
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN

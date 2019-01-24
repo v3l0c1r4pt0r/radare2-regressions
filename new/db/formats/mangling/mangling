@@ -1,315 +1,629 @@
 NAME=m128 parsing test
 FILE=-
-EXPECT64=X1pOU3QyMTQ3NDgzNjQ4aW9zX2Jhc2U0SW5pdEQxRXYKCg==
-CMDS64=IiFyYWJpbjIgLUQgY3h4IF9aTlN0MjE0NzQ4MzY0OGlvc19iYXNlNEluaXREMUV2Igo=
+EXPECT=<<EOF
+_ZNSt2147483648ios_base4InitD1Ev
+EOF
+CMDS=<<EOF
+"!rabin2 -D cxx _ZNSt2147483648ios_base4InitD1Ev"
+EOF
 RUN
+
 NAME=m128 parsing test
 FILE=-
-EXPECT64=X19tMTI4IHZhcl9fbTEyOAoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX19tMTI4QEAzVF9fbTEyOEBAQSIK
+EXPECT=<<EOF
+__m128 var__m128
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var__m128@@3T__m128@@A"
+EOF
 RUN
+
 NAME=m64 parsing test
 FILE=-
-EXPECT64=X19tNjQgdmFyX19tNjQKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX19tNjRAQDNUX19tNjRAQEEiCg==
+EXPECT=<<EOF
+__m64 var__m64
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var__m64@@3T__m64@@A"
+EOF
 RUN
+
 NAME=m128d parsing test
 FILE=-
-EXPECT64=X19tMTI4ZCB2YXJfX20xMjhkCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX19tMTI4ZEBAM1VfX20xMjhkQEBBIgo=
+EXPECT=<<EOF
+__m128d var__m128d
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var__m128d@@3U__m128d@@A"
+EOF
 RUN
+
 NAME=m128i parsing test
 FILE=-
-EXPECT64=X19tMTI4aSB2YXJfX20xMjhpCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX19tMTI4aUBAM1RfX20xMjhpQEBBIgo=
+EXPECT=<<EOF
+__m128i var__m128i
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var__m128i@@3T__m128i@@A"
+EOF
 RUN
+
 NAME=m256 parsing test
 FILE=-
-EXPECT64=X19tMjU2IHZhcl9fbTI1NgoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX19tMjU2QEAzVF9fbTI1NkBAQSIK
+EXPECT=<<EOF
+__m256 var__m256
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var__m256@@3T__m256@@A"
+EOF
 RUN
+
 NAME=m256d parsing test
 FILE=-
-EXPECT64=X19tMjU2ZCB2YXJfX20yNTZkCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX19tMjU2ZEBAM1VfX20yNTZkQEBBIgo=
+EXPECT=<<EOF
+__m256d var__m256d
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var__m256d@@3U__m256d@@A"
+EOF
 RUN
+
 NAME=m256i parsing test
 FILE=-
-EXPECT64=X19tMjU2aSB2YXJfX20yNTZpCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX19tMjU2aUBAM1RfX20yNTZpQEBBIgo=
+EXPECT=<<EOF
+__m256i var__m256i
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var__m256i@@3T__m256i@@A"
+EOF
 RUN
+
 NAME=void bin mangling rust swift parsing test
 FILE=-
-EXPECT64=dm9pZCAqIF9fcHRyNjQgdmFyX3ZvaWRwdHIKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3ZvaWRwdHJAQDNQRUFYQSIK
+EXPECT=<<EOF
+void * __ptr64 var_voidptr
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_voidptr@@3PEAXA"
+EOF
 RUN
+
 NAME=bool parsing test
 FILE=-
-EXPECT64=Ym9vbCB2YXJfYm9vbAoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2Jvb2xAQDNfTkEiCg==
+EXPECT=<<EOF
+bool var_bool
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_bool@@3_NA"
+EOF
 RUN
+
 NAME=char parsing test
 FILE=-
-EXPECT64=Y2hhciB2YXJfY2hhcgoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2NoYXJAQDNEQSIK
+EXPECT=<<EOF
+char var_char
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_char@@3DA"
+EOF
 RUN
+
 NAME=signed char parsing test
 FILE=-
-EXPECT64=c2lnbmVkIGNoYXIgdmFyX3NpZ25lZF9jaGFyCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3NpZ25lZF9jaGFyQEAzQ0EiCg==
+EXPECT=<<EOF
+signed char var_signed_char
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_signed_char@@3CA"
+EOF
 RUN
+
 NAME=unsigned char parsing test
 FILE=-
-EXPECT64=dW5zaWduZWQgY2hhciB2YXJfdW5zaWduZWRfY2hhcgoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3Vuc2lnbmVkX2NoYXJAQDNFQSIK
+EXPECT=<<EOF
+unsigned char var_unsigned_char
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_unsigned_char@@3EA"
+EOF
 RUN
+
 NAME=short int parsing test
 FILE=-
-EXPECT64=c2hvcnQgaW50IHZhcl9zaG9ydF9pbnQKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3Nob3J0X2ludEBAM0ZBIgo=
+EXPECT=<<EOF
+short int var_short_int
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_short_int@@3FA"
+EOF
 RUN
+
 NAME=int parsing test
 FILE=-
-EXPECT64=aW50IHZhcl9pbnQKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2ludEBAM0hBIgo=
+EXPECT=<<EOF
+int var_int
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_int@@3HA"
+EOF
 RUN
+
 NAME=unsigned int parsing test
 FILE=-
-EXPECT64=dW5zaWduZWQgaW50IHZhcl91bnNpZ25lZF9pbnQKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3Vuc2lnbmVkX2ludEBAM0lBIgo=
+EXPECT=<<EOF
+unsigned int var_unsigned_int
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_unsigned_int@@3IA"
+EOF
 RUN
+
 NAME=long int parsing test
 FILE=-
-EXPECT64=bG9uZyBpbnQgdmFyX2xvbmdfaW50Cgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2xvbmdfaW50QEAzSkEiCg==
+EXPECT=<<EOF
+long int var_long_int
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_long_int@@3JA"
+EOF
 RUN
+
 NAME=unsigned long int parsing test
 FILE=-
-EXPECT64=dW5zaWduZWQgbG9uZyBpbnQgdmFyX3Vuc2lnbmVkX2xvbmdfaW50Cgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3Vuc2lnbmVkX2xvbmdfaW50QEAzS0EiCg==
+EXPECT=<<EOF
+unsigned long int var_unsigned_long_int
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_unsigned_long_int@@3KA"
+EOF
 RUN
+
 NAME=long long parsing test
 FILE=-
-EXPECT64=bG9uZyBsb25nKF9faW50NjQpIHZhcl9sb25nX2xvbmcKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2xvbmdfbG9uZ0BAM19KQSIK
+EXPECT=<<EOF
+long long(__int64) var_long_long
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_long_long@@3_JA"
+EOF
 RUN
+
 NAME=unsigned long long parsing test
 FILE=-
-EXPECT64=dW5zaWduZWQgbG9uZyBsb25nKHVuc2lnbmVkIF9faW50NjQpIHZhcl91bnNpZ25lZF9sb25nX2xvbmcKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3Vuc2lnbmVkX2xvbmdfbG9uZ0BAM19LQSIK
+EXPECT=<<EOF
+unsigned long long(unsigned __int64) var_unsigned_long_long
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_unsigned_long_long@@3_KA"
+EOF
 RUN
+
 NAME="whcar_t parsing test"
 FILE=-
-EXPECT64=d2NoYXJfdCB2YXJfd2NoYXJfdAoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3djaGFyX3RAQDNfV0EiCg==
+EXPECT=<<EOF
+wchar_t var_wchar_t
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_wchar_t@@3_WA"
+EOF
 RUN
+
 NAME=float parsing test
 FILE=-
-EXPECT64=ZmxvYXQgdmFyX2Zsb2F0Cgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2Zsb2F0QEAzTUEiCg==
+EXPECT=<<EOF
+float var_float
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_float@@3MA"
+EOF
 RUN
+
 NAME=double parsing test
 FILE=-
-EXPECT64=ZG91YmxlIHZhcl9kb3VibGUKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2RvdWJsZUBAM05BIgo=
+EXPECT=<<EOF
+double var_double
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_double@@3NA"
+EOF
 RUN
+
 NAME=long double parsing test
 FILE=-
-EXPECT64=bG9uZyBkb3VibGUgdmFyX2xvbmdfZG91YmxlCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2xvbmdfZG91YmxlQEAzT0EiCg==
+EXPECT=<<EOF
+long double var_long_double
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_long_double@@3OA"
+EOF
 RUN
+
 NAME=int bin mangling rust swift parsing test
 FILE=-
-EXPECT64=aW50ICogX19wdHI2NCB2YXJfaW50X3B0cgoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2ludF9wdHJAQDNQRUFIQSIK
+EXPECT=<<EOF
+int * __ptr64 var_int_ptr
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_int_ptr@@3PEAHA"
+EOF
 RUN
+
 NAME=const int bin mangling rust swift const parsing test
 FILE=-
-EXPECT64=aW50IGNvbnN0ICogX19wdHI2NCBjb25zdCBfX3B0cjY0IHZhcl9jb25zdF9pbnRfcHRyCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2NvbnN0X2ludF9wdHJAQDNQRUJIRUIiCg==
+EXPECT=<<EOF
+int const * __ptr64 const __ptr64 var_const_int_ptr
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_const_int_ptr@@3PEBHEB"
+EOF
 RUN
+
 NAME=int volatile bin mangling rust swift volatile const parsing test
 FILE=-
-EXPECT64=aW50IHZvbGF0aWxlICogX19wdHI2NCB2b2xhdGlsZSBfX3B0cjY0IHZhcl92b2xhdGlsZV9pbnRfcHRyCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3ZvbGF0aWxlX2ludF9wdHJAQDNQRUNIRUMiCg==
+EXPECT=<<EOF
+int volatile * __ptr64 volatile __ptr64 var_volatile_int_ptr
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_volatile_int_ptr@@3PECHEC"
+EOF
 RUN
+
 NAME=int const volatile bin mangling rust swift const volatile parsing test
 FILE=-
-EXPECT64=aW50IGNvbnN0IHZvbGF0aWxlICogX19wdHI2NCBjb25zdCB2b2xhdGlsZSBfX3B0cjY0IHZhcl9jb25zdF92b2xhdGlsZV9pbnRfcHRyCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2NvbnN0X3ZvbGF0aWxlX2ludF9wdHJAQDNQRURIRUQiCg==
+EXPECT=<<EOF
+int const volatile * __ptr64 const volatile __ptr64 var_const_volatile_int_ptr
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_const_volatile_int_ptr@@3PEDHED"
+EOF
 RUN
+
 NAME=int bin mangling rust swift volatile parsing test
 FILE=-
-EXPECT64=aW50ICogdm9sYXRpbGUgX19wdHI2NCBfX3B0cjY0IHZhcl9pbnRfcHRyX3ZvbGF0aWxlCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2ludF9wdHJfdm9sYXRpbGVAQDNSRUFIRUEiCg==
+EXPECT=<<EOF
+int * volatile __ptr64 __ptr64 var_int_ptr_volatile
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_int_ptr_volatile@@3REAHEA"
+EOF
 RUN
+
 NAME=arr parsing test
 FILE=-
-EXPECT64=aW50ICogYXJyCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/YXJyQEAzUEFIQSIK
+EXPECT=<<EOF
+int * arr
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?arr@@3PAHA"
+EOF
 RUN
+
 NAME=arr[][] parsing test
 FILE=-
-EXPECT64=aW50ICgqKVs4XSBhcnIyCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/YXJyMkBAM1BBWTA3SEEiCg==
+EXPECT=<<EOF
+int (*)[8] arr2
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?arr2@@3PAY07HA"
+EOF
 RUN
+
 NAME=arr[][][] parsing test
 FILE=-
-EXPECT64=aW50ICgqKVsxNl1bNV0gYXJyMwoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/YXJyM0BAM1BBWTFCQUA0SEEiCg==
+EXPECT=<<EOF
+int (*)[16][5] arr3
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?arr3@@3PAY1BA@4HA"
+EOF
 RUN
+
 NAME=union parsing test
 FILE=-
-EXPECT64=dW5pb24gVU5JT05fVEVTVCB2YXJfdW5pb24KCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3VuaW9uQEAzVFVOSU9OX1RFU1RAQEEiCg==
+EXPECT=<<EOF
+union UNION_TEST var_union
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_union@@3TUNION_TEST@@A"
+EOF
 RUN
+
 NAME=class parsing test
 FILE=-
-EXPECT64=Y2xhc3MgQ0xBU1NfVEVTVCB2YXJfY2xhc3MKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2NsYXNzQEAzVkNMQVNTX1RFU1RAQEEiCg==
+EXPECT=<<EOF
+class CLASS_TEST var_class
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_class@@3VCLASS_TEST@@A"
+EOF
 RUN
+
 NAME=enum parsing test
 FILE=-
-EXPECT64=ZW51bSBFTlVNX1RFU1QgdmFyX2VudW0KCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2VudW1AQDNXNEVOVU1fVEVTVEBAQSIK
+EXPECT=<<EOF
+enum ENUM_TEST var_enum
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_enum@@3W4ENUM_TEST@@A"
+EOF
 RUN
+
 NAME=union with namespace parsing test
 FILE=-
-EXPECT64=dW5pb24gVU5JT05fVEVTVCBURVNUX05BTUVTUEFDRTo6dmFyX3VuaW9uX3dpdGhfbmFtZXNwYWNlCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3VuaW9uX3dpdGhfbmFtZXNwYWNlQFRFU1RfTkFNRVNQQUNFQEAzVFVOSU9OX1RFU1RAQEEiCg==
+EXPECT=<<EOF
+union UNION_TEST TEST_NAMESPACE::var_union_with_namespace
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_union_with_namespace@TEST_NAMESPACE@@3TUNION_TEST@@A"
+EOF
 RUN
+
 NAME=class with namespace parsing test
 FILE=-
-EXPECT64=Y2xhc3MgQ0xBU1NfVEVTVCBURVNUX05BTUVTUEFDRTo6dmFyX2NsYXNzX3dpdGhfbmFtZXNwYWNlCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2NsYXNzX3dpdGhfbmFtZXNwYWNlQFRFU1RfTkFNRVNQQUNFQEAzVkNMQVNTX1RFU1RAQEEiCg==
+EXPECT=<<EOF
+class CLASS_TEST TEST_NAMESPACE::var_class_with_namespace
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_class_with_namespace@TEST_NAMESPACE@@3VCLASS_TEST@@A"
+EOF
 RUN
+
 NAME=enum with namespace parsing test
 FILE=-
-EXPECT64=ZW51bSBFTlVNX1RFU1QgVEVTVF9OQU1FU1BBQ0U6OnZhcl9lbnVtX3dpdGhfbmFtZXNwYWNlCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX2VudW1fd2l0aF9uYW1lc3BhY2VAVEVTVF9OQU1FU1BBQ0VAQDNXNEVOVU1fVEVTVEBAQSIK
+EXPECT=<<EOF
+enum ENUM_TEST TEST_NAMESPACE::var_enum_with_namespace
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_enum_with_namespace@TEST_NAMESPACE@@3W4ENUM_TEST@@A"
+EOF
 RUN
+
 NAME=ptr with namespace parsing test
 FILE=-
-EXPECT64=c3RydWN0IFNUUlVDVF9URVNUICogX19wdHI2NCBfX3B0cjY0IFRFU1RfTkFNRVNQQUNFOjp2YXJfcHRyX3dpdGhfbmFtZXNwYWNlCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/dmFyX3B0cl93aXRoX25hbWVzcGFjZUBURVNUX05BTUVTUEFDRUBAM1BFQVVTVFJVQ1RfVEVTVEBARUEiCg==
+EXPECT=<<EOF
+struct STRUCT_TEST * __ptr64 __ptr64 TEST_NAMESPACE::var_ptr_with_namespace
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?var_ptr_with_namespace@TEST_NAMESPACE@@3PEAUSTRUCT_TEST@@EA"
+EOF
 RUN
+
 NAME=copy constructor demangler test
 FILE=-
-EXPECT64=cHVibGljOiB2b2lkIF9fY2RlY2wgVEVTVF9DTEFTUzo6Y29uc3RydWN0b3IoY2xhc3MgVEVTVF9DTEFTUyBjb25zdCAmIF9fcHRyNjQpIF9fcHRyNjQKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/PzBURVNUX0NMQVNTQEBRRUFBQEFFQlYwQEBaIgo=
+EXPECT=<<EOF
+public: void __cdecl TEST_CLASS::constructor(class TEST_CLASS const & __ptr64) __ptr64
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ??0TEST_CLASS@@QEAA@AEBV0@@Z"
+EOF
 RUN
+
 NAME=constructor demangler test
 FILE=-
-EXPECT64=cHVibGljOiB2b2lkIF9fY2RlY2wgVEVTVF9DTEFTUzo6Y29uc3RydWN0b3IoaW50KSBfX3B0cjY0Cgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/PzBURVNUX0NMQVNTQEBRRUFBQEhAWiIK
+EXPECT=<<EOF
+public: void __cdecl TEST_CLASS::constructor(int) __ptr64
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ??0TEST_CLASS@@QEAA@H@Z"
+EOF
 RUN
+
 NAME=destructor demangler test
 FILE=-
-EXPECT64=cHVibGljOiB2b2lkIF9fY2RlY2wgVEVTVF9DTEFTUzo6fmRlc3RydWN0b3Iodm9pZCkgX19wdHI2NAoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/PzFURVNUX0NMQVNTQEBRRUFBQFhaIgo=
+EXPECT=<<EOF
+public: void __cdecl TEST_CLASS::~destructor(void) __ptr64
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ??1TEST_CLASS@@QEAA@XZ"
+EOF
 RUN
+
 NAME=operator= demangler test
 FILE=-
-EXPECT64=cHVibGljOiBjbGFzcyBURVNUX0NMQVNTICYgX19wdHI2NCBfX2NkZWNsIFRFU1RfQ0xBU1M6Om9wZXJhdG9yPShjbGFzcyBURVNUX0NMQVNTIGNvbnN0ICYgX19wdHI2NCkgX19wdHI2NAoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/PzRURVNUX0NMQVNTQEBRRUFBQUVBVjBAQUVCVjBAQFogIgo=
+EXPECT=<<EOF
+public: class TEST_CLASS & __ptr64 __cdecl TEST_CLASS::operator=(class TEST_CLASS const & __ptr64) __ptr64
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ??4TEST_CLASS@@QEAAAEAV0@AEBV0@@Z "
+EOF
 RUN
+
 NAME=operator+ demangler test
 FILE=-
-EXPECT64=cHVibGljOiBjbGFzcyBURVNUX0NMQVNTIF9fY2RlY2wgVEVTVF9DTEFTUzo6b3BlcmF0b3IrKGNsYXNzIFRFU1RfQ0xBU1MgY29uc3QgJiBfX3B0cjY0KSBfX3B0cjY0Cgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/P0hURVNUX0NMQVNTQEBRRUFBP0FWMEBBRUJWMEBAWiAiCg==
+EXPECT=<<EOF
+public: class TEST_CLASS __cdecl TEST_CLASS::operator+(class TEST_CLASS const & __ptr64) __ptr64
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ??HTEST_CLASS@@QEAA?AV0@AEBV0@@Z "
+EOF
 RUN
+
 NAME=public function demangler test
 FILE=-
-EXPECT64=cHVibGljOiBpbnQgX19jZGVjbCBURVNUX0NMQVNTOjpwdWJsaWNfZnVuYyh2b2lkKSBfX3B0cjY0Cgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/cHVibGljX2Z1bmNAVEVTVF9DTEFTU0BAUUVBQUhYWiIK
+EXPECT=<<EOF
+public: int __cdecl TEST_CLASS::public_func(void) __ptr64
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?public_func@TEST_CLASS@@QEAAHXZ"
+EOF
 RUN
+
 NAME=static function demangler test
 FILE=-
-EXPECT64=cHVibGljOiBzdGF0aWMgdm9pZCBfX2NkZWNsIFRFU1RfQ0xBU1M6OnN0YXRpY19mdW5jKGludCkKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/c3RhdGljX2Z1bmNAVEVTVF9DTEFTU0BAU0FYSEBaIgo=
+EXPECT=<<EOF
+public: static void __cdecl TEST_CLASS::static_func(int)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?static_func@TEST_CLASS@@SAXH@Z"
+EOF
 RUN
+
 NAME=private function demangler test
 FILE=-
-EXPECT64=cHJpdmF0ZTogdm9pZCBfX2NkZWNsIFRFU1RfQ0xBU1M6OnByaXZhdGVfZnVuYyh2b2lkKSBfX3B0cjY0Cgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/cHJpdmF0ZV9mdW5jQFRFU1RfQ0xBU1NAQEFFQUFYWFoiCg==
+EXPECT=<<EOF
+private: void __cdecl TEST_CLASS::private_func(void) __ptr64
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?private_func@TEST_CLASS@@AEAAXXZ"
+EOF
 RUN
+
 NAME=Abbreviation Of Repetead Types demangler test
 FILE=-
-EXPECT64=Ym9vbCBfX2NkZWNsIEFiYnJldmlhdGlvbk9mUmVwZXRlYWRUeXBlcyhpbnQgKiBfX3B0cjY0LCBpbnQsIGludCwgaW50ICogX19wdHI2NCwgYm9vbCwgYm9vbCwgYm9vbCAqIF9fcHRyNjQpCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/QWJicmV2aWF0aW9uT2ZSZXBldGVhZFR5cGVzQEBZQV9OUEVBSEhIMF9OMVBFQV9OQFoiCg==
+EXPECT=<<EOF
+bool __cdecl AbbreviationOfRepeteadTypes(int * __ptr64, int, int, int * __ptr64, bool, bool, bool * __ptr64)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?AbbreviationOfRepeteadTypes@@YA_NPEAHHH0_N1PEA_N@Z"
+EOF
 RUN
+
 NAME=Abbreviation Of Repetead Names demangler test
 FILE=-
-EXPECT64=Y2xhc3MgVEVTVF9DTEFTUyAqIF9fcHRyNjQgX19jZGVjbCBBYmJyZXZpYXRpb25PZlJlcGV0ZWFkTmFtZXMoY2xhc3MgVEVTVF9DTEFTUyAqIF9fcHRyNjQsIGNsYXNzIFRFU1RfQ0xBU1MgKiBfX3B0cjY0LCBjbGFzcyBURVNUX0NMQVNTICogX19wdHI2NCwgY2xhc3MgVEVTVF9DTEFTUyAmIF9fcHRyNjQpCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/QWJicmV2aWF0aW9uT2ZSZXBldGVhZE5hbWVzQEBZQVBFQVZURVNUX0NMQVNTQEBQRUFWMUAwMEFFQVYxQEBaIgo=
+EXPECT=<<EOF
+class TEST_CLASS * __ptr64 __cdecl AbbreviationOfRepeteadNames(class TEST_CLASS * __ptr64, class TEST_CLASS * __ptr64, class TEST_CLASS * __ptr64, class TEST_CLASS & __ptr64)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?AbbreviationOfRepeteadNames@@YAPEAVTEST_CLASS@@PEAV1@00AEAV1@@Z"
+EOF
 RUN
+
 NAME=Abbreviation Of Name tests demangler test3
 FILE=-
-EXPECT64=Y2xhc3MgQ2xhc3MxICogX19jZGVjbCBTb21lRnVuY3Rpb24oY2xhc3MgQ2xhc3MxICosIGNsYXNzIENsYXNzMiAqLCBjbGFzcyBDbGFzczIgKiwgY2xhc3MgQ2xhc3MyICYpCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/U29tZUZ1bmN0aW9uQEBZQVBBVkNsYXNzMUBAUEFWMUBQQVZDbGFzczJAQDFBQVYyQEBaIgo=
+EXPECT=<<EOF
+class Class1 * __cdecl SomeFunction(class Class1 *, class Class2 *, class Class2 *, class Class2 &)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?SomeFunction@@YAPAVClass1@@PAV1@PAVClass2@@1AAV2@@Z"
+EOF
 RUN
+
 NAME=Function pointer demangler test
 FILE=-
-EXPECT64=aW50IF9fY2RlY2wgRnhfaShpbnQgKF9fY2RlY2wqKShpbnQpKQoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/RnhfaUBAWUFIUDZBSEhAWkBaIgo=
+EXPECT=<<EOF
+int __cdecl Fx_i(int (__cdecl*)(int))
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?Fx_i@@YAHP6AHH@Z@Z"
+EOF
 RUN
+
 NAME=Function pointer with abbreviation of types demangler test
 FILE=-
-EXPECT64=aW50IF9fY2RlY2wgRnhpeF9pKGludCAoX19jZGVjbCopKGludCksIGludCwgaW50IChfX2NkZWNsKikoaW50KSkKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/RnhpeF9pQEBZQUhQNkFISEBaSDBAWiIK
+EXPECT=<<EOF
+int __cdecl Fxix_i(int (__cdecl*)(int), int, int (__cdecl*)(int))
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?Fxix_i@@YAHP6AHH@ZH0@Z"
+EOF
 RUN
+
 NAME=Function pointer with 2 abbreviation of types demangler test
 FILE=-
-EXPECT64=aW50IF9fY2RlY2wgRnh5eHlfaShpbnQgKF9fY2RlY2wqKShpbnQpLCBpbnQgKF9fY2RlY2wqKShzaG9ydCBpbnQpLCBpbnQgKF9fY2RlY2wqKShpbnQpLCBpbnQgKF9fY2RlY2wqKShzaG9ydCBpbnQpKQoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/Rnh5eHlfaUBAWUFIUDZBSEhAWlA2QUhGQFowMUBaIgo=
+EXPECT=<<EOF
+int __cdecl Fxyxy_i(int (__cdecl*)(int), int (__cdecl*)(short int), int (__cdecl*)(int), int (__cdecl*)(short int))
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?Fxyxy_i@@YAHP6AHH@ZP6AHF@Z01@Z"
+EOF
 RUN
+
 NAME=Function pointer with abbreviation of types demangler test 2
 FILE=-
-EXPECT64=aW50IF9fY2RlY2wgRnh5eHlfaV94NjQoaW50IChfX2NkZWNsKikoaW50ICogX19wdHI2NCwgaW50ICogX19wdHI2NCwgaW50KSwgaW50IChfX2NkZWNsKikoaW50ICogX19wdHI2NCwgaW50LCBpbnQgKiBfX3B0cjY0KSwgaW50IChfX2NkZWNsKikoaW50KSwgaW50IChfX2NkZWNsKikoc2hvcnQgaW50KSkKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/Rnh5eHlfaV94NjRAQFlBSFA2QUhQRUFIMEhAWlA2QUgwSDBAWlA2QUhIQFpQNkFIRkBaQFoiCg==
+EXPECT=<<EOF
+int __cdecl Fxyxy_i_x64(int (__cdecl*)(int * __ptr64, int * __ptr64, int), int (__cdecl*)(int * __ptr64, int, int * __ptr64), int (__cdecl*)(int), int (__cdecl*)(short int))
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?Fxyxy_i_x64@@YAHP6AHPEAH0H@ZP6AH0H0@ZP6AHH@ZP6AHF@Z@Z"
+EOF
 RUN
+
 NAME=func_with_arg_union_from_namespace demangler test
 FILE=-
-EXPECT64=dm9pZCBfX2NkZWNsIGZ1bmNfd2l0aF9hcmdfdW5pb25fZnJvbV9uYW1lc3BhY2UodW5pb24gVU5JT05fVEVTVDo6VU5JT05fVEVTVCkKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/ZnVuY193aXRoX2FyZ191bmlvbl9mcm9tX25hbWVzcGFjZUBAWUFYVFVOSU9OX1RFU1RAMUBAWiIK
+EXPECT=<<EOF
+void __cdecl func_with_arg_union_from_namespace(union UNION_TEST::UNION_TEST)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?func_with_arg_union_from_namespace@@YAXTUNION_TEST@1@@Z"
+EOF
 RUN
+
 NAME=func_with_arg_class_from_namespace demangler test 2
 FILE=-
-EXPECT64=dm9pZCBfX2NkZWNsIGZ1bmNfd2l0aF9hcmdfY2xhc3NfZnJvbV9uYW1lc3BhY2UoY2xhc3MgVEVTVDo6VEVTVCkKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/ZnVuY193aXRoX2FyZ19jbGFzc19mcm9tX25hbWVzcGFjZUBAWUFYVlRFU1RAMUBAWiIK
+EXPECT=<<EOF
+void __cdecl func_with_arg_class_from_namespace(class TEST::TEST)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?func_with_arg_class_from_namespace@@YAXVTEST@1@@Z"
+EOF
 RUN
+
 NAME=Abbreviation Of Repetead Names (Name with Template Arguments) demangler test
 FILE=-
-EXPECT64=dm9pZCBfX2NkZWNsIGFiYzxjbGFzcyBkZWY8aW50Piwgdm9pZCAqPjo6eHl6KHZvaWQpCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/eHl6QD9cJGFiY0BWP1wkZGVmQEhAQFBBWEBAWUFYWFoiCg==
+EXPECT=<<EOF
+void __cdecl abc<class def<int>, void *>::xyz(void)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?xyz@?\$abc@V?\$def@H@@PAX@@YAXXZ"
+EOF
 RUN
+
 NAME=Abbreviation Of Name with template demangler test
 FILE=-
-EXPECT64=cHVibGljOiB2b2lkIF9fdGhpc2NhbGwgQ2xhc3MxOjpNeVRlbXBsYXRlRnVuY3Rpb248Y2xhc3MgQ2xhc3MxPihjbGFzcyBDbGFzczEgKikKCg==
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/P1wkTXlUZW1wbGF0ZUZ1bmN0aW9uQFZDbGFzczFAQEBDbGFzczFAQFFBRVhQQVYwQEBaIgo=
+EXPECT=<<EOF
+public: void __thiscall Class1::MyTemplateFunction<class Class1>(class Class1 *)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ??\$MyTemplateFunction@VClass1@@@Class1@@QAEXPAV0@@Z"
+EOF
 RUN
+
 NAME=void __cdecl f1(union UNION_TEST::UNION_TEST,union UNION_TEST::UNION_TEST) test
 FILE=-
-EXPECT64=dm9pZCBfX2NkZWNsIGYxKHVuaW9uIFVOSU9OX1RFU1Q6OlVOSU9OX1RFU1QsIHVuaW9uIFVOSU9OX1RFU1Q6OlVOSU9OX1RFU1QpCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/ZjFAQFlBWFRVTklPTl9URVNUQDFAMEBaIgo=
+EXPECT=<<EOF
+void __cdecl f1(union UNION_TEST::UNION_TEST, union UNION_TEST::UNION_TEST)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?f1@@YAXTUNION_TEST@1@0@Z"
+EOF
 RUN
+
 NAME=void __cdecl f2(union UNION_TEST::UNION_TEST,class TEST::TEST,union UNION_TEST::UNION_TEST) test
 FILE=-
-EXPECT64=dm9pZCBfX2NkZWNsIGYyKHVuaW9uIFVOSU9OX1RFU1Q6OlVOSU9OX1RFU1QsIGNsYXNzIFRFU1Q6OlRFU1QsIHVuaW9uIFVOSU9OX1RFU1Q6OlVOSU9OX1RFU1QpCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/ZjJAQFlBWFRVTklPTl9URVNUQDFAVlRFU1RAMkAwQFoiCg==
+EXPECT=<<EOF
+void __cdecl f2(union UNION_TEST::UNION_TEST, class TEST::TEST, union UNION_TEST::UNION_TEST)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?f2@@YAXTUNION_TEST@1@VTEST@2@0@Z"
+EOF
 RUN
+
 NAME=void __cdecl f3(union UNION_TEST_NEW) test
 FILE=-
-EXPECT64=dm9pZCBfX2NkZWNsIGYzKHVuaW9uIFVOSU9OX1RFU1RfTkVXKQoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/ZjNAQFlBWFRVTklPTl9URVNUX05FV0BAQFoiCg==
+EXPECT=<<EOF
+void __cdecl f3(union UNION_TEST_NEW)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?f3@@YAXTUNION_TEST_NEW@@@Z"
+EOF
 RUN
+
 NAME=void __cdecl f4(union NAMESPACE_1::NAMESPACE_2::UNION_NAMESPACE_2,class TEST::TEST,union UNION_TEST::UNION_TEST) test
 FILE=-
-EXPECT64=dm9pZCBfX2NkZWNsIGY0KHVuaW9uIE5BTUVTUEFDRV8xOjpOQU1FU1BBQ0VfMjo6VU5JT05fTkFNRVNQQUNFXzIsIGNsYXNzIFRFU1Q6OlRFU1QsIHVuaW9uIFVOSU9OX1RFU1Q6OlVOSU9OX1RFU1QpCgo=
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/ZjRAQFlBWFRVTklPTl9OQU1FU1BBQ0VfMkBOQU1FU1BBQ0VfMkBOQU1FU1BBQ0VfMUBAVlRFU1RANEBUVU5JT05fVEVTVEA1QEBaIgo=
+EXPECT=<<EOF
+void __cdecl f4(union NAMESPACE_1::NAMESPACE_2::UNION_NAMESPACE_2, class TEST::TEST, union UNION_TEST::UNION_TEST)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?f4@@YAXTUNION_NAMESPACE_2@NAMESPACE_2@NAMESPACE_1@@VTEST@4@TUNION_TEST@5@@Z"
+EOF
 RUN
+
 NAME=void __cdecl f5(union NAMESPACE_1::UNION_TEST::UNION_TEST,class TEST::TEST,union UNION_TEST::UNION_TEST) test
 FILE=-
-EXPECT64=dm9pZCBfX2NkZWNsIGY1KHVuaW9uIE5BTUVTUEFDRV8xOjpVTklPTl9URVNUOjpVTklPTl9URVNULCBjbGFzcyBURVNUOjpURVNULCB1bmlvbiBVTklPTl9URVNUOjpVTklPTl9URVNUKQoK
-CMDS64=IiFyYWJpbjIgLUQgbXN2YyA/ZjVAQFlBWFRVTklPTl9URVNUQDFOQU1FU1BBQ0VfMUBAVlRFU1RAM0BUMTFAQFoiCg==
+EXPECT=<<EOF
+void __cdecl f5(union NAMESPACE_1::UNION_TEST::UNION_TEST, class TEST::TEST, union UNION_TEST::UNION_TEST)
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ?f5@@YAXTUNION_TEST@1NAMESPACE_1@@VTEST@3@T11@@Z"
+EOF
 RUN

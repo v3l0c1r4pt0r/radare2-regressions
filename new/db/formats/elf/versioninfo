@@ -1,15 +1,51 @@
 NAME=ELF: no version info
 FILE=../bins/elf/analysis/x64-simple
-EXPECT64=Cg==
-CMDS64=aVYK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+iV
+EOF
 RUN
+
 NAME=ELF: versioninfo 1
 FILE=../bins/elf/analysis/serial
-EXPECT64=VmVyc2lvbiBzeW1ib2xzIHNlY3Rpb24gJy5nbnUudmVyc2lvbicgY29udGFpbnMgMTEgZW50cmllczoKIEFkZHI6IDB4MDA0MDA0NDIgIE9mZnNldDogMHgwMDAwMDQ0MiAgTGluazogNSAoLmR5bnN5bSkKICAweDAwMDAwMDAwOiAwICgqbG9jYWwqKQogIDB4MDAwMDAwMDE6IDIgKEdMSUJDXzIuMi41KQogIDB4MDAwMDAwMDY6IDMgKEdMSUJDXzIuNCkKICAweDAwMDAwMDA3OiAyIChHTElCQ18yLjIuNSkKICAweDAwMDAwMDBhOiAwICgqbG9jYWwqKQoKClZlcnNpb24gbmVlZCBzZWN0aW9uICcuZ251LnZlcnNpb25fcicgY29udGFpbnMgMSBlbnRyaWVzOgogQWRkcjogMHgwMDQwMDQ1OCAgT2Zmc2V0OiAweDAwMDAwNDU4ICBMaW5rIHRvIHNlY3Rpb246IDYgKC5keW5zdHIpCiAgMHgwMDAwMDAwMDogVmVyc2lvbjogMSAgRmlsZTogbGliYy5zby42ICBDbnQ6IDIKICAweDAwMDAwMDEwOiAgIE5hbWU6IEdMSUJDXzIuNCAgRmxhZ3M6IG5vbmUgVmVyc2lvbjogMwogIDB4MDAwMDAwMjA6ICAgTmFtZTogR0xJQkNfMi4yLjUgIEZsYWdzOiBub25lIFZlcnNpb246IDIKCg==
-CMDS64=aVYK
+EXPECT=<<EOF
+Version symbols section '.gnu.version' contains 11 entries:
+ Addr: 0x00400442  Offset: 0x00000442  Link: 5 (.dynsym)
+  0x00000000: 0 (*local*)
+  0x00000001: 2 (GLIBC_2.2.5)
+  0x00000006: 3 (GLIBC_2.4)
+  0x00000007: 2 (GLIBC_2.2.5)
+  0x0000000a: 0 (*local*)
+
+
+Version need section '.gnu.version_r' contains 1 entries:
+ Addr: 0x00400458  Offset: 0x00000458  Link to section: 6 (.dynstr)
+  0x00000000: Version: 1  File: libc.so.6  Cnt: 2
+  0x00000010:   Name: GLIBC_2.4  Flags: none Version: 3
+  0x00000020:   Name: GLIBC_2.2.5  Flags: none Version: 2
+EOF
+CMDS=<<EOF
+iV
+EOF
 RUN
+
 NAME=ELF: versioninfo 2
 FILE=../bins/elf/analysis/hello-linux-x86_64
-EXPECT64=VmVyc2lvbiBzeW1ib2xzIHNlY3Rpb24gJy5nbnUudmVyc2lvbicgY29udGFpbnMgNCBlbnRyaWVzOgogQWRkcjogMHgwMDQwMDMxZSAgT2Zmc2V0OiAweDAwMDAwMzFlICBMaW5rOiA1ICguZHluc3ltKQogIDB4MDAwMDAwMDA6IDAgKCpsb2NhbCopCiAgMHgwMDAwMDAwMTogMiAoR0xJQkNfMi4yLjUpCiAgMHgwMDAwMDAwMzogMCAoKmxvY2FsKikKCgpWZXJzaW9uIG5lZWQgc2VjdGlvbiAnLmdudS52ZXJzaW9uX3InIGNvbnRhaW5zIDEgZW50cmllczoKIEFkZHI6IDB4MDA0MDAzMjggIE9mZnNldDogMHgwMDAwMDMyOCAgTGluayB0byBzZWN0aW9uOiA2ICguZHluc3RyKQogIDB4MDAwMDAwMDA6IFZlcnNpb246IDEgIEZpbGU6IGxpYmMuc28uNiAgQ250OiAxCiAgMHgwMDAwMDAxMDogICBOYW1lOiBHTElCQ18yLjIuNSAgRmxhZ3M6IG5vbmUgVmVyc2lvbjogMgoK
-CMDS64=aVYK
+EXPECT=<<EOF
+Version symbols section '.gnu.version' contains 4 entries:
+ Addr: 0x0040031e  Offset: 0x0000031e  Link: 5 (.dynsym)
+  0x00000000: 0 (*local*)
+  0x00000001: 2 (GLIBC_2.2.5)
+  0x00000003: 0 (*local*)
+
+
+Version need section '.gnu.version_r' contains 1 entries:
+ Addr: 0x00400328  Offset: 0x00000328  Link to section: 6 (.dynstr)
+  0x00000000: Version: 1  File: libc.so.6  Cnt: 1
+  0x00000010:   Name: GLIBC_2.2.5  Flags: none Version: 2
+EOF
+CMDS=<<EOF
+iV
+EOF
 RUN

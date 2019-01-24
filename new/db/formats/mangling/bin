@@ -1,25 +1,85 @@
 NAME=binsym demangling
 FILE=../bins/mach0/hellocxx-osx-i386
-EXPECT64=MHgwMDAwMjA1NCAwIF9OWEFyZ2MKMHgwMDAwMjA1OCAwIF9OWEFyZ3YKMHgwMDAwMWQ5YSAwIHVuc2lnbmVkbG9uZ2NvbnN0JnN0ZDo6bWluPHVuc2lnbmVkbG9uZz4odW5zaWduZWRsb25nY29uc3QmLHVuc2lnbmVkbG9uZ2NvbnN0JikKMHgwMDAwMjA2MCAwIF9fX3Byb2duYW1lCjB4MDAwMDEwMDAgMCBfX21oX2V4ZWN1dGVfaGVhZGVyCjB4MDAwMDIwNWMgMCBfZW52aXJvbgoweDAwMDAxZDUyIDAgX21haW4KMHgwMDAwMWMxMCAwIHN0YXJ0CjB4MDAwMDFiYTAgMCBfX3N0YXRpY19pbml0aWFsaXphdGlvbl9hbmRfZGVzdHJ1Y3Rpb25fMChpbnQsaW50KQoweDAwMDAxYmYyIDAgZ2xvYmFsY29uc3RydWN0b3Jza2V5ZWR0b21haW4KMHgwMDAwMWM0ZSAwIHN0ZDo6X192ZXJpZnlfZ3JvdXBpbmcoY2hhcmNvbnN0Kix1bnNpZ25lZGxvbmcsc3RkOjpzdHJpbmdjb25zdCYpCjB4MDAwMDFkYzEgMCBfX190Y2ZfMAoweDAwMDAxZTI0IDAgIHN0dWIgaGVscGVycwoweDAwMDAyMDAwIDAgX3B2YXJzCjB4MDAwMDIwNjQgMCBzdGQ6Ol9faW9pbml0CjB4MDAwMDFkZWUgMCBzdGQ6OnN0cmluZzo6c2l6ZSgpY29uc3QKMHgwMDAwMWRmNCAwIHN0ZDo6c3RyaW5nOjpvcGVyYXRvcltdKHVuc2lnbmVkbG9uZyljb25zdAoweDAwMDAxZGZhIDAgc3RkOjpvc3RyZWFtOjpvcGVyYXRvcjw8KHN0ZDo6b3N0cmVhbSYoKikoc3RkOjpvc3RyZWFtJikpCjB4MDAwMDFlMDAgMCBzdGQ6Omlvc19iYXNlOjpJbml0OjpJbml0KCkKMHgwMDAwMWUwNiAwIHN0ZDo6aW9zX2Jhc2U6OkluaXQ6On5Jbml0KCkKMHgwMDAwMWUxMiAwIHN0ZDo6YmFzaWNfb3N0cmVhbTxjaGFyLHN0ZDo6Y2hhcl90cmFpdHM8Y2hhcj4+JnN0ZDo6b3BlcmF0b3I8PDxzdGQ6OmNoYXJfdHJhaXRzPGNoYXI+PihzdGQ6OmJhc2ljX29zdHJlYW08Y2hhcixzdGQ6OmNoYXJfdHJhaXRzPGNoYXI+PiYsY2hhcmNvbnN0KikKMHgwMDAwMWUxOCAwIGltcC5fX2N4YV9hdGV4aXQKMHgwMDAwMWUxZSAwIGltcC5leGl0Cgo=
-CMDS64=IXJhYmluMiAtcXNEIGN4eCBhbGwgLi4vYmlucy9tYWNoMC9oZWxsb2N4eC1vc3gtaTM4Ngo=
+EXPECT=<<EOF
+0x00002054 0 _NXArgc
+0x00002058 0 _NXArgv
+0x00001d9a 0 unsignedlongconst&std::min<unsignedlong>(unsignedlongconst&,unsignedlongconst&)
+0x00002060 0 ___progname
+0x00001000 0 __mh_execute_header
+0x0000205c 0 _environ
+0x00001d52 0 _main
+0x00001c10 0 start
+0x00001ba0 0 __static_initialization_and_destruction_0(int,int)
+0x00001bf2 0 globalconstructorskeyedtomain
+0x00001c4e 0 std::__verify_grouping(charconst*,unsignedlong,std::stringconst&)
+0x00001dc1 0 ___tcf_0
+0x00001e24 0  stub helpers
+0x00002000 0 _pvars
+0x00002064 0 std::__ioinit
+0x00001dee 0 std::string::size()const
+0x00001df4 0 std::string::operator[](unsignedlong)const
+0x00001dfa 0 std::ostream::operator<<(std::ostream&(*)(std::ostream&))
+0x00001e00 0 std::ios_base::Init::Init()
+0x00001e06 0 std::ios_base::Init::~Init()
+0x00001e12 0 std::basic_ostream<char,std::char_traits<char>>&std::operator<<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>>&,charconst*)
+0x00001e18 0 imp.__cxa_atexit
+0x00001e1e 0 imp.exit
+EOF
+CMDS=<<EOF
+!rabin2 -qsD cxx all ../bins/mach0/hellocxx-osx-i386
+EOF
 RUN
+
 NAME=binsym without demangling
 FILE=../bins/mach0/hellocxx-osx-i386
 ARGS=-M
-EXPECT64=MHgwMDAwMjA1NCAwIF9OWEFyZ2MKMHgwMDAwMjA1OCAwIF9OWEFyZ3YKMHgwMDAwMWQ5YSAwIF9fWlN0M21pbkltRVJLVF9TMl9TMl8KMHgwMDAwMjA2MCAwIF9fX3Byb2duYW1lCjB4MDAwMDEwMDAgMCBfX21oX2V4ZWN1dGVfaGVhZGVyCjB4MDAwMDIwNWMgMCBfZW52aXJvbgoweDAwMDAxZDUyIDAgX21haW4KMHgwMDAwMWMxMCAwIHN0YXJ0CjB4MDAwMDFiYTAgMCBfX1o0MV9fc3RhdGljX2luaXRpYWxpemF0aW9uX2FuZF9kZXN0cnVjdGlvbl8waWkKMHgwMDAwMWJmMiAwIF9fR0xPQkFMX19JX21haW4KMHgwMDAwMWM0ZSAwIF9fWlN0TDE3X192ZXJpZnlfZ3JvdXBpbmdQS2NtUktTcwoweDAwMDAxZGMxIDAgX19fdGNmXzAKMHgwMDAwMWUyNCAwICBzdHViIGhlbHBlcnMKMHgwMDAwMjAwMCAwIF9wdmFycwoweDAwMDAyMDY0IDAgX19aU3RMOF9faW9pbml0CjB4MDAwMDFkZWUgMCBpbXAuX1pOS1NzNHNpemVFdgoweDAwMDAxZGY0IDAgaW1wLl9aTktTc2l4RW0KMHgwMDAwMWRmYSAwIGltcC5fWk5Tb2xzRVBGUlNvU19FCjB4MDAwMDFlMDAgMCBpbXAuX1pOU3Q4aW9zX2Jhc2U0SW5pdEMxRXYKMHgwMDAwMWUwNiAwIGltcC5fWk5TdDhpb3NfYmFzZTRJbml0RDFFdgoweDAwMDAxZTEyIDAgaW1wLl9aU3Rsc0lTdDExY2hhcl90cmFpdHNJY0VFUlN0MTNiYXNpY19vc3RyZWFtSWNUX0VTNV9QS2MKMHgwMDAwMWUxOCAwIGltcC5fX2N4YV9hdGV4aXQKMHgwMDAwMWUxZSAwIGltcC5leGl0Cgo=
-CMDS64=aXNxCg==
+EXPECT=<<EOF
+0x00002054 0 _NXArgc
+0x00002058 0 _NXArgv
+0x00001d9a 0 __ZSt3minImERKT_S2_S2_
+0x00002060 0 ___progname
+0x00001000 0 __mh_execute_header
+0x0000205c 0 _environ
+0x00001d52 0 _main
+0x00001c10 0 start
+0x00001ba0 0 __Z41__static_initialization_and_destruction_0ii
+0x00001bf2 0 __GLOBAL__I_main
+0x00001c4e 0 __ZStL17__verify_groupingPKcmRKSs
+0x00001dc1 0 ___tcf_0
+0x00001e24 0  stub helpers
+0x00002000 0 _pvars
+0x00002064 0 __ZStL8__ioinit
+0x00001dee 0 imp._ZNKSs4sizeEv
+0x00001df4 0 imp._ZNKSsixEm
+0x00001dfa 0 imp._ZNSolsEPFRSoS_E
+0x00001e00 0 imp._ZNSt8ios_base4InitC1Ev
+0x00001e06 0 imp._ZNSt8ios_base4InitD1Ev
+0x00001e12 0 imp._ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+0x00001e18 0 imp.__cxa_atexit
+0x00001e1e 0 imp.exit
+EOF
+CMDS=<<EOF
+isq
+EOF
 RUN
+
 NAME=bin.demangle=true and symbol
 FILE=../bins/elf/analysis/hello-linux-i386nold
 ARGS=-e bin.demangle=true
-EXPECT64=Y2FsbCBzeW0uaW1wLnB1dHMKCg==
-CMDS64=cGkgMSBAIDB4MDgwNDgyMzAK
+EXPECT=<<EOF
+call sym.imp.puts
+EOF
+CMDS=<<EOF
+pi 1 @ 0x08048230
+EOF
 RUN
+
 NAME=MSVC import symbol demangling
 FILE=../bins/pe/libzmq-v100-mt-4_0_4.dll
 CMDS=f~0x1004e0f4[2]
 EXPECT=sym.public:_void___thiscall_std::basic_ostream_char__struct_std::char_traits_char__::_Osfx_void
 RUN
+
 NAME=C++ demangle relocs
 FILE=../bins/elf/libstdc++.so.6
 EXPECT=<<CMDS
@@ -27,6 +87,7 @@ EXPECT=<<CMDS
 CMDS=<<RUN
 pd 1 @0x00091004
 RUN
+
 NAME=C++ demangle exported GLIBCXX symbols
 FILE=../bins/elf/libstdc++.so.6
 EXPECT=<<CMDS
@@ -37,6 +98,7 @@ EXPECT=<<CMDS
 CMDS=<<RUN
 iE~0x0008ce50
 RUN
+
 NAME=demangle in irj
 FILE=../bins/elf/demangle-test-cpp
 EXPECT={"name":"_ZSt20__throw_length_errorPKc","demname":"std::__throw_length_error(charconst*)","type":"SET_64","vaddr":16424,"paddr":12328,"is_ifunc":false}

@@ -1,10 +1,18 @@
 NAME=PE: corkami d_tiny.dll - open
 FILE=../bins/pe/d_tiny.dll
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN
+
 NAME=PE: corkami d_tiny.dll - entrypoint
 FILE=../bins/pe/d_tiny.dll
-EXPECT64=MHgwCgo=
-CMDS64=CnMKCg==
+EXPECT=<<EOF
+0x0
+EOF
+CMDS=<<EOF
+s
+EOF
 RUN

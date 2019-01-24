@@ -1,5 +1,41 @@
 NAME=PE: versioninfo 1
 FILE=../bins/pe/version_std.exe
-EXPECT64=PT09IFZTX1ZFUlNJT05JTkZPID09PQoKIyBWU19GSVhFREZJTEVJTkZPCgogIFNpZ25hdHVyZTogMHhmZWVmMDRiZAogIFN0cnVjVmVyc2lvbjogMHhmZmZmZmZmZgogIEZpbGVWZXJzaW9uOiA2NTUzNS42NTUzNS42NTUzNS42NTUzNQogIFByb2R1Y3RWZXJzaW9uOiA2NTUzNS42NTUzNS42NTUzNS42NTUzNQogIEZpbGVGbGFnc01hc2s6IDB4ZmZmZmZmZmYKICBGaWxlRmxhZ3M6IDB4MAogIEZpbGVPUzogMHgwCiAgRmlsZVR5cGU6IDB4MAogIEZpbGVTdWJUeXBlOiAweDAKCiMgU3RyaW5nVGFibGUKCiAgRmlsZURlc2NyaXB0aW9uOiBhIFBFIHdpdGggInN0YW5kYXJkIiB2ZXJzaW9uIGluZm8KICBGaWxlVmVyc2lvbjogY29tcHVsc29yeSBmb3IgdmVyc2lvbiB0YWIKICBMZWdhbENvcHlyaWdodDogY29ya2FtaS5jb20KICBTdHJpbmdGaWxlSW5mbzogCiAgQ29tbWVudHM6IAogIENvbXBhbnlOYW1lOiAKICBJbnRlcm5hbE5hbWU6IAogIExlZ2FsVHJhZGVtYXJrczogCiAgT3JpZ2luYWxGaWxlbmFtZTogCiAgUHJpdmF0ZUJ1aWxkOiAKICBQcm9kdWN0TmFtZTogCiAgUHJvZHVjdFZlcnNpb246IAogIFNwZWNpYWxCdWlsZDogCiAgOiAKICAgOiAKICAgKiogRUFUIEFUIEpPRSJTICoqOiBiZXN0IGhhbWJ1cmdlciBpbiB0b3duCiAgRmlsZVZlcnNpb246IGR1cGxpY2F0ZXMgYXJlIGF1dGhvcml6ZWQKCg==
-CMDS64=aVYK
+EXPECT=<<EOF
+=== VS_VERSIONINFO ===
+
+# VS_FIXEDFILEINFO
+
+  Signature: 0xfeef04bd
+  StrucVersion: 0xffffffff
+  FileVersion: 65535.65535.65535.65535
+  ProductVersion: 65535.65535.65535.65535
+  FileFlagsMask: 0xffffffff
+  FileFlags: 0x0
+  FileOS: 0x0
+  FileType: 0x0
+  FileSubType: 0x0
+
+# StringTable
+
+  FileDescription: a PE with "standard" version info
+  FileVersion: compulsory for version tab
+  LegalCopyright: corkami.com
+  StringFileInfo: 
+  Comments: 
+  CompanyName: 
+  InternalName: 
+  LegalTrademarks: 
+  OriginalFilename: 
+  PrivateBuild: 
+  ProductName: 
+  ProductVersion: 
+  SpecialBuild: 
+  : 
+   : 
+   ** EAT AT JOE"S **: best hamburger in town
+  FileVersion: duplicates are authorized
+EOF
+CMDS=<<EOF
+iV
+EOF
 RUN

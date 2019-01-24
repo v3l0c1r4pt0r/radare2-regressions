@@ -1,13 +1,22 @@
 NAME=ELF: core segments
 FILE=../bins/elf/analysis/core.1159
-EXPECT64=MjAK
-CMDS64=aVNTfj8K
+EXPECT=<<EOF
+20
+EOF
+CMDS=<<EOF
+iSS~?
+EOF
 RUN
+
 NAME=ELF: core sections with reg name
 FILE=../bins/elf/analysis/core.1159
 BROKEN=1
-EXPECT64=NgoK
-CMDS64=aVN+P3JlZztpUwo=
+EXPECT=<<EOF
+6
+EOF
+CMDS=<<EOF
+iS~?reg;iS
+EOF
 RUN
 
 NAME=segment comment

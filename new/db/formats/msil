@@ -1,10 +1,19 @@
 NAME=MSIL: hello.exe - detect
 FILE=../bins/cil/hello.exe
-EXPECT64=Y2lsCgo=
-CMDS64=aX5ebGFuZ1sxXQo=
+EXPECT=<<EOF
+cil
+EOF
+CMDS=<<EOF
+i~^lang[1]
+EOF
 RUN
+
 NAME=MSIL: AStyleWhore.exe - detect
 FILE=../bins/cil/AStyleWhore.exe
-EXPECT64=Y2lsCgo=
-CMDS64=aX5ebGFuZ1sxXQo=
+EXPECT=<<EOF
+cil
+EOF
+CMDS=<<EOF
+i~^lang[1]
+EOF
 RUN

@@ -1,5 +1,8 @@
 NAME=PE: corkami no_dd.exe - open
 FILE=../bins/pe/no_dd.exe
-EXPECT64=Cg==
-CMDS64=cSEK
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q!
+EOF
 RUN

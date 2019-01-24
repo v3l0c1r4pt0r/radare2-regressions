@@ -1,15 +1,28 @@
 NAME=MZ: corkami ddriving.exe - open
 FILE=../bins/mz/ddriving.exe
-EXPECT64=Cg==
-CMDS64=cQo=
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+q
+EOF
 RUN
+
 NAME=MZ: corkami ddriving.exe - entrypoint
 FILE=../bins/mz/ddriving.exe
-EXPECT64=MHg1NAo=
-CMDS64=CnMKCg==
+EXPECT=<<EOF
+0x54
+EOF
+CMDS=<<EOF
+s
+EOF
 RUN
+
 NAME=MZ: corkami ddriving.exe - pi 1
 FILE=../bins/mz/ddriving.exe
-EXPECT64=cHVzaCBjcwoK
-CMDS64=CnBpIDEKCg==
+EXPECT=<<EOF
+push cs
+EOF
+CMDS=<<EOF
+pi 1
+EOF
 RUN
