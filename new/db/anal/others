@@ -787,6 +787,7 @@ RUN
 NAME=ahe
 FILE=malloc://512
 EXPECT=<<EOF
+15
 esil: test
 EOF
 CMDS=<<EOF
@@ -799,7 +800,7 @@ ao~esil
 EOF
 RUN
 
-NAME=ahe
+NAME=ahe2
 FILE=malloc://512
 EXPECT=<<EOF
 esil: test
