@@ -104,3 +104,10 @@ FILE=../bins/elf/demangle-test-cpp
 EXPECT={"name":"_ZSt20__throw_length_errorPKc","demname":"std::__throw_length_error(charconst*)","type":"SET_64","vaddr":16424,"paddr":12328,"is_ifunc":false}
 CMDS=irj~{9}
 RUN
+
+NAME=demangle obj in pd
+FILE=../bins/elf/ch25.bin
+EXPECT=            0x08048aac      c7042460b004.  mov dword [esp], obj.std::cerr ; [0x804b060:4]=0
+CMDS=pd 1 @0x08048aac
+RUN
+
