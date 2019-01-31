@@ -2338,6 +2338,7 @@ EXPECT=<<RUN
     "bytes": "0fab0424",
     "family": "cpu",
     "type": "null",
+    "reloc": false,
     "type_num": 0,
     "type2_num": 0
   }

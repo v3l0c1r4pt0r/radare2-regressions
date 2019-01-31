@@ -104,6 +104,7 @@ EXPECT='[
     "bytes": "55",
     "family": "cpu",
     "type": "upush",
+    "reloc": false,
     "type_num": 12,
     "type2_num": 0
   },
@@ -119,6 +120,7 @@ EXPECT='[
     "bytes": "4889e5",
     "family": "cpu",
     "type": "mov",
+    "reloc": false,
     "type_num": 9,
     "type2_num": 0
   },
@@ -134,6 +136,7 @@ EXPECT='[
     "bytes": "4157",
     "family": "cpu",
     "type": "upush",
+    "reloc": false,
     "type_num": 12,
     "type2_num": 0
   },
@@ -149,6 +152,7 @@ EXPECT='[
     "bytes": "4156",
     "family": "cpu",
     "type": "upush",
+    "reloc": false,
     "type_num": 12,
     "type2_num": 0
   }
@@ -180,6 +184,7 @@ EXPECT='[
     "bytes": "55",
     "family": "cpu",
     "type": "upush",
+    "reloc": false,
     "type_num": 12,
     "type2_num": 0
   },
@@ -195,6 +200,7 @@ EXPECT='[
     "bytes": "4889e5",
     "family": "cpu",
     "type": "mov",
+    "reloc": false,
     "type_num": 9,
     "type2_num": 0
   },
@@ -210,6 +216,7 @@ EXPECT='[
     "bytes": "89e5",
     "family": "cpu",
     "type": "mov",
+    "reloc": false,
     "type_num": 9,
     "type2_num": 0,
     "flags": [
@@ -228,6 +235,7 @@ EXPECT='[
     "bytes": "4157",
     "family": "cpu",
     "type": "upush",
+    "reloc": false,
     "type_num": 12,
     "type2_num": 0
   }

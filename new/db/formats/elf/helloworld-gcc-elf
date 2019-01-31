@@ -387,6 +387,7 @@ EXPECT='[
     "bytes": "31ed",
     "family": "cpu",
     "type": "xor",
+    "reloc": false,
     "type_num": 28,
     "type2_num": 0,
     "flags": [
@@ -408,6 +409,7 @@ EXPECT='[
     "bytes": "5e",
     "family": "cpu",
     "type": "pop",
+    "reloc": false,
     "type_num": 14,
     "type2_num": 0
   },
@@ -423,6 +425,7 @@ EXPECT='[
     "bytes": "89e1",
     "family": "cpu",
     "type": "mov",
+    "reloc": false,
     "type_num": 9,
     "type2_num": 0
   },
@@ -438,6 +441,7 @@ EXPECT='[
     "bytes": "83e4f0",
     "family": "cpu",
     "type": "and",
+    "reloc": false,
     "type_num": 27,
     "type2_num": 0
   }

@@ -48,7 +48,7 @@ RUN
 
 NAME=pDj 5 @ 0
 FILE=malloc://512
-EXPECT='[{"offset":0,"val":1,"esil":"1,rax,=","refptr":false,"fcn_addr":0,"fcn_last":0,"size":5,"opcode":"mov eax, 1","disasm":"mov eax, 1","bytes":"b801000000","family":"cpu","type":"mov","type_num":9,"type2_num":0}]
+EXPECT='[{"offset":0,"val":1,"esil":"1,rax,=","refptr":false,"fcn_addr":0,"fcn_last":0,"size":5,"opcode":"mov eax, 1","disasm":"mov eax, 1","bytes":"b801000000","family":"cpu","type":"mov","reloc":false,"type_num":9,"type2_num":0}]
 '
 CMDS=<<EOF
 e anal.hasnext=0

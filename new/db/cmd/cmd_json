@@ -14,6 +14,7 @@ EXPECT='[
     "bytes": "4883c768",
     "family": "cpu",
     "type": "add",
+    "reloc": false,
     "type_num": 17,
     "type2_num": 0
   }

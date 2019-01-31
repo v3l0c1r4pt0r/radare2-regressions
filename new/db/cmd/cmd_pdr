@@ -94,6 +94,7 @@ EXPECT=%
     "bytes": "0f1f440000",
     "family": "cpu",
     "type": "nop",
+    "reloc": false,
     "type_num": 8,
     "type2_num": 0,
     "flags": [
@@ -112,6 +113,7 @@ EXPECT=%
     "bytes": "0000",
     "family": "cpu",
     "type": "add",
+    "reloc": false,
     "type_num": 17,
     "type2_num": 0,
     "xrefs": [
@@ -135,6 +137,7 @@ EXPECT=%
     "bytes": "b8210000c1",
     "family": "cpu",
     "type": "mov",
+    "reloc": false,
     "type_num": 9,
     "type2_num": 0
   },
@@ -150,6 +153,7 @@ EXPECT=%
     "bytes": "ebfd",
     "family": "cpu",
     "type": "jmp",
+    "reloc": false,
     "type_num": 1,
     "type2_num": 0,
     "jump": 9
@@ -167,6 +171,7 @@ EXPECT=%
     "bytes": "c1ebfd",
     "family": "cpu",
     "type": "shr",
+    "reloc": false,
     "type_num": 22,
     "type2_num": 0,
     "xrefs": [
@@ -190,6 +195,7 @@ EXPECT=%
     "bytes": "bb2c000000",
     "family": "cpu",
     "type": "mov",
+    "reloc": false,
     "type_num": 9,
     "type2_num": 0
   },
@@ -205,6 +211,7 @@ EXPECT=%
     "bytes": "ebf0",
     "family": "cpu",
     "type": "jmp",
+    "reloc": false,
     "type_num": 1,
     "type2_num": 0,
     "jump": 3
@@ -232,6 +239,7 @@ jmp 3
     "bytes": "0f1f440000",
     "family": "cpu",
     "type": "nop",
+    "reloc": false,
     "type_num": 8,
     "type2_num": 0,
     "flags": [
@@ -250,6 +258,7 @@ jmp 3
     "bytes": "0000",
     "family": "cpu",
     "type": "add",
+    "reloc": false,
     "type_num": 17,
     "type2_num": 0,
     "xrefs": [
@@ -273,6 +282,7 @@ jmp 3
     "bytes": "b8210000c1",
     "family": "cpu",
     "type": "mov",
+    "reloc": false,
     "type_num": 9,
     "type2_num": 0
   },
@@ -288,6 +298,7 @@ jmp 3
     "bytes": "ebfd",
     "family": "cpu",
     "type": "jmp",
+    "reloc": false,
     "type_num": 1,
     "type2_num": 0,
     "jump": 9
@@ -305,6 +316,7 @@ jmp 3
     "bytes": "c1ebfd",
     "family": "cpu",
     "type": "shr",
+    "reloc": false,
     "type_num": 22,
     "type2_num": 0,
     "xrefs": [
@@ -328,6 +340,7 @@ jmp 3
     "bytes": "bb2c000000",
     "family": "cpu",
     "type": "mov",
+    "reloc": false,
     "type_num": 9,
     "type2_num": 0
   },
@@ -343,6 +356,7 @@ jmp 3
     "bytes": "ebf0",
     "family": "cpu",
     "type": "jmp",
+    "reloc": false,
     "type_num": 1,
     "type2_num": 0,
     "jump": 3
