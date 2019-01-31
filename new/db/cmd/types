@@ -512,7 +512,7 @@ aei
 aeim
 aecu 0x000006d5
 ?e
-tp Books local_e0h
+tp Books var_e0h
 EOF
 EXPECT=<<EOF
 

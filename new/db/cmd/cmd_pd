@@ -552,15 +552,15 @@ RUN
 NAME=pd asm.var.subonly
 FILE=malloc://1024
 EXPECT=<<EOF
-     ; var int local_40h @ rsp+0x40
-     mov rax, qword [local_40h]
-     ; var int local_40h @ rsp+0x40
-     mov rax, qword [rsp + local_40h]
+     ; var int var_40h @ rsp+0x40
+     mov rax, qword [var_40h]
+     ; var int var_40h @ rsp+0x40
+     mov rax, qword [rsp + var_40h]
 EOF
 CMDS=<<EOF
 e asm.arch=x86
 e asm.bits=64
-e asm.varsub=true
+e asm.var.sub=true
 e asm.lines.bb=false
 e asm.bytes=false
 e asm.comments=false
@@ -571,10 +571,10 @@ wx 554889e583ec60488b44244089ec5dc3
 af
 afva
 e asm.var.subonly=true
-pd 1 @ 0~local
+pd 1 @ 0~var
 pd 1 @ 7
 e asm.var.subonly=false
-pd 1 @ 0~local
+pd 1 @ 0~var
 pd 1 @ 7
 EOF
 RUN
@@ -1777,12 +1777,12 @@ pd 4 @ 0x0001045c
 ?e
 e asm.var.subonly=true
 s main
-afvn local2 local_ch
+afvn local2 var_ch
 afvn arg1 arg_8h
 pd 4 @ 0x0001045c
 EXPECT=<<RUN
-|           0x0001045c      STR R0, [local_8h]
-|           0x00010460      STR R1, [local_ch]
+|           0x0001045c      STR R0, [var_8h]
+|           0x00010460      STR R1, [var_ch]
 |           0x00010464      LDR R0, [arg_8h]
 |           0x00010468      LDR R1, [arg_ch]
 
@@ -1791,12 +1791,12 @@ EXPECT=<<RUN
 |           0x00010464      ldr r0, [fp, 8]
 |           0x00010468      ldr r1, [fp, 0xc]
 
-|           0x0001045c      [fp - local_8h] = r0
-|           0x00010460      [fp - local_ch] = r1
+|           0x0001045c      [fp - var_8h] = r0
+|           0x00010460      [fp - var_ch] = r1
 |           0x00010464      r0 = [fp + arg_8h]
 |           0x00010468      r1 = [fp + arg_ch]
 
-|           0x0001045c      [local_8h] = r0
+|           0x0001045c      [var_8h] = r0
 |           0x00010460      [local2] = r1
 |           0x00010464      r0 = [arg1]
 |           0x00010468      r1 = [arg_ch]

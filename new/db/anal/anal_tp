@@ -32,10 +32,10 @@ s main
 aaft
 afv
 EXPECT=<<RUN
-var size_t local_1ch @ rbp-0x1c
-var char * local_18h @ rbp-0x18
+var size_t var_1ch @ rbp-0x1c
+var char * var_18h @ rbp-0x18
 var char * s @ rbp-0x10
-var char * local_8h @ rbp-0x8
+var char * var_8h @ rbp-0x8
 RUN
 
 NAME=General type propgation
@@ -46,7 +46,7 @@ s main
 aaft
 afv
 EXPECT=<<RUN
-var size_t local_20h @ rbp-0x20
+var size_t var_20h @ rbp-0x20
 var size_t size @ rbp-0x1c
 var char * src @ rbp-0x18
 var char * s2 @ rbp-0x10
@@ -64,10 +64,10 @@ EXPECT=<<RUN
 arg int arg_4h @ esp+0x4
 var char * src @ ebp-0x1c
 var char * s2 @ ebp-0x18
-var size_t local_14h @ ebp-0x14
+var size_t var_14h @ ebp-0x14
 var size_t size @ ebp-0x10
 var char * dest @ ebp-0xc
-var int local_8h @ ebp-0x8
+var int var_8h @ ebp-0x8
 RUN
 
 NAME=Register based var
@@ -108,11 +108,11 @@ s sym.funcarg
 pd 1
 EXPECT=<<RUN
 (fcn) sym.funcarg 154
-  sym.funcarg (char *arg1, unsigned int arg2);
-; var unsigned int local_ch @ rbp-0xc
-; var char *local_8h @ rbp-0x8
+  sym.funcarg (char *arg1, uint32_t arg2);
+; var uint32_t var_ch @ rbp-0xc
+; var char *var_8h @ rbp-0x8
 ; arg char *arg1 @ rdi
-; arg unsigned int arg2 @ rsi
+; arg uint32_t arg2 @ rsi
 0x0000068a      55             push rbp
 RUN
 
@@ -127,10 +127,10 @@ s sym.funcarg
 pd 1
 EXPECT=<<RUN
 (fcn) sym.funcarg 147
-  sym.funcarg (char *arg_8h, unsigned int arg_ch);
-; var int local_4h @ ebp-0x4
+  sym.funcarg (char *arg_8h, uint32_t arg_ch);
+; var int var_4h @ ebp-0x4
 ; arg char *arg_8h @ ebp+0x8
-; arg unsigned int arg_ch @ ebp+0xc
+; arg uint32_t arg_ch @ ebp+0xc
 0x0000054d      55             push ebp
 RUN
 
@@ -186,10 +186,11 @@ aa
 aaft
 s main
 afv~sign
+afv~uint
 EXPECT=<<RUN
-var signed int local_34h @ rbp-0x34
-var signed int local_30h @ rbp-0x30
-var unsigned int local_28h @ rbp-0x28
+var signed int var_34h @ rbp-0x34
+var signed int var_30h @ rbp-0x30
+var uint32_t var_28h @ rbp-0x28
 RUN
 
 NAME=flagspace analysis
@@ -200,13 +201,13 @@ aaft
 s main
 afv
 EXPECT=<<RUN
-var int local_34h @ rbp-0x34
-var signed int local_30h @ rbp-0x30
-var unsigned int local_2ch @ rbp-0x2c
+var int var_34h @ rbp-0x34
+var signed int var_30h @ rbp-0x30
+var uint32_t var_2ch @ rbp-0x2c
 var FILE * stream @ rbp-0x28
 var char * s @ rbp-0x20
-var char * local_18h @ rbp-0x18
-var char * local_10h @ rbp-0x10
+var char * var_18h @ rbp-0x18
+var char * var_10h @ rbp-0x10
 var int canary @ rbp-0x8
 RUN
 
@@ -220,61 +221,61 @@ afv
 s sym.processCmd
 afv
 EXPECT=<<RUN
-var char ** local_14e0h @ rbp-0x14e0
-var int local_14d4h @ rbp-0x14d4
+var char ** var_14e0h @ rbp-0x14e0
+var int var_14d4h @ rbp-0x14d4
 var int wstatus @ rbp-0x14cc
 var int options @ rbp-0x14c8
-var int local_14c4h @ rbp-0x14c4
-var signed int local_14c0h @ rbp-0x14c0
-var int local_14bch @ rbp-0x14bc
+var int var_14c4h @ rbp-0x14c4
+var signed int var_14c0h @ rbp-0x14c0
+var int var_14bch @ rbp-0x14bc
 var pid_t pid @ rbp-0x14b8
-var unsigned int local_14b4h @ rbp-0x14b4
-var unsigned int local_14b0h @ rbp-0x14b0
-var int local_14ach @ rbp-0x14ac
-var char * local_14a8h @ rbp-0x14a8
+var uint32_t var_14b4h @ rbp-0x14b4
+var uint32_t var_14b0h @ rbp-0x14b0
+var int var_14ach @ rbp-0x14ac
+var char * var_14a8h @ rbp-0x14a8
 var char * s @ rbp-0x14a0
-var char * local_1498h @ rbp-0x1498
+var char * var_1498h @ rbp-0x1498
 var char * src @ rbp-0x1490
 var char * v2 @ rbp-0x1488
-var char * local_1480h @ rbp-0x1480
-var void * local_1478h @ rbp-0x1478
-var char * local_1470h @ rbp-0x1470
-var void * local_1420h @ rbp-0x1420
+var char * var_1480h @ rbp-0x1480
+var void * var_1478h @ rbp-0x1478
+var char * var_1470h @ rbp-0x1470
+var void * var_1420h @ rbp-0x1420
 var char * s1 @ rbp-0x1020
-var int local_18h @ rbp-0x18
+var int var_18h @ rbp-0x18
 arg int arg_1020h @ rbp+0x1020
 arg char * dest @ rbp+0x1470
 arg int argc @ rdi
 arg char ** argv @ rsi
 var char ** str @ rbp-0xb0
-var signed int local_a4h @ rbp-0xa4
-var signed int local_a0h @ rbp-0xa0
-var unsigned int local_9ch @ rbp-0x9c
-var int local_98h @ rbp-0x98
-var int local_94h @ rbp-0x94
-var int local_90h @ rbp-0x90
-var int local_8ch @ rbp-0x8c
-var int local_88h @ rbp-0x88
-var int local_84h @ rbp-0x84
-var int local_80h @ rbp-0x80
-var int local_7ch @ rbp-0x7c
-var int local_78h @ rbp-0x78
-var int local_74h @ rbp-0x74
-var int local_70h @ rbp-0x70
-var int local_6ch @ rbp-0x6c
-var int local_68h @ rbp-0x68
-var int local_64h @ rbp-0x64
-var char * local_60h @ rbp-0x60
-var char * local_58h @ rbp-0x58
-var char * local_50h @ rbp-0x50
-var char * local_48h @ rbp-0x48
-var unsigned int local_40h @ rbp-0x40
+var signed int var_a4h @ rbp-0xa4
+var signed int var_a0h @ rbp-0xa0
+var uint32_t var_9ch @ rbp-0x9c
+var int var_98h @ rbp-0x98
+var int var_94h @ rbp-0x94
+var int var_90h @ rbp-0x90
+var int var_8ch @ rbp-0x8c
+var int var_88h @ rbp-0x88
+var int var_84h @ rbp-0x84
+var int var_80h @ rbp-0x80
+var int var_7ch @ rbp-0x7c
+var int var_78h @ rbp-0x78
+var int var_74h @ rbp-0x74
+var int var_70h @ rbp-0x70
+var int var_6ch @ rbp-0x6c
+var int var_68h @ rbp-0x68
+var int var_64h @ rbp-0x64
+var char * var_60h @ rbp-0x60
+var char * var_58h @ rbp-0x58
+var char * var_50h @ rbp-0x50
+var char * var_48h @ rbp-0x48
+var uint32_t var_40h @ rbp-0x40
 var char * s1 @ rbp-0x38
 var char * s @ rbp-0x30
-var char * local_28h @ rbp-0x28
-var char * local_20h @ rbp-0x20
-var int local_18h @ rbp-0x18
-var int local_8h @ rbp-0x8
+var char * var_28h @ rbp-0x28
+var char * var_20h @ rbp-0x20
+var int var_18h @ rbp-0x18
+var int var_8h @ rbp-0x8
 arg signed int arg1 @ rdi
 arg char ** arg2 @ rsi
 RUN
@@ -287,22 +288,22 @@ af
 aaft
 afv
 EXPECT=<<RUN
-var int local_0h @ sp+0x0
-var int local_48h @ fp-0x48
+var int var_0h @ sp+0x0
+var int var_48h @ fp-0x48
 var char * s1 @ fp-0x44
-var void * local_40h @ fp-0x40
-var int local_3ch @ fp-0x3c
-var int local_38h @ fp-0x38
+var void * var_40h @ fp-0x40
+var int var_3ch @ fp-0x3c
+var int var_38h @ fp-0x38
 var pid_t pid @ fp-0x34
 var char * v4 @ fp-0x30
-var int local_2ch @ fp-0x2c
+var int var_2ch @ fp-0x2c
 var char * src @ fp-0x28
-var int local_24h @ fp-0x24
-var char * local_20h @ fp-0x20
+var int var_24h @ fp-0x24
+var char * var_20h @ fp-0x20
 var char * s @ fp-0x1c
-var char * local_18h @ fp-0x18
-var int local_14h @ fp-0x14
-var int local_10h @ fp-0x10
+var char * var_18h @ fp-0x18
+var int var_14h @ fp-0x14
+var int var_10h @ fp-0x10
 arg char ** argv @ r1
 RUN
 
@@ -314,13 +315,13 @@ aaft
 s main
 afv
 EXPECT=<<RUN
-var int local_25h @ rbp-0x25
-var signed int local_24h @ rbp-0x24
-var unsigned int local_20h @ rbp-0x20
-var int local_1ch @ rbp-0x1c
-var char * local_18h @ rbp-0x18
-var long int local_10h @ rbp-0x10
-var char * local_8h @ rbp-0x8
+var int var_25h @ rbp-0x25
+var signed int var_24h @ rbp-0x24
+var uint32_t var_20h @ rbp-0x20
+var int var_1ch @ rbp-0x1c
+var char * var_18h @ rbp-0x18
+var long int var_10h @ rbp-0x10
+var char * var_8h @ rbp-0x8
 RUN
 
 NAME=local to register var type propgation
@@ -331,11 +332,11 @@ aaft
 s main
 afv
 EXPECT=<<RUN
-var char ** local_28h @ rbp-0x28
-var char ** local_20h @ rbp-0x20
-var int local_14h @ rbp-0x14
-var void * local_10h @ rbp-0x10
-var int local_4h @ rbp-0x4
+var char ** var_28h @ rbp-0x28
+var char ** var_20h @ rbp-0x20
+var int var_14h @ rbp-0x14
+var void * var_10h @ rbp-0x10
+var int var_4h @ rbp-0x4
 arg int argc @ rdi
 arg char ** argv @ rsi
 arg char ** envp @ rdx
@@ -355,10 +356,10 @@ pd 1~4h
 s sym.range_or
 pd 1~4h
 EXPECT=<<RUN
-|           ; var signed int local_4h  { > 0xa} @ rbp-0x4
-|           ; var signed int local_14h  { > 0x0 && <= 0x9} @ rbp-0x14
-|           ; var signed int local_4h  { > 0x64 && <= 0xc7} @ rbp-0x4
-|           ; var signed int local_4h  { > 0xff && <= 0x12b || > 0x14 && <= 0x31 || > 0x6f && <= 0xdd} @ rbp-0x4
+|           ; var signed int var_4h  { > 0xa} @ rbp-0x4
+|           ; var signed int var_14h  { > 0x0 && <= 0x9} @ rbp-0x14
+|           ; var signed int var_4h  { > 0x64 && <= 0xc7} @ rbp-0x4
+|           ; var signed int var_4h  { > 0xff && <= 0x12b || > 0x14 && <= 0x31 || > 0x6f && <= 0xdd} @ rbp-0x4
 RUN
 
 NAME=mov str
@@ -366,9 +367,9 @@ FILE=../bins/anal/movstr
 CMDS=<<EXPECT
 aaa
 s main
-afv~local_4h
+afv~var_4h
 EXPECT=<<RUN
-var char * local_4h @ esp+0x4
+var char * var_4h @ esp+0x4
 RUN
 
 NAME=ret type pointer
@@ -376,7 +377,7 @@ FILE=../bins/anal/tie-test
 CMDS=<<EXPECT
 aaa
 s sym.foo
-afv~local_20h
+afv~var_20h
 EXPECT=<<RUN
-var size_t * local_20h @ rbp-0x20
+var size_t * var_20h @ rbp-0x20
 RUN

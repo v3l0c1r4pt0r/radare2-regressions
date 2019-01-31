@@ -50,8 +50,8 @@ EXPECT=<<EOF
 | 0x100001065      subq $0x648, %rsp
 | 0x10000106c      movq %rsi, %rbx
 | 0x10000106f      movl %edi, %r14d
-| 0x100001072      leaq local_640h, %rax
-| 0x100001079      movq %rax, local_648h
+| 0x100001072      leaq var_640h, %rax
+| 0x100001079      movq %rax, var_648h
 | 0x100001080      testl %r14d, %r14d
 | 0x100001083      jg 0x10000108a
 | 0x100001085      callq sym.func.100004401
@@ -81,11 +81,11 @@ EXPECT=<<EOF
 | 0x004004aa      movq arg_8h, %rax
 | 0x004004af      movq -8(%rsp), %rax
 | 0x004004b4      movq arg_8h_2, %rax
-| 0x004004b8      movq local_8h, %rax
+| 0x004004b8      movq var_8h, %rax
 | 0x004004bc      movq arg_18h, %rax
 | 0x004004c1      movq -0x18(%rsp), %rax
 | 0x004004c6      movq arg_18h_2, %rax
-| 0x004004ca      movq local_18h, %rax
+| 0x004004ca      movq var_18h, %rax
 | 0x004004ce      leave
 \ 0x004004cf      retq
 EOF
@@ -109,11 +109,11 @@ EXPECT=<<EOF
 | 0x004004aa      movq arg_8h(%rsp), %rax
 | 0x004004af      movq -8(%rsp), %rax
 | 0x004004b4      movq arg_8h_2(%rbp), %rax
-| 0x004004b8      movq local_8h(%rbp), %rax
+| 0x004004b8      movq var_8h(%rbp), %rax
 | 0x004004bc      movq arg_18h(%rsp), %rax
 | 0x004004c1      movq -0x18(%rsp), %rax
 | 0x004004c6      movq arg_18h_2(%rbp), %rax
-| 0x004004ca      movq local_18h(%rbp), %rax
+| 0x004004ca      movq var_18h(%rbp), %rax
 | 0x004004ce      leave
 \ 0x004004cf      retq
 EOF

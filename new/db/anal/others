@@ -932,9 +932,9 @@ aa > /dev/null
 pd 38
 EXPECT=<<RUN
 ┌ (fcn) fcn.00000000 1645
-│           ; var int local_4h @ esp+0x4
-│           ; var int local_1ch @ esp+0x1c
-│           ; var int local_2ch @ esp+0x2c
+│           ; var int var_4h @ esp+0x4
+│           ; var int var_1ch @ esp+0x1c
+│           ; var int var_2ch @ esp+0x2c
 │           0x00000000      xor eax, eax
 │           0x00000002      cmp esi, edx
 │       ┌─< 0x00000004      jb 0x50
@@ -946,10 +946,10 @@ EXPECT=<<RUN
 │     ╎││   0x00000015      mov eax, ebp
 │     ╎││   0x00000017      div ecx
 │     ╎││   0x00000019      xor edx, edx
-│     ╎││   0x0000001b      mov dword [local_1ch], eax
+│     ╎││   0x0000001b      mov dword [var_1ch], eax
 │     ╎││   0x0000001f      mov eax, edi
 │     ╎││   0x00000021      div ecx
-│     ╎││   0x00000023      cmp dword [local_1ch], eax
+│     ╎││   0x00000023      cmp dword [var_1ch], eax
 │    ┌────< 0x00000027      jbe 0x90
 │    │╎││   0x00000029      mov edx, dword [ebx + 0x208]
 │    │╎││   0x0000002f      mov eax, dword [edx]
@@ -993,9 +993,9 @@ aa >/dev/null
 pd 38
 EXPECT=<<RUN
 / (fcn) fcn.00000000 1645
-|           ; var int local_4h @ esp+0x4
-|           ; var int local_1ch @ esp+0x1c
-|           ; var int local_2ch @ esp+0x2c
+|           ; var int var_4h @ esp+0x4
+|           ; var int var_1ch @ esp+0x1c
+|           ; var int var_2ch @ esp+0x2c
 |           0x00000000      xor eax, eax
 |           0x00000002      cmp esi, edx
 |       ,=< 0x00000004      jb 0x50
@@ -1007,10 +1007,10 @@ EXPECT=<<RUN
 |     :||   0x00000015      mov eax, ebp
 |     :||   0x00000017      div ecx
 |     :||   0x00000019      xor edx, edx
-|     :||   0x0000001b      mov dword [local_1ch], eax
+|     :||   0x0000001b      mov dword [var_1ch], eax
 |     :||   0x0000001f      mov eax, edi
 |     :||   0x00000021      div ecx
-|     :||   0x00000023      cmp dword [local_1ch], eax
+|     :||   0x00000023      cmp dword [var_1ch], eax
 |    ,====< 0x00000027      jbe 0x90
 |    |:||   0x00000029      mov edx, dword [ebx + 0x208]
 |    |:||   0x0000002f      mov eax, dword [edx]
@@ -1208,7 +1208,7 @@ FILE=../bins/elf/analysis/ls-alxchk
 EXPECT=<<EOF
 / (fcn) sub.__stack_chk_fail_12740 76
 |   sub.__stack_chk_fail_12740 (int arg2);
-|           ; var int local_8h @ rbp-0x8
+|           ; var int var_8h @ rbp-0x8
 |           ; arg int arg2 @ rsi
 |           0x00012740      push rbp
 |           0x00012741      mov rbp, rsp
@@ -1216,13 +1216,13 @@ EXPECT=<<EOF
 |           0x0001274b      or qword [rsp], 0
 |           0x00012750      add rsp, 0x1020
 |           0x00012757      mov rax, qword fs:[0x28]
-|           0x00012760      mov qword [local_8h], rax
+|           0x00012760      mov qword [var_8h], rax
 |           0x00012764      xor eax, eax
 |           0x00012766      lea rax, [rip + 0xf033]
 |           0x0001276d      test rdi, rdi
 |           0x00012770      cmovne rax, rdi
 |           0x00012774      mov dword [rax], esi
-|           0x00012776      mov rax, qword [local_8h]
+|           0x00012776      mov rax, qword [var_8h]
 |           0x0001277a      xor rax, qword fs:[0x28]
 |      ,==< 0x00012783      jne 0x12787
 |      |    0x00012785      leave
@@ -1492,9 +1492,9 @@ RUN
 NAME=afvt
 FILE=../bins/mach0/arg
 EXPECT=<<EOF
-var int local_14h @ rbp-0x14
-var int local_10h @ rbp-0x10
-var int local_8h @ rbp-0x8
+var int var_14h @ rbp-0x14
+var int var_10h @ rbp-0x10
+var int var_8h @ rbp-0x8
 arg int arg1 @ rdi
 arg int arg2 @ rsi
 EOF
@@ -1508,29 +1508,29 @@ RUN
 NAME=afvt
 FILE=../bins/mach0/macho
 EXPECT=<<EOF
-var int local_30h @ rbp-0x30
-var char local_30h @ rbp-0x30
+var int var_30h @ rbp-0x30
+var char var_30h @ rbp-0x30
 EOF
 CMDS=<<EOF
 s 0x100000b60
 af
-afv~local_30h
-afvt local_30h char
-afv~local_30h
+afv~var_30h
+afvt var_30h char
+afv~var_30h
 EOF
 RUN
 
 NAME=afvn
 FILE=../bins/mach0/macho
 EXPECT=<<EOF
-var int local_30h @ rbp-0x30
+var int var_30h @ rbp-0x30
 var int mylocal @ rbp-0x30
 EOF
 CMDS=<<EOF
 s 0x100000b60
 af
-afv~local_30h
-afvn mylocal local_30h
+afv~var_30h
+afvn mylocal var_30h
 afv~mylocal
 EOF
 RUN
@@ -1538,30 +1538,30 @@ RUN
 NAME=afvn + afvn
 FILE=../bins/mach0/macho
 EXPECT=<<EOF
-var int local_30h @ rbp-0x30
-var int local_30h @ rbp-0x30
+var int var_30h @ rbp-0x30
+var int var_30h @ rbp-0x30
 EOF
 CMDS=<<EOF
 s 0x100000b60
 af
-afv~local_30h
-afvn mylocal local_30h
-afvn local_30h mylocal
-afv~local_30h
+afv~var_30h
+afvn mylocal var_30h
+afvn var_30h mylocal
+afv~var_30h
 EOF
 RUN
 
 NAME=afvt + afvn
 FILE=../bins/mach0/macho
 EXPECT=<<EOF
-var int local_30h @ rbp-0x30
+var int var_30h @ rbp-0x30
 var char mylocal @ rbp-0x30
 EOF
 CMDS=<<EOF
 s 0x100000b60
 af
-afv~local_30h
-afvn mylocal local_30h
+afv~var_30h
+afvn mylocal var_30h
 afvt mylocal char
 afv~mylocal
 EOF
@@ -1570,15 +1570,15 @@ RUN
 NAME=afvn + afvt
 FILE=../bins/mach0/macho
 EXPECT=<<EOF
-var int local_30h @ rbp-0x30
+var int var_30h @ rbp-0x30
 var char mylocal @ rbp-0x30
 EOF
 CMDS=<<EOF
 s 0x100000b60
 af
-afv~local_30h
-afvt local_30h char
-afvn mylocal local_30h
+afv~var_30h
+afvt var_30h char
+afvn mylocal var_30h
 afv~mylocal
 EOF
 RUN
@@ -1586,16 +1586,16 @@ RUN
 NAME=afvt + afvt
 FILE=../bins/mach0/macho
 EXPECT=<<EOF
-var int local_30h @ rbp-0x30
-var int local_30h @ rbp-0x30
+var int var_30h @ rbp-0x30
+var int var_30h @ rbp-0x30
 EOF
 CMDS=<<EOF
 s 0x100000b60
 af
-afv~local_30h
-afvt local_30h char
-afvt local_30h int
-afv~local_30h
+afv~var_30h
+afvt var_30h char
+afvt var_30h int
+afv~var_30h
 EOF
 RUN
 
@@ -1603,9 +1603,9 @@ NAME=afva for esp based vars
 FILE=malloc://1024
 EXPECT=<<EOF
 / (fcn) fcn.00000000 89
-|           ; var int local_4h @ esp+0x4
-|           ; var int local_8h @ esp+0x8
-|           ; var int local_ch @ esp+0xc
+|           ; var int var_4h @ esp+0x4
+|           ; var int var_8h @ esp+0x8
+|           ; var int var_ch @ esp+0xc
 |           ; arg int arg_14h @ esp+0x14
 |           ; arg int arg_18h @ esp+0x18
 |           ; arg int arg_1ch @ esp+0x1c
@@ -1618,26 +1618,26 @@ EXPECT=<<EOF
 |           0x00000008      f77c241c       idiv dword [arg_1ch]
 |           0x0000000c      8b442414       mov eax, dword [arg_14h]
 |           0x00000010      01d0           add eax, edx
-|           0x00000012      8944240c       mov dword [local_ch], eax
+|           0x00000012      8944240c       mov dword [var_ch], eax
 |           0x00000016      8b442420       mov eax, dword [arg_20h]
 |           0x0000001a      99             cdq
 |           0x0000001b      f77c2428       idiv dword [arg_28h]
-|           0x0000001f      8b44240c       mov eax, dword [local_ch]
+|           0x0000001f      8b44240c       mov eax, dword [var_ch]
 |           0x00000023      01d0           add eax, edx
-|           0x00000025      89442408       mov dword [local_8h], eax
+|           0x00000025      89442408       mov dword [var_8h], eax
 |           0x00000029      8b542414       mov edx, dword [arg_14h]
-|           0x0000002d      8b44240c       mov eax, dword [local_ch]
+|           0x0000002d      8b44240c       mov eax, dword [var_ch]
 |           0x00000031      8d0c02         lea ecx, [edx + eax]
 |           0x00000034      8b44242c       mov eax, dword [arg_2ch]
 |           0x00000038      99             cdq
 |           0x00000039      f7f9           idiv ecx
-|           0x0000003b      8b442408       mov eax, dword [local_8h]
+|           0x0000003b      8b442408       mov eax, dword [var_8h]
 |           0x0000003f      01d0           add eax, edx
-|           0x00000041      89442404       mov dword [local_4h], eax
-|           0x00000045      8b54240c       mov edx, dword [local_ch]
-|           0x00000049      8b442408       mov eax, dword [local_8h]
+|           0x00000041      89442404       mov dword [var_4h], eax
+|           0x00000045      8b54240c       mov edx, dword [var_ch]
+|           0x00000049      8b442408       mov eax, dword [var_8h]
 |           0x0000004d      01c2           add edx, eax
-|           0x0000004f      8b442404       mov eax, dword [local_4h]
+|           0x0000004f      8b442404       mov eax, dword [var_4h]
 |           0x00000053      01d0           add eax, edx
 |           0x00000055      83c410         add esp, 0x10
 \           0x00000058      c3             ret
@@ -1662,10 +1662,10 @@ EXPECT=<<EOF
 fastcall
 / (fcn) sym.fastcaslled 59
 |   sym.fastcaslled (int arg2, int arg1, int arg_8h, int arg_ch);
-|           ; var int local_20h @ ebp-0x20
-|           ; var int local_1ch @ ebp-0x1c
-|           ; var int local_10h @ ebp-0x10
-|           ; var int local_ch @ ebp-0xc
+|           ; var int var_20h @ ebp-0x20
+|           ; var int var_1ch @ ebp-0x1c
+|           ; var int var_10h @ ebp-0x10
+|           ; var int var_ch @ ebp-0xc
 |           ; arg int arg_8h @ ebp+0x8
 |           ; arg int arg_ch @ ebp+0xc
 |           ; arg int arg2 @ edx
@@ -1674,18 +1674,18 @@ fastcall
 |           0x0804841b      55             push ebp
 |           0x0804841c      89e5           mov ebp, esp
 |           0x0804841e      83ec28         sub esp, 0x28               ; '('
-|           0x08048421      894de4         mov dword [local_1ch], ecx  ; arg1
-|           0x08048424      8955e0         mov dword [local_20h], edx  ; arg2
-|           0x08048427      8b55e4         mov edx, dword [local_1ch]
-|           0x0804842a      8b45e0         mov eax, dword [local_20h]
+|           0x08048421      894de4         mov dword [var_1ch], ecx    ; arg1
+|           0x08048424      8955e0         mov dword [var_20h], edx    ; arg2
+|           0x08048427      8b55e4         mov edx, dword [var_1ch]
+|           0x0804842a      8b45e0         mov eax, dword [var_20h]
 |           0x0804842d      01d0           add eax, edx
-|           0x0804842f      8945f4         mov dword [local_ch], eax
-|           0x08048432      8b45e0         mov eax, dword [local_20h]
+|           0x0804842f      8945f4         mov dword [var_ch], eax
+|           0x08048432      8b45e0         mov eax, dword [var_20h]
 |           0x08048435      2b450c         sub eax, dword [arg_ch]
-|           0x08048438      8945f0         mov dword [local_10h], eax
+|           0x08048438      8945f0         mov dword [var_10h], eax
 |           0x0804843b      ff7508         push dword [arg_8h]
-|           0x0804843e      ff75f0         push dword [local_10h]
-|           0x08048441      ff75f4         push dword [local_ch]
+|           0x0804843e      ff75f0         push dword [var_10h]
+|           0x08048441      ff75f4         push dword [var_ch]
 |           0x08048444      6874850408     push str.i__i__i            ; 0x8048574 ; "%i %i %i\n"
 |           0x08048449      e8a2feffff     call sym.imp.printf         ; int printf(const char *format)
 |           0x0804844e      83c410         add esp, 0x10
@@ -1708,8 +1708,8 @@ FILE=../bins/elf/analysis/fast
 EXPECT=<<EOF
 cdecl
 / (fcn) sym.nonfastcaslled 51
-|           ; var int local_10h @ ebp-0x10
-|           ; var int local_ch @ ebp-0xc
+|           ; var int var_10h @ ebp-0x10
+|           ; var int var_ch @ ebp-0xc
 |           ; arg int arg_8h @ ebp+0x8
 |           ; arg int arg_ch @ ebp+0xc
 |           ; arg int arg_10h @ ebp+0x10
@@ -1721,13 +1721,13 @@ cdecl
 |           0x0804845c      8b5508         mov edx, dword [arg_8h]     ; [0x8:4]=-1 ; 8
 |           0x0804845f      8b450c         mov eax, dword [arg_ch]     ; [0xc:4]=-1 ; 12
 |           0x08048462      01d0           add eax, edx
-|           0x08048464      8945f4         mov dword [local_ch], eax
+|           0x08048464      8945f4         mov dword [var_ch], eax
 |           0x08048467      8b450c         mov eax, dword [arg_ch]     ; [0xc:4]=-1 ; 12
 |           0x0804846a      2b4514         sub eax, dword [arg_14h]
-|           0x0804846d      8945f0         mov dword [local_10h], eax
+|           0x0804846d      8945f0         mov dword [var_10h], eax
 |           0x08048470      ff7510         push dword [arg_10h]
-|           0x08048473      ff75f0         push dword [local_10h]
-|           0x08048476      ff75f4         push dword [local_ch]
+|           0x08048473      ff75f0         push dword [var_10h]
+|           0x08048476      ff75f4         push dword [var_ch]
 |           0x08048479      6874850408     push str.i__i__i            ; 0x8048574 ; "%i %i %i\n"
 |           0x0804847e      e86dfeffff     call sym.imp.printf
 |           0x08048483      83c410         add esp, 0x10
@@ -1772,7 +1772,7 @@ e asm.calls=false
 wx 554889e5534881ec3810000048830c24004881c42010000064488b042528000000488945e831c04885ff4889fb909090909090c3 @ 10
 aa
 afvn new_1 old_1
-afvn my_local local_18h
+afvn my_local var_18h
 pd 1
 EOF
 RUN
@@ -1915,12 +1915,12 @@ RUN
 NAME=anal vars retype
 FILE=../bins/mach0/ls-osx-x86_64
 EXPECT=<<EOF
-var char local_30h @ rbp-0x30
+var char var_30h @ rbp-0x30
 EOF
 CMDS=<<EOF
 af
-afvt local_30h char
-afvb~l_30h
+afvt var_30h char
+afvb~_30h
 EOF
 RUN
 
@@ -1931,7 +1931,7 @@ var int newname @ rbp-0x30
 EOF
 CMDS=<<EOF
 af
-afvn newname local_30h
+afvn newname var_30h
 afvb~newname
 EOF
 RUN
@@ -1939,11 +1939,11 @@ RUN
 NAME=vars commenting
 FILE=malloc://1024
 EXPECT=<<EOF
-|           ; arg int local_8h @ rbp+0x8    ; comment
+|           ; arg int var_8h @ rbp+0x8    ; comment
 EOF
 CMDS=<<EOF
 af
-afvb 8 local_8h int
+afvb 8 var_8h int
 Cvb 0x8 comment
 pd1~comment
 EOF
@@ -1959,7 +1959,7 @@ CMDS=<<EOF
 aa
 s 0x0804843b
 afvd arg_ch
-afvd local_10h
+afvd var_10h
 EOF
 RUN
 
@@ -1967,10 +1967,10 @@ NAME=afvR and afvW test
 FILE=../bins/elf/crackme0x05
 EXPECT=<<EOF
 
- local_78h  0x8048577,0x804858a
-  local_4h  
- local_78h  
-  local_4h  0x804857a
+   var_78h  0x8048577,0x804858a
+    var_4h  
+   var_78h  
+    var_4h  0x804857a
 EOF
 CMDS=<<EOF
 aa
@@ -2380,9 +2380,9 @@ RUN
 NAME=xtensa stackframe
 FILE=malloc://512
 EXPECT=<<EOF
-var int local_4h @ a1+0x4
-var int local_8h @ a1+0x8
-var int local_ch @ a1+0xc
+var int var_4h @ a1+0x4
+var int var_8h @ a1+0x8
+var int var_ch @ a1+0xc
 EOF
 CMDS=<<EOF
 e asm.arch=xtensa
