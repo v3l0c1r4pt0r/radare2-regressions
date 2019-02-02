@@ -62,7 +62,7 @@ bool test_space_stack(void) {
 }
 
 static void count_event(REvent *ev, int type, void *user, void *data) {
-	RSpaces *sps = (RSpaces *)user;
+	RSpaces *sps = (RSpaces *)ev->user;
 	RSpaceEvent *spev = (RSpaceEvent *)data;
 
 	if (!strcmp (spev->data.count.space->name, "firstspace")) {
@@ -86,9 +86,9 @@ bool test_space_event(void) {
 	RSpace *second = r_spaces_add (sps, "secondspace");
 	RSpace *third = r_spaces_add (sps, "thirdspace");
 
-	r_event_hook (sps->event, R_SPACE_EVENT_COUNT, count_event);
-	r_event_hook (sps->event, R_SPACE_EVENT_UNSET, test_event);
-	r_event_hook (sps->event, R_SPACE_EVENT_RENAME, test_event);
+	r_event_hook (sps->event, R_SPACE_EVENT_COUNT, count_event, NULL);
+	r_event_hook (sps->event, R_SPACE_EVENT_UNSET, test_event, NULL);
+	r_event_hook (sps->event, R_SPACE_EVENT_RENAME, test_event, NULL);
 
 	int c = r_spaces_count (sps, "firstspace");
 	mu_assert_eq (c, 1, "first contain 1");
