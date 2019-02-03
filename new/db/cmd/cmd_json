@@ -45,7 +45,8 @@ RUN
 
 NAME=empty irj should print empty array
 FILE=-
-EXPECT='[]'
+EXPECT='[]
+'
 CMDS=<<EOF
 irj
 EOF
