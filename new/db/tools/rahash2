@@ -498,28 +498,28 @@ RUN
 
 NAME=rahash2 -E RC4
 FILE=-
-CMDS=!rahash2 -S key -E rc4 -s hello' world\n' | rahash2 -S key -E rc4 -s -
+CMDS=!rahash2 -S key -E rc4 -s hello" world\n" | rahash2 -S key -E rc4 -s -
 EXPECT=<<RUN
 hello world
 RUN
 
 NAME=rahash2 -E xor
 FILE=-
-CMDS=!rahash2 -S key -E xor -s hello' world\n' | rahash2 -S key -E xor -s -
+CMDS=!rahash2 -S key -E xor -s hello" world\n" | rahash2 -S key -E xor -s -
 EXPECT=<<RUN
 hello world
 RUN
 
 NAME=rahash2 -E blowfish
 FILE=-
-CMDS=!rahash2 -S key -E blowfish -s hello' world 123\n' | rax2 -S
+CMDS=!rahash2 -S key -E blowfish -s hello" world 123\n" | rax2 -S
 EXPECT=<<RUN
 6ceced43fb2a72c9aa9447d193b00763
 RUN
 
 NAME=rahash2 -D blowfish
 FILE=-
-CMDS=!rahash2 -S key -E blowfish -s hello' world 123\n' | rahash2 -S key -D blowfish -s -
+CMDS=!rahash2 -S key -E blowfish -s hello" world 123\n" | rahash2 -S key -D blowfish -s -
 EXPECT=<<RUN
 hello world 123
 RUN
@@ -608,14 +608,14 @@ RUN
 
 NAME=rahash2 -E rot
 FILE=-
-CMDS=!rahash2 -E rot -S s:13 -s hello' world\n'
+CMDS=!rahash2 -E rot -S s:13 -s hello" world\n"
 EXPECT=<<RUN
 uryyb jbeyq
 RUN
 
 NAME=rahash2 -E rot negative key
 FILE=-
-CMDS=!rahash2 -E rot -S s:14 -s hello' world\n' | rahash2 -E rot -S s:-14 -s -
+CMDS=!rahash2 -E rot -S s:14 -s hello" world\n" | rahash2 -E rot -S s:-14 -s -
 EXPECT=<<RUN
 hello world
 RUN
