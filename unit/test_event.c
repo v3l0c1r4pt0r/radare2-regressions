@@ -23,8 +23,8 @@ bool test_r_event(void) {
 	EventTestAcc acc_all = { 0 };
 	EventTestAcc acc_specific = { 0 };
 
-	int handle_all = r_event_hook (ev, R_EVENT_ALL, callback_test, &acc_all);
-	int handle_specific = r_event_hook (ev, R_EVENT_META_SET, callback_test, &acc_specific);
+	REventCallbackHandle handle_all = r_event_hook (ev, R_EVENT_ALL, callback_test, &acc_all);
+	REventCallbackHandle handle_specific = r_event_hook (ev, R_EVENT_META_SET, callback_test, &acc_specific);
 
 	r_event_send (ev, R_EVENT_META_DEL, (void *)0x4242);
 
@@ -43,7 +43,7 @@ bool test_r_event(void) {
 	mu_assert_eq (acc_specific.last_type, R_EVENT_META_SET, "specific type after event");
 	mu_assert_eq_fmt (acc_specific.last_data, (void *)0xdeadbeef, "specific type after event", "%p");
 
-	r_event_unhook (ev, R_EVENT_ALL, handle_all);
+	r_event_unhook (ev, handle_all);
 	r_event_send (ev, R_EVENT_META_SET, (void *)0xc0ffee);
 
 	mu_assert_eq (acc_all.count, 2, "all count after event after being removed");
@@ -54,7 +54,7 @@ bool test_r_event(void) {
 	mu_assert_eq (acc_specific.last_type, R_EVENT_META_SET, "specific type after event");
 	mu_assert_eq_fmt (acc_specific.last_data, (void *)0xc0ffee, "specific type after event", "%p");
 
-	r_event_unhook (ev, R_EVENT_META_SET, handle_specific);
+	r_event_unhook (ev, handle_specific);
 	r_event_send (ev, R_EVENT_META_SET, (void *)0xc0ffee);
 
 	mu_assert_eq (acc_specific.count, 2, "specific count after event after being removed");
