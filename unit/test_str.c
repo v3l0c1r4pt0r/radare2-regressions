@@ -250,6 +250,13 @@ bool test_r_str_sanitize_sdb_key(void) {
 	mu_end;
 }
 
+bool test_r_str_unescape(void) {
+	char buf[] = "Hello\\x31World\\n";
+	r_str_unescape (buf);
+	mu_assert_streq (buf, "Hello1World\n", "unescaped");
+	mu_end;
+}
+
 bool all_tests() {
 	mu_run_test(test_r_str_replace_char_once);
 	mu_run_test(test_r_str_replace_char);
@@ -270,6 +277,7 @@ bool all_tests() {
 	mu_run_test(test_r_str_ansi_len);
 	mu_run_test(test_r_str_len_utf8_ansi);
 	mu_run_test(test_r_str_sanitize_sdb_key);
+	mu_run_test(test_r_str_unescape);
 	return tests_passed != tests_run;
 }
 
