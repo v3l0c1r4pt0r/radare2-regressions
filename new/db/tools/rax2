@@ -305,11 +305,11 @@ CMDS=!rax2 -s 434a50
 EXPECT='CJP'
 RUN
 
-NAME=rax2 -S CJP
+NAME=rax2 -S "hello\x2Aworld ZYX\234abc\n"
 FILE=-
-CMDS=!rax2 -S CJP
+CMDS=!rax2 -S "hello\x2Aworld ZYX\234abc\n"
 EXPECT=<<RUN
-434a50
+68656c6c6f2a776f726c64205a59589c6162630a
 RUN
 
 NAME=rax2 -t 1234567890
