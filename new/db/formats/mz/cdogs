@@ -1,5 +1,5 @@
 NAME=MZ: corkami cdogs.exe - open
-FILE=../bins/mz/cdogs.exe
+FILE=../bins/le/cdogs.exe
 ARGS=-A
 EXPECT=<<EOF
 EOF
@@ -9,7 +9,8 @@ EOF
 RUN
 
 NAME=MZ: corkami cdogs.exe - entrypoint
-FILE=../bins/mz/cdogs.exe
+BROKEN=1
+FILE=../bins/le/cdogs.exe
 EXPECT=<<EOF
 0x3bc
 EOF
@@ -19,7 +20,8 @@ EOF
 RUN
 
 NAME=MZ: corkami cdogs.exe - pi 1
-FILE=../bins/mz/cdogs.exe
+BROKEN=1
+FILE=../bins/le/cdogs.exe
 EXPECT=<<EOF
 jmp 0x465
 EOF
@@ -30,7 +32,7 @@ RUN
 
 NAME=MZ: cdogs.exe segments
 BROKEN=1
-FILE=../bins/mz/cdogs.exe
+FILE=../bins/le/cdogs.exe
 EXPECT=<<EOF
 fs sections
 S 0x00000060 0x00000060 0x00002930 0x00002930 seg_000 23
