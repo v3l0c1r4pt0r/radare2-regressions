@@ -4,7 +4,9 @@ The NewR2R
 Example commands tests in `db/cmd/*`:
 
 	NAME=test_db
-	CMDS=pd 4
+	FILE=/../bins/elf/ls
+	CMDS=<<EXPECT
+	pd 4
 	EXPECT=<<RUN
             ;-- main:
             ;-- entry0:
