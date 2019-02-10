@@ -348,8 +348,7 @@ RUN
 NAME=rasm2 -Aj 0x55
 FILE=-
 CMDS=!rasm2 -Aj 0x55
-EXPECT='[{"opcode":0,"bytes":"55","type":"upush","stackop":"unknown","esil":"rbp,8,rsp,-,=[8],8,rsp,-=","stackptr":8}
-]'
+EXPECT='[{"opcode":0,"bytes":"55","type":"upush","stackop":"unknown","esil":"rbp,8,rsp,-,=[8],8,rsp,-=","stackptr":8}]'
 RUN
 
 NAME=rasm2 -L
