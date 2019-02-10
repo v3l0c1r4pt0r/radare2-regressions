@@ -15,7 +15,7 @@ false
 
 EOF
 CMDS=<<EOF
-!rabin2 -k 'pe.nx' ../bins/pe/no_dep.exe
+!rabin2 -k pe.nx ../bins/pe/no_dep.exe
 EOF
 RUN
 
