@@ -1437,10 +1437,10 @@ CMDS=<<EOF
 e emu.str=true
 s 0x0008049c
 e bin.strpurge=
-e emu.stroff=false
+e emu.str.off=false
 pd 2
 ?e ----
-e emu.stroff=true
+e emu.str.off=true
 pd 2
 ?e ----
 e bin.strpurge=0x80510
@@ -1584,9 +1584,9 @@ e io.cache=true
 wz abcdefghi @ 0x21f7
 f abcdefghi @ 0x21f7
 axd 0x21f7 @ 0x161d
-e emu.strinv=true
+e emu.str.inv=true
 pd 1 @ 0x161d
-e emu.strinv=false
+e emu.str.inv=false
 pd 1 @ 0x161d
 EXPECT=<<RUN
   [36m          [0m[32m0x0000161d[0m      [37mlea[36m eax[0m,[36m [0m[[36mesi [0m-[36m[36m [33m0x21f7[0m][36m[0m[0m[31m                    ; "abcdefghi"[0m[31m ; [7m"\n  Blue Pill"[27m str.Blue_Pill[0m
@@ -1599,9 +1599,9 @@ CMDS=<<EXPECT
 e asm.bytes=false
 e emu.pre=true
 e emu.str=true
-e emu.strflag=true
+e emu.str.flag=true
 pd 1 @ 0x161d
-e emu.strflag=false
+e emu.str.flag=false
 pd 1 @ 0x161d
 pd 1 @ 0x1447
 EXPECT=<<RUN
@@ -1673,8 +1673,8 @@ CMDS=<<EXPECT
 e scr.color=3
 e emu.str=true
 e emu.pre=true
-e emu.strinv=false
-e emu.strflag=false
+e emu.str.inv=false
+e emu.str.flag=false
 s 0x1457
 e asm.highlight=$$
 pd 3
