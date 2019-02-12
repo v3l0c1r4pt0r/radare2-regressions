@@ -1,0 +1,20 @@
+NAME=x86_64 socket syscall
+FILE=../bins/elf/socket-syscall
+CMDS=<<EXPECT
+aa
+aae
+s main
+pd 1 @0x00001140
+aei
+aeim
+aecu 0x00001140
+as
+EXPECT=<<RUN
+|           ;-- syscall.socket:
+|           ;-- syscall.socket.0:
+|           ;-- syscall.socket.1:
+|           ;-- syscall.socket.2:
+|           0x00001140      0f05           syscall
+41 = socket (0x00000001, 0x00000002, 0x00000003)
+RUN
+
