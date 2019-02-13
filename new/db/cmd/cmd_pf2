@@ -255,9 +255,9 @@ e cfg.bigendian=true
 wv8 0x0000000100000faf @ 0x204
 pf *z @ 0x204
 EXPECT=<<RUN
-0x100000faf = root
-(*0x100000faf)0x00000204 = root
-(*0x100000faf)0x00000204 = root
+0x100000faf = "root"
+(*0x100000faf)0x00000204 = "root"
+(*0x100000faf)0x00000204 = "root"
 RUN
 
 NAME=pf F max precision (#13027)

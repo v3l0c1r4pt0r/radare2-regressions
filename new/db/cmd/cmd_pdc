@@ -2,7 +2,7 @@ NAME=pdc @ main ioli0x0
 FILE=../bins/elf/ioli/crackme0x00
 EXPECT=<<EOF
        dword [s2] = "250382"  //[0x804858f:4]=0x33303532 ; str.250382 ; const char *s2
-       int strcmp(const char * s1 : (*0x177fe4)0x00177fc0 =, const char * s2 : (*0x804858f)0x00177fc4 = 250382)
+       int strcmp("", "250382")
 EOF
 CMDS=<<EOF
 aaa

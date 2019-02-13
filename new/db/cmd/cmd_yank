@@ -1,8 +1,8 @@
 NAME=y cat
 FILE=malloc://1024
 EXPECT=<<EOF
-0x00000000 = catty
-0x00000010 = catt
+0x00000000 = "catty"
+0x00000010 = "catt"
 catt
 EOF
 CMDS=<<EOF
@@ -17,8 +17,8 @@ RUN
 NAME=y, yx cat
 FILE=malloc://1024
 EXPECT=<<EOF
-0x00000000 = catty
-0x00000010 = catt
+0x00000000 = "catty"
+0x00000010 = "catt"
 - offset -   0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
 0x00000000  6361 7474                                catt
 EOF

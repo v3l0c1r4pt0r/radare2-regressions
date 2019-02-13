@@ -175,7 +175,7 @@ RUN
 NAME=Pointers
 FILE=malloc://1024
 EXPECT=<<EOF
-   nb : (*0x30)0x00000000 = TROLL
+   nb : (*0x30)0x00000000 = "TROLL"
  name : (*0x20)0x00000004 = 42
  blob : (*0x40)0x00000008 = 0x0fa0
 EOF
@@ -223,7 +223,7 @@ RUN
 NAME=String pointer
 FILE=malloc://1024
 EXPECT=<<EOF
- Pouet : (*0x30)0x00000000 = TROLL
+ Pouet : (*0x30)0x00000000 = "TROLL"
   Plop : 0x00000004 = 4000
 EOF
 CMDS=<<EOF
@@ -283,7 +283,7 @@ NAME=write test
 FILE=malloc://1024
 EXPECT=<<EOF
     hu : 0x00000000 = 42
- swagg : 0x00000004 = B*A AABLABLA
+ swagg : 0x00000004 = "B*A AABLABLA"
   plop : 0x00000011 = 4000
 EOF
 CMDS=<<EOF
@@ -334,7 +334,7 @@ RUN
 NAME=fixed size str, widechar, and var
 FILE=malloc://1024
 EXPECT=<<EOF
-0x00000000 = TR.LL
+0x00000000 = "TR.LL"
 0x0000000a = [ 4000, 0, 0 ]
 0x00000016 = PLOP
 0x0000002a = 0x2a
@@ -365,12 +365,12 @@ RUN
 NAME=32 bit twice then string
 FILE=malloc://1024
 EXPECT=<<EOF
-0x00000000 = 0x00000000 -> 0x00000010 hello
-0x00000004 = 0x00000004 -> 0x00000010 hello
+0x00000000 = 0x00000000 -> 0x00000010 "hello"
+0x00000004 = 0x00000004 -> 0x00000010 "hello"
 (*0x10)0x00000000 = 0x6c6c6568
 (*0x10)0x00000004 = 0x6c6c6568
-(*0x10)0x00000000 = hello
-(*0x10)0x00000004 = hello
+(*0x10)0x00000000 = "hello"
+(*0x10)0x00000004 = "hello"
 EOF
 CMDS=<<EOF
 e asm.bits=32
@@ -636,7 +636,7 @@ RUN
 NAME=PE test
 FILE=../bins/pe/ch22.exe
 EXPECT=<<EOF
-      signature : 0x00000080 = PE
+      signature : 0x00000080 = "PE"
      fileHeader : 
                 struct<pe_image_file_header>
                                    machine : 0x00000084 = machine (enum pe_machine) = 0x14c ; IMAGE_FILE_MACHINE_I386
