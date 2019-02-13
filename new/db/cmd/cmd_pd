@@ -368,8 +368,8 @@ EXPECT=<<EOF
                  push rsp
                  lea r8, [0x000011e0]
                  lea rcx, [0x00001170]
-                 ; main
-                 lea rdi, [0x00000d7c]
+                 ; 0xd7c
+                 lea rdi, main
 EOF
 CMDS=<<EOF
 e asm.bytes=false
