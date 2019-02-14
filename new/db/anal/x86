@@ -3079,3 +3079,13 @@ _IO_2_1_stdin_
 CMDS=<<RUN
 ir~[6]
 RUN
+
+NAME=long basic blocks
+FILE=../bins/elf/analysis/movfuscator
+BROKEN=1
+CMDS=<<EXPECT
+af
+afb
+EXPECT=<<RUN
+0x0804827c 0x0804c2fc 00:0000 16512
+RUN
