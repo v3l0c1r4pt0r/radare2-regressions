@@ -148,6 +148,7 @@ t-xoo
 EOF
 EXPECT=<<EOF
 union.xoo=x,y,z
+union.xoo.size=32
 union.xoo.x=int32_t,0,0
 union.xoo.x.meta=0
 union.xoo.y=int32_t,0,0
@@ -837,9 +838,7 @@ ts A
 ts B
 ts O  # Broken but shouldn't hang
 ?e ----
-t-*
-to ../bins/headers/12272.h
-tk
+tk~struct
 ?e
 ts
 EXPECT=<<RUN
@@ -851,17 +850,22 @@ pf c ch
 ----
 0=struct
 1=struct
-A=typedef
-B=typedef
-O=typedef
+func.getsockname.arg.1=struct sockaddr *,addr
+func.nanosleep.arg.0=const struct timespec *,req
+func.nanosleep.arg.1=struct timespec *,rem
+func.select.arg.4=struct timeval *,timeout
+func.sigaction.arg.1=const struct sigaction *,act
+func.sigaction.arg.2=struct sigaction *,oldact
 struct.0=num,num2
 struct.0.num=int32_t,0,0
 struct.0.num.meta=0
 struct.0.num2=double,8,0
 struct.0.num2.meta=9
+struct.0.size=96
 struct.1=ch
 struct.1.ch=char,0,0
 struct.1.ch.meta=2
+struct.1.size=8
 struct.A=num
 struct.A.num=float,0,0
 struct.A.num.meta=8
@@ -887,31 +891,36 @@ to ../bins/headers/hdr2.h
 ts A
 ts B
 ?e
-t-*
 to ../bins/headers/hdr1.h
 to ../bins/headers/hdr2.h
-tk
+tk~^struct
 ?e
 ts
 EXPECT=<<RUN
 pf f num
 pf c ch
 
-0=struct
-1=struct
-A=typedef
-B=typedef
 struct.0=num
 struct.0.num=float,0,0
 struct.0.num.meta=8
+struct.0.size=32
 struct.1=ch
 struct.1.ch=char,0,0
 struct.1.ch.meta=2
-typedef.A=struct 0
-typedef.B=struct 1
+struct.1.size=8
+struct.2=num
+struct.2.num=float,0,0
+struct.2.num.meta=8
+struct.2.size=32
+struct.3=ch
+struct.3.ch=char,0,0
+struct.3.ch.meta=2
+struct.3.size=8
 
 0
 1
+2
+3
 A
 B
 RUN
