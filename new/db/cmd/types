@@ -850,12 +850,6 @@ pf c ch
 ----
 0=struct
 1=struct
-func.getsockname.arg.1=struct sockaddr *,addr
-func.nanosleep.arg.0=const struct timespec *,req
-func.nanosleep.arg.1=struct timespec *,rem
-func.select.arg.4=struct timeval *,timeout
-func.sigaction.arg.1=const struct sigaction *,act
-func.sigaction.arg.2=struct sigaction *,oldact
 struct.0=num,num2
 struct.0.num=int32_t,0,0
 struct.0.num.meta=0
