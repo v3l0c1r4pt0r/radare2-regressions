@@ -1661,11 +1661,11 @@ RUN
 NAME=./x86_win
 FILE=../bins/pe/standard.exe
 EXPECT=<<EOF
-name: sub.msvcrt.dll_printf_402b2d
+name: fcn.00402b2d
 EOF
 CMDS=<<EOF
 aaa
-afi @ sub.msvcrt.dll_printf_402b2d~name
+afi @ fcn.00402b2d~name
 EOF
 RUN
 
