@@ -1066,7 +1066,7 @@ EXPECT=<<EOF
 |   |||||   0x00011416      lea rbx, [rax + 4]
 |   |||||   0x0001141a      mov rax, qword [rip + 0xdeaf]              ; reloc.program_invocation_short_name ; [0x1f2d0:8]=0
 |   |||||   0x00011421      mov qword [rax], rbx
-|   |||||   ; CODE XREFS from sub.strrchr_11390 (0x113d0, 0x113e0, 0x113f4, 0x11414)
+|   |||||   ; CODE XREFS from fcn.00011390 (0x113d0, 0x113e0, 0x113f4, 0x11414)
 |   ````--> 0x00011424      mov rax, qword [rip + 0xde3d]              ; [0x1f268:8]=0x21680
 EOF
 CMDS=<<EOF
@@ -1105,7 +1105,7 @@ EXPECT=<<EOF
 |    ||`--> 0x00003ce3      mov esi, 5
 |    || |   0x00003ce8      xor edi, edi
 |    || |   0x00003cea      mov dword [rip + 0x1d60c], 0               ; [0x21300:4]=0
-|    || |   0x00003cf4      call sub.__stack_chk_fail_12740
+|    || |   0x00003cf4      call fcn.00012740
 |    || |   ; CODE XREFS from main (0x3ce1, 0x4602, 0x4c38)
 |    `----> 0x00003cf9      lea rdi, [rip + 0x14fb4]                   ; str.QUOTING_STYLE ; 0x18cb4 ; "QUOTING_STYLE" ; const char *name
 EOF
@@ -1145,7 +1145,7 @@ EXPECT=<<EOF
 |  | `----> 0x00003ce3      mov esi, 5
 |  |   |    0x00003ce8      xor edi, edi
 |  |   |    0x00003cea      mov dword [rip + 0x1d60c], 0               ; [0x21300:4]=0
-|  |   |    0x00003cf4      call sub.__stack_chk_fail_12740
+|  |   |    0x00003cf4      call fcn.00012740
 |  |   |    ; CODE XREFS from main (0x3ce1, 0x4602, 0x4c38)
 | --------> 0x00003cf9      lea rdi, [rip + 0x14fb4]                   ; str.QUOTING_STYLE ; 0x18cb4 ; "QUOTING_STYLE" ; const char *name
 EOF
@@ -1186,7 +1186,7 @@ EXPECT=<<EOF
 |  | `----> 0x00003ce3      mov esi, 5
 |  |   |    0x00003ce8      xor edi, edi
 |  |   |    0x00003cea      mov dword [rip + 0x1d60c], 0               ; [0x21300:4]=0
-|  |   |    0x00003cf4      call sub.__stack_chk_fail_12740
+|  |   |    0x00003cf4      call fcn.00012740
 |  |   |    ; CODE XREFS from main (0x3ce1, 0x4602, 0x4c38)
 | --------> 0x00003cf9      lea rdi, [rip + 0x14fb4]                   ; str.QUOTING_STYLE ; 0x18cb4 ; "QUOTING_STYLE" ; const char *name
 EOF
@@ -1206,8 +1206,8 @@ RUN
 NAME=reflines in noreturn
 FILE=../bins/elf/analysis/ls-alxchk
 EXPECT=<<EOF
-/ (fcn) sub.__stack_chk_fail_12740 76
-|   sub.__stack_chk_fail_12740 (int arg2);
+/ (fcn) fcn.00012740 76
+|   fcn.00012740 (int arg2);
 |           ; var int var_8h @ rbp-0x8
 |           ; arg int arg2 @ rsi
 |           0x00012740      push rbp
@@ -2028,9 +2028,9 @@ RUN
 NAME=axt capstone x86: IOLI7 aa
 FILE=../bins/elf/ioli/crackme0x07
 EXPECT=<<EOF
-sub.Password_Incorrect_8048524 0x804853d [CALL] call sym.imp.exit
-sub.sscanf_8048542 0x80485ab [CALL] call sym.imp.exit
-sub.strlen_80485b9 0x804866f [CALL] call sym.imp.exit
+fcn.08048524 0x804853d [CALL] call sym.imp.exit
+fcn.08048542 0x80485ab [CALL] call sym.imp.exit
+fcn.080485b9 0x804866f [CALL] call sym.imp.exit
 EOF
 CMDS=<<EOF
 aaa
@@ -2038,12 +2038,12 @@ axt @ sym.imp.exit
 EOF
 RUN
 
-NAME=axt capstone x86: IOLI7 aa
+NAME=axt capstone x86: IOLI7 aa 2
 FILE=../bins/elf/ioli/crackme0x07
 EXPECT=<<EOF
-sub.Password_Incorrect_8048524 0x804853d [CALL] call sym.imp.exit
-sub.sscanf_8048542 0x80485ab [CALL] call sym.imp.exit
-sub.strlen_80485b9 0x804866f [CALL] call sym.imp.exit
+fcn.08048524 0x804853d [CALL] call sym.imp.exit
+fcn.08048542 0x80485ab [CALL] call sym.imp.exit
+fcn.080485b9 0x804866f [CALL] call sym.imp.exit
 EOF
 CMDS=<<EOF
 aaaa
@@ -2407,9 +2407,7 @@ FILE=../bins/elf/bash
 CMDS=<<EXPECT
 aaa
 f~strlen~390
-EXPECT=<<RUN
-0x00060390 732 sub.strlen_60390
-0x0006d390 197 sub.strlen_6d390
+EXPECT=''
 RUN
 
 NAME=no function split without overlapping blocks
