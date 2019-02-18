@@ -30,7 +30,7 @@ bool test_space_stack(void) {
 	RSpaces *sps = r_spaces_new ("spacename");
 
 	RSpace *first = r_spaces_set (sps, "firstspace");
-	RSpace *second = r_spaces_set (sps, "secondspace");
+	r_spaces_set (sps, "secondspace");
 	RSpace *third = r_spaces_set (sps, "thirdspace");
 	r_spaces_set (sps, NULL);
 
@@ -39,13 +39,13 @@ bool test_space_stack(void) {
 	r_spaces_push (sps, "thirdspace");
 
 	RSpace *s = r_spaces_current (sps);
-	mu_assert_eq (s, third, "third now set");
+	mu_assert_ptreq (s, third, "third now set");
 	r_spaces_pop (sps);
 	s = r_spaces_current (sps);
 	mu_assert_null (s, "all set");
 	r_spaces_pop (sps);
 	s = r_spaces_current (sps);
-	mu_assert_eq (s, first, "first now set");
+	mu_assert_ptreq (s, first, "first now set");
 	r_spaces_pop (sps);
 	s = r_spaces_current (sps);
 	mu_assert_null (s, "nothing set");
@@ -62,7 +62,6 @@ bool test_space_stack(void) {
 }
 
 static void count_event(REvent *ev, int type, void *user, void *data) {
-	RSpaces *sps = (RSpaces *)ev->user;
 	RSpaceEvent *spev = (RSpaceEvent *)data;
 
 	if (!strcmp (spev->data.count.space->name, "firstspace")) {
@@ -82,8 +81,8 @@ static void test_event(REvent *ev, int type, void *user, void *data) {
 
 bool test_space_event(void) {
 	RSpaces *sps = r_spaces_new ("spacename");
-	RSpace *first = r_spaces_add (sps, "firstspace");
-	RSpace *second = r_spaces_add (sps, "secondspace");
+	r_spaces_add (sps, "firstspace");
+	r_spaces_add (sps, "secondspace");
 	RSpace *third = r_spaces_add (sps, "thirdspace");
 
 	r_event_hook (sps->event, R_SPACE_EVENT_COUNT, count_event, NULL);
@@ -103,7 +102,7 @@ bool test_space_event(void) {
 	mu_assert_null (s, "thirdspace should not exist anymore");
 	s = r_spaces_get (sps, "mynewname");
 	mu_assert_notnull (s, "mynewname should exist now");
-	mu_assert_eq (s, third, "and it should be equal to thirdspace ptr");
+	mu_assert_ptreq (s, third, "and it should be equal to thirdspace ptr");
 
 	test_event_called = false;
 	r_spaces_unset (sps, "mynewname");
