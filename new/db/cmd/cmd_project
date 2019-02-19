@@ -31,13 +31,13 @@ e dir.projects = /tmp/
 e asm.bits=64
 wx 31ed4989d15e4889e24883e4f0505449c7c09024410048c7c12024410048c7c7a0284000e857dcfffff4
 af test
-afF @ fcn.test
+afF @ test
 pdf
 Ps testw > /dev/null
 Pc testw~afF
 rm /tmp/testw
 EXPECT=<<RUN
-/ (fcn) fcn.test
+/ (fcn) test
 \           0x00000000 (42 byte folded function)
 afF @ 0x00000000
 RUN

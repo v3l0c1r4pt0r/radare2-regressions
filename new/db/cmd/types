@@ -829,7 +829,6 @@ RUN
 
 NAME=typedef struct
 FILE=-
-BROKEN=1
 CMDS=<<EXPECT
 to ../bins/headers/12272.h
 ts 0
