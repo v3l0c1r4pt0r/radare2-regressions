@@ -550,7 +550,7 @@ RUN
 NAME=af afF
 FILE=malloc://1024
 EXPECT=<<EOF
-/ (fcn) fcn.test
+/ (fcn) test
 \           0x00000000 (6 byte folded function)
 EOF
 CMDS=<<EOF
@@ -561,17 +561,17 @@ e asm.bits=32
 wx 6a004889e5c3
 af test
 afF
-pd 1 @ fcn.test
+pd 1 @ test
 EOF
 RUN
 
 NAME=af afF graph
 FILE=malloc://1024
 EXPECT=<<EOF
-[0x00000000]> VV @ fcn.test (nodes 1 edges 0 zoom 100%) BB-NORM mouse:canvas-y mov-speed:5
+[0x00000000]> VV @ test (nodes 1 edges 0 zoom 100%) BB-NORM mouse:canvas-y mov-speed:5
 .---------------------------.
 |  0x0                      |
-| / (fcn) fcn.test          |
+| / (fcn) test              |
 | (6 byte folded function)  |
 `---------------------------'
 EOF
