@@ -3080,6 +3080,35 @@ CMDS=<<RUN
 ir~[6]
 RUN
 
+NAME=get function in, node before entry
+FILE=../bins/anal/fcn_in_test.elf
+BROKEN=1
+CMDS=<<EOF
+e asm.lines=false;e asm.comments=false;af @ main; pdr @ 0x1180
+EOF
+EXPECT=<<EOF
+;-- start2:
+0x00001180      31c0           xor eax, eax
+0x00001182      eb06           jmp loc.start
+| ----------- true: 0x0000118a
+(fcn) main 18
+  int main (int argc, char **argv, char **envp);
+0x00001184      31c0           xor eax, eax
+0x00001186      75f8           jne loc.start2
+| ----------- true: 0x00001180  false: 0x00001188
+0x00001188      ebf6           jmp loc.start2
+| ----------- true: 0x00001180
+;-- start:
+0x0000118a      89c0           mov eax, eax
+0x0000118c      50             push eax
+0x0000118d      90             nop
+0x0000118e      90             nop
+0x0000118f      90             nop
+0x00001190      90             nop
+0x00001191      c3             ret
+EOF
+RUN
+
 NAME=long basic blocks
 FILE=../bins/elf/analysis/movfuscator
 BROKEN=1
