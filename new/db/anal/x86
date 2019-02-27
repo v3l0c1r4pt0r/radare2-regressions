@@ -1707,7 +1707,8 @@ EXPECT=<<EOF
 main 0x804831a [DATA] mov dword [var_ch], str.john
 EOF
 CMDS=<<EOF
-aaa
+af@main
+aar
 axt @ str.john
 EOF
 RUN
