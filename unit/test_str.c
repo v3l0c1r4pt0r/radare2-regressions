@@ -267,7 +267,8 @@ bool test_r_str_newf(void) {
 
 	a = r_str_newf ("%s/%s", "hello", "world");
 	a = r_str_appendf (a, "..%s/%s", "cow", "low");
-	mu_assert_streq (a, "hello/world..cow/low", "oops");
+	a = r_str_appendf (a, "PWN");
+	mu_assert_streq (a, "hello/world..cow/lowPWN", "oops");
 	free (a);
 	mu_end;
 }
