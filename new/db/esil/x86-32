@@ -2352,6 +2352,7 @@ CMDS=<<EOF
 # Common parts
 #
 e asm.arch=x86
+e asm.assembler=x86.as
 e asm.bits=32
 wa bsf eax, ebx
 #
@@ -2397,6 +2398,7 @@ CMDS=<<EOF
 # Common parts
 #
 e asm.arch=x86
+e asm.assembler=x86.as
 e asm.bits=32
 wa bsr eax, ebx
 #
