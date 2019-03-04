@@ -288,10 +288,11 @@ RUN
 NAME=rabin2 -qOp/.data/rwx on PE32
 FILE=../bins/pe/test.exe
 CMDS=<<EXPECT
-rm /tmp/rabin2testpe1.exe
-!rabin2 -qOp/.data/rwx -o/tmp/rabin2testpe1.exe ${R2_FILE}
-!rabin2 -S /tmp/rabin2testpe1.exe
-rm /tmp/rabin2testpe1.exe
+mkdir .tmp
+rm .tmp/rabin2testpe1.exe
+!rabin2 -qOp/.data/rwx -o.tmp/rabin2testpe1.exe ${R2_FILE}
+!rabin2 -S .tmp/rabin2testpe1.exe
+rm .tmp/rabin2testpe1.exe
 EXPECT=<<RUN
 wx e0000040 @ 0x244
 [Sections]
@@ -306,10 +307,11 @@ RUN
 NAME=rabin2 -qOp//8 on PE32+
 FILE=../bins/pe/normal64.exe
 CMDS=<<EXPECT
-rm /tmp/rabin2testpe2.exe
-!rabin2 -qOp//8 -o/tmp/rabin2testpe2.exe ${R2_FILE}
-!rabin2 -S /tmp/rabin2testpe2.exe
-rm /tmp/rabin2testpe2.exe
+mkdir .tmp
+rm .tmp/rabin2testpe2.exe
+!rabin2 -qOp//8 -o.tmp/rabin2testpe2.exe ${R2_FILE}
+!rabin2 -S .tmp/rabin2testpe2.exe
+rm .tmp/rabin2testpe2.exe
 EXPECT=<<RUN
 wx 10000000 @ 0x16c
 [Sections]

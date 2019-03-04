@@ -2345,3 +2345,95 @@ EXPECT=<<RUN
 ]
 
 RUN
+
+NAME=bsf reg32, reg32
+CMDS=<<EOF
+#
+# Common parts
+#
+e asm.arch=x86
+e asm.assembler=x86.as
+e asm.bits=32
+wa bsf eax, ebx
+#
+# BSF: test ZF
+#
+aer eax=0x00000000
+aer ebx=0x00000000
+aer zf=0
+aes
+aer eax,zf
+#
+# BSF: test lowest bit
+#
+aeim
+aer eax=0x00000000
+aer ebx=0xffffffff
+aer zf=0
+aes
+aer eax,zf
+#
+# BSF: test highest bit
+#
+aeim
+aer eax=0x00000000
+aer ebx=0x80000000
+aer zf=0
+aes
+aer eax,zf
+EOF
+EXPECT=<<EOF
+0x00000000
+0x00000001
+0x00000000
+0x00000000
+0x0000001f
+0x00000000
+EOF
+RUN
+
+NAME=bsr reg32, reg32
+CMDS=<<EOF
+#
+# Common parts
+#
+e asm.arch=x86
+e asm.assembler=x86.as
+e asm.bits=32
+wa bsr eax, ebx
+#
+# BSR: test ZF
+#
+aer eax=0x00000000
+aer ebx=0x00000000
+aer zf=0
+aes
+aer eax,zf
+#
+# BSR: test lowest bit
+#
+aeim
+aer eax=0x00000000
+aer ebx=0x00000001
+aer zf=0
+aes
+aer eax,zf
+#
+# BSR: test highest bit
+#
+aeim
+aer eax=0x00000000
+aer ebx=0xffffffff
+aer zf=0
+aes
+aer eax,zf
+EOF
+EXPECT=<<EOF
+0x00000000
+0x00000001
+0x00000000
+0x00000000
+0x0000001f
+0x00000000
+EOF
+RUN
