@@ -27,7 +27,7 @@ FILE=malloc://512
 CMDS=<<EXPECT
 e asm.arch = x86
 e anal.arch = x86
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 e asm.bits=64
 wx 31ed4989d15e4889e24883e4f0505449c7c09024410048c7c12024410048c7c7a0284000e857dcfffff4
 af test
@@ -35,7 +35,7 @@ afF @ test
 pdf
 Ps testw > /dev/null
 Pc testw~afF
-rm /tmp/testw
+rm .tmp/testw
 EXPECT=<<RUN
 / (fcn) test
 \           0x00000000 (42 byte folded function)
@@ -45,11 +45,11 @@ RUN
 NAME='Export project'
 FILE=malloc://512
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 CC "Some other test" @ 0x00404890
 Ps testexp > /dev/null
-cat /tmp/testexp/rc | grep base64
-rmdir -p /tmp/testexp
+cat .tmp/testexp/rc | grep base64
+rmdir -p .tmp/testexp
 EXPECT=<<RUN
 "e bin.debase64 = false"
 CCu base64:IlNvbWUgb3RoZXIgdGVzdCI= @ 0x00404890
@@ -58,15 +58,15 @@ RUN
 NAME='Set, export, unset and import'
 FILE=malloc://512
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 CC "First comment" @ 0x00404890
 CC "Second comment" @ 0x00404800
 Ps testset > /dev/null
 C- @ 0x00404890
 C- @ 0x00404800
 Po project.r2
-cat /tmp/testset/rc | grep CC
-rmdir -p /tmp/testset
+cat .tmp/testset/rc | grep CC
+rmdir -p .tmp/testset
 EXPECT=<<RUN
 CCu base64:IlNlY29uZCBjb21tZW50Ig== @ 0x00404800
 CCu base64:IkZpcnN0IGNvbW1lbnQi @ 0x00404890
@@ -76,7 +76,7 @@ NAME='xrefs'
 FILE=malloc://512
 CMDS=<<EXPECT
 ax 1
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 axq
 Ps xrefs > /dev/null
 axq
@@ -100,13 +100,13 @@ FILE=../bins/elf/analysis/simpleARM.elf
 CMDS=<<EXPECT
 e asm.flags = false
 e asm.emu = true
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps emu > /dev/null
 Po emu
 CC-
 om `o~[0]` 0
 pd 1
-rm /tmp/emu
+rm .tmp/emu
 EXPECT=<<RUN
             0x08000060      0d20a0e3       mov r2, 0xd                 ; r2=0xd -> 0x2000000
 RUN
@@ -114,14 +114,14 @@ RUN
 NAME='Variables in project file'
 FILE=../bins/efi/bootia32.efi
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 af
 afvr edi blahblah typeR @ 0x10002d8d
 afvb 8 ImageHandle blah @ 0x10002d8d
 Ps var > /dev/null
 Pc var~ImageHandle
 Pc var~blahblah
-rm /tmp/var
+rm .tmp/var
 EXPECT=<<RUN
 afvb 8 ImageHandle blah @ 0x10002d8d
 afvr edi blahblah typeR @ 0x10002d8d
@@ -131,7 +131,7 @@ RUN
 NAME='Types and link in project file'
 FILE=-
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 tk zoby  =  type
 tl char @ 0x0
 Ps types > /dev/null
@@ -147,7 +147,7 @@ FILE=../bins/elf/analysis/main
 BROKEN=1
 CMDS=<<EXPECT
 e dbg.bpinmaps = false
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 db 0x1234567
 Ps breakpoints > /dev/null
 Pc breakpoints~?0x1234567
@@ -216,7 +216,7 @@ NAME='Save project for a binary and checking opened files'
 FILE='../bins/elf/analysis/main'
 BROKEN=1
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps blah > /dev/null
 Po blah > /dev/null
 o*~?
@@ -229,7 +229,7 @@ NAME='Save project for a binary without saving its info'
 FILE='../bins/elf/analysis/main'
 ARGS='-n'
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps blah > /dev/null
 Po blah > /dev/null
 i~format
@@ -241,7 +241,7 @@ FILE='../bins/elf/analysis/main'
 BROKEN=1
 ARGS=''
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 aaa
 Ps blah
   # Following command hangs:
@@ -255,7 +255,7 @@ FILE='../bins/elf/analysis/main'
 BROKEN=1
 ARGS='-n -m 0x1337'
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps blah > /dev/null
 Po blah > /dev/null
 om*~?
@@ -269,7 +269,7 @@ NAME='Delete a saved project (with Pd)'
 FILE='../bins/elf/analysis/main'
 ARGS='-n'
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps blah > /dev/null
 Pd blah > /dev/null
 Pl~blah
@@ -281,7 +281,7 @@ NAME='Delete a saved project (with P-)'
 FILE='../bins/elf/analysis/main'
 ARGS='-n'
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps blah > /dev/null
 P- blah > /dev/null
 Pl~blah
@@ -292,7 +292,7 @@ NAME='Delete a saved project and used directory (with Pd)'
 FILE='../bins/elf/analysis/main'
 ARGS='-n'
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps blah > /dev/null
 Pd blah > /dev/null
 Pl~blah
@@ -305,7 +305,7 @@ NAME='Delete a saved project and used directory (with P-)'
 FILE='../bins/elf/analysis/main'
 ARGS='-n'
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps blah > /dev/null
 P- blah > /dev/null
 Pl~blah
@@ -318,7 +318,7 @@ FILE='../bins/src/hello.c'
 BROKEN=1
 ARGS=''
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 e asm.bits=16
 Ps blah > /dev/null
 Po blah > /dev/null
@@ -330,12 +330,12 @@ RUN
 NAME='prj.name saved in project'
 FILE=malloc://512
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps named_prj > /dev/null
 e prj.name=
 Po named_prj > /dev/null
 e prj.name
-rm /tmp/named_prj
+rm .tmp/named_prj
 EXPECT=<<RUN
 named_prj
 RUN
@@ -344,7 +344,7 @@ NAME='Checking e prj.name after saving again'
 BROKEN=1
 FILE='../bins/elf/analysis/main'
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps blah > /dev/null
 Po blah > /dev/null
 Ps blah > /dev/null
@@ -360,7 +360,7 @@ CMDS=<<EXPECT
 e asm.arch = x86
 e anal.arch = x86
 e asm.bits=32
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 wx 5031c0e801000000c3b801000000c3
 af
 Ps blah > /dev/null
@@ -374,7 +374,7 @@ NAME='Reopening projects bin info loading'
 FILE=../bins/elf/analysis/main
 BROKEN=1
 CMDS=<<EXPECT
-e dir.projects = /tmp/
+e dir.projects = .tmp/
 Ps bininfo > /dev/null
 Po bininfo
 i~?
