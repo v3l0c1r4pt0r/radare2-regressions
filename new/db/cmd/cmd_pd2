@@ -28,12 +28,12 @@ pd 1 @ 0x000102e0
 pd 1 @ 0x000102e8
 EXPECT=<<RUN
             0x000102e0      ldr ip, sym.__libc_csu_fini                ; [0x102f8:4]=0x10494 sym.__libc_csu_fini
-            0x000102e8      ldr r0, sym.main                           ; [0x102fc:4]=0x10408 sym.main
+            0x000102e8      ldr r0, main                               ; [0x102fc:4]=0x10408 sym.main
 
             ; [0x102f8:4]=0x10494 sym.__libc_csu_fini
             0x000102e0      ldr ip, sym.__libc_csu_fini
             ; [0x102fc:4]=0x10408 sym.main
-            0x000102e8      ldr r0, sym.main
+            0x000102e8      ldr r0, main
 RUN
 
 NAME=realign after sparse (#11810)

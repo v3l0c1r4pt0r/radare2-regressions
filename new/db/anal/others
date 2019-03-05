@@ -498,7 +498,7 @@ FILE=../bins/mach0/mach0-i386
 EXPECT=<<EOF
 0x00001f00    4 73           sym._bar
 0x00001f50    1 47           sym._foo
-0x00001f80    1 41           sym._main
+0x00001f80    1 41           main
 EOF
 CMDS=<<EOF
 e anal.hasnext=0
@@ -510,7 +510,7 @@ RUN
 NAME=aF
 FILE=../bins/mach0/mach0-i386
 EXPECT=<<EOF
-0x00001f80    1 41           sym._main
+0x00001f80    1 41           main
 EOF
 CMDS=<<EOF
 e anal.hasnext=0
@@ -538,7 +538,7 @@ FILE=../bins/mach0/mach0-i386
 EXPECT=<<EOF
 0x00001f00    4 73           sym._bar
 0x00001f50    1 47           sym._foo
-0x00001f80    1 41           sym._main
+0x00001f80    1 41           main
 EOF
 CMDS=<<EOF
 s 0x1000
@@ -1249,7 +1249,7 @@ EXPECT=<<EOF
 
 ┌ (fcn) sym.imp.puts 6
 │   int sym.imp.puts (const char *s);
-│       ╎   ; CALL XREF from sym.main (0x400406)
+│       ╎   ; CALL XREF from main (0x400406)
 └       ╎   0x004003f0      jmp qword reloc.puts                       ; [0x601018:8]=0x4003f6
         ╎   0x004003f6      push 0
         └─< 0x004003fb      jmp 0x4003e0
@@ -1670,7 +1670,7 @@ fastcall
 |           ; arg int arg_ch @ ebp+0xc
 |           ; arg int arg2 @ edx
 |           ; arg int arg1 @ ecx
-|           ; CALL XREF from sym.main (0x80484c7)
+|           ; CALL XREF from main (0x80484c7)
 |           0x0804841b      55             push ebp
 |           0x0804841c      89e5           mov ebp, esp
 |           0x0804841e      83ec28         sub esp, 0x28               ; '('
@@ -1714,7 +1714,7 @@ cdecl
 |           ; arg int arg_ch @ ebp+0xc
 |           ; arg int arg_10h @ ebp+0x10
 |           ; arg int arg_14h @ ebp+0x14
-|           ; CALL XREF from sym.main (0x80484db)
+|           ; CALL XREF from main (0x80484db)
 |           0x08048456      55             push ebp
 |           0x08048457      89e5           mov ebp, esp
 |           0x08048459      83ec18         sub esp, 0x18
@@ -1998,7 +1998,7 @@ RUN
 NAME=axt capstone x86
 FILE=../bins/elf/analysis/main
 EXPECT=<<EOF
-sym.main 0x40050a [DATA] mov edi, str.Hello_World
+main 0x40050a [DATA] mov edi, str.Hello_World
 EOF
 CMDS=<<EOF
 e asm.arch = x86
@@ -2175,7 +2175,7 @@ RUN
 NAME=reference to like mov [0x400000], 0x1234
 FILE=../bins/elf/analysis/reference.out
 EXPECT=<<EOF
-sym.main 0x80483ee [DATA] mov dword obj.a, 0x1337
+main 0x80483ee [DATA] mov dword obj.a, 0x1337
 EOF
 CMDS=<<EOF
 aaa

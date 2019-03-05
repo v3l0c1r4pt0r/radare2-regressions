@@ -228,7 +228,7 @@ push sym.__libc_csu_fini
 push sym.__libc_csu_init
 push ecx
 push esi
-push sym.main
+push main
 EOF
 CMDS=<<EOF
 pi 12

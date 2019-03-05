@@ -379,7 +379,7 @@ f.-patata
 f.
 EOF
 EXPECT=<<EOF
-0x00400410 patata   [sym._start + 0]
+0x00400410 patata   [entry0 + 0]
 EOF
 RUN
 
@@ -393,7 +393,7 @@ f-.patata
 f.
 EOF
 EXPECT=<<EOF
-0x00400410 patata   [sym._start + 0]
+0x00400410 patata   [entry0 + 0]
 EOF
 RUN
 
