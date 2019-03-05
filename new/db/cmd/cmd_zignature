@@ -278,9 +278,9 @@ EXPECT=<<EOF
 EOF
 CMDS=<<EOF
 aaa
-za sym.main r sym.print
+za main r sym.print
 z/
-?v sign.refs.sym.main_0
+?v sign.refs.main_0
 EOF
 RUN
 
@@ -404,7 +404,7 @@ RUN
 NAME=zaf
 FILE=../bins/elf/analysis/zigs
 EXPECT=<<EOF
-zigs.sym.main:
+zigs.main:
   bytes: 554889e54883ec1089....48......bf........e8........b800000000c9c3
   graph: cc=1 nbbs=1 edges=0 ebbs=1 bbsum=32
   addr: 0x0040055b
@@ -415,7 +415,7 @@ CMDS=<<EOF
 aaa
 e zign.mincc = 0
 zs zigs
-zaf sym.main
+zaf main
 z
 EOF
 RUN
@@ -423,7 +423,7 @@ RUN
 NAME=zaf at offset
 FILE=../bins/elf/analysis/zigs
 EXPECT=<<EOF
-zigs.sym.main:
+zigs.main:
   bytes: 554889e54883ec1089....48......bf........e8........b800000000c9c3
   graph: cc=1 nbbs=1 edges=0 ebbs=1 bbsum=32
   addr: 0x0040055b
@@ -434,7 +434,7 @@ CMDS=<<EOF
 aaa
 e zign.mincc = 0
 zs zigs
-zaf @ sym.main
+zaf @ main
 z
 EOF
 RUN
@@ -442,7 +442,7 @@ RUN
 NAME=zaf (root zignspace)
 FILE=../bins/elf/analysis/zigs
 EXPECT=<<EOF
-sym.main:
+main:
   bytes: 554889e54883ec1089....48......bf........e8........b800000000c9c3
   graph: cc=1 nbbs=1 edges=0 ebbs=1 bbsum=32
   addr: 0x0040055b
@@ -453,7 +453,7 @@ EOF
 CMDS=<<EOF
 aaa
 e zign.mincc = 0
-zaf sym.main
+zaf main
 z
 EOF
 RUN
@@ -472,7 +472,7 @@ CMDS=<<EOF
 aaa
 e zign.mincc = 0
 zs zigs
-zaf sym.main foobar
+zaf main foobar
 z
 EOF
 RUN
@@ -491,7 +491,7 @@ EOF
 CMDS=<<EOF
 aaa
 e zign.mincc = 0
-zaf sym.main foobar
+zaf main foobar
 z
 EOF
 RUN
@@ -504,9 +504,9 @@ EOF
 CMDS=<<EOF
 aaa
 zs zigs
-zaf sym.main
+zaf main
 z/
-?v sign.bytes.zigs.sym.main_0
+?v sign.bytes.zigs.main_0
 EOF
 RUN
 
@@ -517,9 +517,9 @@ EXPECT=<<EOF
 EOF
 CMDS=<<EOF
 aaa
-zaf sym.main
+zaf main
 z/
-?v sign.bytes.sym.main_0
+?v sign.bytes.main_0
 EOF
 RUN
 
@@ -530,7 +530,7 @@ EXPECT=<<EOF
 EOF
 CMDS=<<EOF
 aaa
-zaf sym.main foobar
+zaf main foobar
 z/
 ?v sign.bytes.foobar_0
 EOF

@@ -185,7 +185,8 @@ afcf @ main
 afcfj @ main
 '
 EXPECT=<<EOF
-int sym.main (int argc, char **argv, char **envp);
+int main (int argc, char **argv, char **envp);
+int main (int argc, char **argv, char **envp);
 [{"name":"main","return":"int","args":[{"name":"argc","type":"int"},{"name":"argv","type":"char **"},{"name":"envp","type":"char **"}],"count":3}]
 EOF
 RUN

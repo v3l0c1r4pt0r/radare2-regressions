@@ -1138,8 +1138,7 @@ RUN
 NAME=varsub for rip variable
 FILE=../bins/elf/varsub_2
 EXPECT=<<EOF
-  ;-- main:
-/ (fcn) sym.main 21
+/ (fcn) main 21
 | 0x0000061a      pushq %rbp
 | 0x0000061b      movq %rsp, %rbp
 | 0x0000061e      movl $1, obj.sa
@@ -1222,7 +1221,7 @@ RUN
 NAME=pdJ flags
 FILE=../bins/elf/analysis/main
 EXPECT='[{"offset":4195590,"text":"            ;-- main:"},{"offset":4195590,"text":"            0x00400506      55             push rbp"}]
-[{"offset":4195590,"text":"            ;-- main:"},{"offset":4195590,"text":"/ (fcn) sym.main 16"},{"offset":4195590,"text":"|   int sym.main (int argc, char **argv, char **envp);"},{"offset":4195590,"text":"|           ; DATA XREF from entry0 (0x40042d)"},{"offset":4195590,"text":"|           0x00400506      55             push rbp"}]
+[{"offset":4195590,"text":"/ (fcn) main 16"},{"offset":4195590,"text":"|   int main (int argc, char **argv, char **envp);"},{"offset":4195590,"text":"|           ; DATA XREF from entry0 (0x40042d)"},{"offset":4195590,"text":"|           0x00400506      55             push rbp"}]
 '
 CMDS=<<EOF
 s main
