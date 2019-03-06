@@ -1,14 +1,3 @@
-NAME=ds help changing seek
-FILE=-
-EXPECT=<<EOF
-0x8
-EOF
-CMDS=<<EOF
-s 8;ds? > /dev/null
-s
-EOF
-RUN
-
 NAME=aes help changing seek
 FILE=-
 EXPECT=<<EOF
@@ -21,5 +10,15 @@ e asm.bits=32
 aes
 sr PC
 s
+EOF
+RUN
+
+NAME=cmd.esil.intr unset
+FILE=-
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+wx b8010000000f34b801000000cd80ebfe
+10aes
 EOF
 RUN

@@ -354,3 +354,62 @@ aes
 dr?r3
 EOF
 RUN
+
+
+NAME=x86-64 linux syscall
+FILE=../bins/elf/syscall_x86
+EXPECT=<<EOF
+  0x004000f1      syscall     ; 1 = write (1, "Hello, world!.", 14)
+EOF
+CMDS=<<EOF
+e asm.bytes=0
+e asm.lines.bb=0
+e emu.str=1
+e asm.cmt.col=30
+pd 5~write
+EOF
+RUN
+
+NAME=x86-64 linux syscall emulation
+FILE=../bins/elf/syscall_x86
+EXPECT=<<EOF
+1 = write (1, "Hello, world!.", 14)
+EOF
+CMDS=<<EOF
+s entry0
+dr rip=$$
+4aes
+s..f1
+as
+EOF
+RUN
+
+NAME=x86-64 linux syscall emulation
+FILE=../bins/elf/syscall_x86
+EXPECT=<<EOF
+1 = write (1, "Hello, world!.", 14)
+EOF
+CMDS=<<EOF
+s entry0
+dr rip=$$
+4ds
+s..f1
+as
+EOF
+RUN
+
+NAME=cmd.esil.intr set
+FILE=-
+EXPECT=<<EOF
+SYSCALL 128 0
+EOF
+CMDS=<<EOF
+e asm.bits=64
+e asm.arch = x86
+e anal.arch = x86
+wx b8010000000f34b801000000cd80ebfe
+e cmd.esil.intr=?e SYSCALL
+10aes
+EOF
+RUN
+
