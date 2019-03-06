@@ -205,7 +205,7 @@ EOF
 RUN
 
 NAME=float args afli
-FILE=../bins/anal/float_point
+FILE=../bins/elf/float_point
 BROKEN=1
 CMDS=<<EXPECT
 aa
@@ -241,7 +241,7 @@ diff: type: new
 RUN
 
 NAME=double args afli
-FILE=../bins/anal/float_point
+FILE=../bins/elf/float_point
 BROKEN=1
 CMDS=<<EXPECT
 aa
