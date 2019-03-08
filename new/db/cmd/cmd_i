@@ -319,7 +319,7 @@ RUN
 NAME=ic cpp classes
 FILE=../bins/elf/libmagic.so
 EXPECT=<<EOF
-0x00000000 [0x00006060 - 0x0000697c] (sz 2332) class 0 _JNIEnv
+0x00000000 [0x00006060 - 0x0000697c]   2332 class 0 _JNIEnv
 0x000074f8 method 0      inject(_JNIEnv*,_jobject*,_jstring*,_jstring*)
 0x0000699c method 1      findBaseDexClassloader(_JNIEnv*,_jobject*)
 0x00006a2c method 2      getField(_JNIEnv*,_jobject*,_jobject*,_jstring*)

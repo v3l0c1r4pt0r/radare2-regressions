@@ -707,7 +707,7 @@ NAME=rabin2 -c
 FILE=../bins/java/test.class
 CMDS=!rabin2 -c ${R2_FILE}
 EXPECT=<<RUN
-0x00000000 [0x000008f9 - 0x00000b99] (sz 672) class 0 test super: groovy/lang/Script
+0x00000000 [0x000008f9 - 0x00000b99]    672 class 0 test super: groovy/lang/Script
 0x000008f9 method 0      <init>
 0x0000092e method 1      <init>
 0x0000096e method 2      main
