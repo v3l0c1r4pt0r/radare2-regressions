@@ -819,7 +819,7 @@ function createTemporaryFile () {
 }
 
 function parseTestJson (source, line) {
-  const bins = ['../bins/elf/crackme0x00b', '../bins/pe/version_std.exe', '../bins/elf/bomb'];
+  const bins = ['../bins/elf/crackme0x00b', '../bins/pe/version_std.exe', '../bins/elf/bomb', '../bins/mach0/hello-objc'];
   let t = {from: source, broken: false};
   let tmp = line.split(' ');
 
