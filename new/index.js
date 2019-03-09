@@ -844,9 +844,11 @@ function parseTestJson (source, line) {
       test.passes = false;
       if (t.broken) {
         console.error(colors.blue('[BR] ') + t.cmd);
+        console.error(test.stdout);
         console.error(err);
       } else {
         console.error(colors.red.bold('[XX] ') + t.cmd);
+        console.error(test.stdout);
         console.error(err);
       }
       
