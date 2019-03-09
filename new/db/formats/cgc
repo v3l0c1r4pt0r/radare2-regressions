@@ -1,11 +1,10 @@
 NAME=CGC: Open/iI
-ARGS=-F cgc
 FILE=../bins/cgc/CADET_00001
 EXPECT=<<EOF
 1
 EOF
 CMDS=<<EOF
-i~?cgc
+i~?format   cgc
 EOF
 RUN
 
