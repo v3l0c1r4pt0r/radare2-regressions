@@ -1840,3 +1840,38 @@ file     A�€𝄞󠁁\.bin
 file     B��€𝄞󠁁\.bin
 {"core":{"type":"","file":"B\u001b¢\u0080\x80€𝄞\udb40\udc41\\.bin","fd":5,"size":256,"humansz":"256","iorw":true,"mode":"r-x","obsz":0,"block":256,"format":"any"}}
 RUN
+
+NAME=ik
+FILE=../bins/mach0/fatmach0-3true
+CMDS=ik~?mach0.entry.vaddr=0x100000ef8
+EXPECT=<<RUN
+1
+RUN
+
+NAME=ikv
+FILE=../bins/mach0/fatmach0-3true
+CMDS=ikv mach0.entry.vaddr
+EXPECT=<<RUN
+0x100000ef8
+RUN
+
+NAME=ik.
+FILE=../bins/mach0/fatmach0-3true
+CMDS=ik. mach0.entry.vaddr
+EXPECT=<<RUN
+0x100000ef8
+RUN
+
+NAME=ik*
+FILE=../bins/mach0/fatmach0-3true
+CMDS=ik*~?mach0_segment_0
+EXPECT=<<RUN
+1
+RUN
+
+NAME=ik?
+FILE=../bins/mach0/fatmach0-3true
+CMDS=ik?~?Usage
+EXPECT=<<RUN
+1
+RUN
