@@ -959,6 +959,18 @@ pd 1~char *s2?
 EOF
 RUN
 
+NAME=Settings global calling convention
+FILE=../bins/pe/msvcfindmain.exe
+EXPECT=<<EOF
+65
+EOF
+CMDS=<<EOF
+afc=pascal
+aaa
+afi @@@F~?pascal
+EOF
+RUN
+
 NAME=1: Wrong calling convention
 FILE=../bins/pe/crackme0x00.exe
 EXPECT=<<EOF
