@@ -824,7 +824,7 @@ NAME=stackptr
 FILE=../bins/mach0/mac-ls
 EXPECT=<<EOF
 104
-8
+104
 48-
 40-
 32-
