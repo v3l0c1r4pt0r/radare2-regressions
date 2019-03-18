@@ -1490,12 +1490,12 @@ EXPECT=<<EOF
 EOF
 RUN
 
-NAME=asm.bbline
+NAME=asm.bb.line
 FILE=../bins/elf/analysis/ls2
 CMDS=<<EOF
 e scr.utf8=false
 e scr.color=0
-e asm.bbline=true
+e asm.bb.line=true
 e asm.comments=false
 s main
 af
