@@ -4023,17 +4023,20 @@ RUN
 # Should not be run on Windows
 NAME=utf8 (possibly malformed) filenames with non-printable chars
 FILE=-
-CMDS=<<EXPECT
+CMDS=<<EOF
+cd `e dir.tmp`
 e io.cache=true
 "(show_fname fname, wz $0, wtf `prz`, o `prz`, i~file, ij, rm `prz`)"
 .(show_fname A\x1b¢\302\200€𝄞\363\240\201\201\\.bin)
-.(show_fname B\x1b¢\302\200\200€𝄞\363\240\201\201\\.bin)
-  # TODO: fix i~file output
-EXPECT=<<RUN
+.(show_fname B\x1b¢\302\200€𝄞\363\240\201\201\\.bin)
+# INVALID FILENAME .(show_fname B\x1b¢\302\200\200€𝄞\363\240\201\201\\.bin)
+EOF
+EXPECT=<<EOF
 file     A�€𝄞󠁁\.bin
 {"core":{"type":"","file":"A\u001b¢\u0080€𝄞\udb40\udc41\\.bin","fd":4,"size":256,"humansz":"256","iorw":true,"mode":"r-x","obsz":0,"block":256,"format":"any"}}
-file     B��€𝄞󠁁\.bin
-{"core":{"type":"","file":"B\u001b¢\u0080\x80€𝄞\udb40\udc41\\.bin","fd":5,"size":256,"humansz":"256","iorw":true,"mode":"r-x","obsz":0,"block":256,"format":"any"}}
+file     B�€𝄞󠁁\.bin
+{"core":{"type":"","file":"B\u001b¢\u0080€𝄞\udb40\udc41\\.bin","fd":5,"size":256,"humansz":"256","iorw":true,"mode":"r-x","obsz":0,"block":256,"format":"any"}}
+EOF
 RUN
 
 NAME=ik
@@ -4123,15 +4126,15 @@ f str.http:__www.apple.com_appleca_codesigning.crl0 48 @ 0x100001f3c
 RUN
 
 NAME=it
-FILE=../bins/mach0/fatmach0-3true
+FILE=-
 ARGS=-w
 CMDS=it ; wx 0x90 ; it
 EXPECT_ERR=File has been modified.
 EXPECT=<<RUN
-md5 84144530144b53a704c84d9c65ab5f92
-sha1 9016e215a321184c42c28ab03847554851932713
-- md5 84144530144b53a704c84d9c65ab5f92
-- sha1 9016e215a321184c42c28ab03847554851932713
-+ md5 9a99cca7bf3e27ee1c8964141cfad053
-+ sha1 17c5b6331a420fc3b48defe782090295294fee2e
+md5 bf619eac0cdf3f68d496ea9344137e8b
+sha1 5c3eb80066420002bc3dcc7ca4ab6efad7ed4ae5
+- md5 bf619eac0cdf3f68d496ea9344137e8b
+- sha1 5c3eb80066420002bc3dcc7ca4ab6efad7ed4ae5
++ md5 afd010a5a5456c232dee59d59bd75cf6
++ sha1 3bfd02bb4fac6499c89278254f04a081887c38ea
 RUN
