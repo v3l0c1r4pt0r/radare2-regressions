@@ -192,15 +192,15 @@ RUN
 NAME=x86: fastcall argument analysis
 FILE=../bins/elf/analysis/fast
 EXPECT=<<EOF
-|   sym.fastcaslled (int arg2, int arg1, int arg_8h, int arg_ch);
-|           ; var int var_20h @ ebp-0x20
-|           ; var int var_1ch @ ebp-0x1c
-|           ; var int var_10h @ ebp-0x10
-|           ; var int var_ch @ ebp-0xc
-|           ; arg int arg_8h @ ebp+0x8
-|           ; arg int arg_ch @ ebp+0xc
-|           ; arg int arg2 @ edx
-|           ; arg int arg1 @ ecx
+|   sym.fastcaslled (int32_t arg2, int32_t arg1, int32_t arg_8h, int32_t arg_ch);
+|           ; var int32_t var_20h @ ebp-0x20
+|           ; var int32_t var_1ch @ ebp-0x1c
+|           ; var int32_t var_10h @ ebp-0x10
+|           ; var int32_t var_ch @ ebp-0xc
+|           ; arg int32_t arg_8h @ ebp+0x8
+|           ; arg int32_t arg_ch @ ebp+0xc
+|           ; arg int32_t arg2 @ edx
+|           ; arg int32_t arg1 @ ecx
 |           0x08048421      894de4         mov dword [var_1ch], ecx    ; arg1
 |           0x08048424      8955e0         mov dword [var_20h], edx    ; arg2
 |           0x08048427      8b55e4         mov edx, dword [var_1ch]
@@ -3110,9 +3110,9 @@ aa > /dev/null
 pd 38
 EXPECT=<<RUN
 ┌ (fcn) fcn.00000000 1645
-│           ; var int var_4h @ esp+0x4
-│           ; var int var_1ch @ esp+0x1c
-│           ; var int var_2ch @ esp+0x2c
+│           ; var int32_t var_4h @ esp+0x4
+│           ; var int32_t var_1ch @ esp+0x1c
+│           ; var int32_t var_2ch @ esp+0x2c
 │           0x00000000      xor eax, eax
 │           0x00000002      cmp esi, edx
 │       ┌─< 0x00000004      jb 0x50
@@ -3171,9 +3171,9 @@ aa >/dev/null
 pd 38
 EXPECT=<<RUN
 / (fcn) fcn.00000000 1645
-|           ; var int var_4h @ esp+0x4
-|           ; var int var_1ch @ esp+0x1c
-|           ; var int var_2ch @ esp+0x2c
+|           ; var int32_t var_4h @ esp+0x4
+|           ; var int32_t var_1ch @ esp+0x1c
+|           ; var int32_t var_2ch @ esp+0x2c
 |           0x00000000      xor eax, eax
 |           0x00000002      cmp esi, edx
 |       ,=< 0x00000004      jb 0x50
@@ -3233,15 +3233,15 @@ NAME=afva for esp based vars
 FILE=malloc://1024
 EXPECT=<<EOF
 / (fcn) fcn.00000000 89
-|           ; var int var_4h @ esp+0x4
-|           ; var int var_8h @ esp+0x8
-|           ; var int var_ch @ esp+0xc
-|           ; arg int arg_14h @ esp+0x14
-|           ; arg int arg_18h @ esp+0x18
-|           ; arg int arg_1ch @ esp+0x1c
-|           ; arg int arg_20h @ esp+0x20
-|           ; arg int arg_28h @ esp+0x28
-|           ; arg int arg_2ch @ esp+0x2c
+|           ; var int32_t var_4h @ esp+0x4
+|           ; var int32_t var_8h @ esp+0x8
+|           ; var int32_t var_ch @ esp+0xc
+|           ; arg int32_t arg_14h @ esp+0x14
+|           ; arg int32_t arg_18h @ esp+0x18
+|           ; arg int32_t arg_1ch @ esp+0x1c
+|           ; arg int32_t arg_20h @ esp+0x20
+|           ; arg int32_t arg_28h @ esp+0x28
+|           ; arg int32_t arg_2ch @ esp+0x2c
 |           0x00000000      83ec10         sub esp, 0x10
 |           0x00000003      8b442418       mov eax, dword [arg_18h]
 |           0x00000007      99             cdq
