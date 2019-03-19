@@ -142,15 +142,15 @@ i~:1..2
 i~:-2
 i~:-1
 EXPECT=<<RUN
-blksz    0x0
-block    0x100
 fd       3
 blksz    0x0
 block    0x100
 fd       3
+blksz    0x0
 block    0x100
 size     0x400
 humansz  1K
+block    0x100
 RUN
 
 NAME='multigrep'
