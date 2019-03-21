@@ -141,6 +141,7 @@ relocs   false
 static   true
 stripped false
 va       false
+compiler GCC: (GNU) 4.8.2
 [Imports]
 Num  Vaddr       Bind      Type Name
 [Exports]
@@ -275,6 +276,7 @@ static   false
 stripped false
 subsys   linux
 va       true
+compiler GCC: (GNU) 4.8.2
 EOF
 CMDS=<<EOF
 i~!file
@@ -329,6 +331,7 @@ static   false
 stripped false
 subsys   any
 va       false
+compiler GCC: (GNU) 4.8.2
   ;-- entry1:
   ;-- method.TestVariableSwitchUp.TestMultipleVariable:
 / (fcn) sym.TestVariableSwitchUp.TestMultipleVariable 37
@@ -1466,6 +1469,7 @@ static   false
 stripped false
 subsys   linux
 va       true
+compiler GCC: (GNU) 4.8.2
 EOF
 CMDS=<<EOF
 iI
@@ -1509,6 +1513,7 @@ EXPECT='{
   "stripped": false,
   "subsys": "linux",
   "va": true,
+  "compiler": "GCC: (GNU) 4.8.2",
   "checksums": {
     
   }
@@ -2946,6 +2951,7 @@ static   false
 stripped false
 subsys   linux
 va       true
+compiler GCC: (GNU) 4.7.2
 EOF
 CMDS=<<EOF
 i~!hello-linux
@@ -3038,6 +3044,7 @@ static   false
 stripped false
 subsys   linux
 va       true
+compiler GCC: (GNU) 4.7.2
 EOF
 CMDS=<<EOF
 iI

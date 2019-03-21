@@ -520,6 +520,7 @@ static   false
 stripped false
 subsys   linux
 va       true
+compiler GCC: (GNU) 4.8.2
 0x00000000  ELF MAGIC   0x464c457f
 0x00000010  Type        0x0002
 0x00000012  Machine     0x0003
@@ -600,6 +601,7 @@ static   false
 stripped false
 subsys   linux
 va       true
+compiler GCC: (Ubuntu 7.3.0-16ubuntu3) 7.3.0
 RUN
 
 NAME=rabin2 -I asan
@@ -636,6 +638,7 @@ static   false
 stripped false
 subsys   linux
 va       true
+compiler GCC: (Debian 8.2.0-5) 8.2.0/clang version 6.0.1-6 (tags/RELEASE_601/final)
 RUN
 
 NAME=rabin2 -I apple-blocks-ext
