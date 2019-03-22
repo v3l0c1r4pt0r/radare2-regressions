@@ -414,6 +414,7 @@ bintype  elf
 bits     64
 canary   false
 class    ELF64
+compiler GCC: (GNU) 5.2.0
 crypto   false
 endian   little
 havecode true

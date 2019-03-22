@@ -141,7 +141,6 @@ sanitiz  false
 static   true
 stripped false
 va       false
-compiler GCC: (GNU) 4.8.2
 [Imports]
 Num  Vaddr       Bind      Type Name
 [Exports]
@@ -253,6 +252,7 @@ bintype  elf
 bits     32
 canary   false
 class    ELF32
+compiler GCC: (GNU) 4.8.2
 crypto   false
 endian   little
 havecode true
@@ -276,7 +276,6 @@ static   false
 stripped false
 subsys   linux
 va       true
-compiler GCC: (GNU) 4.8.2
 EOF
 CMDS=<<EOF
 i~!file
@@ -331,7 +330,6 @@ static   false
 stripped false
 subsys   any
 va       false
-compiler GCC: (GNU) 4.8.2
   ;-- entry1:
   ;-- method.TestVariableSwitchUp.TestMultipleVariable:
 / (fcn) sym.TestVariableSwitchUp.TestMultipleVariable 37
@@ -1446,6 +1444,7 @@ bintype  elf
 bits     32
 canary   false
 class    ELF32
+compiler GCC: (GNU) 4.8.2
 crypto   false
 endian   little
 havecode true
@@ -1469,7 +1468,6 @@ static   false
 stripped false
 subsys   linux
 va       true
-compiler GCC: (GNU) 4.8.2
 EOF
 CMDS=<<EOF
 iI
@@ -1488,6 +1486,7 @@ EXPECT='{
   "canary": false,
   "class": "ELF32",
   "compiled": "",
+  "compiler": "GCC: (GNU) 4.8.2",
   "crypto": false,
   "dbg_file": "",
   "endian": "little",
@@ -1513,7 +1512,6 @@ EXPECT='{
   "stripped": false,
   "subsys": "linux",
   "va": true,
-  "compiler": "GCC: (GNU) 4.8.2",
   "checksums": {
     
   }
@@ -2928,6 +2926,7 @@ bintype  elf
 bits     64
 canary   false
 class    ELF64
+compiler GCC: (GNU) 4.7.2
 crypto   false
 endian   little
 havecode true
@@ -2951,7 +2950,6 @@ static   false
 stripped false
 subsys   linux
 va       true
-compiler GCC: (GNU) 4.7.2
 EOF
 CMDS=<<EOF
 i~!hello-linux
@@ -3021,6 +3019,7 @@ bintype  elf
 bits     64
 canary   false
 class    ELF64
+compiler GCC: (GNU) 4.7.2
 crypto   false
 endian   little
 havecode true
@@ -3044,7 +3043,6 @@ static   false
 stripped false
 subsys   linux
 va       true
-compiler GCC: (GNU) 4.7.2
 EOF
 CMDS=<<EOF
 iI
@@ -4010,7 +4008,6 @@ RUN
 
 NAME=ii dupped imports
 FILE=../bins/elf/varsub
-BROKEN=1
 CMDS=ii
 EXPECT=<<RUN
 [Imports]
