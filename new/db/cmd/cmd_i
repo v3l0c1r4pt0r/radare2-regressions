@@ -125,7 +125,6 @@ baddr    0x0
 binsz    1025
 bits     64
 canary   false
-sanitiz  false
 crypto   false
 endian   little
 havecode false
@@ -138,6 +137,7 @@ nx       false
 pcalign  0
 pic      false
 relocs   false
+sanitiz  false
 static   true
 stripped false
 va       false
@@ -205,7 +205,6 @@ baddr    0x0
 binsz    1024
 bits     64
 canary   false
-sanitiz  false
 crypto   false
 endian   little
 havecode false
@@ -218,6 +217,7 @@ nx       false
 pcalign  0
 pic      false
 relocs   false
+sanitiz  false
 static   true
 stripped false
 va       false
@@ -252,7 +252,6 @@ binsz    4899
 bintype  elf
 bits     32
 canary   false
-sanitiz  false
 class    ELF32
 crypto   false
 endian   little
@@ -272,6 +271,7 @@ pic      false
 relocs   true
 relro    no
 rpath    NONE
+sanitiz  false
 static   false
 stripped false
 subsys   linux
@@ -313,7 +313,6 @@ bintype  class
 bits     32
 canary   false
 retguard false
-sanitiz  false
 class    0x3200 0x0000
 crypto   false
 endian   little
@@ -327,6 +326,7 @@ nx       false
 os       any
 pic      false
 relocs   false
+sanitiz  false
 static   false
 stripped false
 subsys   any
@@ -1445,7 +1445,6 @@ binsz    4899
 bintype  elf
 bits     32
 canary   false
-sanitiz  false
 class    ELF32
 crypto   false
 endian   little
@@ -1465,6 +1464,7 @@ pic      false
 relocs   true
 relro    no
 rpath    NONE
+sanitiz  false
 static   false
 stripped false
 subsys   linux
@@ -1486,7 +1486,6 @@ EXPECT='{
   "bintype": "elf",
   "bits": 32,
   "canary": false,
-  "sanitiz": false,
   "class": "ELF32",
   "compiled": "",
   "crypto": false,
@@ -1509,6 +1508,7 @@ EXPECT='{
   "relocs": true,
   "relro": "no",
   "rpath": "NONE",
+  "sanitiz": false,
   "static": false,
   "stripped": false,
   "subsys": "linux",
@@ -2927,7 +2927,6 @@ binsz    6710
 bintype  elf
 bits     64
 canary   false
-sanitiz  false
 class    ELF64
 crypto   false
 endian   little
@@ -2947,6 +2946,7 @@ pic      false
 relocs   true
 relro    no
 rpath    NONE
+sanitiz  false
 static   false
 stripped false
 subsys   linux
@@ -3020,7 +3020,6 @@ binsz    6710
 bintype  elf
 bits     64
 canary   false
-sanitiz  false
 class    ELF64
 crypto   false
 endian   little
@@ -3040,6 +3039,7 @@ pic      false
 relocs   true
 relro    no
 rpath    NONE
+sanitiz  false
 static   false
 stripped false
 subsys   linux

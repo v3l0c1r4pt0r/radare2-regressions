@@ -16,7 +16,6 @@ binsz    160504
 bits     16
 canary   false
 retguard false
-sanitiz  false
 class    SEGA MEGASIS    (C)2015 James L.
 crypto   false
 endian   big
@@ -29,6 +28,7 @@ nx       false
 os       smd
 pic      false
 relocs   false
+sanitiz  false
 static   true
 stripped false
 va       true

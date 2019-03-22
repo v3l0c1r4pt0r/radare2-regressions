@@ -413,7 +413,6 @@ binsz    643108
 bintype  elf
 bits     64
 canary   false
-sanitiz  false
 class    ELF64
 crypto   false
 endian   little
@@ -428,6 +427,7 @@ os       linux
 pic      false
 relocs   true
 rpath    NONE
+sanitiz  false
 static   true
 stripped false
 subsys   linux

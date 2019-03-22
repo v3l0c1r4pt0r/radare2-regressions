@@ -496,7 +496,6 @@ binsz    4899
 bintype  elf
 bits     32
 canary   false
-sanitiz  false
 class    ELF32
 crypto   false
 endian   little
@@ -516,6 +515,7 @@ pic      false
 relocs   true
 relro    no
 rpath    NONE
+sanitiz  false
 static   false
 stripped false
 subsys   linux
@@ -577,7 +577,6 @@ binsz    7051
 bintype  elf
 bits     64
 canary   false
-sanitiz  false
 class    ELF64
 crypto   false
 endian   little
@@ -597,6 +596,7 @@ pic      true
 relocs   true
 relro    full
 rpath    NONE
+sanitiz  false
 static   false
 stripped false
 subsys   linux
@@ -614,7 +614,6 @@ binsz    1603255
 bintype  elf
 bits     64
 canary   false
-sanitiz  true
 class    ELF64
 crypto   false
 endian   little
@@ -634,6 +633,7 @@ pic      false
 relocs   true
 relro    partial
 rpath    NONE
+sanitiz  true
 static   false
 stripped false
 subsys   linux
@@ -651,7 +651,6 @@ binsz    9828
 bintype  mach0
 bits     64
 canary   false
-sanitiz  false
 class    MACH064
 crypto   false
 endian   little
@@ -669,6 +668,7 @@ os       darwin
 pcalign  0
 pic      true
 relocs   false
+sanitiz  false
 static   false
 stripped false
 subsys   darwin
