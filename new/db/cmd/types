@@ -14,13 +14,13 @@ EXPECT=<<EOF
             0x00000000      4157           push r15
 (short)
 0x00000002 = 0x5641
+            0x00000004      4155           push r13
             0x00000006      4154           push r12
 (int)
 0x00000008 = 1442089289
-            0x0000000e      fd             std
+            0x0000000c      53             push rbx
+            0x0000000d      89fd           mov ebp, edi
             0x0000000f      4881eca80300.  sub rsp, 0x3a8
-            0x00000016      488b3e         mov rdi, qword [rsi]
-            0x00000019      64488b042528.  mov rax, qword fs:[0x28]
 EOF
 RUN
 
