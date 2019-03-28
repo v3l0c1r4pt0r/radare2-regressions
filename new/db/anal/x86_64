@@ -1630,7 +1630,7 @@ NAME=axf string ref capstone x86
 FILE=../bins/elf/ioli/crackme0x03
 EXPECT=<<EOF
 sym.test 0x804848a [DATA] mov dword [esp], str.Sdvvzrug_RN
-d 0x804848a mov dword [esp], str.Sdvvzrug_RN
+d 0x80485fe str.Sdvvzrug_RN
 EOF
 CMDS=<<EOF
 e asm.arch = x86
