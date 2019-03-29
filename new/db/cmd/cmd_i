@@ -64,24 +64,31 @@ EXPECT=<<EOF
 fs header
 f header.ELF @ 0x00000000
 CC 0x464c457f @ 0x0
+Cf 4 x @ 0x0
 pf.ELF x
 f header.Type @ 0x00000010
 CC 0x00000002 @ 0x10
+Cf 2 x @ 0x10
 pf.Type x
 f header.Machine @ 0x00000012
 CC 0x00000003 @ 0x12
+Cf 2 x @ 0x12
 pf.Machine x
 f header.Version @ 0x00000014
 CC 0x00000001 @ 0x14
+Cf 4 x @ 0x14
 pf.Version x
 f header.Entry_point @ 0x00000018
 CC 0x08048300 @ 0x18
+Cf 4 x @ 0x18
 pf.Entry_point x
 f header.PhOff @ 0x0000001c
 CC 0x00000034 @ 0x1c
+Cf 4 x @ 0x1c
 pf.PhOff x
 f header.ShOff @ 0x00000020
 CC 0x000007cc @ 0x20
+Cf 4 x @ 0x20
 pf.ShOff x
 EOF
 CMDS=<<EOF
