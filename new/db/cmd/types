@@ -1357,3 +1357,13 @@ func.main.cc=cdecl
 func.main.ret=int32_t
 EOF
 RUN
+
+NAME=td crash
+FILE=-
+CMDS=<<EOF
+"td struct;"
+"td struct crash __attribute__((packed)) { };"
+EOF
+EXPECT=<<EOF
+EOF
+RUN
