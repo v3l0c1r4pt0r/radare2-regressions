@@ -567,9 +567,8 @@ NAME=delete memory format with Cf-
 FILE=../bins/dmg/src/Hello
 EXPECT=<<EOF
             0x00000000      57             push rdi
-            0x00000000 format x {
+            0x00000000 pf x # size=1
 0x00000000 = 0x6c726f57
-} 1
 temp_proj
             0x00000000      57             push rdi
 temp_proj
