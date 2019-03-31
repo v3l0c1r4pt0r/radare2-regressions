@@ -1629,6 +1629,8 @@ NAME=axf string ref capstone x86
 FILE=../bins/elf/ioli/crackme0x03
 EXPECT=<<EOF
 sym.test 0x804848a [DATA] mov dword [esp], str.Sdvvzrug_RN
+sym.test 0x804848a [DATA] mov dword [esp], str.Sdvvzrug_RN
+d 0x80485fe str.Sdvvzrug_RN
 d 0x80485fe str.Sdvvzrug_RN
 EOF
 CMDS=<<EOF
@@ -1638,7 +1640,11 @@ e scr.color = false
 e scr.wheel = false
 aa
 axt str.Sdvvzrug_RN
+s str.Sdvvzrug_RN
+axt
 axf 0x804848a
+s 0x804848a
+axf
 EOF
 RUN
 
