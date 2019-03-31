@@ -93,7 +93,7 @@ EXPECT=<<EOF
 (nofunc) 0x4bfe53 [DATA] mov edx, 0x4bffb0
 EOF
 CMDS=<<EOF
-aaa
+aar
 axt 0x4bffb0
 EOF
 RUN
@@ -251,7 +251,6 @@ e anal.jmp.ref=true
 e anal.split=true
 # HACK to avoid ASAN taking too long on travis.. this is broken anyway
 e anal.bb.maxsize=1K
-aaa
 adf @ sym.testObf27.exe_VirtMe
 .adf @ sym.testObf27.exe_VirtMe
 adf @ 0x00560e67
@@ -351,10 +350,10 @@ NAME=af+afl on pe/test
 FILE=../bins/pe/test.exe
 EXPECT=<<EOF
 0x00401000    1 59           main
-0x0040103b    3 15   -> 277  fcn.0040103b
-0x0040104a    4 109          fcn.0040104a
-0x004010c7    1 29           fcn.004010c7
 0x004010e4    4 148          fcn.004010e4
+0x004010c7    1 29           fcn.004010c7
+0x0040104a    4 109          fcn.0040104a
+0x0040103b    3 15   -> 277  fcn.0040103b
 0x00401335    3 262          loc.00401335
 0x00404ad7    1 8            fcn.00404ad7
 EOF
@@ -369,10 +368,10 @@ NAME=anal.fcnprefix
 FILE=../bins/pe/test.exe
 EXPECT=<<EOF
 0x00401000    1 59           main
-0x0040103b    3 15   -> 277  root.0040103b
-0x0040104a    4 109          root.0040104a
-0x004010c7    1 29           root.004010c7
 0x004010e4    4 148          root.004010e4
+0x004010c7    1 29           root.004010c7
+0x0040104a    4 109          root.0040104a
+0x0040103b    3 15   -> 277  root.0040103b
 0x00401335    3 262          loc.00401335
 0x00404ad7    1 8            root.00404ad7
 EOF
