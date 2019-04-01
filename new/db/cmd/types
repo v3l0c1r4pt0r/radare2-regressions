@@ -51,6 +51,36 @@ EXPECT=<<EOF
 EOF
 RUN
 
+NAME=List type links
+CMDS=<<EOF
+tl int = 0x4
+w test @ 0x10
+tl char * = 0x10
+tl
+EOF
+EXPECT=<<RUN
+0x00000004 = int
+0x00000010 = char *
+RUN
+
+NAME=List readable type links
+CMDS=<<EOF
+tl int
+wB -1
+tl int = 0x8
+w test @ 0x10
+tl char * = 0x10
+tll
+EOF
+EXPECT=<<RUN
+(int)
+0x00000000 = -1
+(int)
+0x00000008 = 0
+(char *)
+0x00000010 = "test"
+RUN
+
 NAME=jni and SoP
 FILE=../bins/elf/libverifyPass.so
 CMDS=<<EOF
