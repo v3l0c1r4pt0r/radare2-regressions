@@ -13,6 +13,7 @@ e asm.bb.middle=false
 pD 0x560eb3-$$
 EXPECT=<<RUN
 / (fcn) fcn.00560e67 6412
+|   fcn.00560e67 ();
 |           0x00560e67      push esi
 |       ,=< 0x00560e68      jmp 0x560e7d
         |   0x00560e6d      push ecx
@@ -49,6 +50,7 @@ EXPECT=<<RUN
 |      ||   0x00560eb2      pop eax
 
 / (fcn) fcn.00560e67 6412
+|   fcn.00560e67 ();
 |           0x00560e67      push esi
 |       ,=< 0x00560e68      jmp 0x560e7d
         |   0x00560e6d      push ecx
