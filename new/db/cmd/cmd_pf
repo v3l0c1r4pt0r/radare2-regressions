@@ -943,9 +943,10 @@ RUN
 NAME=pfj and Matryoshka dolls
 FILE=-
 CMDS=<<EXPECT
-wv2 0x1234
-wv8 0xdef0123456789abc @ 0x2
-pf.third w t1
+wx 7f
+wv8 0xdef0123456789abc @ 0x1
+pf.fourth b fo1
+pf.third ? (fourth)fo
 pf.second ? (third)t
 pf.start ?q (second)s f1
 pf.start
@@ -961,8 +962,10 @@ EXPECT=<<RUN
                 struct<second>
    t : 
                       struct<third>
-       t1 : 0x00000000 = 0x1234
- f1 : 0x00000002 = (qword)0xdef0123456789abc
+       fo : 
+                            struct<fourth>
+             fo1 : 0x00000000 = 0x7f
+ f1 : 0x00000001 = (qword)0xdef0123456789abc
 
 [
   {
@@ -976,10 +979,17 @@ EXPECT=<<RUN
         "offset": 0,
         "value": [
           {
-            "name": "t1",
-            "type": "w",
+            "name": "fo",
+            "type": "fourth",
             "offset": 0,
-            "value": 4660
+            "value": [
+              {
+                "name": "fo1",
+                "type": "b",
+                "offset": 0,
+                "value": 127
+              }
+            ]
           }
         ]
       }
@@ -988,7 +998,7 @@ EXPECT=<<RUN
   {
     "name": "f1",
     "type": "q",
-    "offset": 2,
+    "offset": 1,
     "value": -2382384186880648516
   }
 ]
@@ -997,7 +1007,9 @@ EXPECT=<<RUN
                 struct<second>
    t : 
                       struct<third>
-       t1 : 0x00000000 = 0x1234
+       fo : 
+                            struct<fourth>
+             fo1 : 0x00000000 = 0x7f
 
 [
   {
@@ -1011,10 +1023,17 @@ EXPECT=<<RUN
         "offset": 0,
         "value": [
           {
-            "name": "t1",
-            "type": "w",
+            "name": "fo",
+            "type": "fourth",
             "offset": 0,
-            "value": 4660
+            "value": [
+              {
+                "name": "fo1",
+                "type": "b",
+                "offset": 0,
+                "value": 127
+              }
+            ]
           }
         ]
       }
