@@ -939,3 +939,86 @@ EXPECT=<<RUN
   }
 ]
 RUN
+
+NAME=pfj and Matryoshka dolls
+FILE=-
+CMDS=<<EXPECT
+wv2 0x1234
+wv8 0xdef0123456789abc @ 0x2
+pf.third w t1
+pf.second ? (third)t
+pf.start ?q (second)s f1
+pf.start
+?e
+pfj.start~{}
+?e
+pf.full ? (second)s
+pf.full
+?e
+pfj.full~{}
+EXPECT=<<RUN
+  s : 
+                struct<second>
+   t : 
+                      struct<third>
+       t1 : 0x00000000 = 0x1234
+ f1 : 0x00000002 = (qword)0xdef0123456789abc
+
+[
+  {
+    "name": "s",
+    "type": "second",
+    "offset": 0,
+    "value": [
+      {
+        "name": "t",
+        "type": "third",
+        "offset": 0,
+        "value": [
+          {
+            "name": "t1",
+            "type": "w",
+            "offset": 0,
+            "value": 4660
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "f1",
+    "type": "q",
+    "offset": 2,
+    "value": -2382384186880648516
+  }
+]
+
+ s : 
+                struct<second>
+   t : 
+                      struct<third>
+       t1 : 0x00000000 = 0x1234
+
+[
+  {
+    "name": "s",
+    "type": "second",
+    "offset": 0,
+    "value": [
+      {
+        "name": "t",
+        "type": "third",
+        "offset": 0,
+        "value": [
+          {
+            "name": "t1",
+            "type": "w",
+            "offset": 0,
+            "value": 4660
+          }
+        ]
+      }
+    ]
+  }
+]
+RUN
