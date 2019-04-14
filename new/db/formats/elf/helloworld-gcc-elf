@@ -1,3 +1,15 @@
+NAME=x86 - main detection
+FILE=../bins/arm/elf/hello_world
+CMDS=<<EOF
+?v main
+?v sym.main
+EOF
+EXPECT=<<EOF
+0x50c
+0x50c
+EOF
+RUN
+
 NAME=x86 - init_array detection
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 EXPECT=<<EOF
