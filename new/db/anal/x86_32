@@ -1,3 +1,16 @@
+NAME=aap
+FILE=../bins/pe/NoREpls.exe
+CMDS=<<EOF
+aaa
+s 0x00401e80
+afi.
+aap
+afi.
+EOF
+EXPECT=<<EOF
+fcn.00401e80
+EOF
+RUN
 
 NAME=anal.pushret
 FILE=-
