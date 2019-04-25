@@ -5,7 +5,9 @@ af
 aCe 0x10000143e
 EOF
 EXPECT=<<EOF
-char *getenv("COLUMNS")
+|           ;-- syscall.socket:
+|           0x00001140      0f05           syscall
+41 = socket (0x00000001, 0x00000002, 0x00000003)
 EOF
 RUN
 
@@ -23,9 +25,6 @@ as
 EOF
 EXPECT=<<EOF
 |           ;-- syscall.socket:
-|           ;-- syscall.socket.0:
-|           ;-- syscall.socket.1:
-|           ;-- syscall.socket.2:
 |           0x00001140      0f05           syscall
 41 = socket (0x00000001, 0x00000002, 0x00000003)
 EOF
