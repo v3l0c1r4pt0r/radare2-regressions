@@ -1,13 +1,11 @@
-NAME=x86_64 socket syscall
+NAME=x86_64 getenv this maybe
 FILE=../bins/mach0/ls-osx-x86_64
 CMDS=<<EOF
 af
 aCe 0x10000143e
 EOF
 EXPECT=<<EOF
-|           ;-- syscall.socket:
-|           0x00001140      0f05           syscall
-41 = socket (0x00000001, 0x00000002, 0x00000003)
+char *getenv("COLUMNS")
 EOF
 RUN
 
