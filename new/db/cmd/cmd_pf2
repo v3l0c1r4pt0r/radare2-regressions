@@ -324,6 +324,7 @@ FILE=malloc://2048
 ARGS=-m 1000
 CMDS=<<EXPECT
 e io.cache=false
+$initial_map=`om*`
 ?e --- io.unalloc = true ---
 ?e
 e io.unalloc=true
@@ -361,7 +362,7 @@ om- 2
 om
 pf z @ 2023
 om- 1
-om 3 1000 2048 0 rwx
+$initial_map
 ?e
 e io.cache=true
 wz 12 @ 0xfffff
