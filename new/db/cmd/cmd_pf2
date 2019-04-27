@@ -346,7 +346,7 @@ pf z @ 0xfffff
 e io.va=true
 om
 ?e ----
-om- 1
+om-*
 om 3 1000 1024 0 rwx
 om 3 2024 1024 1024 rwx
 om
@@ -361,7 +361,7 @@ pf z @ 2023
 om- 2
 om
 pf z @ 2023
-om- 1
+om-*
 $initial_map
 ?e
 e io.cache=true
