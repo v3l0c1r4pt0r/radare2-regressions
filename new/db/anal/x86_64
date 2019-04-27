@@ -523,7 +523,7 @@ RUN
 NAME=ahe
 FILE=malloc://512
 EXPECT=<<EOF
-15
+16
 esil: test
 EOF
 CMDS=<<EOF
@@ -2398,6 +2398,7 @@ FILE=-
 EXPECT=<<EOF
 address: 0x0
 opcode: push rbp
+disasm: push rbp
 mnemonic: push
 prefix: 0
 id: 588
