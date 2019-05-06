@@ -32,10 +32,10 @@ bool test_r_buf_file_new() {
 
 bool test_r_buf_get_string(void) {
 	ut8 *ch = malloc (128);
-	memset(ch, 'A', 127);
+	memset (ch, 'A', 127);
 	ch[127] = '\0';
 	RBuffer *b = r_buf_new_with_bytes (ch, 128);
-	char *s = r_buf_get_string (b, 100);
+	ut8 *s = r_buf_get_string (b, 100);
 	mu_assert_streq (s, ch + 100, "the string is the same");
 	free (s);
 	s = r_buf_get_string (b, 0);
