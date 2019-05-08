@@ -10,15 +10,11 @@ TESTS+=t.anal/others_anal/aaa
 
 all:
 	npm install >/dev/null
-	node bin/r2r.js
+	$(npm bin)/r2r
 
 fix:
 	npm install > /dev/null
-	node bin/r2r.js -i
-
-#fix-broken fb:
-#	npm install
-#	node bin/r2r.js -i
+	$(npm bin)/r2r -i
 
 generate:
 	mkdir -p db/cmd
@@ -27,8 +23,6 @@ generate:
 		mkdir -p new/db/cmd/$$d ; \
 		DUMP=1 $$a > new/db/cmd/$$a ; \
 	done
-
-# DUMP=1 $$a | gzip -9 > new/db/cmd/$$a ; \
 
 run:
 	time node bin/r2r.js
