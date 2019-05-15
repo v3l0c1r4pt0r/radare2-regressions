@@ -49,7 +49,6 @@ EXPECT=<<RUN
 RUN
 
 NAME=radiff2 gnu unified string comparsion
-BROKEN=1
 FILE=-
 CMDS=!!radiff2 -Uz ../bins/elf/elf_one_symbol_shdr ../bins/elf/elf_one_symbol_shdr1 | tail -n 3
 EXPECT=<<RUN
