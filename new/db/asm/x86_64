@@ -25,11 +25,12 @@ a "lea rax, [rax]" 488d00
 aB "lea rax,[rel -10]" 488d06f6ffffff
 aB "lea rax,[rel 0]" 488d0500000000
 aB "lea rax,[rel 10]" 488d050a000000
-aB "lea rax,[rip+0]" 488d0500000000
-aB "lea rax,[rip+10]" 488d050a000000
-aB "lea rax,[rip-0]" 488d0500000000
-aB "lea rax,[rip-10]" 488d05f6ffffff
-aB "lea rax,[rip]" 488d0500000000
+a "lea rax,[rip+0]" 488d0500000000
+a "lea rax,[rip+10]" 488d050a000000
+a "lea rax,[rip-0]" 488d0500000000
+a "lea rax,[rip-10]" 488d05f6ffffff
+a "lea rax,[rip]" 488d0500000000
+a "lea rdi,[rip+0x1011]" 488d3d11100000
 aB "lea rax, [0x803]" 488d042503080000
 aB "lea rax, 0x803" 488d042503080000
 a "mov [rsi], rbx" 48891e
