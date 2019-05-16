@@ -114,12 +114,9 @@ EXPECT=<<EOF
  1 fd: 3 +0x00001000 0x00001000 - 0x00001003 r-- fmap..rtc_TMZ_8
 000 0x00000d8f 0x00000d8f   NONE STATIC    4 .text$mn
 000 0x00000ec2 0x00000ec2   NONE STATIC    4 .text$mn
-            ;-- @comp.id:
-            ;-- @feat.00:
-            ;-- .rtc$TMZ:
-            ;-- __RTC_Shutdown.rtc$TMZ:
-            0x00000000      4c             dec esp
-            0x00000001      0109           add dword [ecx], ecx
+            ;-- section..text_mn_3:
+            0x00000d8f      55             push ebp                    ; [03] -r-x section size 45 named .text_mn_3
+            0x00000d90      8bec           mov ebp, esp
 EOF
 CMDS=<<EOF
 om
