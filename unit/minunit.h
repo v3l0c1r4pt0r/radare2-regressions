@@ -42,7 +42,7 @@ void sprint_mem(char *out, const ut8 *buf, size_t len) {
 
 #define mu_perror(message) do { \
 		if (mu_test_status != MU_TEST_BROKEN) { \
-			printf(TBOLD TRED "ERR\nFail at line %d: " TRESET "%s\n\n", __LINE__, message); \
+			printf(TBOLD TRED "ERR\n[XX] Fail at line %d: " TRESET "%s\n\n", __LINE__, message); \
 		} else { \
 			printf(TBOLD TYELLOW "Broken at line %d: " TRESET "%s\n\n", __LINE__, message); \
 		} \
