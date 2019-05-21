@@ -2404,7 +2404,7 @@ mnemonic: push
 description: push word, doubleword or quadword onto the stack
 mask: ff
 prefix: 0
-id: 609
+id: 588
 bytes: 55
 refptr: 0
 size: 1
