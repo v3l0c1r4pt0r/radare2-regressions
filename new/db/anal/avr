@@ -7,7 +7,7 @@ CMDS=<<EOF
 e asm.arch=avr
 wx 0e940b10 @ 0x2d0
 s 0x2d0
-ao 1~jump[1]
+ao 1~^jump[1]
 EOF
 RUN
 
@@ -84,7 +84,7 @@ wx 61f0 @ 0x136
 e asm.arch=avr
 e asm.cpu=ATmega8
 pi 1 @ 0x136
-ao 1 @ 0x136 ~jump[1]
+ao 1 @ 0x136 ~^jump[1]
 EOF
 RUN
 
@@ -97,7 +97,7 @@ CMDS=<<EOF
 wx e1f7 @ 0x14a
 e asm.arch=avr
 e asm.cpu=ATmega8
-ao 1 @ 0x14a ~jump[1]
+ao 1 @ 0x14a ~^jump[1]
 EOF
 RUN
 
