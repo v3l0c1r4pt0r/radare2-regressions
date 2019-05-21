@@ -3085,7 +3085,7 @@ EXPECT='[
     "esil": "eax,eax,^=,$z,zf,:=,$p,pf,:=,$s,sf,:=,0,cf,:=,0,of,:=",
     "sign": false,
     "prefix": 0,
-    "id": 1503,
+    "id": 334,
     "opex": {
       "operands": [
         {
@@ -3330,7 +3330,7 @@ mnemonic: nop
 description: no operation
 mask: ff
 prefix: 0
-id: 510
+id: 494
 bytes: 90
 refptr: 0
 size: 1
