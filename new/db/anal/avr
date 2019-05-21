@@ -111,7 +111,7 @@ wx f0cf @ 0x14e
 e asm.arch=avr
 e asm.cpu=ATmega8
 s 0x14e
-ao 1 @ 0x14e ~jump[1]
+ao 1 @ 0x14e ~^jump[1]
 EOF
 RUN
 
@@ -124,7 +124,7 @@ CMDS=<<EOF
 wx 0c941234 @ 0x15e
 e asm.arch=avr
 e asm.cpu=ATmega8
-ao 1 @ 0x15e~jump[1]
+ao 1 @ 0x15e~^jump[1]
 EOF
 RUN
 
