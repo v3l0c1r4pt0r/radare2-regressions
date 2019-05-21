@@ -523,7 +523,7 @@ RUN
 NAME=ahe
 FILE=malloc://512
 EXPECT=<<EOF
-16
+17
 esil: test
 EOF
 CMDS=<<EOF
@@ -2399,9 +2399,12 @@ EXPECT=<<EOF
 address: 0x0
 opcode: push rbp
 disasm: push rbp
+pseudo: push rbp
 mnemonic: push
+description: push word, doubleword or quadword onto the stack
+mask: ff
 prefix: 0
-id: 588
+id: 609
 bytes: 55
 refptr: 0
 size: 1
@@ -2409,7 +2412,6 @@ sign: false
 type: rpush
 cycles: 1
 esil: rbp,8,rsp,-,=[8],8,rsp,-=
-stack: inc
 family: cpu
 stackop: inc
 stackptr: 8

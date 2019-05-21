@@ -7,7 +7,7 @@ CMDS=<<EOF
 e asm.arch=chip8
 s 0x200
 wx 1240
-ao~jump
+ao~^jump
 EOF
 RUN
 
@@ -20,7 +20,7 @@ CMDS=<<EOF
 e asm.arch=chip8
 s 0x200
 wx b220
-ao~jump
+ao~^jump
 EOF
 RUN
 

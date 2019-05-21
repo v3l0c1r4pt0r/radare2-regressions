@@ -4,7 +4,9 @@ EXPECT='[
   {
     "opcode": "b 0x20de8",
     "disasm": "b 0x20de8",
+    "pseudo": "b 0x20de8 ",
     "mnemonic": "b",
+    "mask": "ff000000",
     "jump": 134632,
     "sign": false,
     "prefix": 0,

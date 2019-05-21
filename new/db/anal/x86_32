@@ -1187,6 +1187,7 @@ RUN
 NAME=16bit segment bounds 2
 FILE=malloc://1024k
 EXPECT=<<EOF
+description: jump
 jump: 0x000f008e
 EOF
 CMDS=<<EOF
@@ -2842,7 +2843,24 @@ RUN
 NAME=af x86-32
 FILE=malloc://1024
 EXPECT=<<EOF
-6
+16
+address: 0x0
+opcode: nop
+disasm: nop
+mnemonic: nop
+description: no operation
+mask: ff
+prefix: 0
+id: 510
+bytes: 90
+refptr: 0
+size: 1
+sign: false
+type: nop
+cycles: 1
+esil: ,
+family: cpu
+90
 EOF
 CMDS=<<EOF
 e anal.hasnext=0
@@ -3024,6 +3042,7 @@ RUN
 NAME=ahc
 FILE=malloc://16
 EXPECT=<<EOF
+jump
 5
 0x00000025
 0x00000025
@@ -3057,6 +3076,7 @@ RUN
 NAME=ao cjmp
 FILE=-
 EXPECT=<<EOF
+description: jump short if below or equal/not above (cf=1 or zf=1)
 size: 2
 jump: 0x0000001d
 fail: 0x00000002
@@ -3075,11 +3095,14 @@ EXPECT='[
   {
     "opcode": "xor eax, eax",
     "disasm": "xor eax, eax",
+    "pseudo": "eax = 0",
+    "description": "logical exclusive or",
     "mnemonic": "xor",
+    "mask": "ffff",
     "esil": "eax,eax,^=,$z,zf,:=,$p,pf,:=,$s,sf,:=,0,cf,:=,0,of,:=",
     "sign": false,
     "prefix": 0,
-    "id": 334,
+    "id": 1503,
     "opex": {
       "operands": [
         {
@@ -3321,8 +3344,10 @@ address: 0x0
 opcode: nop
 disasm: nop
 mnemonic: nop
+description: no operation
+mask: ff
 prefix: 0
-id: 494
+id: 510
 bytes: 90
 refptr: 0
 size: 1
@@ -3330,9 +3355,7 @@ sign: false
 type: nop
 cycles: 1
 esil: ,
-stack: null
 family: cpu
-stackop: null
 90
 EOF
 CMDS=<<EOF
