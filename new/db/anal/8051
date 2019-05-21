@@ -61,7 +61,7 @@ EXPECT=<<EOF
 jump: 0x00001723
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx e123 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx e123 ; ao 1~^jump
 EOF
 RUN
 
@@ -71,7 +71,7 @@ EXPECT=<<EOF
 jump: 0x00001216
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx b4ab13 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx b4ab13 ; ao 1~^jump
 EOF
 RUN
 
@@ -81,7 +81,7 @@ EXPECT=<<EOF
 jump: 0x0000121b
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx b56018 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx b56018 ; ao 1~^jump
 EOF
 RUN
 
@@ -91,7 +91,7 @@ EXPECT=<<EOF
 jump: 0x00001235
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx b72432 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx b72432 ; ao 1~^jump
 EOF
 RUN
 
@@ -101,7 +101,7 @@ EXPECT=<<EOF
 jump: 0x00001208
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx bf0205 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx bf0205 ; ao 1~^jump
 EOF
 RUN
 
@@ -111,7 +111,7 @@ EXPECT=<<EOF
 jump: 0x0000118b
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx d54088 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx d54088 ; ao 1~^jump
 EOF
 RUN
 
@@ -121,7 +121,7 @@ EXPECT=<<EOF
 jump: 0x000011fe
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx d8fc ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx d8fc ; ao 1~^jump
 EOF
 RUN
 
@@ -151,7 +151,7 @@ EXPECT=<<EOF
 jump: 0x00001206
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx 207d03 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx 207d03 ; ao 1~^jump
 EOF
 RUN
 
@@ -161,7 +161,7 @@ EXPECT=<<EOF
 jump: 0x0000120b
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx 101508 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx 101508 ; ao 1~^jump
 EOF
 RUN
 
@@ -171,7 +171,7 @@ EXPECT=<<EOF
 jump: 0x00001205
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx 4003 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx 4003 ; ao 1~^jump
 EOF
 RUN
 
@@ -181,7 +181,7 @@ EXPECT=<<EOF
 jump: 0x0000120b
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx 305108 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx 305108 ; ao 1~^jump
 EOF
 RUN
 
@@ -191,7 +191,7 @@ EXPECT=<<EOF
 jump: 0x00001209
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx 5007 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx 5007 ; ao 1~^jump
 EOF
 RUN
 
@@ -201,7 +201,7 @@ EXPECT=<<EOF
 jump: 0x00001215
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx 7013 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx 7013 ; ao 1~^jump
 EOF
 RUN
 
@@ -211,7 +211,7 @@ EXPECT=<<EOF
 jump: 0x00001217
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx 6015 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx 6015 ; ao 1~^jump
 EOF
 RUN
 
@@ -231,7 +231,7 @@ EXPECT=<<EOF
 jump: 0x00002c0d
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx 022c0d ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx 022c0d ; ao 1~^jump
 EOF
 RUN
 
@@ -241,6 +241,6 @@ EXPECT=<<EOF
 jump: 0x00001216
 EOF
 CMDS=<<EOF
-e asm.arch=8051 ; s 0x1200 ; wx 8014 ; ao 1~jump
+e asm.arch=8051 ; s 0x1200 ; wx 8014 ; ao 1~^jump
 EOF
 RUN
