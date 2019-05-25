@@ -1410,7 +1410,7 @@ ic 17
 EOF
 RUN
 
-NAME=DEX test.dex
+NAME=DEX test.dex val
 FILE=../bins/dex/test.dex
 EXPECT=<<EOF
 0x00000021
@@ -1423,7 +1423,7 @@ RUN
 NAME=DEX test.dex
 FILE=../bins/dex/test.dex
 EXPECT=<<EOF
-            0x000001c4      1234           const/4 v4, 0x3             ; 0xfffffffd ; 3
+            0x000001c4      1234           const/4 v4, 0x3
 EOF
 CMDS=<<EOF
 pd 1 @ 0x000001c4
