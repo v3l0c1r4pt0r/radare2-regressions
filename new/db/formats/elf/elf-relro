@@ -12,17 +12,17 @@ RUN
 NAME=ELF: corkami elf-relro - relro enabled
 FILE=../bins/elf/analysis/elf-relro
 EXPECT=<<EOF
-elf.relro=partial
+info/elf.relro=partial
 EOF
 CMDS=<<EOF
-ik~relro
+ik ***~relro
 EOF
 RUN
 
 NAME=ELF: imports partial
 FILE=../bins/elf/vim
 EXPECT=<<EOF
-elf.relro=full
+info/elf.relro=full
 [Imports]
 Num  Vaddr       Bind      Type Name
    2 0x00051f60  GLOBAL    FUNC __ctype_toupper_loc
@@ -237,7 +237,7 @@ Num  Vaddr       Bind      Type Name
  211 0x000525c0  GLOBAL    FUNC socket
 EOF
 CMDS=<<EOF
-ik~relro
+ik ***~relro
 ii
 EOF
 RUN
