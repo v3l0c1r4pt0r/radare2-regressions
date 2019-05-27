@@ -1,7 +1,6 @@
 NAME='dbg.dc+ds.swstep'
 FILE=../bins/elf/analysis/elf-nx
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 e scr.color=0
 e dbg.swstep=true
@@ -23,7 +22,6 @@ RUN
 NAME='dbg.dc+ds.swstep2'
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 e scr.color=0
 e dbg.swstep=true
@@ -43,7 +41,6 @@ RUN
 NAME='dbg.dc+ds.hwstep'
 FILE=../bins/elf/analysis/elf-nx
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 e scr.color=0
 e dbg.swstep=false
@@ -65,7 +62,6 @@ RUN
 NAME='dbg.dc+ds.hwstep2'
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 e scr.color=0
 e dbg.swstep=false
@@ -85,7 +81,6 @@ RUN
 NAME='dbg.dcC+ds.swstep1'
 FILE=../bins/elf/analysis/tiny-crackme-vm-x86_64
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 e scr.color=0
 e dbg.swstep=true
@@ -141,11 +136,11 @@ EXPECT=<<RUN
 0x000033c2
 0x00000249
 0x00000440
+RUN
 
 NAME='dbg.dbd+dbe'
 FILE=../bins/elf/analysis/x64-loop
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 e scr.color=0
 db 0x400523
@@ -170,7 +165,6 @@ RUN
 NAME='dbg.dc+db'
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 ARGS=-d
-BROKEN=
 CMDS=<<EXPECT
 e dbg.swstep=true
 e scr.null=true
@@ -184,4 +178,3 @@ EXPECT=<<RUN
 Hello world!
 31ed5e89
 RUN
-

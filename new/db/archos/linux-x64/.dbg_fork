@@ -13,7 +13,6 @@ dp=`dp~ppid[1]`
 dc
 dc
 dc
-'
 EXPECT=<<RUN
 child in leaf!
 child process terminating!

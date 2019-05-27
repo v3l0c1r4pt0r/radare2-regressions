@@ -1,7 +1,6 @@
 NAME='dbg.stepback'
 FILE=../bins/elf/analysis/ls-linux-x86_64-zlul
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 db main
 db 0x004028fe

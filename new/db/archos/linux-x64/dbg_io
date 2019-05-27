@@ -7,7 +7,7 @@ p8 4
 dk 9
 NOT_EXPECT=1
 EXPECT=<<RUN
-ffffffff
+4889e7e8
 RUN
 
 NAME='dbg.read.entry0'

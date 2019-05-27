@@ -1,7 +1,6 @@
 NAME='dbg.fork.child.bp.swstep'
 FILE=../bins/elf/analysis/x64-fork-test
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 e scr.color=0
 e dbg.swstep=true
@@ -27,7 +26,6 @@ RUN
 NAME='dbg.fork.child.bp.hwstep'
 FILE=../bins/elf/analysis/x64-fork-test
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 e scr.color=0
 e dbg.swstep=false

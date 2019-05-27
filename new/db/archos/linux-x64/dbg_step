@@ -18,7 +18,6 @@ RUN
 NAME='dbg.symbols'
 FILE=/bin/ls
 ARGS=-d
-BROKEN=
 CMDS=<<EXPECT
 id~?
 dk 9
@@ -29,23 +28,21 @@ RUN
 NAME='dso over a breakpoint'
 FILE=/bin/ls
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
-dr rax=`dr?rip`
-? `dr?rax` - `dr?rip`
+dr rax=rip > /dev/null
+?vi rax-rip
 db rip
 dso
 dk 9
-? `dr?rax` - `dr?rip`~?00000000
+?vi rax-rip~?^0$
 EXPECT=<<RUN
-0 0x0 00 0 0000:0000 0 00000000 0.0 0.000000f 0.000000
+0
 0
 RUN
 
 NAME='ds on jmp reg'
 FILE=../bins/elf/analysis/x86-jmpeax
-ARGS='-b 32 -a x86 -d'
-BROKEN=1
+ARGS=-b 32 -a x86 -d
 CMDS=<<EXPECT
 dcu main
 5ds
@@ -56,8 +53,7 @@ RUN
 
 NAME='ds on calls and jumps'
 FILE=../bins/elf/analysis/calls_x64
-ARGS='-a x86 -d'
-BROKEN=1
+ARGS=-a x86 -d
 CMDS=<<EXPECT
 dcu main
 2ds
@@ -91,8 +87,7 @@ RUN
 
 NAME='dso on call 1'
 FILE=../bins/elf/analysis/calls_x64
-ARGS='-a x86 -d'
-BROKEN=1
+ARGS=-a x86 -d
 CMDS=<<EXPECT
 dcu main
 ds
@@ -107,8 +102,7 @@ RUN
 
 NAME='dso on call 2'
 FILE=../bins/elf/analysis/calls_x64
-ARGS='-a x86 -d'
-BROKEN=1
+ARGS=-a x86 -d
 CMDS=<<EXPECT
 dcu main
 3ds
@@ -123,8 +117,7 @@ RUN
 
 NAME='dso on call 3'
 FILE=../bins/elf/analysis/calls_x64
-ARGS='-a x86 -d'
-BROKEN=1
+ARGS=-a x86 -d
 CMDS=<<EXPECT
 dcu main
 5ds
@@ -139,8 +132,7 @@ RUN
 
 NAME='dso on call 4'
 FILE=../bins/elf/analysis/calls_x64
-ARGS='-a x86 -d'
-BROKEN=1
+ARGS=-a x86 -d
 CMDS=<<EXPECT
 dcu main
 6ds
@@ -155,33 +147,29 @@ RUN
 
 NAME='dbg.dsu'
 FILE=../bins/elf/analysis/calls_x64
-ARGS='-a x86 -d'
-BROKEN=1
+ARGS=-a x86 -d
 CMDS=<<EXPECT
 dcu main
 dsu 0x400546
 dr rip
 EXPECT=<<RUN
 0x00400546
-Hello world
 RUN
 
 NAME='dbg.dsui'
 FILE=../bins/elf/analysis/calls_x64
-ARGS='-a x86 -d'
-BROKEN=1
+ARGS=-a x86 -d
 CMDS=<<EXPECT
 dcu main
 dsui mov eax
 dr rip
 EXPECT=<<RUN
 0x00400524
-Hello world
 RUN
 
 NAME='dbg.dsei'
 FILE=../bins/elf/analysis/calls_x64
-ARGS='-a x86 -d'
+ARGS=-a x86 -d
 BROKEN=1
 CMDS=<<EXPECT
 dcu main
@@ -195,8 +183,7 @@ RUN
 
 NAME='dbg.dss'
 FILE=../bins/elf/analysis/calls_x64
-ARGS='-a x86 -d'
-BROKEN=1
+ARGS=-a x86 -d
 CMDS=<<EXPECT
 dcu main
 4dss
@@ -207,14 +194,11 @@ RUN
 
 NAME='dbg.dcu can reach main'
 FILE=../bins/elf/analysis/calls_x64
-ARGS='-a x86 -d'
-BROKEN=1
+ARGS=-a x86 -d
 CMDS=<<EXPECT
 dcu main
-?v $$~[1];
+?v $$
 EXPECT=<<RUN
 0x400574
 Hello world
 RUN
-
-

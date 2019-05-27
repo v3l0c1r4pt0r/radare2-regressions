@@ -1,6 +1,6 @@
 NAME='dbg.aaa'
 FILE=../bins/elf/true
-ARGS='-A -d'
+ARGS=-dA
 CMDS=<<EXPECT
 dcu main
 fd

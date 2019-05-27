@@ -1,6 +1,5 @@
 NAME='dbg.dL'
 FILE=/bin/ls
-BROKEN=1
 CMDS=<<EXPECT
 dL
 EXPECT=<<RUN
@@ -10,7 +9,8 @@ EXPECT=<<RUN
 3  ---  gdb      LGPL3
 4  ---  io       MIT
 5  dbg  native   LGPL3
-6  ---  qnx      LGPL3
-7  ---  rap      LGPL3
-8  ---  wind     LGPL3
+6  ---  null     MIT
+7  ---  qnx      LGPL3
+8  ---  rap      LGPL3
+9  ---  windbg   LGPL3
 RUN

@@ -25,7 +25,6 @@ RUN
 NAME='oo ; dc'
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 ARGS=-d
-BROKEN=
 CMDS=<<EXPECT
 oo
 dc

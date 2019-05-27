@@ -1,7 +1,6 @@
 NAME='debug continue back from callee'
 FILE=../bins/elf/analysis/calls_x64
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 db main
 db 0x0040052f
@@ -18,7 +17,6 @@ RUN
 NAME='debug continue back from caller'
 FILE=../bins/elf/analysis/calls_x64
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 db main
 db 0x0040057c
@@ -35,7 +33,6 @@ RUN
 NAME='dbg.manycontback'
 FILE=../bins/elf/analysis/ls-linux-x86_64-zlul
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 db main
 db 0x004028ca

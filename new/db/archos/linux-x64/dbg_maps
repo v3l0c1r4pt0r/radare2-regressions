@@ -11,26 +11,26 @@ RUN
 NAME='dbg.maps.count'
 FILE=../bins/elf/analysis/elf-nx
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 dm~?
-dk 9EXPECT=<<RUN
-6
+dk 9
+EXPECT=<<RUN
+7
 RUN
 
 NAME='dbg.maps.count.after.map'
 FILE=../bins/elf/analysis/x86-helloworld-gcc
-BROKEN=1
 ARGS=-d
 CMDS=<<EXPECT
 dm~?
 db sym.imp.puts
 dc~?
 dm~?
+dc
 EXPECT=<<RUN
-6
+7
 0
-13
+14
 Hello world!
 RUN
 
@@ -44,6 +44,7 @@ EXPECT=<<RUN
 RUN
 
 NAME='dbg.curmod.count'
+BROKEN=1
 FILE=../bins/elf/analysis/elf-nx
 ARGS=-d
 CMDS=<<EXPECT
@@ -63,7 +64,7 @@ dc~?
 dmi libc~?
 dmi libc~libc|wc -l
 EXPECT=<<RUN
-6
+7
 0
 2392
 45
@@ -83,7 +84,7 @@ dmS libc~libc|wc -l
 dmS* libc~?
 dmS* libc~libc|wc -l
 EXPECT=<<RUN
-6
+7
 0
 80
 78
@@ -108,8 +109,9 @@ dmS* libc~libc|wc -l
 dmS~?
 dmS*~?
 dmS~libc|wc -l
-dmS*~libc|wc -lEXPECT=<<RUN
-6
+dmS*~libc|wc -l
+EXPECT=<<RUN
+7
 0
 80
 78
@@ -170,5 +172,3 @@ EXPECT=<<RUN
 1
 Hello world!
 RUN
-
-

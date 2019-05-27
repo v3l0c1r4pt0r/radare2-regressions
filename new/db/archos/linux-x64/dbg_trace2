@@ -1,7 +1,6 @@
 NAME='dbg.trace.loop.hwstep'
 FILE=../bins/elf/analysis/x64-loop
 ARGS=-d
-BROKEN=1
 CMDS=<<EXPECT
 e scr.color=0
 e dbg.swstep=false

@@ -1,17 +1,16 @@
 NAME='Can set db on main'
 FILE=../bins/elf/analysis/hello-objc-linux
-BROKEN=
-ARGS='-d'
+ARGS=-d
 CMDS=<<EXPECT
 db main;db~1[13];
 EXPECT=<<RUN
-\"main\"
+"main"
 RUN
 
 NAME='Code seg is sane'
 FILE=../bins/elf/analysis/hello-objc-linux
 BROKEN=1
-ARGS='-d'
+ARGS=-d
 CMDS=<<EXPECT
 iS~LOAD0
 EXPECT=<<RUN
