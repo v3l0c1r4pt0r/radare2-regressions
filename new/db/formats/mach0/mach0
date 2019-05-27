@@ -56,8 +56,38 @@ EXPECT=<<EOF
 0x00000010  nCmds       11
 0x00000014  sizeOfCmds  1608
 0x00000018  Flags       0x85
-0x00000020  cmd       0 0x1000000 
-0x00000024  cmdsize     0
+0x00000020  cmd       0 0x1 LC_SEGMENT
+0x00000024  cmdsize     56
+pf.mach0_segment @ 0x0000001c
+0x00000024  name        __PAGEZERO
+0x00000058  cmd       1 0x1 LC_SEGMENT
+0x0000005c  cmdsize     600
+pf.mach0_segment @ 0x00000054
+0x0000005c  name        __TEXT
+0x000002b0  cmd       2 0x1 LC_SEGMENT
+0x000002b4  cmdsize     464
+pf.mach0_segment @ 0x000002ac
+0x000002b4  name        __DATA
+0x00000480  cmd       3 0x1 LC_SEGMENT
+0x00000484  cmdsize     56
+pf.mach0_segment @ 0x0000047c
+0x00000484  name        __LINKEDIT
+0x000004b8  cmd       4 0xe LC_LOAD_DYLINKER
+0x000004bc  cmdsize     28
+0x000004d4  cmd       5 0xc LC_LOAD_DYLIB
+0x000004d8  cmdsize     56
+0x000004e8  load_dylib  /usr/lib/libncurses.5.4.dylib
+0x0000050c  cmd       6 0xc LC_LOAD_DYLIB
+0x00000510  cmdsize     52
+0x00000520  load_dylib  /usr/lib/libSystem.B.dylib
+0x00000540  cmd       7 0x2 LC_SYMTAB
+0x00000544  cmdsize     24
+0x00000558  cmd       8 0xb LC_DYSYMTAB
+0x0000055c  cmdsize     80
+0x000005a8  cmd       9 0x16 LC_TWOLEVEL_HINTS
+0x000005ac  cmdsize     16
+0x000005b8  cmd      10 0x5 LC_UNIXTHREAD
+0x000005bc  cmdsize     176
 EOF
 CMDS=<<EOF
 iH
@@ -179,10 +209,10 @@ RUN
 NAME=osx mach0 ik
 FILE=../bins/mach0/ls-osx-x86_64
 EXPECT=<<EOF
-mach0_cmd_8.cmd=uuid
-uuid.0=ff4d6c2e1dc0369d98d0d3040a8049e8
+info/uuid.0=ff4d6c2e1dc0369d98d0d3040a8049e8
+info/mach0_cmd_8.cmd=uuid
 EOF
 CMDS=<<EOF
-ik~uuid
+ik ***~uuid
 EOF
 RUN

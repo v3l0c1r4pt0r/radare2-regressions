@@ -4,7 +4,7 @@ EXPECT=<<EOF
 elf.relro=no
 EOF
 CMDS=<<EOF
-ik~relro
+ik info/*~relro
 EOF
 RUN
 
