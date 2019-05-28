@@ -156,6 +156,7 @@ NAME=DEX HelloWorld.dex flags (f command)
 FILE=../bins/dex/HelloWorld.dex
 EXPECT=<<EOF
 0x00000000 112 section.header
+0x00000000 1460 section.file
 0x00000070 456 section.constpool
 0x00000160 0 sym.LHello.ifield_localVar:I
 0x00000168 0 sym.LHello.sfield_localVar2:I
@@ -258,9 +259,9 @@ RUN
 NAME=DEX HelloWorld.dex debug info
 FILE=../bins/dex/HelloWorld.dex
 EXPECT=<<EOF
-            0x00000290      62000400       sget-object v0, Ljava/lang/System;->out Ljava/io/PrintStream; ; Hello.java:9
+            0x00000290      62000400       sget-object v0, Ljava/lang/System;->out Ljava/io/PrintStream; ; Hello.java:9 ; 0x180
             0x000002f4      701008000100   invoke-direct {v1}, Ljava/lang/Object.<init>()V ; 0x8 ; World.java:5
-            0x00000318      62000400       sget-object v0, Ljava/lang/System;->out Ljava/io/PrintStream; ; World.java:11
+            0x00000318      62000400       sget-object v0, Ljava/lang/System;->out Ljava/io/PrintStream; ; World.java:11 ; 0x180
 EOF
 CMDS=<<EOF
 e io.va=0; pd 1 @0x00000290|grep Hello.java; pd 1 @0x000002f4|grep World.java; pd 1 @0x00000318|grep World.java;
@@ -297,8 +298,8 @@ string_ids_size     : 31
 string_ids_off      : 112 (0x000070)
 type_ids_size       : 11
 type_ids_off        : 236 (0x0000ec)
-proto_ids_size       : 6
-proto_ids_off        : 280 (0x000118)
+proto_ids_size      : 6
+proto_ids_off       : 280 (0x000118)
 field_ids_size      : 5
 field_ids_off       : 352 (0x000160)
 method_ids_size     : 12
