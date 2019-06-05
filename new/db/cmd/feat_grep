@@ -231,3 +231,18 @@ pd 40~0x004005fe
 EXPECT=<<RUN
         `-> 0x004005fe      4883c408       add rsp, 8
 RUN
+
+NAME='sort lines'
+CMDS=<<EXPECT
+?e 3\n2\n4\n1~$
+?e 3\n2\n4\n1~$!
+EXPECT=<<RUN
+1
+2
+3
+4
+4
+3
+2
+1
+RUN
