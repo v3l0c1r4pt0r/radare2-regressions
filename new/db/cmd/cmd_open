@@ -180,11 +180,11 @@ e scr.null=true
 o malloc://512
 e scr.null=false
 i~file[1]
-obb 3
-i~file[1]
 obo 3
 i~file[1]
-ob 3 1
+obo 4
+i~file[1]
+obo 3
 i~file[1]
 EXPECT=<<RUN
 malloc://512
