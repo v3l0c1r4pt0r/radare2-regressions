@@ -175,6 +175,10 @@ h  crc64ecma
 h  crc64we
 h  crc64xz
 h  crc64iso
+h  fletcher8
+h  fletcher16
+h  fletcher32
+h  fletcher64
 e  base64
 e  base91
 e  punycode
@@ -808,4 +812,32 @@ FILE=-
 CMDS=!rahash2 -D serpent-ecb -S "2BD6459F82C5B300952C49104881FF482BD6459F82C5B300952C49104881FF48" -x "EA024714AD5C4D84EA024714AD5C4D84" | rax2 -S
 EXPECT=<<RUN
 677c8dfaa08071743fd2b415d1b28af2
+RUN
+
+NAME=rahash2 -a fletcher8 -s hello-world
+FILE=-
+CMDS=!rahash2 -a fletcher8 -s hello-world
+EXPECT=<<RUN
+0x00000000-0x0000000a fletcher8: 68
+RUN
+
+NAME=rahash2 -a fletcher16 -s hello-world
+FILE=-
+CMDS=!rahash2 -a fletcher16 -s hello-world
+EXPECT=<<RUN
+0x00000000-0x0000000a fletcher16: 6d68
+RUN
+
+NAME=rahash2 -a fletcher32 -s hello-world
+FILE=-
+CMDS=!rahash2 -a fletcher32 -s hello-world
+EXPECT=<<RUN
+0x00000000-0x0000000a fletcher32: 3160ce17
+RUN
+
+NAME=rahash2 -a fletcher64 -s hello-world
+FILE=-
+CMDS=!rahash2 -a fletcher64 -s hello-world
+EXPECT=<<RUN
+0x00000000-0x0000000a fletcher64: 49ff47dc88f79724
 RUN
