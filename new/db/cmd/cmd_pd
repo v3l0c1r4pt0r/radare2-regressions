@@ -698,10 +698,10 @@ RUN
 NAME=flag in cmt with manual flag (lea)
 FILE=../bins/elf/analysis/ls-alxchk
 EXPECT=<<EOF
-            0x0001145f      488d3d72a100.  lea rdi, [0x0001b5d8]       ; NULL_error ; "A NULL argv[0] was passed through an exec system call.\n"
-            ; NULL_error
+            0x0001145f      488d3d72a100.  lea rdi, [NULL_error]       ; 0x1b5d8 ; "A NULL argv[0] was passed through an exec system call.\n"
+            ; 0x1b5d8
             ; "A NULL argv[0] was passed through an exec system call.\n"
-            0x0001145f      488d3d72a100.  lea rdi, [0x0001b5d8]
+            0x0001145f      488d3d72a100.  lea rdi, [NULL_error]
 EOF
 CMDS=<<EOF
 f- @ 0x1b5d8
@@ -765,10 +765,9 @@ RUN
 NAME=flag in cmt with manual flag (mov)
 FILE=../bins/pe/ConsoleApplication1.exe
 EXPECT=<<EOF
-            0x004010fa      8b3500204000   mov esi, dword [0x402000]   ; ptr_GetLastError ; [0x402000:4]=0x29f4 reloc.KERNEL32.dll_GetLastError
-            ; ptr_GetLastError
+            0x004010fa      8b3500204000   mov esi, dword [ptr_GetLastError] ; [0x402000:4]=0x29f4 reloc.KERNEL32.dll_GetLastError
             ; [0x402000:4]=0x29f4 reloc.KERNEL32.dll_GetLastError
-            0x004010fa      8b3500204000   mov esi, dword [0x402000]
+            0x004010fa      8b3500204000   mov esi, dword [ptr_GetLastError]
 EOF
 CMDS=<<EOF
 f- @ 0x402000
@@ -1602,8 +1601,8 @@ pd 1 @ 0x161d
 e emu.str.inv=false
 pd 1 @ 0x161d
 EXPECT=<<RUN
-            [32m0x0000161d[0m      [37mlea[36m eax[0m,[36m [0m[[36mesi [0m-[36m[36m [36m0x21f7[0m][36m[0m[0m[31m                    ; "abcdefghi"[0m[31m ; [7m"\n  Blue Pill"[27m str.Blue_Pill[0m
-            [32m0x0000161d[0m      [37mlea[36m eax[0m,[36m [0m[[36mesi [0m-[36m[36m [36m0x21f7[0m][36m[0m[0m[31m                    ; [7m"abcdefghi"[27m[0m[31m ; "\n  Blue Pill" str.Blue_Pill[0m
+            [32m0x0000161d[0m      [37mlea[36m eax[0m,[36m [0m[[36mesi [0m-[36m[36m [36mabcdefghi][36m[0m[0m[31m                 ; 0x21f7[31m ; "abcdefghi"[0m[31m ; [7m"\n  Blue Pill"[27m str.Blue_Pill[0m
+            [32m0x0000161d[0m      [37mlea[36m eax[0m,[36m [0m[[36mesi [0m-[36m[36m [36mabcdefghi][36m[0m[0m[31m                 ; 0x21f7[31m ; [7m"abcdefghi"[27m[0m[31m ; "\n  Blue Pill" str.Blue_Pill[0m
 RUN
 
 NAME=emu.strflag
