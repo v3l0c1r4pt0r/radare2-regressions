@@ -474,7 +474,7 @@ RUN
 NAME=arm relsub <256
 FILE=-
 EXPECT=<<EOF
-                 ldr r0, [0x00000014]
+                 ldr r0, [sym.callback]
 EOF
 CMDS=<<EOF
 wx 0c009fe5
