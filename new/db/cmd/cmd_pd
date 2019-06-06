@@ -1,3 +1,24 @@
+NAME=pd varsub-issue
+FILE=../bins/mach0/mac-ls2
+CMDS=<<EOF
+s 0x100001232
+e asm.var.sub=0
+pd 1
+e asm.var.sub=1
+pd 1
+f fin.dus=0x1000054d0
+pd 1
+e asm.relsub=0
+pd 1
+EOF
+EXPECT=<<EOF
+            0x100001232      c70594420000.  mov dword [rip + 0x4294], 0x50 ; 'P' ; section.10.__DATA.__data ; [0x1000054d0:4]=80 ; U"P."
+            0x100001232      c70594420000.  mov dword [section.10.__DATA.__data], 0x50 ; 'P' ; [0x1000054d0:4]=80 ; U"P."
+            0x100001232      c70594420000.  mov dword [fin.dus], 0x50  ; 'P' ; [0x1000054d0:4]=80 ; U"P."
+            0x100001232      c70594420000.  mov dword [rip + 0x4294], 0x50 ; 'P' ; fin.dus ; [0x1000054d0:4]=80 ; U"P."
+EOF
+RUN
+
 NAME=pd multiplemain
 FILE=../bins/elf/mipsloop
 EXPECT=<<EOF
