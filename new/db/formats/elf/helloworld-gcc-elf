@@ -142,6 +142,7 @@ RUN
 NAME=flags spaces
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 EXPECT=<<EOF
+    0 * classes
     3 * imports
     3 * relocs
    30 * sections
@@ -158,6 +159,7 @@ RUN
 NAME=flags spaces after analysis
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 EXPECT=<<EOF
+    0 * classes
     0 * functions
     3 * imports
     3 * relocs
@@ -177,6 +179,7 @@ RUN
 NAME=flags spaces after analysis again
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 EXPECT=<<EOF
+    0 * classes
     1 * functions
     3 * imports
     3 * relocs

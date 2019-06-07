@@ -474,6 +474,7 @@ RUN
 NAME=arm relsub <256
 FILE=-
 EXPECT=<<EOF
+                 ldr r0, [0x00000014]
                  ldr r0, [sym.callback]
 EOF
 CMDS=<<EOF
@@ -484,6 +485,8 @@ e asm.comments=false
 e asm.bytes=false
 e asm.offset=false
 f sym.callback=0x14
+pd 1
+e asm.var.submin=0
 pd 1
 EOF
 RUN
