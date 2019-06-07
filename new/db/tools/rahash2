@@ -832,7 +832,7 @@ NAME=rahash2 -a fletcher32 -s hello-world
 FILE=-
 CMDS=!rahash2 -a fletcher32 -s hello-world
 EXPECT=<<RUN
-0x00000000-0x0000000a fletcher32: 3160ce17
+0x00000000-0x0000000a fletcher32: 310ecdc5
 RUN
 
 NAME=rahash2 -a fletcher64 -s hello-world
