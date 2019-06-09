@@ -2459,8 +2459,7 @@ RUN
 NAME=Windows Function EMU LoadStringA
 FILE=../bins/pe/standard.exe
 EXPECT=<<EOF
-  0x00402b00      call dword [sym.imp.user32.dll_LoadStringA] ; 0x402d40 ; esp=0x177ff0 ; eip=0x2cfa reloc.user32.dll_LoadStringA
-                    ; int LoadStringA(NULL, -1, NULL, -1)
+1
 EOF
 CMDS=<<EOF
 e asm.arch=x86
@@ -2474,7 +2473,7 @@ e asm.lines.bb=false
 e io.cache=true
 aeim
 s 0x00402aee
-pd 10~LoadString
+pd 10~?int LoadStringA
 EOF
 RUN
 
