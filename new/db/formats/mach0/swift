@@ -15,8 +15,8 @@ NAME=mach0 swift-x86-64 aav
 FILE=../bins/mach0/swift-main
 EXPECT=<<EOF
 114
-262
-262
+134
+134
 EOF
 CMDS=<<EOF
 C*~Cd?

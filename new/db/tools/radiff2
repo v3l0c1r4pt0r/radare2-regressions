@@ -49,7 +49,6 @@ EXPECT=<<RUN
 RUN
 
 NAME=radiff2 gnu unified string comparsion
-BROKEN=1
 FILE=-
 CMDS=!!radiff2 -Uz ../bins/elf/elf_one_symbol_shdr ../bins/elf/elf_one_symbol_shdr1 | tail -n 3
 EXPECT=<<RUN
@@ -69,7 +68,7 @@ NAME=radiff2 -AC (mach0 fat files)
 FILE=-
 CMDS=!!radiff2 -AC ../bins/other/radiff2/hellocxx-osx-fat-intel_1 ../bins/other/radiff2/hellocxx-osx-fat-intel_2~?(1.000000)
 EXPECT=<<RUN
-17
+18
 RUN
 
 NAME=radiff2 -B (GDIFF support) #1

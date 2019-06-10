@@ -15,7 +15,7 @@ NAME=PE: ioli pocketpc 1 automatic via aaa
 FILE=../bins/pe/ioli/pocketpc/crackme0x00.arm.exe
 EXPECT=<<EOF
 1
-2
+1
 EOF
 CMDS=<<EOF
 aaa
