@@ -1,3 +1,23 @@
+NAME=obb baddrs
+FILE=../bins/mach0/mac-ls2
+ARGS=-B0x50000
+CMDS=<<EOF
+s
+o ../bins/mach0/mac-ls
+s
+obb 0
+s
+obb 1
+s
+EOF
+EXPECT=<<EOF
+0x511e8
+0x100001058
+0x511e8
+0x100001058
+EOF
+RUN
+
 NAME=oom
 FILE=../bins/elf/libmagic.so
 CMDS=<<EOF
