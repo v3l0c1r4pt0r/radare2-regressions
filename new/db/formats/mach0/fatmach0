@@ -272,7 +272,7 @@ NAME=fatmach0 sections
 FILE=../bins/mach0/fatmach0-3true
 ARGS=-a x86 -b 64
 EXPECT=<<EOF
-10
+4
 EOF
 CMDS=<<EOF
 om~?

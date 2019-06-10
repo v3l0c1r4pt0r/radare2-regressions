@@ -3332,8 +3332,8 @@ RUN
 NAME=izzz* (file x86_64)
 FILE=../bins/elf/analysis/hello-linux-x86_64
 EXPECT=<<EOF
-f str.8 10 @ 0x00400034
-Cs 10 @ 0x00400034
+f str.8 10 @ 0x00000034
+Cs 10 @ 0x00000034
 EOF
 CMDS=<<EOF
 izzz*~:0
@@ -4138,7 +4138,7 @@ NAME=izzz*
 FILE=../bins/mach0/fatmach0-3true
 CMDS=izzz*~str.http:__www.apple.com_appleca_codesigning.crl0
 EXPECT=<<RUN
-f str.http:__www.apple.com_appleca_codesigning.crl0 48 @ 0x100001f3c
+f str.http:__www.apple.com_appleca_codesigning.crl0 48 @ 0x00002f3c
 RUN
 
 NAME=it
