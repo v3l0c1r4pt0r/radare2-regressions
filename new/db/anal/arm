@@ -718,7 +718,7 @@ RUN
 NAME=ELF ARM: af and aav
 FILE=../bins/elf/arm1.bin
 EXPECT=<<EOF
-                 .dword 0x00084758 ; section..bss ; sym..bss ; obj.completed.6278
+                 andeq r4, r8, r8, asr r7
                  .dword 0x00008b00 ; sym.__libc_csu_fini
                  .dword 0x00008290 ; main ; sym.main
                  .dword 0x00008b48 ; sym.__libc_csu_init
