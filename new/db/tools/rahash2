@@ -818,7 +818,7 @@ NAME=rahash2 -a fletcher8 -s hello-world
 FILE=-
 CMDS=!rahash2 -a fletcher8 -s hello-world
 EXPECT=<<RUN
-0x00000000-0x0000000a fletcher8: 68
+0x00000000-0x0000000a fletcher8: 6d
 RUN
 
 NAME=rahash2 -a fletcher16 -s hello-world
