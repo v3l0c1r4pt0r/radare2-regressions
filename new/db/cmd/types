@@ -110,7 +110,7 @@ RUN
 NAME=t
 FILE=-
 CMDS=<<EOF
-t
+t~char,double,float,int,long,short,size,uid,void # basic universal types
 EOF
 EXPECT=<<EOF
 char
@@ -167,6 +167,7 @@ RUN
 NAME=t-struct
 FILE=-
 CMDS=<<EOF
+t-*
 "td struct three_elements{int x; char y; float z;}"
 t-three_elements
 ts~?
@@ -258,6 +259,7 @@ RUN
 NAME=td struct
 FILE=-
 CMDS=<<EOF
+t-*
 "td struct test_struct{int x;int y;};"
 ts~?test_struct
 EOF
@@ -302,8 +304,9 @@ NAME=to error.h
 FILE=-
 CMDS=<<EOF
 to ../bins/other/error.h
-t
-ts
+t~char,double,float,int,long,short,size,uid,void # basic universal types
+t~addr,date,dox,name
+ts~addr,date,dox,name
 t addr
 EOF
 EXPECT_ERR=<<EOF
@@ -348,8 +351,8 @@ NAME=to test.h
 FILE=-
 CMDS=<<EOF
 to ../bins/other/test.h
-t
-ts
+t~char,double,float,int,long,short,size,uid,void # basic universal types
+ts~addr,date,dox,name
 t addr
 EOF
 EXPECT=<<EOF
@@ -807,7 +810,7 @@ NAME=tsc test
 FILE=-
 CMDS=<<EOF
 "td struct three_elements{int x; char y; float z;}"
-tsc
+tsc three_elements
 EOF
 EXPECT=<<EOF
 struct three_elements {
@@ -822,7 +825,7 @@ NAME=tec test
 FILE=-
 CMDS=<<EOF
 "td enum Foo {COW=1,BAR=2};"
-tec
+tec Foo
 EOF
 EXPECT=<<EOF
 enum Foo {
@@ -836,7 +839,7 @@ NAME=tuc test
 FILE=-
 CMDS=<<EOF
 "td union x{int x; int y; int z;}"
-tuc
+tuc x
 EOF
 EXPECT=<<EOF
 union x {
@@ -851,7 +854,7 @@ NAME=ttc test
 FILE=-
 CMDS=<<EOF
 "td typedef char FILE_NAME;"
-ttc
+ttc FILE_NAME
 EOF
 EXPECT=<<EOF
 typedef char FILE_NAME;
@@ -861,6 +864,7 @@ RUN
 NAME=tcd test
 FILE=-
 CMDS=<<EOF
+t-*
 "td typedef char FILE_NAME;"
 "td union x{int x; int y; int z;}"
 "td enum Foo {COW=1,BAR=2};"
@@ -886,9 +890,10 @@ ts A
 ts B
 ts O  # Broken but shouldn't hang
 ?e ----
-tk~struct
+tk~^0,1
+tk~typedef.A=,typedef.B=,typedef.O=,struct.0,struct.1,struct.A,struct.B,struct.O
 ?e
-ts
+ts~0,1,A,B,O
 EXPECT=<<RUN
 pf dF num num2
 pf c ch
@@ -898,12 +903,6 @@ pf c ch
 ----
 0=struct
 1=struct
-func.getsockname.arg.1=struct sockaddr *,addr
-func.nanosleep.arg.0=const struct timespec *,req
-func.nanosleep.arg.1=struct timespec *,rem
-func.select.arg.4=struct timeval *,timeout
-func.sigaction.arg.1=const struct sigaction *,act
-func.sigaction.arg.2=struct sigaction *,oldact
 struct.0=num,num2
 struct.0.!size=96
 struct.0.num=int32_t,0,0
@@ -941,9 +940,9 @@ ts B
 ?e
 to ../bins/headers/hdr1.h
 to ../bins/headers/hdr2.h
-tk~^struct
+tk~^struct.0,struct.1,struct.2,struct.3
 ?e
-ts
+ts~^0,1,2,3,A,B
 EXPECT=<<RUN
 pf f num
 pf c ch
