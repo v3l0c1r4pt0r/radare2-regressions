@@ -8,6 +8,41 @@ Cvb local_10
 EOF
 RUN
 
+NAME=CL FAIL if no file
+BROKEN=1
+FILE=--
+EXPECT=<<EOF
+foo
+EOF
+CMDS=<<EOF
+CL $$ foo
+CL.
+EOF
+RUN
+
+NAME=CL FAIL if no rbinfile
+BROKEN=1
+FILE=-
+EXPECT=<<EOF
+foo
+EOF
+CMDS=<<EOF
+CL $$ foo
+CL.
+EOF
+RUN
+
+NAME=CL base64
+FILE=../bins/elf/arg
+EXPECT=<<EOF
+HELLO WORLD
+EOF
+CMDS=<<EOF
+CL $$ base64:SEVMTE8gV09STEQ=
+CL*
+EOF
+RUN
+
 NAME=CC.
 FILE=-
 EXPECT=<<EOF
