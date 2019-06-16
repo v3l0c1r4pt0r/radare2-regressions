@@ -657,7 +657,7 @@ endian   little
 havecode true
 intrp    /usr/lib/dyld
 laddr    0x0
-lang     c++ blocks ext.
+lang     c++ with blocks
 linenum  false
 lsyms    false
 machine  x86 64 all
