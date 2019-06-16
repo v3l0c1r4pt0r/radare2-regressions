@@ -12,7 +12,7 @@ NAME=: info
 FILE=../bins/mdmp/calc.dmp
 EXPECT=<<EOF
 arch     x86
-baddr    0x0
+baddr    0xffffffffffffffff
 binsz    36724
 bintype  mdmp
 bits     64
