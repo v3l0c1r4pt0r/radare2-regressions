@@ -1,4 +1,6 @@
 a "adrp x5, 0x0" 05000090
+a "add x0, x1, x2" 2000028b
+a "add x0, xzr, x30" e0031e8b
 a "b 0x0" 00000014
 a "b ." 00000014
 a "b 0x7efd4" f5fb0114
@@ -250,6 +252,7 @@ a "stur w3, [x8, -133]" 03b117b8
 a "stur w3, [x8, -256]" 030110b8
 a "stur w3, [x8, 113]" 031107b8
 a "stur w3, [x8, 236]" 03c10eb8
+a "sub x0, xzr, x2" e00302cb
 a "svc 6" c10000d4
 aB "mrs x3, SP_EL0" 034138d5
 aB "msr 0xc208, x3" 034118d5
