@@ -253,14 +253,14 @@ RUN
 
 NAME=C array {0x33,33,23,32}
 FILE=-
-CMDS=echo 'main() {const char *foo = {0x33,33,23,23,23,23,4,13,32,23,32,23,32};}' | rax2 -F
+CMDS=echo "main() {const char *foo = {0x33,33,23,23,23,23,4,13,32,23,32,23,32};}" | rax2 -F
 EXPECT=<<RUN
 332117171717040d2017201720
 RUN
 
 NAME=C string "\x33\x44\x88"
 FILE=-
-CMDS=echo 'main(){const char *foo = "\x33\x44\x88"; }' | rax2 -F
+CMDS=echo "main(){const char *foo = "\x33\x44\x88"; }" | rax2 -F
 EXPECT=<<RUN
 334488
 RUN
@@ -274,21 +274,21 @@ RUN
 
 NAME=Python array [0x33,33,23,32]
 FILE=-
-CMDS=echo 'foo = [0x33,33,23,23,23,23,4,13,32,23,32,23,32]' | rax2 -F
+CMDS=echo "foo = [0x33,33,23,23,23,23,4,13,32,23,32,23,32]" | rax2 -F
 EXPECT=<<RUN
 332117171717040d2017201720
 RUN
 
 NAME=Python string '\x33\x44\x88'
 FILE=-
-CMDS=echo 'foo = '\x33\x44\x88'' | rax2 -F
+CMDS=echo "foo = '\x33\x44\x88'" | rax2 -F
 EXPECT=<<RUN
 334488
 RUN
 
 NAME=Python string "\x33\x44\x88"
 FILE=-
-CMDS=echo 'foo = "\x33\x44\x88"' | rax2 -F
+CMDS=echo foo = "\x33\x44\x88" | rax2 -F
 EXPECT=<<RUN
 334488
 RUN

@@ -203,7 +203,7 @@ RUN
 
 NAME=rasm2 -B
 FILE=-
-CMDS=!rasm2 -a x86 -b16 -B 'xor al, 0x34';echo
+CMDS=!rasm2 -a x86 -b16 -B "xor al, 0x34";ps
 EXPECT=<<RUN
 44
 RUN
@@ -300,7 +300,7 @@ RUN
 
 NAME=rasm2 bswap x64 #8095
 FILE=-
-CMDS=!rasm2 -a x86 -b 64 'bswap rax;bswap rbx;bswap rcx;bswap rdx'
+CMDS='"!rasm2 -a x86 -b 64 \"bswap rax;bswap rbx;bswap rcx;bswap rdx\""'
 EXPECT=<<RUN
 480fc8480fcb480fc9480fca
 RUN

@@ -332,7 +332,7 @@ RUN
 
 NAME=rahash2 -s hello\x31
 FILE=-
-CMDS=!rahash2 -qa md5 -s hello\\x31
+CMDS=!rahash2 -qa md5 -s "hello\x31"
 EXPECT=<<RUN
 203ad5ffa1d7c650ad681fdff3965cd2
 RUN

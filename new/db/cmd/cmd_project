@@ -25,6 +25,7 @@ RUN
 NAME='Import project with overwriting'
 FILE=malloc://512
 CMDS=<<EXPECT
+t-*
 e asm.arch = x86
 e anal.arch = x86
 e dir.projects = .tmp/
@@ -59,6 +60,7 @@ NAME='Set, export, unset and import'
 FILE=malloc://512
 CMDS=<<EXPECT
 e dir.projects = .tmp/
+t-*
 CC "First comment" @ 0x00404890
 CC "Second comment" @ 0x00404800
 Ps testset > /dev/null
