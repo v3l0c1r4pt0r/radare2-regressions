@@ -70,18 +70,18 @@ test
 test
 EOF
 CMDS=<<EOF
-!echo "test"
+!echo test
 "!echo test"
 EOF
 RUN
 
-NAME=%ENV=33 !echo "$ENV"
+NAME=%ENV=33 !echo "${ENV}"
 FILE=-
 EXPECT=<<EOF
 World
 EOF
 CMDS=<<EOF
 %ENV=World
-!echo $ENV
+!echo ${ENV}
 EOF
 RUN

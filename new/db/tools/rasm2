@@ -80,7 +80,7 @@ RUN
 
 NAME=rasm2 #1167 5
 FILE=-
-CMDS=!rasm2 -s att -a x86.as -b 64 'add $33, %rbx'
+CMDS=!rasm2 -s att -a x86.as -b 64 "add \$33, %rbx"
 EXPECT=<<RUN
 4883c321
 RUN

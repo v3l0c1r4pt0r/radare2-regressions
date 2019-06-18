@@ -116,7 +116,7 @@ CMDS=<<EOF
 ?v main
 aaa
 afo main
-!!rabin2 -M $R2_FILE
+!!rabin2 -M ${R2_FILE}
 EOF
 EXPECT=<<EOF
 0x8370
@@ -132,7 +132,7 @@ CMDS=<<EOF
 ?v main
 aaa
 afo main
-!!rabin2 -M $R2_FILE
+!!rabin2 -M ${R2_FILE}
 EOF
 EXPECT=<<EOF
 0x82ec
@@ -148,7 +148,7 @@ CMDS=<<EOF
 ?v main
 aaa
 afo main
-!!rabin2 -M $R2_FILE
+!!rabin2 -M ${R2_FILE}
 EOF
 EXPECT=<<EOF
 0x10310
