@@ -810,8 +810,8 @@ EXPECT=<<EOF
 EOF
 CMDS=<<EOF
 af @ sym.main
-e search.in = raw 
-e search.from = 0x0000050c 
+e search.in = raw
+e search.from = 0x0000050c
 e search.to = 0x00000510
 /c add
 EOF
@@ -824,9 +824,69 @@ EXPECT=<<EOF
 EOF
 CMDS=<<EOF
 af @ sym.main
-e search.in = raw 
-e search.from = 0x00000512 
+e search.in = raw
+e search.from = 0x00000512
 e search.to = 0x00000516
 /ce r3,r0,=
+EOF
+RUN
+
+NAME=/x search hexpairs ignoring spaces
+FILE=../bins/elf/ioli/crackme0x00
+EXPECT=<<EOF
+0x00000581 hit0_0 50617373776f7264
+0x0000059e hit0_1 50617373776f7264
+0x000005a9 hit0_2 50617373776f7264
+EOF
+ARGS=-n
+CMDS=<<EOF
+# Password
+/x 50 61 73 73 77 6F 72 64
+EOF
+RUN
+
+NAME=/x search hexpairs ignoring spaces
+FILE=../bins/elf/ioli/crackme0x00
+EXPECT=<<EOF
+0x00000581 hit0_0 50617373776f7264
+0x0000059e hit0_1 50617373776f7264
+0x000005a9 hit0_2 50617373776f7264
+EOF
+ARGS=-n
+CMDS=<<EOF
+/x 5061 73 73  776F  72 64 # Password
+EOF
+RUN
+
+NAME=wx and /x with bin mask, both ignoring spaces
+FILE=malloc://1024
+EXPECT=<<EOF
+0x00000001 hit0_0 a5a5bf
+EOF
+CMDS=<<EOF
+wx a5 a5 a5 bf
+/x a5 .. bf
+EOF
+RUN
+
+NAME=wx and /x with bin mask, both ignoring spaces
+FILE=malloc://1024
+EXPECT=<<EOF
+0x00000127 hit0_0 5a5abf
+EOF
+CMDS=<<EOF
+wx 00 cafe 5a5a 5abf affe @ 0x123
+/x .. 5a bf
+EOF
+RUN
+
+NAME=wx and /x with custom bin mask, both ignoring spaces
+FILE=malloc://1024
+EXPECT=<<EOF
+0x00000005 hit0_0 a5a5bf
+EOF
+CMDS=<<EOF
+wx 01020304 a5a5a5 bf
+/x a5 e3 bf : ff 81 ff
 EOF
 RUN
