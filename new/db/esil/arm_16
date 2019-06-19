@@ -832,7 +832,6 @@ EOF
 RUN
 
 NAME=arm s110 syscalls asl ascii
-BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
 CMDS=<<EOF
@@ -844,7 +843,6 @@ EOF
 RUN
 
 NAME=arm s110 syscalls asl num
-BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
 CMDS=<<EOF
@@ -856,7 +854,6 @@ EOF
 RUN
 
 NAME=arm s110 syscalls asc num
-BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
 CMDS=<<EOF
@@ -868,7 +865,6 @@ EOF
 RUN
 
 NAME=arm s110 syscalls asca num
-BROKEN=1
 FILE=-
 ARGS=-aarm -b16 -easm.os=s110
 CMDS=<<EOF
