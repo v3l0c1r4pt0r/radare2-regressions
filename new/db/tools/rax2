@@ -440,7 +440,7 @@ RUN
 NAME=rax2 -o
 FILE=-
 CMDS=<<EOF
-!rax2 -o \162 \62
+!rax2 -o 162 62
 EOF
 EXPECT='r2'
 RUN
