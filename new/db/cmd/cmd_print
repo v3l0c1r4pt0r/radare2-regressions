@@ -734,6 +734,7 @@ RUN
 NAME=io.unalloc, io.unalloc.ch and prc
 FILE=../bins/elf/analysis/tiny.elf
 CMDS=<<EXPECT
+. ../bins/other/palette.r2
 (print, prc 0x00010032-0x0000fffa @ 0x0000fffa)
 e io.unalloc=true
 e scr.color=0
@@ -765,6 +766,7 @@ RUN
 NAME=prc text color
 FILE=-
 CMDS=<<EXPECT
+. ../bins/other/palette.r2
 .. ../new/scripts/prc_256.py
 e scr.color=3
 prc 256
