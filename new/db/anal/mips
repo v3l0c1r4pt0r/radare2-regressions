@@ -39,6 +39,17 @@ axt str.busybox
 EOF
 RUN
 
+NAME=gp-based ref
+FILE=../bins/elf/analysis/mips-hello
+EXPECT=<<EOF
+(nofunc); str.Hello_World 0x805c4 [DATA] addiu a0, v0, str.Hello_World
+EOF
+CMDS=<<EOF
+aae @entry0
+axt str.Hello_World
+EOF
+RUN
+
 NAME=assembler
 FILE=-
 EXPECT=<<EOF
