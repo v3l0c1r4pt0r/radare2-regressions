@@ -1,13 +1,13 @@
 NAME=Sort Params
 FILE=-
 EXPECT=<<EOF
-eleven
+0 one
+1 one
+3 eleven
+4 radare
+9 great
 five
 five
-great
-one
-one
-radare
 EOF
 CMDS=<<EOF
 sort ../bins/other/test_file
@@ -26,11 +26,12 @@ RUN
 NAME=Uniq command
 FILE=-
 EXPECT=<<EOF
-one
+1 one
 five
-eleven
-radare
-great
+3 eleven
+4 radare
+9 great
+0 one
 EOF
 CMDS=<<EOF
 uniq ../bins/other/test_file
@@ -49,16 +50,13 @@ RUN
 NAME=Join command
 FILE=-
 EXPECT=<<EOF
-one one
-five five
-eleven eleven
-radare radare
-great great
-five five
-one one
+1 one great
+3 eleven radare
+4 radare awesome
+9 great dodoco
 EOF
 CMDS=<<EOF
-join ../bins/other/test_file ../bins/other/test_file
+join ../bins/other/test_file ../bins/other/test_file2
 EOF
 RUN
 
