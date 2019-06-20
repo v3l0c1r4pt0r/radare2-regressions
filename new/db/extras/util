@@ -68,12 +68,3 @@ CMDS=<<EOF
 join ../bins/other/test_file
 EOF
 RUN
-
-NAME=Missing join Params
-FILE=-
-EXPECT=<<EOF
-EOF
-CMDS=<<EOF
-join ../bins/other/test_file
-EOF
-RUN
