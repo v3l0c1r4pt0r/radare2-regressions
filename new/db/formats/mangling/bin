@@ -83,8 +83,8 @@ RUN
 NAME=C++ demangle relocs
 FILE=../bins/elf/libstdc++.so.6
 EXPECT=<<CMDS
-            0x00091004      488b159d880f.  mov rdx, qword [reloc.vtableforstd::bad_alloc_168]; MOV rdx = [0x1898a8] = 0x0 class.std::__use_cache_std::__numpunct_cache_wchar_t
- ; [0x1898a8:8]=0
+            0x00091004      488b159d880f.  mov rdx, qword [reloc.vtableforstd::bad_alloc_168] ; MOV rdx = [0x1898a8] = 0x0 class.std::__use_cache_std::__numpunct_cache_wchar_t
+                                                                       ; [0x1898a8:8]=0
 CMDS=<<RUN
 pd 1 @0x00091004
 RUN
@@ -108,7 +108,8 @@ RUN
 
 NAME=demangle obj in pd
 FILE=../bins/elf/ch25.bin
-EXPECT='            0x08048aac      c7042460b004.  mov dword [esp], obj.std::cerr ; sym..bss ; [0x804b060:4]=0
+EXPECT='            0x08048aac      c7042460b004.  mov dword [esp], obj.std::cerr ; sym..bss
+                                                                       ; [0x804b060:4]=0
 '
 CMDS=pd 1 @0x08048aac
 RUN

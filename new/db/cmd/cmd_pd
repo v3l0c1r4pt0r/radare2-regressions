@@ -12,10 +12,14 @@ e asm.relsub=0
 pd 1
 EOF
 EXPECT=<<EOF
-            0x100001232      c70594420000.  mov dword [rip + 0x4294], 0x50 ; 'P' ; section.10.__DATA.__data ; [0x1000054d0:4]=80 ; U"P."
-            0x100001232      c70594420000.  mov dword [section.10.__DATA.__data], 0x50 ; 'P' ; [0x1000054d0:4]=80 ; U"P."
-            0x100001232      c70594420000.  mov dword [fin.dus], 0x50  ; 'P' ; [0x1000054d0:4]=80 ; U"P."
-            0x100001232      c70594420000.  mov dword [rip + 0x4294], 0x50 ; 'P' ; fin.dus ; [0x1000054d0:4]=80 ; U"P."
+            0x100001232      c70594420000.  mov dword [rip + 0x4294], 0x50 ; 'P' ; section.10.__DATA.__data
+                                                                       ; [0x1000054d0:4]=80 ; U"P."
+            0x100001232      c70594420000.  mov dword [section.10.__DATA.__data], 0x50 ; 'P'
+                                                                       ; [0x1000054d0:4]=80 ; U"P."
+            0x100001232      c70594420000.  mov dword [fin.dus], 0x50  ; 'P'
+                                                                       ; [0x1000054d0:4]=80 ; U"P."
+            0x100001232      c70594420000.  mov dword [rip + 0x4294], 0x50 ; 'P' ; fin.dus
+                                                                       ; [0x1000054d0:4]=80 ; U"P."
 EOF
 RUN
 
@@ -620,6 +624,7 @@ EXPECT=<<EOF
 0x100001085 call newname
 0x100001093 call sym.imp.setlocale
 0x1000010a3 call sym.imp.isatty
+0x1000054e0 [10] -rw- section size 40 named 10.__DATA.__data
 0x1000010b6 str.COLUMNS
 0x1000010bd call sym.imp.getenv
 0x1000010cf call sym.imp.atoi
@@ -820,7 +825,8 @@ RUN
 NAME=ANSI and wide string flag cmts
 FILE=../bins/pe/testapp-msvc64.exe
 EXPECT=<<EOF
-            0x140001004      488d05f54f01.  lea rax, str.ANSI__esc:__e_33m ; section..data ; 0x140016000 ; "\tANSI\esc: \x1b[33m\r\n"
+            0x140001004      488d05f54f01.  lea rax, str.ANSI__esc:__e_33m ; section..data
+                                                                       ; 0x140016000 ; "\tANSI\esc: \x1b[33m\r\n"
             0x140001010      488d05015001.  lea rax, str.wide__esc:__e_0m ; 0x140016018 ; u"\twide\esc: \x1b[0m\xa1\r\n"
             0x14000101c      488d051d5001.  lea rax, str.wide__in_Arabic: ; 0x140016040 ; u"\"wide\" in Arabic: \u0648\u0627\u0633\u0639"
             ; section..data
@@ -1402,16 +1408,20 @@ NAME=pd bin.str.purge
 FILE=../bins/elf/analysis/ls2
 EXPECT=<<EOF
             0x00404886      mov rcx, 0x412420                          ; ' $A' ; "AWAVA\x89\xffAUATL\x8d%\xbe\x99 "
-            0x0040488d      mov rdi, main                              ; section..text ; 0x4028a0 ; "AWAVAUATUS\x89\xfbH\x89\xf5H\x81\xec\x98\x03"
+            0x0040488d      mov rdi, main                              ; section..text
+                                                                       ; 0x4028a0 ; "AWAVAUATUS\x89\xfbH\x89\xf5H\x81\xec\x98\x03"
 --1--
             0x00404886      mov rcx, 0x412420                          ; ' $A'
-            0x0040488d      mov rdi, main                              ; section..text ; 0x4028a0
+            0x0040488d      mov rdi, main                              ; section..text
+                                                                       ; 0x4028a0
 --2--
             0x00404886      mov rcx, 0x412420                          ; ' $A' ; "AWAVA\x89\xffAUATL\x8d%\xbe\x99 "
-            0x0040488d      mov rdi, main                              ; section..text ; 0x4028a0
+            0x0040488d      mov rdi, main                              ; section..text
+                                                                       ; 0x4028a0
 --3--
             0x00404886      mov rcx, 0x412420                          ; ' $A'
-            0x0040488d      mov rdi, main                              ; section..text ; 0x4028a0
+            0x0040488d      mov rdi, main                              ; section..text
+                                                                       ; 0x4028a0
 --4--
 |           0x004028e0      mov esi, str.usr_share_locale              ; 0x414fbf ; "/usr/share/locale"
 |           0x00402abd      mov edi, str.TABSIZE                       ; 0x414fe7

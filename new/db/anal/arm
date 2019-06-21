@@ -88,7 +88,8 @@ RUN
 NAME=thumb adr pc-rel analysis
 FILE=malloc://32
 EXPECT=<<EOF
-            0x00000002      01a0           adr r0, 4                   ; "Radare2 test string" ; 0x8 ; 8
+            0x00000002      01a0           adr r0, 4                   ; "Radare2 test string"
+                                                                       ; 0x8 ; 8
 EOF
 CMDS=<<EOF
 e asm.arch=arm
@@ -132,7 +133,8 @@ RUN
 NAME=thumb adr pc-rel analysis with newline
 FILE=malloc://32
 EXPECT=<<EOF
-            0x00000002      01a0           adr r0, 4                   ; "Radare2 test\r\n" ; 0x8 ; 8
+            0x00000002      01a0           adr r0, 4                   ; "Radare2 test\r\n"
+                                                                       ; 0x8 ; 8
 EOF
 CMDS=<<EOF
 e asm.arch=arm
