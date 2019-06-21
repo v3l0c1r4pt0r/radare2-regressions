@@ -175,7 +175,7 @@ int64   -1
 uint64  18446744073709551615
 hex     0xffffffffffffffff
 octal   01777777777777777777777
-unit    16.0E
+unit    16E
 segment fffff000:0fff
 string  "\xff\xff\xff\xff\xff\xff\xff\xff"
 fvalue: -1.0

@@ -33,7 +33,7 @@ bool test_r_num_units() {
 		{ "9.9G",     "G", 10188 * (1ULL << 20) },
 		/* Biggest units */
 		{ "82P",      "P", 82 * (1ULL << 50) },
-		{ "16.0E",    "E", UT64_MAX }
+		{ "16E",    "E", UT64_MAX }
 	};
 	size_t nitems = sizeof (test_cases) / sizeof (test_cases[0]);
 	size_t i;
