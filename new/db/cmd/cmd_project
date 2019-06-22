@@ -137,7 +137,7 @@ e dir.projects = .tmp/
 tk zoby  =  type
 tl char @ 0x0
 Ps types > /dev/null
-Pc types~?link
+Pc types~?link.,symlink,unlink
 Pc types~?zoby
 EXPECT=<<RUN
 10
