@@ -171,7 +171,7 @@ EXPECT=<<EOF
 0x000001e0 0 sym.imp.Ljava_lang_StringBuilder.method.toString__Ljava_lang_String
 0x000001e8 1 class.LHello
 0x00000208 1 class.LWorld
-0x00000238 224 section.code
+0x00000238 292 section.code
 0x00000238 20 sym.LHello.method._init___V
 0x00000238 1 method.public.constructor.LHello.LHello.method._init___V
 0x0000025c 1 entry0
