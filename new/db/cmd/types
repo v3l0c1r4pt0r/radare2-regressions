@@ -1415,3 +1415,33 @@ EOF
 EXPECT=<<EOF
 EOF
 RUN
+
+NAME=tn common
+FILE=../bins/pe/pe.exe
+CMDS=<<EOF
+tna 8
+tnn 8
+tn
+tn- 0x8
+tn- 8
+tn
+tn-*
+tn
+EOF
+EXPECT=<<EOF
+RtlRaiseException
+FreeLibraryAndExitThread
+ExitProcess
+FatalExit
+RaiseException
+ExitThread
+8
+0x8
+RtlRaiseException
+FreeLibraryAndExitThread
+ExitProcess
+FatalExit
+RaiseException
+ExitThread
+EOF
+RUN
