@@ -8,7 +8,7 @@
 ?j 0x10
 ?Vj
 aaij
-aarj BROKEN
+aarj
 abtj
 aeafj
 aeaj
@@ -70,7 +70,7 @@ imj
 iRj
 irj
 iSj
-is.j @ 0xffffffffffffffff BROKEN
+is.j @ 0xffffffffffffffff
 isj
 iSj entropy
 iSj sha1
