@@ -11,6 +11,33 @@ bool test_r_str_replace_char_once(void) {
 	mu_end;
 }
 
+bool test_r_str_replace(void) {
+	// infinite loop test
+	char *str = r_str_replace (strdup ("hello world"), "hell", "ihell", 0);
+	mu_assert_streq (str, "ihello world", "error, replace char multi failed");
+	free (str);
+
+	str = r_str_replace (strdup ("hello world"), "hell", "ihell", 1);
+	mu_assert_streq (str, "ihello world", "error, replace char multi failed");
+	free (str);
+
+	str = r_str_replace (strdup ("hello world"), "hello", "", 1);
+	mu_assert_streq (str, " world", "error, replace char multi failed");
+	free (str);
+
+	str = r_str_replace (strdup ("hello world"), "h", "hello", 0);
+	mu_assert_streq (str, "helloello world", "error, replace char multi failed");
+	free (str);
+
+	str = r_str_replace (strdup ("hello horld"), "h", "hello", 1);
+	mu_assert_streq (str, "helloello helloorld", "error, replace char multi failed");
+	free (str);
+	str = r_str_replace (strdup ("hello horld"), "h", "hello", 0);
+	mu_assert_streq (str, "helloello horld", "error, replace char multi failed");
+	free (str);
+	mu_end;
+}
+
 bool test_r_str_replace_char(void) {
 	char* str = strdup ("hello world");
 	(void) r_str_replace_char (str, 'l', 'x');
@@ -321,6 +348,7 @@ bool all_tests() {
 	mu_run_test(test_r_str_newf);
 	mu_run_test(test_r_str_replace_char_once);
 	mu_run_test(test_r_str_replace_char);
+	mu_run_test(test_r_str_replace);
 	mu_run_test(test_r_str_bits64);
 	mu_run_test(test_r_str_rwx);
 	mu_run_test(test_r_str_rwx_i);
