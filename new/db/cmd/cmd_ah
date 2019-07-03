@@ -170,3 +170,26 @@ ahj
 ahj 0x1337
 EOF
 RUN
+
+NAME=aho with asm.tabs
+FILE=../bins/mach0/mac-ls
+CMDS=<<EOF
+e asm.flags=0
+pd 3
+aho hello world
+pd 3
+e asm.tabs=1
+pd 3
+EOF
+EXPECT=<<EOF
+            0x100001058      55             push rbp
+            0x100001059      4889e5         mov rbp, rsp
+            0x10000105c      4157           push r15
+            0x100001058      55             hello world
+            0x100001059      4889e5         mov rbp, rsp
+            0x10000105c      4157           push r15
+            0x100001058      55             hello world
+            0x100001059      4889e5         mov rbp, rsp
+            0x10000105c      4157           push r15
+EOF
+RUN
