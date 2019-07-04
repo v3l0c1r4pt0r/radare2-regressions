@@ -198,7 +198,7 @@ EXPECT=<<RUN
  [93m##[0m  btext
  [95m##[0m  push
  [1;95m##[0m  pop
- [104m##[0m  crypto
+ [103m##[0m  crypto
  [92m##[0m  jmp
  [92m##[0m  cjmp
  [1;92m##[0m  call
@@ -214,7 +214,7 @@ EXPECT=<<RUN
  [93m##[0m  num
  [97m##[0m  mov
  [97m##[0m  func_var
- [94m##[0m  func_var_type
+ [93m##[0m  func_var_type
  [96m##[0m  func_var_addr
  [40m##[0m  widget_bg
  [101m##[0m  widget_sel
@@ -223,8 +223,8 @@ EXPECT=<<RUN
  [91m##[0m  ai.exec
  [95m##[0m  ai.seq
  [93m##[0m  ai.ascii
- [30m##[0m  graph.box
- [94m##[0m  graph.box2
+ [94m##[0m  graph.box
+ [92m##[0m  graph.box2
  [95m##[0m  graph.box3
  [90m##[0m  graph.box4
  [92m##[0m  graph.true
