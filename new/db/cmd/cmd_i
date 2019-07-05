@@ -4027,7 +4027,7 @@ FILE=../bins/mach0/fatmach0-3true
 ARGS=-m 0x5000
 CMDS=iI~laddr
 EXPECT=<<RUN
-laddr    0x5000
+laddr    0x0
 RUN
 
 NAME=ik-macho

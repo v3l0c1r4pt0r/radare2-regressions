@@ -160,7 +160,7 @@ oob
 iI~laddr[1]
 iI~baddr[1]
 EXPECT=<<RUN
-0x5000
+0x0
 0x1000
 RUN
 
@@ -174,8 +174,8 @@ oob
 iI~laddr[1]
 iI~baddr[1]
 EXPECT=<<RUN
-0x5000
-0x1000
+0x0
+0x100000000
 RUN
 
 NAME=oob from malloc
