@@ -232,8 +232,8 @@ RUN
 NAME=pd pseudo test for issue #7268
 FILE=malloc://8
 EXPECT=<<EOF
-            [32m[7m0x00000000[0m      [33m48[37m89[37me5[0m         [37mrbp =[36m rsp[0m[0m[0m
-[0m            [32m[7m0x00000000[0m      [33m48[37m89[37me5[0m         [37mrbp = rsp[36m [0m[0m
+            [32m[7m0x00000000[0m      [33m48[37m89[37me5[0m         [37mrbp = rsp[36m [0m[0m[0m
+[0m            [32m[7m0x00000000[0m      [33m48[37m89[37me5[0m         [37mrbp = rsp [36m [0m[0m
 EOF
 CMDS=<<EOF
 e asm.arch=x86
@@ -1851,15 +1851,15 @@ EXPECT=<<RUN
 |           0x00010464      ldr r0, [fp, 8]
 |           0x00010468      ldr r1, [fp, 0xc]
 
-|           0x0001045c      [fp - 8] = r0
-|           0x00010460      [fp - 0xc] = r1
-|           0x00010464      r0 = [fp + 8]
-|           0x00010468      r1 = [fp + 0xc]
+|           0x0001045c      [fp - var_8h] = r0
+|           0x00010460      [fp - var_ch] = r1
+|           0x00010464      r0 = [fp + arg_8h]
+|           0x00010468      r1 = [fp + arg_ch]
 
-|           0x0001045c      [fp - 8] = r0
-|           0x00010460      [fp - 0xc] = r1
-|           0x00010464      r0 = [fp + 8]
-|           0x00010468      r1 = [fp + 0xc]
+|           0x0001045c      [var_8h] = r0
+|           0x00010460      [local2] = r1
+|           0x00010464      r0 = [arg1]
+|           0x00010468      r1 = [arg_ch]
 RUN
 
 NAME=pdfj with padding
