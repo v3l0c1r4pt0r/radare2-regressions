@@ -4153,3 +4153,16 @@ EXPECT=<<RUN
 md5 84144530144b53a704c84d9c65ab5f92
 sha1 9016e215a321184c42c28ab03847554851932713
 RUN
+
+NAME=isq. (malloc)
+FILE=malloc://512
+CMDS=isq.
+EXPECT=''
+RUN
+
+NAME=isq. (file x86)
+FILE=../bins/elf/analysis/hello-linux-x86_64
+CMDS=isq.
+EXPECT='0x00400410 0 .text
+'
+RUN
