@@ -563,7 +563,6 @@ CMDS=<<EOF
 e io.va=true
 e asm.relsub=false
 e asm.arch=x86
-e asm.leahints=false
 e asm.bits=64
 wx 488d0502000000
 e asm.lines.bb=false
@@ -1126,22 +1125,6 @@ e asm.cmt.off=true
 pd 1 @ 0x140001010
 e asm.cmt.off=nodup
 pd 1 @ 0x140001010
-EOF
-RUN
-
-NAME=asm.leahints cmt
-FILE=../bins/elf/analysis/ls-linux64
-EXPECT=<<EOF
-            0x00005c2f      4c8d054ae200.  lea r8, [0x00013e80]        ; LEA r8 = [0x13e80] = 0x841f0f2e66c3f3 "..f...."
-            ; LEA r8 = [0x13e80] = 0x841f0f2e66c3f3 "..f...."
-            0x00005c2f      4c8d054ae200.  lea r8, [0x00013e80]
-EOF
-CMDS=<<EOF
-e asm.hint.lea=true
-e asm.cmt.right=true
-pd 1 @ 0x00005c2f
-e asm.cmt.right=false
-pd 1 @ 0x00005c2f
 EOF
 RUN
 
