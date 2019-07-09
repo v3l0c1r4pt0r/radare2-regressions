@@ -57,7 +57,6 @@ ihq
 EOF
 RUN
 
-
 NAME=ih* (file x86)
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 EXPECT=<<EOF
@@ -2825,7 +2824,6 @@ irq
 EOF
 RUN
 
-
 NAME=is (file x86)
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 EXPECT=<<EOF
@@ -4165,4 +4163,28 @@ FILE=../bins/elf/analysis/hello-linux-x86_64
 CMDS=isq.
 EXPECT='0x00400410 0 .text
 '
+RUN
+
+NAME=ic?~ (match all)
+BROKEN=1
+FILE=malloc://512
+CMDS=ic?~List
+EXPECT=<<RUN
+| ic                 List classes, methods and fields
+| icc                List classes, methods and fields in Header Format
+RUN
+
+NAME=ic?~ (match one)
+BROKEN=1
+FILE=malloc://512
+CMDS=ic?~Header
+EXPECT=<<RUN
+| icc                List classes, methods and fields in Header Format
+RUN
+
+NAME=ic?~ (match none)
+BROKEN=1
+FILE=malloc://512
+CMDS=ic?~Guess
+EXPECT=''
 RUN
