@@ -1,3 +1,15 @@
+NAME=visual_dw
+FILE=-
+EXPECT=<<EOF
+10
+EOF
+CMDS=<<EOF
+e scr.interactive=true
+Vc10dwq
+pd 20~dword?
+EOF
+RUN
+
 NAME=Vc+cq
 FILE=-
 EXPECT=<<EOF
