@@ -21,7 +21,8 @@ RUN
 
 NAME=r2 --
 FILE=../bins/elf/bomb
-CMDS=r2 -s main -qc "s" ../bins/elf/bomb
+BROKEN=1
+CMDS=r2 -s main -qcs ../bins/elf/bomb
 EXPECT=<<RUN
 0x400da0
 RUN
