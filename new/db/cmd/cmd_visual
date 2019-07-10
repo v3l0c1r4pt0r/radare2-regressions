@@ -1,6 +1,39 @@
 NAME=visual_dw
 FILE=-
 EXPECT=<<EOF
+
+[Vd]- Define current block as:
+ $    define flag size
+ 1    edit bits
+ a    assembly
+ b    set as byte
+ B    set as short word (2 bytes)
+ c    set as code
+ C    define flag color (fc)
+ d    set as data
+ e    end of function
+ f    analyze function
+ F    format
+ i    (ahi) immediate base (b(in), o(ct), d(ec), h(ex), s(tr))
+ I    (ahi1) immediate base (b(in), o(ct), d(ec), h(ex), s(tr))
+ j    merge down (join this and next functions)
+ k    merge up (join this and previous function)
+ h    define anal hint
+ m    manpage for current call
+ n    rename flag used at cursor
+ o    opcode string
+ r    rename function
+ R    find references /r
+ s    set string
+ S    set strings in current block
+ t    set opcode type via aht hints (call, nop, jump, ...)
+ u    undefine metadata here
+ v    rename variable at offset that matches some hex digits
+ x    find xrefs to current address (./r)
+ w    set as 32bit word
+ W    set as 64bit word
+ q    quit menu
+ z    zone flag
 10
 EOF
 CMDS=<<EOF
