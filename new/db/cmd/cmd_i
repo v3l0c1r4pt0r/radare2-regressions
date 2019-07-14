@@ -399,6 +399,7 @@ EOF
 RUN
 
 NAME=ic?
+BROKEN=1
 FILE=../bins/elf/libmagic.so
 EXPECT=<<EOF
 1
@@ -4064,6 +4065,7 @@ EXPECT=<<RUN
 RUN
 
 NAME=ik?
+BROKEN=1
 FILE=../bins/mach0/fatmach0-3true
 CMDS=ik?~?Usage
 EXPECT=<<RUN
