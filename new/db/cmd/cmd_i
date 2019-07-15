@@ -4169,7 +4169,6 @@ EXPECT='0x00400410 0 .text
 RUN
 
 NAME=ic?~ (match all)
-BROKEN=1
 FILE=malloc://512
 CMDS=ic?~List
 EXPECT=<<RUN
@@ -4178,7 +4177,6 @@ EXPECT=<<RUN
 RUN
 
 NAME=ic?~ (match one)
-BROKEN=1
 FILE=malloc://512
 CMDS=ic?~Header
 EXPECT=<<RUN
@@ -4186,7 +4184,6 @@ EXPECT=<<RUN
 RUN
 
 NAME=ic?~ (match none)
-BROKEN=1
 FILE=malloc://512
 CMDS=ic?~Guess
 EXPECT=''
