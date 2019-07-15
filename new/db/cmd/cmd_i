@@ -4201,3 +4201,64 @@ EXPECT=<<RUN
 7336 0x00089bed 0x0048b9ed  26  53 (.text) utf16le http://pomf.cat/upload.php
 7337 0x00089c22 0x0048ba22  19  40 (.text) utf16le https://a.pomf.cat/
 RUN
+
+NAME=ic (file Java)
+FILE=../bins/java/Hello.class
+CMDS=ic
+EXPECT=<<RUN
+0x00000000 [0x0000022b - 0x000002aa]    127 class 0 Hello :: java/lang/Object
+0x0000022b method 0      <init>
+0x00000263 method 1      say
+0x000002aa method 2      main
+RUN
+
+NAME=icq (file Java)
+FILE=../bins/java/Hello.class
+CMDS=icq
+EXPECT=<<RUN
+0x00000000 [0x0000022b - 0x000002aa] Hello java/lang/Object
+RUN
+
+NAME=icqq (file Java)
+BROKEN=1
+FILE=../bins/java/Hello.class
+CMDS=icqq
+EXPECT=<<RUN
+Hello
+RUN
+
+NAME=icqq (file x86)
+FILE=../bins/elf/ls
+CMDS=icqq
+EXPECT=''
+RUN
+
+NAME=iqqc (file Java)
+BROKEN=1
+FILE=../bins/java/Hello.class
+CMDS=iqqc
+EXPECT=<<RUN
+Hello
+RUN
+
+NAME=iqqc (file x86)
+BROKEN=1
+FILE=../bins/elf/ls
+CMDS=iqqc
+EXPECT=''
+RUN
+
+NAME=iqcq (file Java)
+BROKEN=1
+FILE=../bins/java/Hello.class
+CMDS=iqcq
+EXPECT=<<RUN
+Hello
+RUN
+
+NAME=iqcq (file x86)
+BROKEN=1
+FILE=../bins/elf/ls
+CMDS=iqcq
+EXPECT=''
+RUN
