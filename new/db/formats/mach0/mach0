@@ -141,6 +141,9 @@ pf.mach0_segment @ 0x000002e4
 0x00000414  stacksize   0x0
 0x00000424  cmd      12 0x21 LC_ENCRYPTION_INFO
 0x00000428  cmdsize     20
+0x00000428  cryptoff   0x00004000
+0x0000042c  cryptsize  16384
+0x00000430  cryptid    0
 0x00000438  cmd      13 0xc LC_LOAD_DYLIB
 0x0000043c  cmdsize     52
 0x0000044c  load_dylib  /usr/lib/libSystem.B.dylib
