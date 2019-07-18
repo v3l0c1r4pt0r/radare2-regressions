@@ -375,7 +375,7 @@ EXPECT=<<EOF
 EOF
 ARGS=-a avr
 CMDS=<<EOF
-/c ldi~0x6d
+/ad ldi~0x6d
 EOF
 RUN
 
@@ -387,7 +387,7 @@ EXPECT=<<EOF
 EOF
 ARGS=-a avr
 CMDS=<<EOF
-/c ldi ~ 0x18
+/ad ldi ~ 0x18
 EOF
 RUN
 
@@ -399,7 +399,7 @@ EOF
 ARGS=-a avr
 CMDS=<<EOF
 e search.align=2
-/c in ~ 0x12
+/ad in ~ 0x12
 EOF
 RUN
 
@@ -492,7 +492,7 @@ EOF
 ARGS=-a avr
 CMDS=<<EOF
 s 0
-/c in ~ 0x18
+/ad in ~ 0x18
 pd 5
 EOF
 RUN
@@ -529,7 +529,7 @@ EOF
 CMDS=<<EOF
 e asm.arch=avr
 aaa
-/c call 0x4ec
+/ad call 0x4ec
 EOF
 RUN
 
@@ -541,7 +541,7 @@ EOF
 CMDS=<<EOF
 e asm.arch=avr
 aaa
-/c call 0x4ec
+/ad call 0x4ec
 EOF
 RUN
 

@@ -17,7 +17,7 @@ EXPECT=<<EOF
 EOF
 CMDS=<<EOF
 e search.in = bin.sections
-?v $$ @@c:/c fs:[ra
+?v $$ @@c:/ad fs:[ra
 EOF
 RUN
 
@@ -31,7 +31,7 @@ EXPECT=<<EOF
 EOF
 CMDS=<<EOF
 e search.in = bin.sections
-?v $$ @@c:/ca fs:[ra
+?v $$ @@c:/ao fs:[ra
 EOF
 RUN
 
