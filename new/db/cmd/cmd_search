@@ -354,7 +354,7 @@ CMDS=<<EOF
 e asm.arch = x86
 e anal.arch = x86
 e asm.bits=32
-"/c/ ror (bh|...), (cl|.)"
+"/ad/ ror (bh|...), (cl|.)"
 q
 EOF
 RUN
@@ -827,7 +827,7 @@ af @ sym.main
 e search.in = raw
 e search.from = 0x00000512
 e search.to = 0x00000516
-/ce r3,r0,=
+/ae r3,r0,=
 EOF
 RUN
 

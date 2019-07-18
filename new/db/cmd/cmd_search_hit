@@ -77,7 +77,7 @@ EXPECT=<<EOF
 EOF
 CMDS=<<EOF
 wx 90 @ 10
-wx 33 @@/c nop
+wx 33 @@/ad nop
 p8 1 @ 10
 EOF
 RUN
@@ -212,7 +212,7 @@ wx cffa edfe
 e cmd.hit = px 1
 e search.from = 0
 e search.to = 0x10
-/B
+/mb
 EOF
 RUN
 

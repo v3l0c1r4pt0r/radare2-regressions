@@ -741,11 +741,11 @@ EXPECT=<<EOF
 EOF
 RUN
 
-NAME=arm s110 syscalls /c svc
+NAME=arm s110 syscalls /ad svc
 FILE=../bins/elf/BLE_Beacon2.NRF51822_OTA.bin
 ARGS=-aarm -b16 -easm.os=s110 -m 0x16000
 CMDS=<<EOF
-/c svc
+/ad svc
 EOF
 EXPECT=<<EOF
 0x000168d0   # 2: svc 0x51
