@@ -75,12 +75,11 @@ EOF
 RUN
 
 NAME=multiple assignments
-BROKEN=1
 FILE=-
 EXPECT=<<EOF
-true
-true
-true
+scr.highlight.grep  =scr.rainbow =true
+false
+false
 EOF
 CMDS=<<RUN
 e   scr.highlight= scr.highlight.grep  =scr.rainbow =true 
@@ -90,10 +89,9 @@ e scr.rainbow
 RUN
 
 NAME=multiple assignments with quotes
-BROKEN=1
 EXPECT=<<EOF
-e cmd.prompt =  "e scr.highlight = cmd.prompt ="e scr.rainbow = true ""
-e cmd.prompt =  "e scr.highlight = cmd.prompt ="e scr.rainbow = true ""
+scr.highlight = "e cmd.prompt =  "e scr.highlight = cmd.prompt ="e scr.rainbow = true """
+
 EOF
 CMDS=<<RUN
 e cmd.prompt = scr.highlight = "e cmd.prompt =  "e scr.highlight = cmd.prompt ="e scr.rainbow = true """
