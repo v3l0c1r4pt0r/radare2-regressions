@@ -84,8 +84,11 @@ EXPECT=<<EOF
  1 fd: 3 +0x0000008b 0x0000008b - 0x000000a6 r-- fmap..data_1
 [Symbols]
 Num Paddr      Vaddr      Bind     Type Size Name
+000 0x00000000 0x00000000   NONE EXTERNAL    4 MessageBoxA
+000 0x00000000 0x00000000   NONE EXTERNAL    4 ExitProcess
 000 0x00000064 0x00000064   NONE STATIC    4 .text
-000 0x00000000 0x00000000   NONE STATIC    4 .data
+000 0x00000064 0x00000064   NONE   FUNC    4 main
+000 0x0000008b 0x0000008b   NONE STATIC    4 .data
 [Relocations]
 vaddr=0x0000006d paddr=0x0000006d type=UNKNOWN .data
 vaddr=0x00000074 paddr=0x00000074 type=UNKNOWN .data
@@ -114,9 +117,11 @@ EXPECT=<<EOF
  1 fd: 3 +0x00001000 0x00001000 - 0x00001003 r-- fmap..rtc_TMZ_8
 000 0x00000d8f 0x00000d8f   NONE STATIC    4 .text$mn
 000 0x00000ec2 0x00000ec2   NONE STATIC    4 .text$mn
-            ;-- section..text_mn_3:
-            0x00000d8f      55             push ebp                    ; [03] -r-x section size 45 named .text_mn_3
-            0x00000d90      8bec           mov ebp, esp
+            ;-- section..text_mn_5:
+            ;-- .text$mn:
+            ;-- ??1FooBar@@QAE@XZ:
+            0x00000ec2      55             push ebp                    ; [05] -r-x section size 42 named .text_mn_5
+            0x00000ec3      8bec           mov ebp, esp
 EOF
 CMDS=<<EOF
 om
