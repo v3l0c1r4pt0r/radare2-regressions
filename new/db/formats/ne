@@ -1,0 +1,71 @@
+NAME=NE Symbols
+FILE=../bins/ne/anim8.exe
+EXPECT=<<CMDS
+[Symbols]
+Num Paddr      Vaddr      Bind     Type Size Name
+000 0x00000a00 0x00000a00   NONE   NONE    0 ANIM8
+001 0x00000d8e 0x00000d8e GLOBAL   NONE    0 WNDPROC
+002 0x00002b5a 0x00002b5a GLOBAL   NONE    0 DIAL_ABOUT
+000 0x00000a00 0x00000a00   NONE   NONE    0 ANIM8
+CMDS=<<RUN
+is
+RUN
+
+NAME=NE Segments
+FILE=../bins/ne/anim8.exe
+EXPECT=<<CMDS
+[Segments]
+Nm Paddr       Size Vaddr      Memsz Perms Name
+00 0x00000a00 21742 0x00000a00 21742 ---x arch=x86 bits=16 MOVEABLE.2560
+01 0x00007600 16068 0x00007600 16068 -rwx arch=x86 bits=16 MOVEABLE.30208
+CMDS=<<RUN
+iSS
+RUN
+
+NAME=NE Module imports
+FILE=../bins/ne/anim8.exe
+EXPECT=<<CMDS
+[Imports]
+Num  Vaddr       Bind      Type Name
+   1 0x00000000  (null)  (null) KERNEL
+   2 0x00000000  (null)  (null) USER
+   3 0x00000000  (null)  (null) GDI
+   4 0x00000000  (null)  (null) WIN87EM
+CMDS=<<RUN
+ii
+RUN
+
+NAME=NE Relocs
+FILE=../bins/ne/anim8.exe
+EXPECT=<<CMDS
+718
+CMDS=<<RUN
+ir~vaddr?
+RUN
+
+NAME=NE Relocs and resolve function ordinal names
+FILE=../bins/ne/anim8.exe
+EXPECT=<<CMDS
+vaddr=0x00004c98 paddr=0x00004c98 type=SET_32 WIN87EM.__FPMATH
+vaddr=0x00004cb2 paddr=0x00004cb2 type=SET_16 WIN87EM.__FPMATH
+vaddr=0x00004cb8 paddr=0x00004cb8 type=SET_16 WIN87EM.__FPMATH
+vaddr=0x00004cbd paddr=0x00004cbd type=SET_32 WIN87EM.__FPMATH
+vaddr=0x00004ccb paddr=0x00004ccb type=SET_32 WIN87EM.__FPMATH
+vaddr=0x0000569a paddr=0x0000569a type=ADD_16 WIN87EM.0
+vaddr=0x000056a0 paddr=0x000056a0 type=ADD_16 WIN87EM.0
+vaddr=0x000056b3 paddr=0x000056b3 type=ADD_16 WIN87EM.0
+vaddr=0x00005891 paddr=0x00005891 type=ADD_16 WIN87EM.0
+[Relocations]
+vaddr=0x00000a01 paddr=0x00000a01 type=SET_32 KERNEL.INITTASK
+vaddr=0x00000a25 paddr=0x00000a25 type=SET_32 KERNEL.LOCKSEGMENT
+vaddr=0x00000a3c paddr=0x00000a3c type=SET_32 KERNEL.WAITEVENT
+vaddr=0x00000a45 paddr=0x00000a45 type=SET_32 USER.INITAPP
+vaddr=0x00000a74 paddr=0x00000a74 type=SET_32 KERNEL.GETWINFLAGS
+vaddr=0x00000ad0 paddr=0x00000ad0 type=SET_32 KERNEL.UNLOCKSEGMENT
+vaddr=0x00000f5e paddr=0x00000f5e type=SET_32 USER.SETTIMER
+vaddr=0x00000f4d paddr=0x00000f4d type=SET_32 USER.KILLTIMER
+vaddr=0x00000f13 paddr=0x00000f13 type=SET_32 USER.SETTIMER
+CMDS=<<RUN
+ir~WIN87EM
+ir~:0..10
+RUN
