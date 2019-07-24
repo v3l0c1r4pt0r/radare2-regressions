@@ -108,3 +108,19 @@ EXPECT=<<RUN
 0x0001003a  0000 0000 0000 0000 0000 0000 0000 0000  ................
 0x0001004a  0000 0000 0000 0000 0000 0000 0000 0000  ................
 RUN
+
+NAME=pxr
+BROKEN=1
+FILE=../bins/elf/crackme
+EXPECT=<<EOF
+0x00600ae0 0x000000000040055e   ^.@..... @reloc.printf 4195678 (.plt) R X 'push 0'
+0x00600ae8 0x000000000040056e   n.@..... @reloc.puts 4195694 (.plt) R X 'push 1'
+0x00600af0 0x000000000040057e   ~.@..... @reloc.__libc_start_main 4195710 (.plt) R X 'push 2'
+0x00600af8 0x000000000040058e   ..@..... @reloc.fgets 4195726 (.plt) R X 'push 3'
+0x00600b00 0x000000000040059e   ..@..... @reloc.strcmp 4195742 (.plt) R X 'push 4'
+0x00600b08 0x00000000004005ae   ..@..... @reloc.fflush 4195758 (.plt) R X 'push 5'
+EOF
+CMDS=<<EOF
+pxr 0x30@0x00600ae0
+EOF
+RUN
