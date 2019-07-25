@@ -406,19 +406,18 @@ RUN
 NAME=Search rop gadgets for in command
 FILE=../bins/firmware/arduino_avr.bin
 EXPECT=<<EOF
-  0x0000027e           0e947304  call 0x8e6
+  0x00000280               7304  cpc r7, r3
   0x00000282               82b3  in r24, 0x12
   0x00000284               8058  subi r24, 0x80
   0x00000286               82bb  out 0x12, r24
   0x00000288               0895  ret
 
-  0x00000292           0e947304  call 0x8e6
+  0x00000294               7304  cpc r7, r3
   0x00000296               88b3  in r24, 0x18
   0x00000298               8058  subi r24, 0x80
   0x0000029a               88bb  out 0x18, r24
   0x0000029c               0895  ret
 
-  0x000005c4               12c0  rjmp 0x5ea
   0x000005c6               8fb5  in r24, 0x2f
   0x000005c8               8f77  andi r24, 0x7f
   0x000005ca               02c0  rjmp 0x5d0
@@ -444,19 +443,18 @@ RUN
 NAME=Search rop gadgets for IN command with align=2
 FILE=../bins/firmware/arduino_avr.bin
 EXPECT=<<EOF
-  0x0000027e           0e947304  call 0x8e6
+  0x00000280               7304  cpc r7, r3
   0x00000282               82b3  in r24, 0x12
   0x00000284               8058  subi r24, 0x80
   0x00000286               82bb  out 0x12, r24
   0x00000288               0895  ret
 
-  0x00000292           0e947304  call 0x8e6
+  0x00000294               7304  cpc r7, r3
   0x00000296               88b3  in r24, 0x18
   0x00000298               8058  subi r24, 0x80
   0x0000029a               88bb  out 0x18, r24
   0x0000029c               0895  ret
 
-  0x000005c4               12c0  rjmp 0x5ea
   0x000005c6               8fb5  in r24, 0x2f
   0x000005c8               8f77  andi r24, 0x7f
   0x000005ca               02c0  rjmp 0x5d0
