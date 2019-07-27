@@ -152,7 +152,7 @@ EXPECT=<<RUN
 |           0x08049278      call sym.QLabel::QLabel_QString_const___QWidget___QFlags_Qt::WindowType
 RUN
 
-NAME=c++ xref demangling (in fcn)
+NAME=c++ xref demangling (xref from fcn)
 FILE=../bins/elf/abcde-qt32
 CMDS=<<EXPECT
 e asm.var=false
@@ -183,7 +183,7 @@ EXPECT=<<RUN
 |           0x08049140      mov ebx, dword [esp]
 RUN
 
-NAME=c++ xref demangling (not in fcn)
+NAME=c++ xref demangling (xref not from fcn)
 FILE=../bins/elf/redpill
 CMDS=<<EXPECT
 e asm.var=false
