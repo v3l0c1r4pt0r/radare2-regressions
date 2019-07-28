@@ -158,17 +158,19 @@ CMDS=<<EXPECT
 e asm.var=false
 e asm.bytes=false
 aa
+s sym.__x86.get_pc_thunk.bx
 e asm.demangle=true
-pd 1 @ sym.__x86.get_pc_thunk.bx
+pd 1
 ?e
 e asm.demangle=false
-pd 1 @ sym.__x86.get_pc_thunk.bx
+pd 1
 ?e
+s 0x08049390
 e asm.demangle=true
-pd 1 @ 0x08049390
+pd 1
 ?e
 e asm.demangle=false
-pd 1 @ 0x08049390
+pd 1
 EXPECT=<<RUN
 / (fcn) sym.__x86.get_pc_thunk.bx 4
 |   sym.__x86.get_pc_thunk.bx ();
