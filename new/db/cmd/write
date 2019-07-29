@@ -275,6 +275,23 @@ e.src.null=true
 EOF
 RUN
 
+NAME=wci should commit all the changes
+FILE=malloc://512
+ARGS=
+EXPECT=<<EOF
+idx=0 addr=0x00000000 size=3 000000 -> 909090 (written)
+idx=1 addr=0x00000003 size=3 000000 -> 909090 (written)
+idx=2 addr=0x00000006 size=3 000000 -> 909090 (written)
+EOF
+CMDS=<<EOF
+e io.cache=true
+(wxseek ,  wx 909090,  s+ 3)
+3.(wxseek)
+wci
+wc
+EOF
+RUN
+
 NAME=wx pcache
 FILE=../bins/pe/b.exe
 
