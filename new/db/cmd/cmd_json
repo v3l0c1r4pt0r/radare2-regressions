@@ -3,6 +3,7 @@ FILE=-
 EXPECT='[
   {
     "offset": 0,
+    "ptr": 104,
     "val": 104,
     "esil": "104,rdi,+=,$o,of,:=,$s,sf,:=,$z,zf,:=,63,$c,cf,:=,$p,pf,:=",
     "refptr": false,

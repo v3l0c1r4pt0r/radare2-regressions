@@ -105,7 +105,7 @@ EXPECT=%
   {
     "offset": 3,
     "esil": "al,rax,+=[1],$o,of,:=,$s,sf,:=,$z,zf,:=,7,$c,cf,:=,$p,pf,:=",
-    "refptr": false,
+    "refptr": true,
     "fcn_addr": 0,
     "fcn_last": 17,
     "size": 2,
@@ -268,7 +268,7 @@ jmp 3
   {
     "offset": 3,
     "esil": "al,rax,+=[1],$o,of,:=,$s,sf,:=,$z,zf,:=,7,$c,cf,:=,$p,pf,:=",
-    "refptr": false,
+    "refptr": true,
     "fcn_addr": 0,
     "fcn_last": 17,
     "size": 2,
