@@ -1450,8 +1450,8 @@ NAME=td union
 FILE=-
 CMDS=<<EOF
 "td union foo {int a;char b;}"
-tu*
-ts*
+tu*~foo
+ts*~foo
 t*~foo
 t foo
 tu* foo
