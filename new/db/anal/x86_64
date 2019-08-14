@@ -649,7 +649,7 @@ EXPECT=<<EOF
 |      ,==< 0x00003cb2      je 0x3ce3
 |      ||   0x00003cb4      sub eax, 1
 |     ,===< 0x00003cb7      je 0x3cbe
-|     |||   ; CODE XREF from main @ 0x58bc
+|     |||   ; CODE XREF from case.0xa44c.7 @ +0x12ee
 |     |||   0x00003cb9      call sym.imp.abort                         ; void abort(void)
 |     |||   ; CODE XREF from main @ 0x3cb7
 |     `---> 0x00003cbe      mov edi, 1                                 ; int fd
@@ -664,7 +664,8 @@ EXPECT=<<EOF
 |    || |   0x00003ce8      xor edi, edi
 |    || |   0x00003cea      mov dword [rip + 0x1d60c], 0               ; [0x21300:4]=0
 |    || |   0x00003cf4      call fcn.00012740
-|    || |   ; CODE XREFS from main @ 0x3ce1, 0x4602, 0x4c38
+|    || |   ; CODE XREF from main @ 0x3ce1
+|    || |   ; CODE XREFS from case.0xa44c.7 @ +0x34, +0x66a
 |    `----> 0x00003cf9      lea rdi, [rip + 0x14fb4]                   ; str.QUOTING_STYLE
 |     | |                                                              ; 0x18cb4 ; "QUOTING_STYLE" ; const char *name
 EOF
@@ -690,7 +691,7 @@ EXPECT=<<EOF
 |    ,====< 0x00003cb2      je 0x3ce3
 |    | |    0x00003cb4      sub eax, 1
 |  ,======< 0x00003cb7      je 0x3cbe
-|  | | |    ; CODE XREF from main @ 0x58bc
+|  | | |    ; CODE XREF from case.0xa44c.7 @ +0x12ee
 |  | | |    0x00003cb9      call sym.imp.abort                         ; void abort(void)
 |  | | |    ; CODE XREF from main @ 0x3cb7
 |  `------> 0x00003cbe      mov edi, 1                                 ; int fd
@@ -705,7 +706,8 @@ EXPECT=<<EOF
 |  |   |    0x00003ce8      xor edi, edi
 |  |   |    0x00003cea      mov dword [rip + 0x1d60c], 0               ; [0x21300:4]=0
 |  |   |    0x00003cf4      call fcn.00012740
-|  |   |    ; CODE XREFS from main @ 0x3ce1, 0x4602, 0x4c38
+|  |   |    ; CODE XREF from main @ 0x3ce1
+|  |   |    ; CODE XREFS from case.0xa44c.7 @ +0x34, +0x66a
 | --------> 0x00003cf9      lea rdi, [rip + 0x14fb4]                   ; str.QUOTING_STYLE
 |  |   |                                                               ; 0x18cb4 ; "QUOTING_STYLE" ; const char *name
 EOF
@@ -732,7 +734,7 @@ EXPECT=<<EOF
 |    ,====< 0x00003cb2      je 0x3ce3
 |    | |    0x00003cb4      sub eax, 1
 |  ,======< 0x00003cb7      je 0x3cbe
-|  | | |    ; CODE XREF from main @ 0x58bc
+|  | | |    ; CODE XREF from case.0xa44c.7 @ +0x12ee
 |  | | |    0x00003cb9      call sym.imp.abort                         ; void abort(void)
 |  | | |    ; CODE XREF from main @ 0x3cb7
 |  `------> 0x00003cbe      mov edi, 1                                 ; int fd
@@ -747,7 +749,8 @@ EXPECT=<<EOF
 |  |   |    0x00003ce8      xor edi, edi
 |  |   |    0x00003cea      mov dword [rip + 0x1d60c], 0               ; [0x21300:4]=0
 |  |   |    0x00003cf4      call fcn.00012740
-|  |   |    ; CODE XREFS from main @ 0x3ce1, 0x4602, 0x4c38
+|  |   |    ; CODE XREF from main @ 0x3ce1
+|  |   |    ; CODE XREFS from case.0xa44c.7 @ +0x34, +0x66a
 | --------> 0x00003cf9      lea rdi, [rip + 0x14fb4]                   ; str.QUOTING_STYLE
 |  |   |                                                               ; 0x18cb4 ; "QUOTING_STYLE" ; const char *name
 EOF
@@ -1546,7 +1549,7 @@ FILE=../bins/elf/ioli/crackme0x07
 EXPECT=<<EOF
 fcn.08048524 0x804853d [CALL] call sym.imp.exit
 fcn.08048542 0x80485ab [CALL] call sym.imp.exit
-fcn.080485b9 0x804866f [CALL] call sym.imp.exit
+(nofunc) 0x804866f [CALL] call sym.imp.exit
 EOF
 CMDS=<<EOF
 aaa
@@ -1559,7 +1562,7 @@ FILE=../bins/elf/ioli/crackme0x07
 EXPECT=<<EOF
 fcn.08048524 0x804853d [CALL] call sym.imp.exit
 fcn.08048542 0x80485ab [CALL] call sym.imp.exit
-fcn.080485b9 0x804866f [CALL] call sym.imp.exit
+(nofunc) 0x804866f [CALL] call sym.imp.exit
 EOF
 CMDS=<<EOF
 aaaa
