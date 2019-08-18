@@ -19,6 +19,31 @@ iS~?reg;iS
 EOF
 RUN
 
+NAME=core registers
+FILE=../bins/elf/analysis/core.1159
+CMDS=<<EXPECT
+dr
+EXPECT=<<RUN
+rax = 0x00000000
+rbx = 0x00000000
+rcx = 0x00000000
+rdx = 0x7ffe70e05a58
+rsi = 0x7ffe70e05a48
+rdi = 0x00000001
+r8 = 0x7f594881de10
+r9 = 0x7f5948831660
+r10 = 0x0000083e
+r11 = 0x7f594849d590
+r12 = 0x004003c0
+r13 = 0x7ffe70e05a40
+r14 = 0x00000000
+r15 = 0x00000000
+rip = 0x004004c6
+rbp = 0x7ffe70e05950
+rflags = 0x00010246
+rsp = 0x7ffe70e05950
+RUN
+
 NAME=segment comment
 FILE=../bins/elf/analysis/core.1159
 CMDS=<<EXPECT
