@@ -14,7 +14,7 @@ RUN
 
 NAME=radiff2 -g
 FILE=-
-CMDS=!!radiff2 -g main ../bins/other/radiff2/false ../bins/other/radiff2/true~digrap
+CMDS=!!radiff2 -g main -m d ../bins/other/radiff2/false ../bins/other/radiff2/true~digrap
 EXPECT=<<RUN
 digraph code {
 RUN
