@@ -415,7 +415,7 @@ EXPECT=<<RUN
 | 0x00005b4e      4829fe         sub rsi, rdi
 | 0x00005b51      48c1fe03       sar rsi, 3
 | 0x00005b55      4889f0         mov rax, rsi
-| 0x00005b58      48c1e83f       shr rax, 0x3f                         ; '?'
+| 0x00005b58      48c1e83f       shr rax, 0x3f
 | 0x00005b5c      4801c6         add rsi, rax
 | 0x00005b5f      48d1fe         sar rsi, 1
 | 0x00005b62      7414           je 0x5b78
