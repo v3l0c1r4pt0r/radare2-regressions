@@ -1,0 +1,11 @@
+NAME=noreturn errno
+FILE=../bins/mach0/BatteryLife.arm_64.1
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+e emu.str=1
+s 0x100011130
+pd 2~addChild
+EOF
+RUN
+
