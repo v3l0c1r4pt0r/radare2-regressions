@@ -7,9 +7,11 @@ bool test_r_table(void) {
         RTable *t = r_table_new ();
 
         // r_table_fromcsv (t, csv);
+	RTableColumnType *typeString = r_table_type ("string");
+	RTableColumnType *typeNumber = r_table_type ("number");
 
-        r_table_add_column (t, &r_table_type_string, "name", 0);
-        r_table_add_column (t, &r_table_type_number, "address", 0);
+        r_table_add_column (t, typeString, "name", 0);
+        r_table_add_column (t, typeNumber, "address", 0);
 
         r_table_add_row (t, "hello", "100", NULL);
         r_table_add_row (t, "namings", "20000", NULL);
@@ -20,7 +22,7 @@ bool test_r_table(void) {
         r_table_sort (t, 1, true);
         {
                 char *j = r_table_tojson (t);
-		const char *jOK = "[{\"name\":\"namings\",\"address\":\"20000\"},{\"name\":\"hello\",\"address\":\"100\"}]";
+		const char *jOK = "[{\"name\":\"namings\",\"address\":20000},{\"name\":\"hello\",\"address\":100}]";
 		mu_assert_streq (j, jOK, "r_table_get_sections");
                 free (j);
         }
