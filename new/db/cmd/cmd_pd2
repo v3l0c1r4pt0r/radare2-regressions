@@ -324,19 +324,15 @@ pd 11
 pdJ 11~{}
 EXPECT=<<RUN
         ,=< 0x08048598      jg 0x804859e
-        |   |
         |   0x0804859a      cmp al, byte [esp + 0x27]
        ,`-> 0x0804859e      je 0x80485b3
-       |    |
        |    0x080485a0      mov dword [esp], str.Wrong
        |    0x080485a7      call sym.imp.puts
        |    0x080485ac      mov eax, 1
       ,=.-> 0x080485b1      jmp 0x80485f9
-      ||:   |
       |`--> 0x080485b3      add dword [esp + 0x20], 1
       | :   0x080485b8      mov ebx, dword [esp + 0x20]
       | `=< 0x080485bc      jne 0x80485b1
-      |     |
       |     0x080485be      nop
 
 [
@@ -346,11 +342,6 @@ EXPECT=<<RUN
     "text": "        ,=< 0x08048598      jg 0x804859e"
   },
   {
-    "offset": 134514072,
-    "arrow": 134514078,
-    "text": "        |   |"
-  },
-  {
     "offset": 134514074,
     "text": "        |   0x0804859a      cmp al, byte [esp + 0x27]"
   },
@@ -358,11 +349,6 @@ EXPECT=<<RUN
     "offset": 134514078,
     "arrow": 134514099,
     "text": "       ,`-> 0x0804859e      je 0x80485b3"
-  },
-  {
-    "offset": 134514078,
-    "arrow": 134514099,
-    "text": "       |    |"
   },
   {
     "offset": 134514080,
@@ -382,11 +368,6 @@ EXPECT=<<RUN
     "text": "      ,=.-> 0x080485b1      jmp 0x80485f9"
   },
   {
-    "offset": 134514097,
-    "arrow": 134514169,
-    "text": "      ||:   |"
-  },
-  {
     "offset": 134514099,
     "text": "      |`--> 0x080485b3      add dword [esp + 0x20], 1"
   },
@@ -398,11 +379,6 @@ EXPECT=<<RUN
     "offset": 134514108,
     "arrow": 134514097,
     "text": "      | `=< 0x080485bc      jne 0x80485b1"
-  },
-  {
-    "offset": 134514108,
-    "arrow": 134514097,
-    "text": "      |     |"
   },
   {
     "offset": 134514110,
