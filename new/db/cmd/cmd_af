@@ -1,3 +1,16 @@
+NAME=af localflag
+FILE=../bins/mach0/mac-ls2
+CMDS=<<EOF
+af
+f.foobar=0x100001216
+pd 20~foo
+EOF
+EXPECT=<<EOF
+|       ,=< 0x10000120f      7f05           jg .foobar                 ; main.foobar
+|       |    .foobar:
+EOF
+RUN
+
 NAME=af switch test
 FILE=../bins/mach0/mac-ls2
 EXPECT=<<EOF
