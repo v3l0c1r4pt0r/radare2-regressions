@@ -61,32 +61,32 @@ NAME=ih* (file x86)
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 EXPECT=<<EOF
 fs header
-f header.ELF @ 0x00000000
-CC 0x464c457f @ 0x0
+"f header.ELF 1 0x00000000"
+CCu MHg0NjRjNDU3Zg== @ 0x0
 Cf 4 .x @ 0x0
 pf.ELF x
-f header.Type @ 0x00000010
-CC 0x00000002 @ 0x10
+"f header.Type 1 0x00000010"
+CCu MHgwMDAwMDAwMg== @ 0x10
 Cf 2 .x @ 0x10
 pf.Type x
-f header.Machine @ 0x00000012
-CC 0x00000003 @ 0x12
+"f header.Machine 1 0x00000012"
+CCu MHgwMDAwMDAwMw== @ 0x12
 Cf 2 .x @ 0x12
 pf.Machine x
-f header.Version @ 0x00000014
-CC 0x00000001 @ 0x14
+"f header.Version 1 0x00000014"
+CCu MHgwMDAwMDAwMQ== @ 0x14
 Cf 4 .x @ 0x14
 pf.Version x
-f header.Entry_point @ 0x00000018
-CC 0x08048300 @ 0x18
+"f header.Entrypoint 1 0x00000018"
+CCu MHgwODA0ODMwMA== @ 0x18
 Cf 4 .x @ 0x18
-pf.Entry_point x
-f header.PhOff @ 0x0000001c
-CC 0x00000034 @ 0x1c
+pf.Entrypoint x
+"f header.PhOff 1 0x0000001c"
+CCu MHgwMDAwMDAzNA== @ 0x1c
 Cf 4 .x @ 0x1c
 pf.PhOff x
-f header.ShOff @ 0x00000020
-CC 0x000007cc @ 0x20
+"f header.ShOff 1 0x00000020"
+CCu MHgwMDAwMDdjYw== @ 0x20
 Cf 4 .x @ 0x20
 pf.ShOff x
 EOF
@@ -2763,7 +2763,7 @@ RUN
 NAME=il* (file x86)
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 EXPECT=<<EOF
-CCa entry0 libc.so.6
+"CCa entry0 libc.so.6"
 EOF
 CMDS=<<EOF
 il*

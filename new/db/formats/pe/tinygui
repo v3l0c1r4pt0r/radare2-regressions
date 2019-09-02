@@ -1,6 +1,7 @@
 NAME=PE: corkami tinygui.exe - open
 FILE=../bins/pe/tinygui.exe
 EXPECT=<<EOF
+"CCa entry0 user32.dll"
 EOF
 CMDS=<<EOF
 q!
@@ -10,7 +11,7 @@ RUN
 NAME=PE: corkami tinygui.exe - open
 FILE=../bins/pe/tinygui.exe
 EXPECT=<<EOF
-CCa entry0 user32.dll
+"CCa entry0 user32.dll"
 EOF
 CMDS=<<EOF
 il*
