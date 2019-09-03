@@ -205,3 +205,18 @@ wox 0xabcdef0102030405@!10
 p8 14
 EOF
 RUN
+
+NAME=wo2 on woe
+FILE=-
+EXPECT=<<EOF
+0x00000000  0100 0302 0504 0706 0908 0b0a 0d0c 0f0e  ................
+0x00000010  1110 1312 1514 1716 1918 1b1a 1d1c 1f1e  ................
+EOF
+CMDS=<<EOF
+b 32
+woe 1
+wo2
+e hex.header=false
+px
+EOF
+RUN
