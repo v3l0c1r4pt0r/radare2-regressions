@@ -2,7 +2,7 @@ NAME=pc hello-linux-x86_64
 FILE=../bins/elf/analysis/hello-linux-x86_64
 EXPECT=<<EOF
 #define _BUFFER_SIZE 256
-const uint8_t buffer[256] = {
+const uint8_t buffer[_BUFFER_SIZE] = {
   0x31, 0xed, 0x49, 0x89, 0xd1, 0x5e, 0x48, 0x89, 0xe2, 0x48,
   0x83, 0xe4, 0xf0, 0x50, 0x54, 0x49, 0xc7, 0xc0, 0xb0, 0x05,
   0x40, 0x00, 0x48, 0xc7, 0xc1, 0x20, 0x05, 0x40, 0x00, 0x48,
@@ -66,7 +66,7 @@ NAME=pch hello-linux-x86_64
 FILE=../bins/elf/analysis/hello-linux-x86_64
 EXPECT=<<EOF
 #define _BUFFER_SIZE 128
-const uint16_t buffer[128] = {
+const uint16_t buffer[_BUFFER_SIZE] = {
   0xed31, 0x8949, 0x5ed1, 0x8948, 0x48e2, 0xe483, 0x50f0, 0x4954,
   0xc0c7, 0x05b0, 0x0040, 0xc748, 0x20c1, 0x4005, 0x4800, 0xc7c7,
   0x04fc, 0x0040, 0xb7e8, 0xffff, 0xf4ff, 0x9066, 0x1f0f, 0x0040,
@@ -94,7 +94,7 @@ NAME=pcw hello-linux-x86_64
 FILE=../bins/elf/analysis/hello-linux-x86_64
 EXPECT=<<EOF
 #define _BUFFER_SIZE 64
-const uint32_t buffer[64] = {
+const uint32_t buffer[_BUFFER_SIZE] = {
   0x8949ed31U, 0x89485ed1U, 0xe48348e2U, 0x495450f0U, 0x05b0c0c7U,
   0xc7480040U, 0x400520c1U, 0xc7c74800U, 0x004004fcU, 0xffffb7e8U,
   0x9066f4ffU, 0x00401f0fU, 0x600917b8U, 0x2d485500U, 0x00600910U,
@@ -119,7 +119,7 @@ NAME=pcd hello-linux-x86_64
 FILE=../bins/elf/analysis/hello-linux-x86_64
 EXPECT=<<EOF
 #define _BUFFER_SIZE 32
-const uint64_t buffer[32] = {
+const uint64_t buffer[_BUFFER_SIZE] = {
   0x89485ed18949ed31ULL, 0x495450f0e48348e2ULL, 0xc748004005b0c0c7ULL,
   0xc7c74800400520c1ULL, 0xffffb7e8004004fcULL, 0x00401f0f9066f4ffULL,
   0x2d485500600917b8ULL, 0x0ef8834800600910ULL, 0xb8c35d0277e58948ULL,
@@ -274,7 +274,7 @@ NAME=pc -10
 FILE=malloc://1024
 EXPECT=<<EOF
 #define _BUFFER_SIZE 10
-const uint8_t buffer[10] = {
+const uint8_t buffer[_BUFFER_SIZE] = {
   0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90
 };
 EOF
