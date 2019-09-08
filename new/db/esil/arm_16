@@ -874,3 +874,19 @@ EXPECT=<<EOF
 .equ SYS_sd_evt_get 81
 EOF
 RUN
+
+NAME=Pre-indexed addressing mode
+FILE=malloc://0x200
+CMDS=<<EXPECT
+e asm.arch=arm
+e asm.bits=16
+wx 10f8013f # ldrb r3, [r0, 1]!
+aes
+aer pc
+aer r0
+aer r3
+EXPECT=<<RUN
+0x00000004
+0x00000001
+0x000000f8
+RUN
