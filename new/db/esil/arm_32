@@ -2342,3 +2342,31 @@ EXPECT=<<RUN
 0x00000004
 0x00000008
 RUN
+
+NAME=r0 correct after stmia post-increment
+FILE=malloc://0x200
+CMDS=<<EXPECT
+e asm.arch=arm
+e asm.bits=32
+wx 0600a0e8 # stm r0!, {r1, r2}
+aes
+aer r0
+aer pc
+EXPECT=<<RUN
+0x00000008
+0x00000004
+RUN
+
+NAME=r0 correct after stmia no increment
+FILE=malloc://0x200
+CMDS=<<EXPECT
+e asm.arch=arm
+e asm.bits=32
+wx 060080e8 # stm r0, {r1, r2}
+aes
+aer r0
+aer pc
+EXPECT=<<RUN
+0x00000000
+0x00000004
+RUN
