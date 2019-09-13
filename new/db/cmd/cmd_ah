@@ -58,12 +58,12 @@ ahf 0x12345
 ahF 0x10
 ahh
 ahi 10
-aho foo a0,33
+ahd foo a0,33
 ahp 0xc0ff33
 ahr 42
 ahs 4
 ahS jz
-aht call
+aho call
 
 ahi 0x4321 @ 0x0815
 ?e all:
@@ -81,9 +81,9 @@ all:
 ahi 17185 @ 0x815
 aha ppc @ 0x1337
 ahb 16 @ 0x1337
-aht call @ 0x1337
+aho call @ 0x1337
 ahs 4 @ 0x1337
-aho foo a0,33 @ 0x1337
+ahd foo a0,33 @ 0x1337
 ahS jz @ 0x1337
 ahi 10 @ 0x1337
 ahe 3,eax,+= @ 0x1337
@@ -97,9 +97,9 @@ ahF 0x10 @ 0x1337
 at 0x1337:
 aha ppc @ 0x1337
 ahb 16 @ 0x1337
-aht call @ 0x1337
+aho call @ 0x1337
 ahs 4 @ 0x1337
-aho foo a0,33 @ 0x1337
+ahd foo a0,33 @ 0x1337
 ahS jz @ 0x1337
 ahi 10 @ 0x1337
 ahe 3,eax,+= @ 0x1337
@@ -120,12 +120,12 @@ ahf 0x12345
 ahF 0x10
 ahh
 ahi 10
-aho foo a0,33
+ahd foo a0,33
 ahp 0xc0ff33
 ahr 42
 ahs 4
 ahS jz
-aht call
+aho call
 
 ahi 0x4321 @ 0x0815
 ?e all:
@@ -155,12 +155,12 @@ ahf 0x12345
 ahF 0x10
 ahh
 ahi 10
-aho foo a0,33
+ahd foo a0,33
 ahp 0xc0ff33
 ahr 42
 ahs 4
 ahS jz
-aht call
+aho call
 
 ahi 0x4321 @ 0x0815
 ?e all:
@@ -171,12 +171,12 @@ ahj 0x1337
 EOF
 RUN
 
-NAME=aho with asm.tabs
+NAME=ahd with asm.tabs
 FILE=../bins/mach0/mac-ls
 CMDS=<<EOF
 e asm.flags=0
 pd 3
-aho hello world
+ahd hello world
 pd 3
 e asm.tabs=1
 pd 3
