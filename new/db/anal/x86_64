@@ -1999,6 +1999,7 @@ RUN
 NAME=overlapping basic blocks and anal.jmp.mid
 FILE=-
 CMDS=<<EXPECT
+e anal.nopskip=false
 e asm.bb.middle=true
 e anal.jmp.mid=true
 e io.cache=true
