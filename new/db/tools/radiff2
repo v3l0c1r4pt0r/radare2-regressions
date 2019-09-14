@@ -69,7 +69,7 @@ NAME=radiff2 -AC (mach0 fat files)
 FILE=-
 CMDS=!!radiff2 -AC ../bins/other/radiff2/hellocxx-osx-fat-intel_1 ../bins/other/radiff2/hellocxx-osx-fat-intel_2~?(1.000000)
 EXPECT=<<RUN
-18
+17
 RUN
 
 NAME=radiff2 -B (GDIFF support) #1
