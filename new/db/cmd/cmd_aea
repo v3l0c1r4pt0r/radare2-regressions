@@ -81,7 +81,7 @@ NAME=aes delay slot
 FILE=../bins/elf/mipsloop
 EXPECT=<<EOF
 0x0000000a
-0x00007a68
+0x00007a62
 lw a0, -0x7fc4(gp)
 lw t9, -0x7fbc(gp)
 EOF
@@ -96,11 +96,11 @@ pi 2
 EOF
 RUN
 
-NAME=aes delay slot
+NAME=aes delay slot2
 FILE=../bins/elf/mipsloop
 EXPECT=<<EOF
 0x0000000a
-0x00007a68
+0x00007a62
 lw a0, -0x7fc4(gp)
 lw t9, -0x7fbc(gp)
 EOF
