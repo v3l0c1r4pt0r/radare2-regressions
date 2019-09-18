@@ -45,6 +45,10 @@ mc6809:
 	cd new && npm install
 	cd new && $(R2R) db/extras/asm/x86.udis
 
+microblaze:
+	cd new && npm install
+	cd new && $(R2R) db/extras/asm/microblaze.gnu
+
 udis86:
 	cd new && npm install
 	cd new && $(R2R) db/extras/asm/mc6809
