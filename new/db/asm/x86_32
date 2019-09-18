@@ -283,6 +283,10 @@ d "mov es, word [eax]" 8e00
 d "mov esi, 0" be00000000
 d "mov esp, 0" bc00000000
 d "mov word [eax], es" 8c00
+a "mov al, [0xbeef]" a0efbe0000
+a "mov ax, [0xbeef]" 66a1efbe0000
+a "mov eax, [0xbeef]" a1efbe0000
+a "mov eax, [0x12345678]" a178563412
 d "movapd xmm0, xmmword [eax]" 660f2800
 d "movapd xmmword [eax], xmm0" 660f2900
 d "movhpd qword [eax], xmm0" 660f1700
