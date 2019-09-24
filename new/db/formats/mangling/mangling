@@ -627,3 +627,59 @@ CMDS=<<EOF
 "!rabin2 -D msvc ?f5@@YAXTUNION_TEST@1NAMESPACE_1@@VTEST@3@T11@@Z"
 EOF
 RUN
+
+NAME=class OuterNamespace::InnerNamespace::ClassInInnerNamespace
+FILE=-
+EXPECT=<<EOF
+class OuterNamespace::InnerNamespace::ClassInInnerNamespace
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc .?AVClassInInnerNamespace@InnerNamespace@OuterNamespace@@"
+EOF
+RUN
+
+NAME=class ns::FunctionT<void (__cdecl*)(void *)>
+FILE=-
+EXPECT=<<EOF
+class ns::FunctionT<void (__cdecl*)(void *)>
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc .?AV?\$FunctionT@P6AXPAX@Z@ns@@"
+EOF
+RUN
+
+NAME=class ABC::DEF::GHI<1, class JKL::MNO::PQR>
+FILE=-
+EXPECT=<<EOF
+class ABC::DEF::GHI<1, class JKL::MNO::PQR>
+class ABC::DEF::GHI<1, class JKL::MNO::PQR>
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc .?AV?\$GHI@\$00VPQR@MNO@JKL@@@DEF@ABC@@"
+"!rabin2 -D msvc .?AV?\$GHI@\$H0VPQR@MNO@JKL@@@DEF@ABC@@"
+EOF
+RUN
+
+NAME=class ABC::DEF::GHI<{1, 2}, class JKL::MNO::PQR>
+FILE=-
+EXPECT=<<EOF
+class ABC::DEF::GHI<{1, 2}, class JKL::MNO::PQR>
+class ABC::DEF::GHI<{1, 2}, class JKL::MNO::PQR>
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc .?AV?\$GHI@\$FB@C@VPQR@MNO@JKL@@@DEF@ABC@@"
+"!rabin2 -D msvc .?AV?\$GHI@\$IB@C@VPQR@MNO@JKL@@@DEF@ABC@@"
+EOF
+RUN
+
+NAME=class ABC::DEF::GHI<{1, 2, 3}, class JKL::MNO::PQR>
+FILE=-
+EXPECT=<<EOF
+class ABC::DEF::GHI<{1, 2, 3}, class JKL::MNO::PQR>
+class ABC::DEF::GHI<{1, 2, 3}, class JKL::MNO::PQR>
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc .?AV?\$GHI@\$GB@C@D@VPQR@MNO@JKL@@@DEF@ABC@@"
+"!rabin2 -D msvc .?AV?\$GHI@\$JB@C@D@VPQR@MNO@JKL@@@DEF@ABC@@"
+EOF
+RUN
