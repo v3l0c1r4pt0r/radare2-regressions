@@ -65,6 +65,12 @@ case "$KW" in
 	exec ${SHELL}
 	exit $?
 	;;
+-i)
+	shift
+	A=`echo $*|sed -e 's,new/,,'`
+	cd new || exit 1
+	exec node_modules/.bin/r2r -i $A || exit 1
+	;;
 -c)
 	rm -rf new/tmp
 	exit 0
