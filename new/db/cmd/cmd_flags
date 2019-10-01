@@ -158,7 +158,7 @@ RUN
 NAME=fsr
 FILE=../bins/elf/analysis/main
 EXPECT=<<EOF
-    0 *  test2
+    0 * test2
 EOF
 CMDS=<<EOF
 fs-*
