@@ -1990,14 +1990,12 @@ a "syscall" 0f05
 a "sysenter" 0f34
 a "sysexit" 0f35
 a "sysret" 0f07
-aB "test al, 0" a800
+a "test al, 0" f6c000
 a "test byte [eax], 0" f60000
 a "test byte [eax], al" 8400
 a "test dword [eax], 0" f70000000000
-aB "test dword [eax], 0" f70000
-aB "test dword [eax], 0" f70800
 a "test dword [eax], eax" 8500
-aB "test eax, 0" a900000000
+a "test eax, 0" f7c000000000
 a "test eax, ebx" 85d8
 a "test edx, esi" 85f2
 aB "ucomisd xmm0, qword [eax]" 660f2e00

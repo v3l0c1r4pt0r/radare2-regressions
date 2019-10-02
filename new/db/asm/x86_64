@@ -85,6 +85,11 @@ a "sub rax, rbx" 4829d8
 a "sub r9, rbx" 4929d9
 a "sub rcx, r10" 4c29d1
 a "sub r12, r11" 4d29dc
+a "test ebx, 0x12345678" f7c378563412
+a "test rbx, 0x12345678" 48f7c378563412
+a "test dword [eax], 0x12345678" 67f70078563412
+a "test dword [rax], 0x12345678" f70078563412
+a "test qword [rcx], 0x12345678" 48f70178563412
 a "test rax, rbx" 4885d8
 a "test rcx, rcx" 4885c9
 a "test rdx, rsi" 4885f2
