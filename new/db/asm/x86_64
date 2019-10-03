@@ -919,3 +919,102 @@ a "dec rsi" 48ffce
 a "dec WORD PTR [rdi+0x88]" 66ff8f88000000
 d "call qword [rip + 0x3a8f3e]" 48ff153e8f3a00
 d "call qword [rip + 0x1d638f]" 48ff158f631d00
+a "fmul st2, st0" dcca
+a "fdiv st0, st1" d8f1
+a "fdiv st(0), st(1)" d8f1
+a "fdiv st0, st7" d8f7
+a "fdiv st(0), st(7)" d8f7
+a "fcmove st0, st1" dac9
+a "fcmovbe st0, st1" dad1
+a "fcmovu st0, st1" dad9
+a "fcmovnb st0, st1" dbc1
+a "fcmovne st0, st1" dbc9
+a "fcmovnbe st0, st1" dbd1
+a "fcmovnu st0, st1" dbd9
+a "ffree st0" ddc0
+a "ffree st(7)" ddc7
+a "frstor [eax]" dd20
+a "fxch" d9c9
+a "fxch st2" d9ca
+a "fucom" dde1
+a "fucom st(2)" dde2
+a "fucomp" dde9
+a "fucomp st(2)" ddea
+a "faddp" dec1
+a "faddp st2, st0" dec2
+a "fiadd word [rax]" de00
+a "fiadd dword [rax]" da00
+a "fadd dword [rax]" d800
+a "fadd qword [rax]" dc00
+a "ficom word [rax]" de10
+a "ficom dword [rax]" da10
+a "ficomp word [rax]" de18
+a "ficomp dword [rax]" da18
+a "fild word [rax]" df00
+a "fild dword [rax]" db00
+a "fild qword [rax]" df28
+a "fldcw word [rax]" d928
+a "fldenv [rax]" d920
+a "fbld tbyte [rax]" df20
+a "fbstp tbyte [rax]" df30
+a "fxrstor [rax]" 0fae08
+a "fxsave [rax]" 0fae00
+a "fist word [rax]" df10
+a "fist dword [rax]" db10
+a "fistp word [rax]" df18
+a "fistp dword [rax]" db18
+a "fistp qword [rax]" df38
+a "fisttp word [rax]" df08
+a "fisttp dword [rax]" db08
+a "fisttp qword [rax]" dd08
+a "fstenv [rcx]" 9bd931
+a "fnstenv [rcx]" d931
+a "fdiv dword[rax]" d830
+a "fdiv qword [rax]" dc30
+a "fdiv st0, st7" d8f7
+a "fdiv st6, st0" dcfe
+a "fdivp" def9
+a "fdivp st2, st0" defa
+a "fidiv word [rax]" de30
+a "fidiv dword [rax]" da30
+a "fdivr dword[rax]" d838
+a "fdivr qword [rax]" dc38
+a "fdivr st0, st7" d8ff
+a "fdivr st6, st0" dcf6
+a "fdivrp" def1
+a "fdivrp st2, st0" def2
+a "fidivr word [rax]" de38
+a "fidivr dword [rax]" da38
+a "fmul dword[rax]" d808
+a "fmul qword [rax]" dc08
+a "fmul st0, st7" d8cf
+a "fmul st6, st0" dcce
+a "fmulp" dec9
+a "fmulp st2, st0" deca
+a "fimul word [rax]" de08
+a "fimul dword [rax]" da08
+a "fsub dword[rax]" d820
+a "fsub qword [rax]" dc20
+a "fsub st0, st7" d8e7
+a "fsub st6, st0" dcee
+a "fsubp" dee9
+a "fsubp st2, st0" deea
+a "fisub word [rax]" de20
+a "fisub dword [rax]" da20
+a "fsubr dword[rax]" d828
+a "fsubr qword [rax]" dc28
+a "fsubr st0, st7" d8ef
+a "fsubr st6, st0" dce6
+a "fsubrp" dee1
+a "fsubrp st2, st0" dee2
+a "fisubr word [rax]" de28
+a "fisubr dword [rax]" da28
+a "fstcw word [rcx]" 9bd939
+a "fnstcw word [rcx]" d939
+a "fstsw word [rcx]" 9bdd39
+a "fnstsw word [rcx]" dd39
+a "fstsw ax" 9bdfe0
+a "fnstsw ax" dfe0
+a "fsave dword [rax]" 9bdd30
+a "fnsave dword [rax]" dd30
+a "fnsave dword [rdi + rdi*8]" dd34ff
