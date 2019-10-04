@@ -807,7 +807,7 @@ d "fprem1" d9f5
 d "fptan" d9f2
 d "frndint" d9fc
 d "frstor [eax]" dd20
-d "fnsave [eax]" dd30
+dB "fnsave [eax]" dd30
 d "fscale" d9fd
 d "fnsetpm" dbe4
 d "fsin" d9fe
