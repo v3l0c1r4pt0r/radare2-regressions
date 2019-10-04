@@ -1017,4 +1017,4 @@ a "fstsw ax" 9bdfe0
 a "fnstsw ax" dfe0
 a "fsave dword [rax]" 9bdd30
 a "fnsave dword [rax]" dd30
-a "fnsave dword [rdi + rdi*8]" dd34ff
+aB "fnsave dword [rdi + rdi*8]" dd34ff
