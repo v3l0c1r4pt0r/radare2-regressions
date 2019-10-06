@@ -700,8 +700,7 @@ aat
 pdf
 EOF
 EXPECT=<<EOF
-/ (fcn) fcn.00000000 33
-|   fcn.00000000 ();
+/ 33: fcn.00000000 ();
 |           0x00000000      48c7c0000100.  mov rax, 0x100
 |           0x00000007      488b5008       mov rdx, qword [rax + foo.c]
 |           0x0000000b      488b4804       mov rcx, qword [rax + foo.b]
@@ -1081,8 +1080,7 @@ aaft
 s sym.funcarg
 pd 1
 EXPECT=<<RUN
-(fcn) sym.funcarg 154
-  sym.funcarg (char *arg1, uint32_t arg2);
+154: sym.funcarg (char *arg1, uint32_t arg2);
 ; var uint32_t var_ch @ rbp-0xc
 ; var char *var_8h @ rbp-0x8
 ; arg char *arg1 @ rdi
@@ -1100,8 +1098,7 @@ aaft
 s sym.funcarg
 pd 1
 EXPECT=<<RUN
-(fcn) sym.funcarg 147
-  sym.funcarg (char *arg_8h, uint32_t arg_ch);
+147: sym.funcarg (char *arg_8h, uint32_t arg_ch);
 ; var int32_t var_4h @ ebp-0x4
 ; arg char *arg_8h @ ebp+0x8
 ; arg uint32_t arg_ch @ ebp+0xc

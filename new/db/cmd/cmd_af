@@ -93,8 +93,7 @@ s sym.register_tm_clones
 af
 pdf
 EXPECT=<<RUN
-/ (fcn) sym.register_tm_clones 53
-|   sym.register_tm_clones ();
+/ 53: sym.register_tm_clones ();
 |           0x08048410      mov eax, obj.completed.6891
 |           0x08048415      sub eax, obj.completed.6891
 |           0x0804841a      sar eax, 2
@@ -147,8 +146,7 @@ EXPECT=<<EXPECT_ERR
 size: 13
 0x004017c0 0x004017cd 00:0000 13 j 0x004017dd f 0x004017cd
 
-/ (fcn) fcn2.0x004017c0 13
-|   fcn2.0x004017c0 ();
+/ 13: fcn2.0x004017c0 ();
 |           0x004017c0      51             push ecx
 |           0x004017c1      89e1           mov ecx, esp
 |           0x004017c3      83c108         add ecx, 8
@@ -158,8 +156,7 @@ size: 13
 size: 6
 0x004017c0 0x004017c6 00:0000 6 j 0x004017dd f 0x004017cd
 
-/ (fcn) fcn2.0x004017c0 6
-|   fcn2.0x004017c0 ();
+/ 6: fcn2.0x004017c0 ();
 |           0x004017c0      51             push ecx
 |           0x004017c1      89e1           mov ecx, esp
 \           0x004017c3      83c108         add ecx, 8
@@ -167,8 +164,7 @@ size: 6
 size: 11
 0x004017c0 0x004017cb 00:0000 11 j 0x004017dd f 0x004017cd
 
-/ (fcn) fcn2.0x004017c0 11
-|   fcn2.0x004017c0 ();
+/ 11: fcn2.0x004017c0 ();
 |           0x004017c0      51             push ecx
 |           0x004017c1      89e1           mov ecx, esp
 |           0x004017c3      83c108         add ecx, 8
@@ -200,15 +196,13 @@ EXPECT=<<EOF
 size: 9
 0x004017c0 0x004017c9 00:0000 9 j 0x004017dd f 0x004017cd
 
-/ (fcn) fcn2.0x004017c0 9
-|   fcn2.0x004017c0 ();
+/ 9: fcn2.0x004017c0 ();
 |           0x004017c0      51             push ecx
 |           0x004017c1      89e1           mov ecx, esp
 |           0x004017c3      83c108         add ecx, 8
 ..
 
-/ (fcn) fcn2.0x004017c0 9
-|   fcn2.0x004017c0 ();
+/ 9: fcn2.0x004017c0 ();
 | 0x004017c0      51             push ecx
 | 0x004017c1      89e1           mov ecx, esp
 | 0x004017c3      83c108         add ecx, 8
@@ -219,16 +213,14 @@ size: 9
 size: 12
 0x004017c0 0x004017cc 00:0000 12 j 0x004017dd f 0x004017cd
 
-/ (fcn) fcn2.0x004017c0 12
-|   fcn2.0x004017c0 ();
+/ 12: fcn2.0x004017c0 ();
 |           0x004017c0      51             push ecx
 |           0x004017c1      89e1           mov ecx, esp
 |           0x004017c3      83c108         add ecx, 8
 |           0x004017c6      3d00100000     cmp eax, 0x1000
 ..
 
-/ (fcn) fcn2.0x004017c0 12
-|   fcn2.0x004017c0 ();
+/ 12: fcn2.0x004017c0 ();
 | 0x004017c0      51             push ecx
 | 0x004017c1      89e1           mov ecx, esp
 | 0x004017c3      83c108         add ecx, 8

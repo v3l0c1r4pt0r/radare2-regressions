@@ -174,8 +174,7 @@ pd 1
 e asm.demangle=false
 pd 1
 EXPECT=<<RUN
-/ (fcn) sym.__x86.get_pc_thunk.bx 4
-|   sym.__x86.get_pc_thunk.bx ();
+/ 4: sym.__x86.get_pc_thunk.bx ();
 |           ; CALL XREF from sym._init @ 0x8049008
 |           ; CALL XREF from QtPrivate::RefCount::deref() @ 0x8049349 ; method.QtPrivate::RefCount.deref
 |           ; CALL XREF from QString::QString(char const*) @ 0x804939d ; method.QString.QString_char_const
@@ -186,8 +185,7 @@ EXPECT=<<RUN
 [0x08049140]>  # sym.__x86.get_pc_thunk.bx ();
  ------------------------------------------------------------.
 |  0x8049140                                                 |
-| (fcn) sym.__x86.get_pc_thunk.bx 4                          |
-|   sym.__x86.get_pc_thunk.bx ();                            |
+| 4: sym.__x86.get_pc_thunk.bx ();                           |
 | ; CALL XREF from sym._init @ 0x8049008                     |
 | ; CALL XREF from QtPrivate::RefCount::deref() @ 0x8049349  |
 |   ; method.QtPrivate::RefCount.deref                       |
@@ -200,8 +198,7 @@ EXPECT=<<RUN
 | ret                                                        |
 `------------------------------------------------------------'
 
-/ (fcn) sym.__x86.get_pc_thunk.bx 4
-|   sym.__x86.get_pc_thunk.bx ();
+/ 4: sym.__x86.get_pc_thunk.bx ();
 |           ; CALL XREF from sym._init @ 0x8049008
 |           ; CALL XREF from method.QtPrivate::RefCount.deref @ 0x8049349
 |           ; CALL XREF from method.QString.QString_char_const @ 0x804939d
@@ -228,16 +225,14 @@ pd 1 @ sym.imp._Unwind_Resume
 e asm.demangle=false
 pd 1 @ sym.imp._Unwind_Resume
 EXPECT=<<RUN
-/ (fcn) sym.imp._Unwind_Resume 6
-|   sym.imp._Unwind_Resume ();
+/ 6: sym.imp._Unwind_Resume ();
 |           ; CALL XREF from main @ +0x222
 |           ; CALL XREF from fcn.00001717 @ +0xbb
 |           ; CALL XREF from std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<char*, void>(char*, char*, std::allocator<char> const&) @ +0x66 ; sym.std::__cxx11::basic_string_char__std::char_traits_char___std::allocator_char___::basic_string_char___void__char___char___std::allocator_char__const
 |           ; CALL XREF from void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) @ +0x116 ; sym.void_std::__cxx11::basic_string_char__std::char_traits_char___std::allocator_char___::_M_construct_char___char___char___std::forward_iterator_tag
 \           0x00000f10      jmp dword [ebx + 0x70]
 
-/ (fcn) sym.imp._Unwind_Resume 6
-|   sym.imp._Unwind_Resume ();
+/ 6: sym.imp._Unwind_Resume ();
 |           ; CALL XREF from main @ +0x222
 |           ; CALL XREF from fcn.00001717 @ +0xbb
 |           ; CALL XREF from sym.std::__cxx11::basic_string_char__std::char_traits_char___std::allocator_char___::basic_string_char___void__char___char___std::allocator_char__const @ +0x66
