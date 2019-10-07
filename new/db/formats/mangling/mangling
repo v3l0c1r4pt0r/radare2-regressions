@@ -683,3 +683,23 @@ CMDS=<<EOF
 "!rabin2 -D msvc .?AV?\$GHI@\$JB@C@D@VPQR@MNO@JKL@@@DEF@ABC@@"
 EOF
 RUN
+
+NAME=public: void __cdecl ABC::operator()<char>(char const * __ptr64 const)const __ptr64
+FILE=-
+EXPECT=<<EOF
+public: void __cdecl ABC::operator()<char>(char const * const __ptr64)const __ptr64
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ??\$?RD@ABC@@QEBAXQEBD@Z"
+EOF
+RUN
+
+NAME=public: bool __cdecl ABC<char, struct DEF>::operator bool(void)const __ptr64
+FILE=-
+EXPECT=<<EOF
+public: bool __cdecl ABC<char, struct DEF>::operator bool(void)const __ptr64
+EOF
+CMDS=<<EOF
+"!rabin2 -D msvc ??B?\$ABC@DUDEF@@@@QEBA_NXZ"
+EOF
+RUN
