@@ -1,6 +1,5 @@
 NAME=pipe args
 FILE=-
-BROKEN=1
 EXPECT=<<EOF
 hello world
 EOF
