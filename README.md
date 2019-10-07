@@ -42,7 +42,7 @@ Reporting Radare2 Bugs
 Please do not post Radare2 bugs on the r2-regressions github tracker. Instead
 use the official r2 tracker:
 
-https://github.com/radare/radare2/issues?state=open
+https://github.com/radareorg/radare2/issues?state=open
 
 Writing Assembly tests
 ----------------------
