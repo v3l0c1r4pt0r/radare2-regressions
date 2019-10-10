@@ -270,7 +270,7 @@ ARGS=-a x86 -b32 -B 0x90000000
 EXPECT=<<EOF
 [Symbols]
 
-Num Paddr       Vaddr      Bind   Type Size Name
+nth paddr       vaddr      bind   type size name
 ------------------------------------------------
 0    0x00005000 0x90000000 GLOBAL FUNC 0    __mh_execute_header
 1    0x00005000 0x95613542 LOCAL  FUNC 0    radr://5614542

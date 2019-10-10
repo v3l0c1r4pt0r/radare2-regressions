@@ -55,13 +55,13 @@ CMDS=!rabin2 -K md5 -S ${R2_FILE}
 EXPECT=<<RUN
 [Sections]
 
-Nm Paddr      Size Vaddr       Memsz Perms Checksum Name
---------------------------------------------------------
-0  0x00000400 2560  0x00401000 4096  -r-x  .text
-1  0x00000e00 512   0x00402000 4096  -rw-  .data
-2  0x00001000 512   0x00403000 4096  -r--  .rdata
-3  0x00000000 0     0x00404000 4096  -rw-  .bss
-4  0x00001200 1024  0x00405000 4096  -rw-  .idata
+nth paddr        size vaddr        vsize perm name
+--------------------------------------------------
+0   0x00000400  0xa00 0x00401000  0x1000 -r-x .text
+1   0x00000e00  0x200 0x00402000  0x1000 -rw- .data
+2   0x00001000  0x200 0x00403000  0x1000 -r-- .rdata
+3   0x00000000    0x0 0x00404000  0x1000 -rw- .bss
+4   0x00001200  0x400 0x00405000  0x1000 -rw- .idata
 
 RUN
 
@@ -87,8 +87,8 @@ CMDS=<<EXPECT
 !env RABIN2_PREFIX=prixfixe rabin2 -S ${R2_FILE} |grep prixfixe. |wc -l |awk "{print \$1}"
 !env RABIN2_PREFIX=prixfixe rabin2 -SS ${R2_FILE} |grep prixfixe. |wc -l |awk "{print \$1}"
 EXPECT=<<RUN
-32
-11
+35
+14
 30
 9
 RUN
@@ -238,7 +238,7 @@ FILE=../bins/mach0/fatmach0-3true
 CMDS=!rabin2 -a x86 -b 32 -i ${R2_FILE}
 EXPECT=<<RUN
 [Imports]
-Num Vaddr      Bind Type Name
+nth vaddr      bind type name
 -----------------------------
 0   0x00001f94 NONE FUNC exit
 1   0x00000000 NONE FUNC dyld_stub_binder
@@ -250,7 +250,7 @@ FILE=../bins/mach0/fatmach0-3true
 CMDS=!rabin2 -G 0x5000 -i ${R2_FILE}
 EXPECT=<<RUN
 [Imports]
-Num Vaddr      Bind Type Name
+nth vaddr      bind type name
 -----------------------------
 0   0x00001f94 NONE FUNC exit
 1   0x00000000 NONE FUNC dyld_stub_binder
@@ -304,13 +304,13 @@ EXPECT=<<RUN
 wx e0000040 @ 0x244
 [Sections]
 
-Nm Paddr      Size  Vaddr       Memsz Perms Name
-------------------------------------------------
-0  0x00000400 35328  0x00401000 36864 -r-x  .text
-1  0x00008e00 9216   0x0040a000 12288 -r--  .rdata
-2  0x0000b200 4096   0x0040d000 12288 -rwx  .data
-3  0x0000c200 512    0x00410000 4096  -r--  .rsrc
-4  0x0000c400 3584   0x00411000 4096  -r--  .reloc
+nth paddr         size vaddr        vsize perm name
+---------------------------------------------------
+0   0x00000400  0x8a00 0x00401000  0x9000 -r-x .text
+1   0x00008e00  0x2400 0x0040a000  0x3000 -r-- .rdata
+2   0x0000b200  0x1000 0x0040d000  0x3000 -rwx .data
+3   0x0000c200   0x200 0x00410000  0x1000 -r-- .rsrc
+4   0x0000c400   0xe00 0x00411000  0x1000 -r-- .reloc
 
 RUN
 
@@ -326,9 +326,9 @@ EXPECT=<<RUN
 wx 10000000 @ 0x16c
 [Sections]
 
-Nm Paddr      Size Vaddr       Memsz Perms Name
------------------------------------------------
-0  0x00000200 512   0x00401000 4096  s---  sect_0
+nth paddr        size vaddr        vsize perm name
+--------------------------------------------------
+0   0x00000200  0x200 0x00401000  0x1000 s--- sect_0
 
 RUN
 
@@ -376,52 +376,52 @@ CMDS=!rabin2 -g ${R2_FILE}
 EXPECT=<<RUN
 [Sections]
 
-Nm Paddr      Size Vaddr       Memsz Perms Name
------------------------------------------------
-0  0x00000000 0     0x00000000 0     ----  
-1  0x00000134 19    0x08048134 19    -r--  .interp
-2  0x00000148 32    0x08048148 32    -r--  .note.ABI_tag
-3  0x00000168 36    0x08048168 36    -r--  .note.gnu.build_id
-4  0x0000018c 32    0x0804818c 32    -r--  .gnu.hash
-5  0x000001ac 80    0x080481ac 80    -r--  .dynsym
-6  0x000001fc 74    0x080481fc 74    -r--  .dynstr
-7  0x00000246 10    0x08048246 10    -r--  .gnu.version
-8  0x00000250 32    0x08048250 32    -r--  .gnu.version_r
-9  0x00000270 8     0x08048270 8     -r--  .rel.dyn
-10 0x00000278 24    0x08048278 24    -r--  .rel.plt
-11 0x00000290 35    0x08048290 35    -r-x  .init
-12 0x000002c0 64    0x080482c0 64    -r-x  .plt
-13 0x00000300 404   0x08048300 404   -r-x  .text
-14 0x00000494 20    0x08048494 20    -r-x  .fini
-15 0x000004a8 21    0x080484a8 21    -r--  .rodata
-16 0x000004c0 44    0x080484c0 44    -r--  .eh_frame_hdr
-17 0x000004ec 176   0x080484ec 176   -r--  .eh_frame
-18 0x0000059c 4     0x0804959c 4     -rw-  .init_array
-19 0x000005a0 4     0x080495a0 4     -rw-  .fini_array
-20 0x000005a4 4     0x080495a4 4     -rw-  .jcr
-21 0x000005a8 232   0x080495a8 232   -rw-  .dynamic
-22 0x00000690 4     0x08049690 4     -rw-  .got
-23 0x00000694 24    0x08049694 24    -rw-  .got.plt
-24 0x000006ac 8     0x080496ac 8     -rw-  .data
-25 0x000006b4 0     0x080496b4 4     -rw-  .bss
-26 0x000006b4 17    0x00000000 17    ----  .comment
-27 0x000006c5 262   0x00000000 262   ----  .shstrtab
-28 0x00000c7c 1104  0x00000000 1104  ----  .symtab
-29 0x000010cc 599   0x00000000 599   ----  .strtab
+nth paddr        size vaddr       vsize perm name
+-------------------------------------------------
+0   0x00000000    0x0 0x00000000    0x0 ---- 
+1   0x00000134   0x13 0x08048134   0x13 -r-- .interp
+2   0x00000148   0x20 0x08048148   0x20 -r-- .note.ABI_tag
+3   0x00000168   0x24 0x08048168   0x24 -r-- .note.gnu.build_id
+4   0x0000018c   0x20 0x0804818c   0x20 -r-- .gnu.hash
+5   0x000001ac   0x50 0x080481ac   0x50 -r-- .dynsym
+6   0x000001fc   0x4a 0x080481fc   0x4a -r-- .dynstr
+7   0x00000246    0xa 0x08048246    0xa -r-- .gnu.version
+8   0x00000250   0x20 0x08048250   0x20 -r-- .gnu.version_r
+9   0x00000270    0x8 0x08048270    0x8 -r-- .rel.dyn
+10  0x00000278   0x18 0x08048278   0x18 -r-- .rel.plt
+11  0x00000290   0x23 0x08048290   0x23 -r-x .init
+12  0x000002c0   0x40 0x080482c0   0x40 -r-x .plt
+13  0x00000300  0x194 0x08048300  0x194 -r-x .text
+14  0x00000494   0x14 0x08048494   0x14 -r-x .fini
+15  0x000004a8   0x15 0x080484a8   0x15 -r-- .rodata
+16  0x000004c0   0x2c 0x080484c0   0x2c -r-- .eh_frame_hdr
+17  0x000004ec   0xb0 0x080484ec   0xb0 -r-- .eh_frame
+18  0x0000059c    0x4 0x0804959c    0x4 -rw- .init_array
+19  0x000005a0    0x4 0x080495a0    0x4 -rw- .fini_array
+20  0x000005a4    0x4 0x080495a4    0x4 -rw- .jcr
+21  0x000005a8   0xe8 0x080495a8   0xe8 -rw- .dynamic
+22  0x00000690    0x4 0x08049690    0x4 -rw- .got
+23  0x00000694   0x18 0x08049694   0x18 -rw- .got.plt
+24  0x000006ac    0x8 0x080496ac    0x8 -rw- .data
+25  0x000006b4    0x0 0x080496b4    0x4 -rw- .bss
+26  0x000006b4   0x11 0x00000000   0x11 ---- .comment
+27  0x000006c5  0x106 0x00000000  0x106 ---- .shstrtab
+28  0x00000c7c  0x450 0x00000000  0x450 ---- .symtab
+29  0x000010cc  0x257 0x00000000  0x257 ---- .strtab
 
 [Segments]
 
-Nm Paddr      Size Vaddr       Memsz Perms Name
------------------------------------------------
-0  0x00000034 256   0x08048034 256   -r-x  PHDR
-1  0x00000134 19    0x08048134 19    -r--  INTERP
-2  0x00000000 1436  0x08048000 1436  -r-x  LOAD0
-3  0x0000059c 280   0x0804959c 284   -rw-  LOAD1
-4  0x000005a8 232   0x080495a8 232   -rw-  DYNAMIC
-5  0x00000148 68    0x08048148 68    -r--  NOTE
-6  0x000004c0 44    0x080484c0 44    -r--  GNU_EH_FRAME
-7  0x00000000 0     0x00000000 0     -rw-  GNU_STACK
-8  0x00000000 52    0x08048000 52    -rw-  ehdr
+nth paddr        size vaddr       vsize perm name
+-------------------------------------------------
+0   0x00000034  0x100 0x08048034  0x100 -r-x PHDR
+1   0x00000134   0x13 0x08048134   0x13 -r-- INTERP
+2   0x00000000  0x59c 0x08048000  0x59c -r-x LOAD0
+3   0x0000059c  0x118 0x0804959c  0x11c -rw- LOAD1
+4   0x000005a8   0xe8 0x080495a8   0xe8 -rw- DYNAMIC
+5   0x00000148   0x44 0x08048148   0x44 -r-- NOTE
+6   0x000004c0   0x2c 0x080484c0   0x2c -r-- GNU_EH_FRAME
+7   0x00000000    0x0 0x00000000    0x0 -rw- GNU_STACK
+8   0x00000000   0x34 0x08048000   0x34 -rw- ehdr
 
 [Entrypoints]
 vaddr=0x08048300 paddr=0x00000300 haddr=0x00000018 hvaddr=0x08048018 type=program
@@ -435,7 +435,7 @@ vaddr=0x080483b0 paddr=0x000003b0 hvaddr=0x080495a0 hpaddr=0x000005a0 type=fini
 [Main]
 vaddr=0x08048400 paddr=0x00000400
 [Imports]
-Num Vaddr      Bind   Type   Name
+nth vaddr      bind   type   name
 ---------------------------------
 1   0x080482d0 GLOBAL FUNC   puts
 2   0x080482e0 WEAK   NOTYPE __gmon_start__
@@ -443,7 +443,7 @@ Num Vaddr      Bind   Type   Name
 
 [Symbols]
 
-Num Paddr       Vaddr      Bind   Type   Size Name
+nth paddr       vaddr      bind   type   size name
 --------------------------------------------------
 4    0x000004ac 0x080484ac GLOBAL OBJ    4    _IO_stdin_used
 1    0x00000134 0x08048134 LOCAL  SECT   0    .interp
@@ -511,7 +511,7 @@ Num Paddr       Vaddr      Bind   Type   Size Name
 2    0x000002e0 0x080482e0 WEAK   NOTYPE 16   imp.__gmon_start__
 3    0x000002f0 0x080482f0 GLOBAL FUNC   16   imp.__libc_start_main
 [Strings]
-Num Paddr      Vaddr      Len Size Section Type  String
+nth paddr      vaddr      len size section type  string
 -------------------------------------------------------
 0   0x000004b0 0x080484b0 12  13   .rodata ascii Hello world!
 arch     x86

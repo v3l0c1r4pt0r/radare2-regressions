@@ -60,19 +60,19 @@ Num Vaddr      Bind Type Name
 
 [Sections]
 
-Nm Paddr      Size  Vaddr       Memsz Perms Name
-------------------------------------------------
-0  0x000001cc 47     0x000001cc 47    ----  .drectve_0
-1  0x000001fb 34416  0x000001fb 34416 -r--  .debug_S_1
-2  0x0000ad73 112    0x0000ad73 112   -r--  .debug_T_2
-3  0x0000ade3 1573   0x0000ade3 1573  -rw-  .data_3
-4  0x0000b408 84     0x0000b408 84    -r--  .rdata_4
-5  0x00000000 8      0x00000000 8     -rw-  .bss_5
-6  0x0000b45c 10389  0x0000b45c 10389 -r-x  .text_mn_6
-7  0x0000e967 8      0x0000e967 8     -r--  .rdata_7
-8  0x0000e96f 4      0x0000e96f 4     -r--  .rdata_8
-9  0x0000e973 8      0x0000e973 8     -r--  .rdata_9
-10 0x0000e97b 4      0x0000e97b 4     -r--  .rdata_10
+nth paddr         size vaddr        vsize perm name
+---------------------------------------------------
+0   0x000001cc    0x2f 0x000001cc    0x2f ---- .drectve_0
+1   0x000001fb  0x8670 0x000001fb  0x8670 -r-- .debug_S_1
+2   0x0000ad73    0x70 0x0000ad73    0x70 -r-- .debug_T_2
+3   0x0000ade3   0x625 0x0000ade3   0x625 -rw- .data_3
+4   0x0000b408    0x54 0x0000b408    0x54 -r-- .rdata_4
+5   0x00000000     0x8 0x00000000     0x8 -rw- .bss_5
+6   0x0000b45c  0x2895 0x0000b45c  0x2895 -r-x .text_mn_6
+7   0x0000e967     0x8 0x0000e967     0x8 -r-- .rdata_7
+8   0x0000e96f     0x4 0x0000e96f     0x4 -r-- .rdata_8
+9   0x0000e973     0x8 0x0000e973     0x8 -r-- .rdata_9
+10  0x0000e97b     0x4 0x0000e97b     0x4 -r-- .rdata_10
 
 EOF
 CMDS=<<EOF

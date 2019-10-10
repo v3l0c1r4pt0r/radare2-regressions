@@ -18,10 +18,10 @@ FILE=../bins/ne/anim8.exe
 EXPECT=<<CMDS
 [Segments]
 
-Nm Paddr      Size  Vaddr       Memsz Perms Name
-------------------------------------------------
-0  0x00000a00 21742  0x00000a00 21742 ---x  MOVEABLE.2560
-1  0x00007600 16068  0x00007600 16068 -rwx  MOVEABLE.30208
+nth paddr         size vaddr        vsize perm name
+---------------------------------------------------
+0   0x00000a00  0x54ee 0x00000a00  0x54ee ---x MOVEABLE.2560
+1   0x00007600  0x3ec4 0x00007600  0x3ec4 -rwx MOVEABLE.30208
 
 CMDS=<<RUN
 iSS

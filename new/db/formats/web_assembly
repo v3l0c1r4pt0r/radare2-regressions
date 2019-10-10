@@ -32,12 +32,12 @@ FILE=../bins/wasm/binary.wasm
 EXPECT=<<EOF
 [Sections]
 
-Nm Paddr      Size Vaddr       Memsz Perms Name
------------------------------------------------
-0  0x0000000a 16    0x0000000a 16    ----  type
-1  0x0000001d 44    0x0000001d 44    ----  function
-2  0x0000004d 476   0x0000004d 476   ----  export
-3  0x0000022d 502   0x0000022d 502   ----  code
+nth paddr        size vaddr       vsize perm name
+-------------------------------------------------
+0   0x0000000a   0x10 0x0000000a   0x10 ---- type
+1   0x0000001d   0x2c 0x0000001d   0x2c ---- function
+2   0x0000004d  0x1dc 0x0000004d  0x1dc ---- export
+3   0x0000022d  0x1f6 0x0000022d  0x1f6 ---- code
 
 EOF
 CMDS=<<EOF
