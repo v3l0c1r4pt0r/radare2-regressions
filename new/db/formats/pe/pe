@@ -150,7 +150,7 @@ NAME=pe32 imported functions (ii)
 FILE=../bins/pe/imports_1210.exe
 EXPECT=<<EOF
 [Imports]
-Num Vaddr      Bind Type Name
+nth vaddr      bind type name
 -----------------------------
 1   0x0041217c NONE FUNC kernel32.dll_DeleteCriticalSection
 2   0x00412180 NONE FUNC kernel32.dll_LeaveCriticalSection

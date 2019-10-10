@@ -3,7 +3,7 @@ FILE=../bins/pe/Lab05-01.dll
 EXPECT=<<EOF
 [Exports]
 
-Num Paddr       Vaddr      Bind   Type Size Name
+nth paddr       vaddr      bind   type size name
 ------------------------------------------------
 0    0x0000cc47 0x1000d847 GLOBAL FUNC 0    xdll.dll_InstallRT
 1    0x0000d2c1 0x1000dec1 GLOBAL FUNC 0    xdll.dll_InstallSA
