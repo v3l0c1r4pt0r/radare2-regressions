@@ -26,23 +26,6 @@ pd 1
 EOF
 RUN
 
-NAME=fatmach0 -b64
-FILE=../bins/mach0/BatteryLife
-ARGS=-b64
-BROKEN=1
-EXPECT=<<EOF
-64
-  0x100010f7c      stp x22, x21, [sp, -0x30]!
-EOF
-CMDS=<<EOF
-e asm.bits
-e asm.bytes=0
-e asm.flags=0
-e asm.lines.bb=0
-pd 1
-EOF
-RUN
-
 NAME=fatmach0 arm64
 FILE=../bins/mach0/BatteryLife.arm_64.1
 EXPECT=<<EOF
@@ -115,8 +98,9 @@ RUN
 NAME=fatmach0 archs
 FILE=../bins/mach0/fatmach0-3true
 EXPECT=<<EOF
-num offset     Object Size Arch   Machine0   0x00000000 8496        x86_64 
-
+000 0x00001000 13792 x86_64 x86 64 all
+001 0x00005000 13760 x86_32 386
+002 0x00009000 13616 ppc_32 7400
 EOF
 CMDS=<<EOF
 iA
@@ -223,8 +207,9 @@ RUN
 NAME=fatmach0 archs
 FILE=../bins/mach0/mach0-x86-64
 EXPECT=<<EOF
-num offset     Object Size Arch   Machine0   0x00000000 8496        x86_64 
-
+000 0x00001000 13792 x86_64 x86 64 all
+001 0x00005000 13760 x86_32 386
+002 0x00009000 13616 ppc_32 7400
 EOF
 CMDS=<<EOF
 iA
