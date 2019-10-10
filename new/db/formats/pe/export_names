@@ -4,7 +4,7 @@ EXPECT=<<EOF
 [Exports]
 
 Num Paddr       Vaddr      Bind   Type Size Name
------------------------------------------------
+------------------------------------------------
 0    0x0000cc47 0x1000d847 GLOBAL FUNC 0    xdll.dll_InstallRT
 1    0x0000d2c1 0x1000dec1 GLOBAL FUNC 0    xdll.dll_InstallSA
 2    0x0000dc92 0x1000e892 GLOBAL FUNC 0    xdll.dll_InstallSB
