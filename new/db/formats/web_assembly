@@ -31,11 +31,14 @@ NAME=WASM: Wasm - sections
 FILE=../bins/wasm/binary.wasm
 EXPECT=<<EOF
 [Sections]
-Nm Paddr       Size Vaddr      Memsz Perms Name
-00 0x0000000a    16 0x0000000a    16 ---- type
-01 0x0000001d    44 0x0000001d    44 ---- function
-02 0x0000004d   476 0x0000004d   476 ---- export
-03 0x0000022d   502 0x0000022d   502 ---- code
+
+Nm Paddr      Size Vaddr       Memsz Perms Name
+----------------------------------------------
+0  0x0000000a 16    0x0000000a 16    ----  type
+1  0x0000001d 44    0x0000001d 44    ----  function
+2  0x0000004d 476   0x0000004d 476   ----  export
+3  0x0000022d 502   0x0000022d 502   ----  code
+
 EOF
 CMDS=<<EOF
 iS

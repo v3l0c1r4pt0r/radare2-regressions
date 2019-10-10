@@ -1,7 +1,7 @@
 NAME=ELF: dynimports
 FILE=../bins/elf/analysis/dynimports
 EXPECT=<<EOF
-7
+8
 EOF
 CMDS=<<EOF
 ii~?

@@ -54,26 +54,29 @@ FILE=../bins/pe/a.exe
 CMDS=!rabin2 -K md5 -S ${R2_FILE}
 EXPECT=<<RUN
 [Sections]
-Nm Paddr       Size Vaddr      Memsz Perms Checksum          Name
-00 0x00000400  2560 0x00401000  4096 -r-x md5=3d6a5b8dc5e41b09659638ad5735e5b5 .text
-01 0x00000e00   512 0x00402000  4096 -rw- md5=b3c542ba67f2d1a949fa1a25ce22f7e3 .data
-02 0x00001000   512 0x00403000  4096 -r-- md5=c9a877a4e945b087b8323830442c88d6 .rdata
-03 0x00000000     0 0x00404000  4096 -rw- md5=d41d8cd98f00b204e9800998ecf8427e .bss
-04 0x00001200  1024 0x00405000  4096 -rw- md5=963212dc58a74f32e0f6ffce84dcf7ea .idata
+
+Nm Paddr      Size Vaddr       Memsz Perms Checksum Name
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――
+0  0x00000400 2560  0x00401000 4096  -r-x  .text
+1  0x00000e00 512   0x00402000 4096  -rw-  .data
+2  0x00001000 512   0x00403000 4096  -r--  .rdata
+3  0x00000000 0     0x00404000 4096  -rw-  .bss
+4  0x00001200 1024  0x00405000 4096  -rw-  .idata
+
 RUN
 
 NAME=rabin2 -s file pe
 FILE=../bins/pe/a.exe
 CMDS=!rabin2 -s ${R2_FILE}|wc -l|awk "{print \$1}"
 EXPECT=<<RUN
-22
+24
 RUN
 
 NAME=rabin2 -s file elf
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 CMDS=!rabin2 -s ${R2_FILE}|wc -l|awk "{print \$1}"
 EXPECT=<<RUN
-67
+69
 RUN
 
 NAME=rabin2 -S, -SS, -rS and -rSS file elf
@@ -94,14 +97,14 @@ NAME=rabin2 -z pe
 FILE=../bins/pe/a.exe
 CMDS=!rabin2 -z ${R2_FILE}|wc -l|awk "{print \$1}"
 EXPECT=<<RUN
-6
+7
 RUN
 
 NAME=rabin2 -zz pe
 FILE=../bins/pe/ioli/w32/crackme0x00.exe
 CMDS=!rabin2 -zz ${R2_FILE} | grep "Password:"
 EXPECT=<<RUN
-086 0x00002619 0x00404019  10  11 (.rdata) ascii Password: 
+86  0x00002619 0x00404019 10  4294967307 .rdata  ascii   Password: 
 RUN
 
 NAME=rabin2 -zzz pe
@@ -143,7 +146,7 @@ NAME=rabin2 -z elf
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 CMDS=!rabin2 -z ${R2_FILE}|wc -l|awk "{print \$1}"
 EXPECT=<<RUN
-3
+4
 RUN
 
 NAME=rabin2 -G 0x1000 -rs fatmach0
@@ -235,9 +238,11 @@ FILE=../bins/mach0/fatmach0-3true
 CMDS=!rabin2 -a x86 -b 32 -i ${R2_FILE}
 EXPECT=<<RUN
 [Imports]
-Num  Vaddr       Bind      Type Name
-   0 0x00001f94    NONE    FUNC exit
-   1 0x00000000    NONE    FUNC dyld_stub_binder
+Num Vaddr    Bind Type Name
+――――――――――――――――――――――――――
+0   0x081f94 NONE FUNC exit
+1   0x080    NONE FUNC dyld_stub_binder
+
 RUN
 
 NAME=rabin2 -G 0x5000 -i fatmach0
@@ -245,9 +250,11 @@ FILE=../bins/mach0/fatmach0-3true
 CMDS=!rabin2 -G 0x5000 -i ${R2_FILE}
 EXPECT=<<RUN
 [Imports]
-Num  Vaddr       Bind      Type Name
-   0 0x00001f94    NONE    FUNC exit
-   1 0x00000000    NONE    FUNC dyld_stub_binder
+Num Vaddr    Bind Type Name
+――――――――――――――――――――――――――
+0   0x081f94 NONE FUNC exit
+1   0x080    NONE FUNC dyld_stub_binder
+
 RUN
 
 NAME=rabin2 -qqz
@@ -296,12 +303,15 @@ rm .tmp/rabin2testpe1.exe
 EXPECT=<<RUN
 wx e0000040 @ 0x244
 [Sections]
-Nm Paddr       Size Vaddr      Memsz Perms Name
-00 0x00000400 35328 0x00401000 36864 -r-x .text
-01 0x00008e00  9216 0x0040a000 12288 -r-- .rdata
-02 0x0000b200  4096 0x0040d000 12288 -rwx .data
-03 0x0000c200   512 0x00410000  4096 -r-- .rsrc
-04 0x0000c400  3584 0x00411000  4096 -r-- .reloc
+
+Nm Paddr      Size  Vaddr       Memsz Perms Name
+―――――――――――――――――――――――――――――――――――――――――――――――
+0  0x00000400 35328  0x00401000 36864 -r-x  .text
+1  0x00008e00 9216   0x0040a000 12288 -r--  .rdata
+2  0x0000b200 4096   0x0040d000 12288 -rwx  .data
+3  0x0000c200 512    0x00410000 4096  -r--  .rsrc
+4  0x0000c400 3584   0x00411000 4096  -r--  .reloc
+
 RUN
 
 NAME=rabin2 -qOp//8 on PE32+
@@ -315,8 +325,11 @@ rm .tmp/rabin2testpe2.exe
 EXPECT=<<RUN
 wx 10000000 @ 0x16c
 [Sections]
-Nm Paddr       Size Vaddr      Memsz Perms Name
-00 0x00000200   512 0x00401000  4096 s--- sect_0
+
+Nm Paddr      Size Vaddr       Memsz Perms Name
+――――――――――――――――――――――――――――――――――――――――――――――
+0  0x00000200 512   0x00401000 4096  s---  sect_0
+
 RUN
 
 NAME=rabin2 -ee -j
@@ -679,9 +692,9 @@ NAME=rabin2 -s right symbols
 FILE=../bins/elf/libc.so.0
 CMDS=!rabin2 -s ${R2_FILE} | grep 0002edb0
 EXPECT=<<RUN
-149 0x0002edb0 0x0002edb0 GLOBAL   FUNC  356 getc_unlocked
-402 0x0002edb0 0x0002edb0 GLOBAL   FUNC  356 __fgetc_unlocked
-980 0x0002edb0 0x0002edb0 GLOBAL   FUNC  356 fgetc_unlocked
+149   0x0002edb0 0x0002edb0 GLOBAL FUNC   356  getc_unlocked
+402   0x0002edb0 0x0002edb0 GLOBAL FUNC   356  __fgetc_unlocked
+980   0x0002edb0 0x0002edb0 GLOBAL FUNC   356  fgetc_unlocked
 RUN
 
 NAME=rabin2 -V

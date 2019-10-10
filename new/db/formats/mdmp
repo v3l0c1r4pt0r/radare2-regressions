@@ -49,7 +49,7 @@ RUN
 NAME=: sections
 FILE=../bins/mdmp/calc.dmp
 EXPECT=<<EOF
-09 0x00000000 929792 0xfffe0000 929792 ---- C:_Windows_System32_calc.exe
+9  0x00000000 929792    0xfffe0000    929792   ----  C:_Windows_System32_calc.exe
 EOF
 CMDS=<<EOF
 iS~calc
@@ -159,7 +159,7 @@ RUN
 NAME=: 32bit - symbols count
 FILE=../bins/mdmp/hello.dmp
 EXPECT=<<EOF
-7468
+7469
 EOF
 CMDS=<<EOF
 is~?
@@ -169,7 +169,7 @@ RUN
 NAME=: 32bit - symbols resolving 1
 FILE=../bins/mdmp/hello.dmp
 EXPECT=<<EOF
-001 0x0009dcda 0x00406108   NONE   FUNC    0 imp.KERNEL32.dll_DeleteCriticalSection
+1     0x0009dcda 0x00406108 NONE   FUNC 0    imp.KERNEL32.dll_DeleteCriticalSection
 EOF
 CMDS=<<EOF
 is~imp.KERNEL32.dll_DeleteCriticalSection:0
@@ -179,7 +179,7 @@ RUN
 NAME=: 32bit - symbols resolving 2
 FILE=../bins/mdmp/hello.dmp
 EXPECT=<<EOF
-358 0x001c2176 0x76fb05a4   NONE   FUNC    0 imp.ntdll.dll_RtlDeleteCriticalSection
+358   0x001c2176 0x76fb05a4 NONE   FUNC 0    imp.ntdll.dll_RtlDeleteCriticalSection
 EOF
 CMDS=<<EOF
 is~ntdll.dll_RtlDeleteCriticalSection:0
@@ -189,7 +189,7 @@ RUN
 NAME=: 32bit - imports count
 FILE=../bins/mdmp/hello.dmp
 EXPECT=<<EOF
-2030
+2031
 EOF
 CMDS=<<EOF
 ii~?
@@ -199,7 +199,7 @@ RUN
 NAME=: 32bit - imports resolving
 FILE=../bins/mdmp/hello.dmp
 EXPECT=<<EOF
-  17 0x00406148    NONE    FUNC KERNEL32.dll_TerminateProcess
+17  0x08406148   NONE FUNC KERNEL32.dll_TerminateProcess
 EOF
 CMDS=<<EOF
 ii~KERNEL32.dll_TerminateProcess
@@ -209,7 +209,7 @@ RUN
 NAME=: 32bit - exports count
 FILE=../bins/mdmp/hello.dmp
 EXPECT=<<EOF
-5440
+5441
 EOF
 CMDS=<<EOF
 iE~?
@@ -219,7 +219,7 @@ RUN
 NAME=: 32bit - exports resolving
 FILE=../bins/mdmp/hello.dmp
 EXPECT=<<EOF
-1992 0x0041f1f2 0x77802620 GLOBAL   FUNC    0 ntdll.dll_Ordinal_1
+1992  0x0041f1f2 0x77802620 GLOBAL FUNC 0    ntdll.dll_Ordinal_1
 EOF
 CMDS=<<EOF
 iE~ntdll.dll_Ordinal_1
@@ -239,7 +239,7 @@ RUN
 NAME=: 32bit - relocs resolving
 FILE=../bins/mdmp/hello.dmp
 EXPECT=<<EOF
-vaddr=0x00406160 paddr=0x0009dd32 type=SET_32 msvcrt.dll___dllonexit
+0x00406160 0x0009dd32 SET_32  msvcrt.dll___dllonexit
 EOF
 CMDS=<<EOF
 ir~msvcrt.dll___dllonexit
@@ -271,7 +271,7 @@ RUN
 NAME=: 32bit - strings count
 FILE=../bins/mdmp/hello.dmp
 EXPECT=<<EOF
-10280
+10281
 EOF
 CMDS=<<EOF
 iz~?
@@ -322,7 +322,7 @@ RUN
 NAME=: 64bit - symbols count
 FILE=../bins/mdmp/hello64.dmp
 EXPECT=<<EOF
-6826
+6827
 EOF
 CMDS=<<EOF
 is~?
@@ -332,7 +332,7 @@ RUN
 NAME=: 64bit - symbols resolving 1
 FILE=../bins/mdmp/hello64.dmp
 EXPECT=<<EOF
-001 0x0009ae8b 0x004081fc   NONE   FUNC    0 imp.KERNEL32.dll_DeleteCriticalSection
+1     0x0009ae8b 0x004081fc    NONE   FUNC 0    imp.KERNEL32.dll_DeleteCriticalSection
 EOF
 CMDS=<<EOF
 is~imp.KERNEL32.dll_DeleteCriticalSection
@@ -342,7 +342,7 @@ RUN
 NAME=: 64bit - symbols resolving 2
 FILE=../bins/mdmp/hello64.dmp
 EXPECT=<<EOF
-008 0x001eb87f 0x77728bf0 GLOBAL   FUNC    0 ntdll.dll_A_SHAFinal
+8     0x001eb87f 0x77728bf0    GLOBAL FUNC 0    ntdll.dll_A_SHAFinal
 EOF
 CMDS=<<EOF
 is~ntdll.dll_A_SHAFinal
@@ -352,7 +352,7 @@ RUN
 NAME=: 64bit - imports count
 FILE=../bins/mdmp/hello64.dmp
 EXPECT=<<EOF
-1511
+1512
 EOF
 CMDS=<<EOF
 ii~?
@@ -362,7 +362,7 @@ RUN
 NAME=: 64bit - imports resolving
 FILE=../bins/mdmp/hello64.dmp
 EXPECT=<<EOF
-   4 0x00408214    NONE    FUNC KERNEL32.dll_GetCurrentProcessId
+4   0x08408214      NONE FUNC KERNEL32.dll_GetCurrentProcessId
 EOF
 CMDS=<<EOF
 ii~KERNEL32.dll_GetCurrentProcessId
@@ -372,7 +372,7 @@ RUN
 NAME=: 64bit - exports count
 FILE=../bins/mdmp/hello64.dmp
 EXPECT=<<EOF
-5317
+5318
 EOF
 CMDS=<<EOF
 iE~?
@@ -382,7 +382,7 @@ RUN
 NAME=: 64bit - exports resolving
 FILE=../bins/mdmp/hello64.dmp
 EXPECT=<<EOF
-038 0x0029513f 0x777d24b0 GLOBAL   FUNC    0 ntdll.dll_CsrVerifyRegion
+38    0x0029513f 0x777d24b0    GLOBAL FUNC 0    ntdll.dll_CsrVerifyRegion
 EOF
 CMDS=<<EOF
 iE~ntdll.dll_CsrVerifyRegion
@@ -402,7 +402,7 @@ RUN
 NAME=: 64bit - relocs resolving
 FILE=../bins/mdmp/hello64.dmp
 EXPECT=<<EOF
-vaddr=0x004081fc paddr=0x0009ae8b type=SET_64 KERNEL32.dll_DeleteCriticalSection
+0x004081fc    0x0009ae8b SET_64  KERNEL32.dll_DeleteCriticalSection
 EOF
 CMDS=<<EOF
 ir~KERNEL32.dll_DeleteCriticalSection
@@ -431,7 +431,7 @@ RUN
 NAME=: 64bit - strings count
 FILE=../bins/mdmp/hello64.dmp
 EXPECT=<<EOF
-22897
+22898
 EOF
 CMDS=<<EOF
 iz~?

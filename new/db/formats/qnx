@@ -23,9 +23,12 @@ NAME=sections of qnx
 FILE=../bins/qnx/test.x
 EXPECT=<<EOF
 [Sections]
-Nm Paddr       Size Vaddr      Memsz Perms Name
-00 0x00000044   246 0x00000044   246 ---- LMF_LOAD
-01 0x00000152  1731 0x00000152  1731 ---- LMF_LOAD
+
+Nm Paddr      Size Vaddr       Memsz Perms Name
+----------------------------------------------
+0  0x00000044 246   0x00000044 246   ----  LMF_LOAD
+1  0x00000152 1731  0x00000152 1731  ----  LMF_LOAD
+
 EOF
 CMDS=<<EOF
 iS

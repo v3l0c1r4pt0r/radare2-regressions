@@ -115,9 +115,8 @@ RUN
 NAME=fatmach0 archs
 FILE=../bins/mach0/fatmach0-3true
 EXPECT=<<EOF
-000 0x00001000 13792 x86_64 x86 64 all
-001 0x00005000 13760 x86_32 386
-002 0x00009000 13616 ppc_32 7400
+0   0x00000000 8496        x86_64 
+
 EOF
 CMDS=<<EOF
 iA
@@ -224,7 +223,8 @@ RUN
 NAME=fatmach0 archs
 FILE=../bins/mach0/mach0-x86-64
 EXPECT=<<EOF
-000 0x00000000 8496 x86_64
+0   0x00000000 8496        x86_64 
+
 EOF
 CMDS=<<EOF
 iA
@@ -284,10 +284,12 @@ FILE=../bins/mach0/fatmach0-3true
 ARGS=-a x86 -b32 -B 0x90000000
 EXPECT=<<EOF
 [Symbols]
-Num Paddr      Vaddr      Bind     Type Size Name
-000 0x00005000 0x90000000 GLOBAL   FUNC    0 __mh_execute_header
-001 0x00005000 0x95613542  LOCAL   FUNC    0 radr://5614542
-002 0x00005f94 0x90000f94  LOCAL   FUNC    0 imp.exit
+
+Num Paddr       Vaddr      Bind   Type Size Name
+-----------------------------------------------
+0    0x00005000 0x90000000 GLOBAL FUNC 0    __mh_execute_header
+1    0x00005000 0x95613542 LOCAL  FUNC 0    radr://5614542
+2    0x00005f94 0x90000f94 LOCAL  FUNC 0    imp.exit
 EOF
 CMDS=<<EOF
 is
