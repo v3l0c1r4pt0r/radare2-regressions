@@ -1,6 +1,5 @@
 NAME=fatmach0 string location
 FILE=../bins/mach0/BatteryLife
-BROKEN=1
 EXPECT=<<EOF
 batteryLevel
 EOF
@@ -205,7 +204,7 @@ EOF
 RUN
 
 NAME=fatmach0 archs
-FILE=../bins/mach0/mach0-x86-64
+FILE=../bins/mach0/fatmach0-3true
 EXPECT=<<EOF
 000 0x00001000 13792 x86_64 x86 64 all
 001 0x00005000 13760 x86_32 386
