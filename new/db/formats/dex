@@ -224,7 +224,7 @@ NAME=DEX HelloWorld.dex imports (ii command)
 FILE=../bins/dex/HelloWorld.dex
 EXPECT=<<EOF
 [Imports]
-Num Vaddr      Bind Type Name
+nth vaddr      bind type name
 -----------------------------
 0   0x000001b0 NONE FUNC Ljava/io/PrintStream.method.println(Ljava/lang/String;)V
 1   0x000001b8 NONE FUNC Ljava/lang/Integer.method.<init>(I)V
@@ -245,7 +245,7 @@ FILE=../bins/dex/HelloWorld.dex
 EXPECT=<<EOF
 [Exports]
 
-Num Paddr       Vaddr      Bind   Type Size Name
+nth paddr       vaddr      bind   type size name
 ------------------------------------------------
 2    0x00000238 0x00000238 GLOBAL FUNC 20   LHello.method.<init>()V
 3    0x0000025c 0x0000025c GLOBAL FUNC 34   LHello.method.main([Ljava/lang/String;)V

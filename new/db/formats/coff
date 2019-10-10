@@ -2,7 +2,7 @@ NAME=tifdir imports and sections
 FILE=../bins/coff/tif_dir.obj
 EXPECT=<<EOF
 [Imports]
-Num Vaddr      Bind Type Name
+nth vaddr      bind type name
 -----------------------------
 0   0x00000000 NONE FUNC __TIFFmalloc
 1   0x00000000 NONE FUNC __TIFFrealloc
@@ -89,7 +89,7 @@ EXPECT=<<EOF
  1 fd: 3 +0x0000008b 0x0000008b - 0x000000a6 r-- fmap..data_1
 [Symbols]
 
-Num Paddr       Vaddr      Bind Type     Size Name
+nth paddr       vaddr      bind type     size name
 --------------------------------------------------
 0    0x00000000 0x00000000 NONE EXTERNAL 4    MessageBoxA
 0    0x00000000 0x00000000 NONE EXTERNAL 4    ExitProcess
