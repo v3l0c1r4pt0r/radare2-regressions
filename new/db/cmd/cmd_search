@@ -1,3 +1,17 @@
+NAME=/r push [imm] refs
+FILE=../bins/pe/x.dll
+EXPECT=<<EOF
+(nofunc); [00] -r-x section size 4096 named .text 0x69681000 [DATA] push dword [0x69682004]
+(nofunc) 0x69681006 [DATA] push 0x69682004
+(nofunc) 0x6968100b [DATA] mov eax, dword [0x69682004]
+(nofunc) 0x69681010 [DATA] mov eax, 0x69682004
+EOF
+ARGS=
+CMDS=<<EOF
+/r 0x69682004
+EOF
+RUN
+
 NAME=/aI infinite loop instructions
 FILE=../bins/mach0/ls-osx-x86_64
 EXPECT=<<EOF
@@ -876,7 +890,6 @@ EXPECT=<<RUN
 RUN
 
 NAME=search range /c in arm
-BROKEN=1
 FILE=../bins/arm/elf/hello_world
 EXPECT=<<EOF
 0x0000050e   # 2: add r7, sp, 0
@@ -886,7 +899,7 @@ af @ sym.main
 e search.in = raw
 e search.from = 0x0000050c
 e search.to = 0x00000510
-/c add
+/ac add
 EOF
 RUN
 
