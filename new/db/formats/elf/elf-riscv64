@@ -14,7 +14,7 @@ EXPECT=<<EOF
 [Symbols]
 
 Num Paddr       Vaddr      Bind   Type   Size Name
--------------------------------------------------
+--------------------------------------------------
 1    0x00001000 0x00010000 LOCAL  SECT   0    .text
 2    0x000124f8 0x000214f8 LOCAL  SECT   0    .rodata
 3    0x00013620 0x00022620 LOCAL  SECT   0    .init_array

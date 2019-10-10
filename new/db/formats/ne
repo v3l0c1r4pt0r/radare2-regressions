@@ -4,7 +4,7 @@ EXPECT=<<CMDS
 [Symbols]
 
 Num Paddr       Vaddr      Bind   Type Size Name
------------------------------------------------
+------------------------------------------------
 0    0x00000a00 0x00000a00 NONE   NONE 0    ANIM8
 1    0x00000d8e 0x00000d8e GLOBAL NONE 0    WNDPROC
 2    0x00002b5a 0x00002b5a GLOBAL NONE 0    DIAL_ABOUT
@@ -19,7 +19,7 @@ EXPECT=<<CMDS
 [Segments]
 
 Nm Paddr      Size  Vaddr       Memsz Perms Name
------------------------------------------------
+------------------------------------------------
 0  0x00000a00 21742  0x00000a00 21742 ---x  MOVEABLE.2560
 1  0x00007600 16068  0x00007600 16068 -rwx  MOVEABLE.30208
 
@@ -31,12 +31,12 @@ NAME=NE Module imports
 FILE=../bins/ne/anim8.exe
 EXPECT=<<CMDS
 [Imports]
-Num Vaddr Bind   Type   Name
----------------------------
-1   0x080 (null) (null) KERNEL
-2   0x080 (null) (null) USER
-3   0x080 (null) (null) GDI
-4   0x080 (null) (null) WIN87EM
+Num Vaddr Bind Type Name
+------------------------
+1   0x0   NONE NONE KERNEL
+2   0x0   NONE NONE USER
+3   0x0   NONE NONE GDI
+4   0x0   NONE NONE WIN87EM
 
 CMDS=<<RUN
 ii
@@ -64,7 +64,7 @@ EXPECT=<<CMDS
 0x00005891 0x00005891 ADD_16  WIN87EM.0
 [Relocations]
 vaddr      paddr      type   name
---------------------------------
+---------------------------------
 0x00000a01 0x00000a01 SET_32  KERNEL.INITTASK
 0x00000a25 0x00000a25 SET_32  KERNEL.LOCKSEGMENT
 0x00000a3c 0x00000a3c SET_32  KERNEL.WAITEVENT

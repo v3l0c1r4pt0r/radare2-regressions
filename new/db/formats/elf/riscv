@@ -2,28 +2,28 @@ NAME=avr entrypoint
 FILE=../bins/elf/ip-riscv
 CMDS=ii~str
 EXPECT=<<RUN
-2   0x08a960 GLOBAL FUNC   strncpy
-15  0x08aa10 GLOBAL FUNC   strspn
-19  0x08aa50 GLOBAL FUNC   strdup
-27  0x08aad0 GLOBAL FUNC   strcat
-31  0x08ab10 GLOBAL FUNC   strtol
-43  0x08abd0 GLOBAL FUNC   elf_strptr
-45  0x08abf0 GLOBAL FUNC   strcspn
-46  0x08ac00 GLOBAL FUNC   strchr
-48  0x08ac20 GLOBAL FUNC   strrchr
-65  0x08ad30 GLOBAL FUNC   strlen
-67  0x08ad50 GLOBAL FUNC   strcpy
-71  0x08ad90 GLOBAL FUNC   strsep
-78  0x08adf0 GLOBAL FUNC   strftime
-85  0x08ae60 GLOBAL FUNC   strcasecmp
-87  0x08ae80 GLOBAL FUNC   strerror
-89  0x08aea0 GLOBAL FUNC   strtoull
-97  0x08af20 GLOBAL FUNC   strtoul
-103 0x08af80 GLOBAL FUNC   mnl_attr_get_str
-107 0x08afc0 GLOBAL FUNC   strncmp
-113 0x08b020 GLOBAL FUNC   strtod
-114 0x08b030 GLOBAL FUNC   strstr
-141 0x08b1b0 GLOBAL FUNC   strtok
-145 0x08b1f0 GLOBAL FUNC   strcmp
-152 0x08b250 GLOBAL FUNC   strtof
+2   0x0000a960 GLOBAL FUNC   strncpy
+15  0x0000aa10 GLOBAL FUNC   strspn
+19  0x0000aa50 GLOBAL FUNC   strdup
+27  0x0000aad0 GLOBAL FUNC   strcat
+31  0x0000ab10 GLOBAL FUNC   strtol
+43  0x0000abd0 GLOBAL FUNC   elf_strptr
+45  0x0000abf0 GLOBAL FUNC   strcspn
+46  0x0000ac00 GLOBAL FUNC   strchr
+48  0x0000ac20 GLOBAL FUNC   strrchr
+65  0x0000ad30 GLOBAL FUNC   strlen
+67  0x0000ad50 GLOBAL FUNC   strcpy
+71  0x0000ad90 GLOBAL FUNC   strsep
+78  0x0000adf0 GLOBAL FUNC   strftime
+85  0x0000ae60 GLOBAL FUNC   strcasecmp
+87  0x0000ae80 GLOBAL FUNC   strerror
+89  0x0000aea0 GLOBAL FUNC   strtoull
+97  0x0000af20 GLOBAL FUNC   strtoul
+103 0x0000af80 GLOBAL FUNC   mnl_attr_get_str
+107 0x0000afc0 GLOBAL FUNC   strncmp
+113 0x0000b020 GLOBAL FUNC   strtod
+114 0x0000b030 GLOBAL FUNC   strstr
+141 0x0000b1b0 GLOBAL FUNC   strtok
+145 0x0000b1f0 GLOBAL FUNC   strcmp
+152 0x0000b250 GLOBAL FUNC   strtof
 RUN

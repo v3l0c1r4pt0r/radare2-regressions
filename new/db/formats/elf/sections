@@ -4,7 +4,7 @@ EXPECT=<<EOF
 [Sections]
 
 Nm Paddr      Size Vaddr       Memsz Perms Name
-----------------------------------------------
+-----------------------------------------------
 0  0x00000000 0     0x00000000 0     ----  
 1  0x00000200 28    0x00404500 28    -r--  .interp
 2  0x0000021c 32    0x0040021c 32    -r--  .note.ABI_tag
@@ -45,7 +45,7 @@ Nm Paddr      Size Vaddr       Memsz Perms Name
 [Segments]
 
 Nm Paddr      Size Vaddr       Memsz Perms Name
-----------------------------------------------
+-----------------------------------------------
 0  0x00000040 448   0x00400040 448   -r-x  PHDR
 1  0x00000200 28    0x00400200 28    -r--  INTERP
 2  0x00000000 1756  0x00400000 1756  -r-x  LOAD0
