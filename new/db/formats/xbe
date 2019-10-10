@@ -33,7 +33,7 @@ EXPECT=<<EOF
 [Symbols]
 
 Num Paddr       Vaddr      Bind Type Size Name
----------------------------------------------
+----------------------------------------------
 0    0x000016c0 0x000116c0 NONE NONE 4    kt.vsnprintf
 EOF
 CMDS=<<EOF
