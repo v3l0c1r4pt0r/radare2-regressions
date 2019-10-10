@@ -199,7 +199,7 @@ RUN
 NAME=: 32bit - imports resolving
 FILE=../bins/mdmp/hello.dmp
 EXPECT=<<EOF
-17  0x08406148   NONE FUNC KERNEL32.dll_TerminateProcess
+17  0x00406148 NONE FUNC KERNEL32.dll_TerminateProcess
 EOF
 CMDS=<<EOF
 ii~KERNEL32.dll_TerminateProcess
@@ -362,7 +362,7 @@ RUN
 NAME=: 64bit - imports resolving
 FILE=../bins/mdmp/hello64.dmp
 EXPECT=<<EOF
-4   0x08408214      NONE FUNC KERNEL32.dll_GetCurrentProcessId
+4   0x00408214    NONE FUNC KERNEL32.dll_GetCurrentProcessId
 EOF
 CMDS=<<EOF
 ii~KERNEL32.dll_GetCurrentProcessId

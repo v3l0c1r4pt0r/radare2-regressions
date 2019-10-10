@@ -24,7 +24,7 @@ EXPECT=<<EOF
 [Symbols]
 
 Num Paddr       Vaddr      Bind Type Size Name
----------------------------------------------
+----------------------------------------------
 1    0x00000073 0x00001000 NONE NONE 0    _start
 EOF
 CMDS=<<EOF
@@ -38,7 +38,7 @@ EXPECT=<<EOF
 [Sections]
 
 Nm Paddr      Size Vaddr       Memsz Perms Name
-----------------------------------------------
+-----------------------------------------------
 0  0x00000073 19    0x00001000 19    -rwx  text_1
 1  0x00000095 14    0x00001013 14    -rwx  data_1
 
@@ -97,7 +97,7 @@ EXPECT=<<EOF
 [Symbols]
 
 Num Paddr       Vaddr      Bind Type Size Name
----------------------------------------------
+----------------------------------------------
 1    0x00000074 0x00001000 NONE NONE 0    _start
 EOF
 CMDS=<<EOF
@@ -111,7 +111,7 @@ EXPECT=<<EOF
 [Sections]
 
 Nm Paddr      Size Vaddr       Memsz Perms Name
-----------------------------------------------
+-----------------------------------------------
 0  0x00000074 29    0x00001000 29    -rwx  .text_1
 1  0x000000a3 14    0x0000101d 14    -rwx  .data_1
 
@@ -137,7 +137,7 @@ EXPECT=<<EOF
 [Symbols]
 
 Num Paddr       Vaddr      Bind Type Size Name
----------------------------------------------
+----------------------------------------------
 1    0x00000084 0x00001000 NONE NONE 0    _start
 2    0x00000097 0x00001013 NONE NONE 0    second_symbol
 EOF
@@ -152,7 +152,7 @@ EXPECT=<<EOF
 [Symbols]
 
 Num Paddr       Vaddr      Bind Type Size Name
----------------------------------------------
+----------------------------------------------
 1    0x00000073 0x00001000 NONE NONE 0    _start
 EOF
 CMDS=<<EOF

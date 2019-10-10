@@ -56,7 +56,7 @@ EXPECT=<<RUN
 [Sections]
 
 Nm Paddr      Size Vaddr       Memsz Perms Checksum Name
-――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+--------------------------------------------------------
 0  0x00000400 2560  0x00401000 4096  -r-x  .text
 1  0x00000e00 512   0x00402000 4096  -rw-  .data
 2  0x00001000 512   0x00403000 4096  -r--  .rdata
@@ -104,7 +104,7 @@ NAME=rabin2 -zz pe
 FILE=../bins/pe/ioli/w32/crackme0x00.exe
 CMDS=!rabin2 -zz ${R2_FILE} | grep "Password:"
 EXPECT=<<RUN
-86  0x00002619 0x00404019 10  4294967307 .rdata  ascii   Password: 
+86  0x00002619 0x00404019 10  11   .rdata  ascii   Password: 
 RUN
 
 NAME=rabin2 -zzz pe
@@ -239,7 +239,7 @@ CMDS=!rabin2 -a x86 -b 32 -i ${R2_FILE}
 EXPECT=<<RUN
 [Imports]
 Num Vaddr      Bind Type Name
-―――――――――――――――――――――――――――――
+-----------------------------
 0   0x00001f94 NONE FUNC exit
 1   0x00000000 NONE FUNC dyld_stub_binder
 
@@ -251,7 +251,7 @@ CMDS=!rabin2 -G 0x5000 -i ${R2_FILE}
 EXPECT=<<RUN
 [Imports]
 Num Vaddr      Bind Type Name
-―――――――――――――――――――――――――――――
+-----------------------------
 0   0x00001f94 NONE FUNC exit
 1   0x00000000 NONE FUNC dyld_stub_binder
 
@@ -305,7 +305,7 @@ wx e0000040 @ 0x244
 [Sections]
 
 Nm Paddr      Size  Vaddr       Memsz Perms Name
-――――――――――――――――――――――――――――――――――――――――――――――――
+------------------------------------------------
 0  0x00000400 35328  0x00401000 36864 -r-x  .text
 1  0x00008e00 9216   0x0040a000 12288 -r--  .rdata
 2  0x0000b200 4096   0x0040d000 12288 -rwx  .data
@@ -327,7 +327,7 @@ wx 10000000 @ 0x16c
 [Sections]
 
 Nm Paddr      Size Vaddr       Memsz Perms Name
-―――――――――――――――――――――――――――――――――――――――――――――――
+-----------------------------------------------
 0  0x00000200 512   0x00401000 4096  s---  sect_0
 
 RUN
@@ -377,7 +377,7 @@ EXPECT=<<RUN
 [Sections]
 
 Nm Paddr      Size Vaddr       Memsz Perms Name
-―――――――――――――――――――――――――――――――――――――――――――――――
+-----------------------------------------------
 0  0x00000000 0     0x00000000 0     ----  
 1  0x00000134 19    0x08048134 19    -r--  .interp
 2  0x00000148 32    0x08048148 32    -r--  .note.ABI_tag
@@ -412,7 +412,7 @@ Nm Paddr      Size Vaddr       Memsz Perms Name
 [Segments]
 
 Nm Paddr      Size Vaddr       Memsz Perms Name
-―――――――――――――――――――――――――――――――――――――――――――――――
+-----------------------------------------------
 0  0x00000034 256   0x08048034 256   -r-x  PHDR
 1  0x00000134 19    0x08048134 19    -r--  INTERP
 2  0x00000000 1436  0x08048000 1436  -r-x  LOAD0
@@ -436,7 +436,7 @@ vaddr=0x080483b0 paddr=0x000003b0 hvaddr=0x080495a0 hpaddr=0x000005a0 type=fini
 vaddr=0x08048400 paddr=0x00000400
 [Imports]
 Num Vaddr      Bind   Type   Name
-―――――――――――――――――――――――――――――――――
+---------------------------------
 1   0x080482d0 GLOBAL FUNC   puts
 2   0x080482e0 WEAK   NOTYPE __gmon_start__
 3   0x080482f0 GLOBAL FUNC   __libc_start_main
@@ -444,7 +444,7 @@ Num Vaddr      Bind   Type   Name
 [Symbols]
 
 Num Paddr       Vaddr      Bind   Type   Size Name
-――――――――――――――――――――――――――――――――――――――――――――――――――
+--------------------------------------------------
 4    0x000004ac 0x080484ac GLOBAL OBJ    4    _IO_stdin_used
 1    0x00000134 0x08048134 LOCAL  SECT   0    .interp
 2    0x00000148 0x08048148 LOCAL  SECT   0    .note.ABI-tag
@@ -511,9 +511,9 @@ Num Paddr       Vaddr      Bind   Type   Size Name
 2    0x000002e0 0x080482e0 WEAK   NOTYPE 16   imp.__gmon_start__
 3    0x000002f0 0x080482f0 GLOBAL FUNC   16   imp.__libc_start_main
 [Strings]
-Num Paddr      Vaddr      Len Size       Section Type  String
-―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
-0   0x000004b0 0x080484b0 12  4294967309 .rodata ascii Hello world!
+Num Paddr      Vaddr      Len Size Section Type  String
+-------------------------------------------------------
+0   0x000004b0 0x080484b0 12  13   .rodata ascii Hello world!
 arch     x86
 baddr    0x8048000
 binsz    4899
@@ -559,7 +559,7 @@ libc.so.6
 [Relocations]
 
 vaddr      paddr      type   name
-――――――――――――――――――――――――――��――――――
+---------------------------------
 0x08049690 0x00000690 SET_32  __gmon_start__
 0x080496a0 0x000006a0 SET_32  puts
 0x080496a4 0x000006a4 SET_32  __gmon_start__
