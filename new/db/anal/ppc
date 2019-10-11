@@ -439,3 +439,17 @@ s 0x10001500
 pi 1
 EOF
 RUN
+
+NAME=ppc-update-suffix-esil
+FILE=../bins/elf/a6ppc.out
+EXPECT=<<EOF
+EOF
+CMDS=<<EOF
+40ds
+dr?r3
+dr?r4
+10ds
+dr?r3
+dr?r4
+EOF
+RUN
