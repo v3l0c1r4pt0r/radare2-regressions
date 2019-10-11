@@ -94,18 +94,6 @@ pi 1
 EOF
 RUN
 
-NAME=fatmach0 archs
-FILE=../bins/mach0/fatmach0-3true
-EXPECT=<<EOF
-000 0x00001000 13792 x86_64 x86 64 all
-001 0x00005000 13760 x86_32 386
-002 0x00009000 13616 ppc_32 7400
-EOF
-CMDS=<<EOF
-iA
-EOF
-RUN
-
 NAME=fatmach0 entry0
 FILE=../bins/mach0/fatmach0-3true
 EXPECT=<<EOF
@@ -203,7 +191,7 @@ p8 16 @ entry0
 EOF
 RUN
 
-NAME=fatmach0 archs
+NAME=fatmach0 archs 3true
 FILE=../bins/mach0/fatmach0-3true
 EXPECT=<<EOF
 000 0x00001000 13792 x86_64 x86 64 all
