@@ -2799,7 +2799,7 @@ _IO_2_1_stdout_
 _IO_2_1_stdin_
 0x00024480
 CMDS=<<RUN
-ir~[6]
+ir~0x[3]
 RUN
 
 NAME=get function in, node before entry
