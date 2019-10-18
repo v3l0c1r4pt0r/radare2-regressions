@@ -777,7 +777,7 @@ ar r2=0xdeadbeef
 ar r3=0
 wx 052083e4aabbccddeeff
 aes
-p8 4 @5
+p8 4 @0
 ar r2
 ar r3
 EOF
