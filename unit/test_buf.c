@@ -391,7 +391,7 @@ bool test_r_buf_slice_too_big(void) {
 	sz = r_buf_size (sl);
 	mu_assert_eq (sz, 1, "it should be shrinked to 1 byte");
 	bool res = r_buf_resize (sl, 7);
-	mu_assert (res, "the resize should be successful");
+	mu_assert ("the resize should be successful", res);
 	sz = r_buf_size (sl);
 	mu_assert_eq (sz, 3, "but it should just use the biggest value");
 	r_buf_free (buf);
