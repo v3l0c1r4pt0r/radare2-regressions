@@ -68,6 +68,7 @@ EOF
 RUN
 
 NAME=java old format support
+BROKEN=1
 FILE=../bins/java/invisible.class
 CMDS=<<EXPECT
 pi 3
