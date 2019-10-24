@@ -576,9 +576,9 @@ RUN
 NAME=pd asm.var.subonly
 FILE=malloc://1024
 EXPECT=<<EOF
-     ; var int32_t var_40h @ rsp+0x40
+     ; var int64_t var_40h @ rsp+0x40
      mov rax, qword [var_40h]
-     ; var int32_t var_40h @ rsp+0x40
+     ; var int64_t var_40h @ rsp+0x40
      mov rax, qword [rsp + var_40h]
 EOF
 CMDS=<<EOF
@@ -1963,8 +1963,8 @@ CMDS=<<EXPECT
 aa
 pdf
 EXPECT=<<RUN
-/ 46: entry0 (int32_t arg3);
-|           ; arg int32_t arg3 @ rdx
+/ 46: entry0 (int64_t arg3);
+|           ; arg int64_t arg3 @ rdx
 |           0x00005ae0      f30f1efa       endbr64
 |           0x00005ae4      31ed           xor ebp, ebp
 |           0x00005ae6      4989d1         mov r9, rdx                 ; arg3

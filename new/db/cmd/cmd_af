@@ -252,8 +252,8 @@ afcf
 afcfj
 '
 EXPECT=<<EOF
-fcn.00013c70 (int32_t arg1, int32_t arg2, int32_t arg3);
-[{"name":"fcn.00013c70","args":[{"name":"arg1","type":"int32_t"},{"name":"arg2","type":"int32_t"},{"name":"arg3","type":"int32_t"}],"count":3}]
+fcn.00013c70 (int64_t arg1, int64_t arg2, int64_t arg3);
+[{"name":"fcn.00013c70","args":[{"name":"arg1","type":"int64_t"},{"name":"arg2","type":"int64_t"},{"name":"arg3","type":"int64_t"}],"count":3}]
 EOF
 RUN
 
