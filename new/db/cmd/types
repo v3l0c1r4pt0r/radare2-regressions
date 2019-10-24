@@ -1050,10 +1050,10 @@ aa
 s sym.funcarg
 afvr
 EXPECT=<<RUN
-arg int32_t arg1 @ rdi
-arg int32_t arg2 @ rsi
-arg int32_t arg3 @ rdx
-arg int32_t arg4 @ rcx
+arg int64_t arg1 @ rdi
+arg int64_t arg2 @ rsi
+arg int64_t arg3 @ rdx
+arg int64_t arg4 @ rcx
 RUN
 
 NAME=Type propgation for reg based arg
@@ -1066,7 +1066,7 @@ afvr
 EXPECT=<<RUN
 arg char * arg1 @ rdi
 arg char * arg2 @ rsi
-arg int32_t arg3 @ rdx
+arg int64_t arg3 @ rdx
 arg size_t arg4 @ rcx
 RUN
 
@@ -1159,8 +1159,8 @@ s main
 afv~sign
 afv~uint
 EXPECT=<<RUN
-var signed int var_34h @ rbp-0x34
-var signed int var_30h @ rbp-0x30
+var signed int64_t var_34h @ rbp-0x34
+var signed int64_t var_30h @ rbp-0x30
 var uint32_t var_28h @ rbp-0x28
 RUN
 
@@ -1172,14 +1172,14 @@ aaft
 s main
 afv
 EXPECT=<<RUN
-var int32_t var_34h @ rbp-0x34
-var signed int var_30h @ rbp-0x30
+var int64_t var_34h @ rbp-0x34
+var signed int64_t var_30h @ rbp-0x30
 var uint32_t var_2ch @ rbp-0x2c
 var FILE * stream @ rbp-0x28
 var char * s @ rbp-0x20
 var char * var_18h @ rbp-0x18
 var char * var_10h @ rbp-0x10
-var int32_t canary @ rbp-0x8
+var int64_t canary @ rbp-0x8
 RUN
 
 NAME=bashbot test (x86_64)
@@ -1193,16 +1193,16 @@ s sym.processCmd
 afv
 EXPECT=<<RUN
 var char ** var_14e0h @ rbp-0x14e0
-var int32_t var_14d4h @ rbp-0x14d4
-var int32_t wstatus @ rbp-0x14cc
-var int32_t options @ rbp-0x14c8
-var int32_t var_14c4h @ rbp-0x14c4
-var signed int var_14c0h @ rbp-0x14c0
-var int32_t var_14bch @ rbp-0x14bc
+var int64_t var_14d4h @ rbp-0x14d4
+var int64_t wstatus @ rbp-0x14cc
+var int64_t options @ rbp-0x14c8
+var int64_t var_14c4h @ rbp-0x14c4
+var signed int64_t var_14c0h @ rbp-0x14c0
+var int64_t var_14bch @ rbp-0x14bc
 var pid_t pid @ rbp-0x14b8
 var uint32_t var_14b4h @ rbp-0x14b4
 var uint32_t var_14b0h @ rbp-0x14b0
-var int32_t var_14ach @ rbp-0x14ac
+var int64_t var_14ach @ rbp-0x14ac
 var char * var_14a8h @ rbp-0x14a8
 var char * s @ rbp-0x14a0
 var char * var_1498h @ rbp-0x1498
@@ -1213,27 +1213,27 @@ var void * var_1478h @ rbp-0x1478
 var char * var_1470h @ rbp-0x1470
 var void * var_1420h @ rbp-0x1420
 var char * s1 @ rbp-0x1020
-var int32_t var_18h @ rbp-0x18
+var int64_t var_18h @ rbp-0x18
 arg int argc @ rdi
 arg char ** argv @ rsi
 var char ** str @ rbp-0xb0
 var signed int var_a4h @ rbp-0xa4
-var signed int var_a0h @ rbp-0xa0
+var signed int64_t var_a0h @ rbp-0xa0
 var uint32_t var_9ch @ rbp-0x9c
-var int32_t var_98h @ rbp-0x98
-var int32_t var_94h @ rbp-0x94
-var int32_t var_90h @ rbp-0x90
-var int32_t var_8ch @ rbp-0x8c
-var int32_t var_88h @ rbp-0x88
-var int32_t var_84h @ rbp-0x84
-var int32_t var_80h @ rbp-0x80
-var int32_t var_7ch @ rbp-0x7c
-var int32_t var_78h @ rbp-0x78
-var int32_t var_74h @ rbp-0x74
-var int32_t var_70h @ rbp-0x70
-var int32_t var_6ch @ rbp-0x6c
-var int32_t var_68h @ rbp-0x68
-var int32_t var_64h @ rbp-0x64
+var int64_t var_98h @ rbp-0x98
+var int64_t var_94h @ rbp-0x94
+var int64_t var_90h @ rbp-0x90
+var int64_t var_8ch @ rbp-0x8c
+var int64_t var_88h @ rbp-0x88
+var int64_t var_84h @ rbp-0x84
+var int64_t var_80h @ rbp-0x80
+var int64_t var_7ch @ rbp-0x7c
+var int64_t var_78h @ rbp-0x78
+var int64_t var_74h @ rbp-0x74
+var int64_t var_70h @ rbp-0x70
+var int64_t var_6ch @ rbp-0x6c
+var int64_t var_68h @ rbp-0x68
+var int64_t var_64h @ rbp-0x64
 var char * var_60h @ rbp-0x60
 var char * var_58h @ rbp-0x58
 var char * var_50h @ rbp-0x50
@@ -1243,8 +1243,8 @@ var char * s1 @ rbp-0x38
 var char * s @ rbp-0x30
 var char * var_28h @ rbp-0x28
 var char * var_20h @ rbp-0x20
-var int32_t var_18h @ rbp-0x18
-var int32_t var_8h @ rbp-0x8
+var int64_t var_18h @ rbp-0x18
+var int64_t var_8h @ rbp-0x8
 arg signed int arg1 @ rdi
 arg char ** arg2 @ rsi
 RUN
@@ -1285,10 +1285,10 @@ aaft
 s main
 afv
 EXPECT=<<RUN
-var int32_t var_25h @ rbp-0x25
-var signed int var_24h @ rbp-0x24
+var int64_t var_25h @ rbp-0x25
+var signed int64_t var_24h @ rbp-0x24
 var uint32_t var_20h @ rbp-0x20
-var int32_t var_1ch @ rbp-0x1c
+var int64_t var_1ch @ rbp-0x1c
 var char * var_18h @ rbp-0x18
 var long int var_10h @ rbp-0x10
 var char * var_8h @ rbp-0x8
@@ -1304,9 +1304,9 @@ afv
 EXPECT=<<RUN
 var char ** var_28h @ rbp-0x28
 var char ** var_20h @ rbp-0x20
-var int32_t var_14h @ rbp-0x14
+var int64_t var_14h @ rbp-0x14
 var void * var_10h @ rbp-0x10
-var int32_t var_4h @ rbp-0x4
+var int64_t var_4h @ rbp-0x4
 arg int argc @ rdi
 arg char ** argv @ rsi
 arg char ** envp @ rdx
@@ -1326,10 +1326,10 @@ pd 1~4h
 s sym.range_or
 pd 1~4h
 EXPECT=<<RUN
-|           ; var signed int var_4h  { > 0xa} @ rbp-0x4
-|           ; var signed int var_14h  { > 0x0 && <= 0x9} @ rbp-0x14
-|           ; var signed int var_4h  { > 0x64 && <= 0xc7} @ rbp-0x4
-|           ; var signed int var_4h  { > 0xff && <= 0x12b || > 0x14 && <= 0x31 || > 0x6f && <= 0xdd} @ rbp-0x4
+|           ; var signed int64_t var_4h  { > 0xa} @ rbp-0x4
+|           ; var signed int64_t var_14h  { > 0x0 && <= 0x9} @ rbp-0x14
+|           ; var signed int64_t var_4h  { > 0x64 && <= 0xc7} @ rbp-0x4
+|           ; var signed int64_t var_4h  { > 0xff && <= 0x12b || > 0x14 && <= 0x31 || > 0x6f && <= 0xdd} @ rbp-0x4
 RUN
 
 NAME=mov str
