@@ -23,7 +23,6 @@ NAME=2: PE: corkami dep.exe - dep not enabled
 FILE=../bins/pe/no_dep.exe
 EXPECT=<<EOF
 false
-
 EOF
 CMDS=<<EOF
 k bin/cur/pe/nx

@@ -9,7 +9,6 @@ k anal/classes/attrs/*
 EXPECT=<<EOF
 Flatline
 Flatline=c
-
 -
 EOF
 RUN
@@ -28,12 +27,10 @@ EXPECT=<<EOF
 Flatline
   PrayerPosition @ 0x1337 (vtable + 0x42)
 Flatline=c
-
 -
 attr.Flatline.method=PrayerPosition
 attr.Flatline.method.PrayerPosition=4919,66
 attrtypes.Flatline=method
-
 0x00001337 0 method.Flatline.PrayerPosition
 EOF
 RUN
@@ -68,30 +65,25 @@ Flatline
   PrayerPosition @ 0x1337 (vtable + 0x42)
   RemainIndoors @ 0xdeadbeef
 Flatline=c
-
 -
 attr.Flatline.method=PrayerPosition,RemainIndoors
 attr.Flatline.method.PrayerPosition=4919,66
 attr.Flatline.method.RemainIndoors=3735928559,-1
 attrtypes.Flatline=method
-
 0x00001337 0 method.Flatline.PrayerPosition
 0xdeadbeef 0 method.Flatline.RemainIndoors
 --
 Flatline
   RemainIndoors @ 0xdeadbeef
 Flatline=c
-
 -
 attr.Flatline.method=RemainIndoors
 attr.Flatline.method.RemainIndoors=3735928559,-1
 attrtypes.Flatline=method
-
 0xdeadbeef 0 method.Flatline.RemainIndoors
 --
 Flatline
 Flatline=c
-
 -
 EOF
 RUN
@@ -117,23 +109,19 @@ EXPECT=<<EOF
 Flatline
   PrayerPosition @ 0x1337 (vtable + 0x42)
 Flatline=c
-
 -
 attr.Flatline.method=PrayerPosition
 attr.Flatline.method.PrayerPosition=4919,66
 attrtypes.Flatline=method
-
 0x00001337 0 method.Flatline.PrayerPosition
 --
 Flatline
   Marigold @ 0x1337 (vtable + 0x42)
 Flatline=c
-
 -
 attr.Flatline.method=Marigold
 attr.Flatline.method.Marigold=4919,66
 attrtypes.Flatline=method
-
 0x00001337 0 method.Flatline.Marigold
 EOF
 RUN
@@ -185,7 +173,6 @@ PeripheryAlbum: Album
 Album=c
 Flatline=c
 PeripheryAlbum=c
-
 -
 attr.Flatline.base=0
 attr.Flatline.base.0=PeripheryAlbum,0
@@ -197,7 +184,6 @@ attr.PeripheryAlbum.base=0
 attr.PeripheryAlbum.base.0=Album,0
 attrtypes.Flatline=base,method,vtable
 attrtypes.PeripheryAlbum=base
-
 0x00001337 0 method.Flatline.PrayerPosition
 0x00001337 0 vtable.Flatline.0
 --
@@ -207,7 +193,6 @@ Flatline: PeripheryAlbum
 PeripheryAlbum
 Flatline=c
 PeripheryAlbum=c
-
 -
 attr.Flatline.base=0
 attr.Flatline.base.0=PeripheryAlbum,0
@@ -216,7 +201,6 @@ attr.Flatline.method.PrayerPosition=4919,66
 attr.Flatline.vtable=0
 attr.Flatline.vtable.0=0x1337,0
 attrtypes.Flatline=base,method,vtable
-
 0x00001337 0 method.Flatline.PrayerPosition
 0x00001337 0 vtable.Flatline.0
 --
@@ -226,7 +210,6 @@ Flatline: PeripheryAlbum
 PeripheryAlbum
 Flatline=c
 PeripheryAlbum=c
-
 -
 attr.Flatline.base=0
 attr.Flatline.base.0=PeripheryAlbum,0
@@ -235,13 +218,11 @@ attr.Flatline.method.PrayerPosition=4919,66
 attr.Flatline.vtable=0
 attr.Flatline.vtable.0=0x1337,0
 attrtypes.Flatline=base,method,vtable
-
 0x00001337 0 method.Flatline.PrayerPosition
 0x00001337 0 vtable.Flatline.0
 --
 PeripheryAlbum
 PeripheryAlbum=c
-
 -
 EOF
 RUN
@@ -266,13 +247,11 @@ PeripherySong
 Flatline=c
 NiceSong=c
 PeripherySong=c
-
 -
 attr.Flatline.base=0,1
 attr.Flatline.base.0=PeripherySong,0
 attr.Flatline.base.1=NiceSong,66
 attrtypes.Flatline=base
-
 Flatline:
      0 PeripherySong @ +0x0
      1 NiceSong @ +0x42
@@ -304,25 +283,21 @@ Flatline:
 Flatline=c
 NiceSong=c
 PeripherySong=c
-
 -
 attr.Flatline.base=0,1
 attr.Flatline.base.0=PeripherySong,0
 attr.Flatline.base.1=NiceSong,66
 attrtypes.Flatline=base
-
 --
 Flatline:
      1 NiceSong @ +0x42
 Flatline=c
 NiceSong=c
 PeripherySong=c
-
 -
 attr.Flatline.base=1
 attr.Flatline.base.1=NiceSong,66
 attrtypes.Flatline=base
-
 EOF
 RUN
 
@@ -342,13 +317,11 @@ Deadwing
   (vtable at 0x1337)
   (vtable at 0xdeadbeef in class at +0x42)
 Deadwing=c
-
 -
 attr.Deadwing.vtable=0,1
 attr.Deadwing.vtable.0=0x1337,0
 attr.Deadwing.vtable.1=0xdeadbeef,66
 attrtypes.Deadwing=vtable
-
 0x00001337 0 vtable.Deadwing.0
 0xdeadbeef 0 vtable.Deadwing.1
 EOF
@@ -375,13 +348,11 @@ Deadwing
   (vtable at 0x1337)
   (vtable at 0xdeadbeef in class at +0x42)
 Deadwing=c
-
 -
 attr.Deadwing.vtable=0,1
 attr.Deadwing.vtable.0=0x1337,0
 attr.Deadwing.vtable.1=0xdeadbeef,66
 attrtypes.Deadwing=vtable
-
 0x00001337 0 vtable.Deadwing.0
 0xdeadbeef 0 vtable.Deadwing.1
 --
@@ -422,7 +393,6 @@ PorcupineTreeAlbum: Album
 Album=c
 Deadwing=c
 PorcupineTreeAlbum=c
-
 -
 attr.Deadwing.base=0
 attr.Deadwing.base.0=PorcupineTreeAlbum,8
@@ -434,7 +404,6 @@ attr.PorcupineTreeAlbum.vtable=0
 attr.PorcupineTreeAlbum.vtable.0=0x1337,66
 attrtypes.Deadwing=base
 attrtypes.PorcupineTreeAlbum=base,vtable,method
-
 0x00001337 0 vtable.PorcupineTreeAlbum.0
 0xdeadbeef 0 method.PorcupineTreeAlbum.Listen
 --
@@ -446,7 +415,6 @@ Masterpiece: Album
 Album=c
 Deadwing=c
 Masterpiece=c
-
 -
 attr.Deadwing.base=0
 attr.Deadwing.base.0=Masterpiece,8
@@ -458,7 +426,6 @@ attr.Masterpiece.vtable=0
 attr.Masterpiece.vtable.0=0x1337,66
 attrtypes.Deadwing=base
 attrtypes.Masterpiece=base,vtable,method
-
 0x00001337 0 vtable.Masterpiece.0
 0xdeadbeef 0 method.Masterpiece.Listen
 EOF

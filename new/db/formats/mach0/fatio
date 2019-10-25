@@ -49,7 +49,6 @@ FILE=../bins/mach0/fatmach0-3true
 ARGS=-a x86 -b64
 EXPECT=<<EOF
 34045671455b7d71054acff65f0ddac1
-
 EOF
 CMDS=<<EOF
 k bin/cur/info/uuid.0
@@ -61,7 +60,6 @@ FILE=../bins/mach0/fatmach0-3true
 ARGS=-a x86 -b32
 EXPECT=<<EOF
 5478cf56325ebbbc6ad071df5885e983
-
 EOF
 CMDS=<<EOF
 k bin/cur/info/uuid.0
