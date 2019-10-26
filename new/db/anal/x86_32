@@ -3362,3 +3362,15 @@ ao 1
 p8 1
 EOF
 RUN
+
+NAME=Fix #15315 - Honor RAnalOp.disp in `aar` and `ao`
+FILE=../bins/pe/honor_ranal_op_disp.exe
+CMDS=<<EOF
+aar
+s 0x00402130
+axt
+EOF
+EXPECT=<<EOF
+(nofunc) 0x4010d1 [DATA] lea edx, [ebx*4 + 0x402130]
+EOF
+RUN
