@@ -2,7 +2,7 @@ NAME=ELF: corkami tiny.elf - entry0
 FILE=../bins/elf/analysis/tiny.elf
 EXPECT=<<EOF
 0x10020
-0x00010020    entry0:
+0x00010020   entry0:
 0x00010020                 b32a  mov bl, 0x2a
 0x00010022                 31c0  xor eax, eax
 0x00010024                   40  inc eax

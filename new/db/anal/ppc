@@ -416,7 +416,7 @@ NAME=ppc-elf entry0 name issue
 FILE=../bins/elf/analysis/elf-ppc-execstack
 EXPECT=<<EOF
 
-0x100014e0    section..text:
+0x100014e0   section..text:
 0x100014e0             7c290b78  mr r9, r1
 entry0
 EOF

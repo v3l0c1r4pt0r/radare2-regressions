@@ -249,7 +249,7 @@ RUN
 NAME=pdn 10
 FILE=../bins/elf/analysis/x86-helloworld-gcc
 EXPECT=<<EOF
-0x08048300    sym._start:
+0x08048300   sym._start:
 0x08048300                 31ed  xor ebp, ebp
 0x08048302                   5e  pop esi
 0x08048303                 89e1  mov ecx, esp

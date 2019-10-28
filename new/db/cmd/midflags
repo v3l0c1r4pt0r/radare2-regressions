@@ -11,10 +11,11 @@ RUN
 NAME=pi asm.midflags=2
 FILE=malloc://1024
 EXPECT=<<EOF
-push rbp
-mov rbp, rsp
-mov ebp, esp
-push r15
+0x00000000                   55  push rbp
+0x00000001               4889e5  mov rbp, rsp
+0x00000002   dat.sym:
+0x00000002                 89e5  mov ebp, esp
+0x00000004                 4157  push r15
 EOF
 CMDS=<<EOF
 wx 554889e54157415641554154534881ec
@@ -61,7 +62,7 @@ FILE=malloc://1024
 EXPECT=<<EOF
 0x00000000                   55  push rbp
 0x00000001               4889e5  mov rbp, rsp
-0x00000002    dat.sym:
+0x00000002   dat.sym:
 0x00000002                 89e5  mov ebp, esp
 0x00000004                 4157  push r15
 EOF
