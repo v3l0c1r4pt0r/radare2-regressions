@@ -1,3 +1,15 @@
+NAME=entrypoint on object
+FILE=../bins/elf/pngrutil.o
+CMDS=<<EOF
+ie
+EOF
+EXPECT='[Entrypoints]
+
+0 entrypoints
+'
+RUN
+
+
 NAME=symbols non common LD script
 FILE=../bins/elf/analysis/custom_ldscript
 EXPECT=<<EOF
