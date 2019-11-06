@@ -432,10 +432,10 @@ aF
 pd 3 @ 0x3ec1
 EXPECT=<<RUN
 |           0x00003ec1      add rax, rbx
-|           ;-- switch.0x00003ec4:
+|           ;-- switch
 |           0x00003ec4      jmp rax                                    ; switch table (275 cases) at 0x172d8
-|           ;-- case 241 (0x3ec4):
 |           ; CODE XREF from main @ 0x3ec4
+|           ;-- case 241:                                              ; from 0x3ec4
 |           0x00003ec6      mov byte [0x00021260], 1                   ; [0x21260:1]=0
 RUN
 
@@ -1000,8 +1000,8 @@ EXPECT=<<EOF
 |      ,==< 0x00003cb2      je 0x3ce3
 |      ||   0x00003cb4      sub eax, 1
 |     ,===< 0x00003cb7      je 0x3cbe
-|     |||   ;-- case 4 (0x58d2):
 |     |||   ; CODE XREFS from main @ 0x58bc, 0x58d2
+|     |||   ;-- case 4:                                                ; from 0x58d2
 |     |||   0x00003cb9      call sym.imp.abort                         ; void abort(void)
 |     |||   ; CODE XREF from main @ 0x3cb7
 |     `---> 0x00003cbe      mov edi, 1                                 ; int fd
@@ -1042,8 +1042,8 @@ EXPECT=<<EOF
 |    ,====< 0x00003cb2      je 0x3ce3
 |    | |    0x00003cb4      sub eax, 1
 |  ,======< 0x00003cb7      je 0x3cbe
-|  | | |    ;-- case 4 (0x58d2):
 |  | | |    ; CODE XREFS from main @ 0x58bc, 0x58d2
+|  | | |    ;-- case 4:                                                ; from 0x58d2
 |  | | |    0x00003cb9      call sym.imp.abort                         ; void abort(void)
 |  | | |    ; CODE XREF from main @ 0x3cb7
 |  `------> 0x00003cbe      mov edi, 1                                 ; int fd
@@ -1085,8 +1085,8 @@ EXPECT=<<EOF
 |    ,====< 0x00003cb2      je 0x3ce3
 |    | |    0x00003cb4      sub eax, 1
 |  ,======< 0x00003cb7      je 0x3cbe
-|  | | |    ;-- case 4 (0x58d2):
 |  | | |    ; CODE XREFS from main @ 0x58bc, 0x58d2
+|  | | |    ;-- case 4:                                                ; from 0x58d2
 |  | | |    0x00003cb9      call sym.imp.abort                         ; void abort(void)
 |  | | |    ; CODE XREF from main @ 0x3cb7
 |  `------> 0x00003cbe      mov edi, 1                                 ; int fd
@@ -1162,8 +1162,8 @@ NAME=⁝ and XREF cmt
 FILE=../bins/elf/strenc-ctrlchars
 EXPECT=<<EOF
 
+        ╎   ; CALL XREF from main @ 0x400406
 ┌ 6: int sym.imp.puts (const char *s);
-│       ╎   ; CALL XREF from main @ 0x400406
 └       ╎   0x004003f0      jmp qword [reloc.puts]                     ; [0x601018:8]=0x4003f6
         ╎   0x004003f6      push 0
         └─< 0x004003fb      jmp sym..plt
@@ -1528,6 +1528,7 @@ NAME=afva for fastcall with no esp vars
 FILE=../bins/elf/analysis/fast
 EXPECT=<<EOF
 fastcall
+            ; CALL XREF from main @ 0x80484c7
 / 59: sym.fastcaslled (int32_t arg2, int32_t arg1, int32_t arg_8h, int32_t arg_ch);
 |           ; var int32_t var_20h @ ebp-0x20
 |           ; var int32_t var_1ch @ ebp-0x1c
@@ -1537,7 +1538,6 @@ fastcall
 |           ; arg int32_t arg_ch @ ebp+0xc
 |           ; arg int32_t arg2 @ edx
 |           ; arg int32_t arg1 @ ecx
-|           ; CALL XREF from main @ 0x80484c7
 |           0x0804841b      55             push ebp
 |           0x0804841c      89e5           mov ebp, esp
 |           0x0804841e      83ec28         sub esp, 0x28
@@ -1574,6 +1574,7 @@ NAME=afva for cdecl/stdcall with no esp vars
 FILE=../bins/elf/analysis/fast
 EXPECT=<<EOF
 cdecl
+            ; CALL XREF from main @ 0x80484db
 / (fcn) sym.nonfastcaslled 51
 |           ; var int32_t var_10h @ ebp-0x10
 |           ; var int32_t var_ch @ ebp-0xc
@@ -1581,7 +1582,6 @@ cdecl
 |           ; arg int32_t arg_ch @ ebp+0xc
 |           ; arg int32_t arg_10h @ ebp+0x10
 |           ; arg int32_t arg_14h @ ebp+0x14
-|           ; CALL XREF from main @ 0x80484db
 |           0x08048456      55             push ebp
 |           0x08048457      89e5           mov ebp, esp
 |           0x08048459      83ec18         sub esp, 0x18
@@ -2172,13 +2172,13 @@ RUN
 NAME=refs with aar
 FILE=../bins/elf/crackme
 EXPECT=<<EOF
-;-- __libc_csu_fini:
 ; DATA XREF from entry0 @ +0xf
+;-- __libc_csu_fini:
 0x00400730      f3c3           ret
 ; CODE XREF from sym.__do_global_ctors_aux @ +0x2d
 0x004007f0      4883eb08       sub rbx, 8
-;-- __do_global_dtors_aux:
 ; CALL XREF from section..fini @ +0x4
+;-- __do_global_dtors_aux:
 0x00400610      55             push rbp
 EOF
 CMDS=<<EOF
@@ -2194,13 +2194,13 @@ RUN
 NAME=refs with afr
 FILE=../bins/elf/crackme
 EXPECT=<<EOF
+  ; DATA XREF from entry0 @ 0x4005cf
 2: sym.__libc_csu_fini ();
-; DATA XREF from entry0 @ 0x4005cf
 0x00400730      f3c3           ret
 ; CODE XREF from sym.__do_global_ctors_aux @ 0x4007fd
 0x004007f0      4883eb08       sub rbx, 8
+  ; CALL XREF from sym._fini @ 0x40080c
 100: sym.__do_global_dtors_aux ();
-; CALL XREF from sym._fini @ 0x40080c
 0x00400610      55             push rbp
 EOF
 CMDS=<<EOF
@@ -2954,7 +2954,7 @@ EXPECT=<<EOF
 0x00000622 1 case.0x59d.0
 0x00000622 1 case.0x59d.8
 0x00000622 1 case.0x59d.10
-0x00000622 1 case.default.0x622
+0x00000622 1 case.default.0x59d
 EOF
 CMDS=<<EOF
 aaa
@@ -2981,7 +2981,7 @@ EXPECT=<<EOF
 0x000005d2 1 case.0x54d.0
 0x000005d2 1 case.0x54d.8
 0x000005d2 1 case.0x54d.10
-0x000005d2 1 case.default.0x5d2
+0x000005d2 1 case.default.0x54d
 EOF
 CMDS=<<EOF
 aaa
@@ -3003,7 +3003,7 @@ EXPECT=<<EOF
 0x004004fb 1 case.0x4004d8.6
 0x00400502 1 case.0x4004d8.7
 0x00400502 1 case.0x4004d8.9
-0x00400502 1 case.default.0x400502
+0x00400502 1 case.default.0x4004d8
 0x00400509 1 case.0x4004d8.8
 0x00400510 1 case.0x4004d8.10
 0x00400517 1 case.0x4004d8.11
@@ -3029,7 +3029,7 @@ EXPECT=<<EOF
 0x004004eb 1 case.0x4004c8.6
 0x004004f2 1 case.0x4004c8.7
 0x004004f2 1 case.0x4004c8.9
-0x004004f2 1 case.default.0x4004f2
+0x004004f2 1 case.default.0x4004c8
 0x004004f9 1 case.0x4004c8.8
 0x00400500 1 case.0x4004c8.10
 0x00400507 1 case.0x4004c8.11
@@ -3060,8 +3060,8 @@ EXPECT=<<EOF
 0x1400010bd 1 case.0x140001023.12
 0x1400010d0 1 case.0x140001023.7
 0x1400010d0 1 case.0x140001023.9
-0x1400010d0 1 case.default.0x1400010d0
-0x140004a40 1 case.default.0x140004a40
+0x1400010d0 1 case.default.0x140001023
+0x140004a40 1 case.default.0x140004b01
 0x140004b47 1 case.0x140004b01.0
 0x140004b4b 1 case.0x140004b01.1
 0x140004b56 1 case.0x140004b01.2
@@ -3106,7 +3106,7 @@ EXPECT=<<EOF
 0x1400010bd 1 case.0x140001023.12
 0x1400010d0 1 case.0x140001023.7
 0x1400010d0 1 case.0x140001023.9
-0x1400010d0 1 case.default.0x1400010d0
+0x1400010d0 1 case.default.0x140001023
 0x1400095b6 1 case.0x1400095b4.0
 0x1400095bd 1 case.0x1400095b4.1
 0x1400095c4 1 case.0x1400095b4.2
@@ -3122,8 +3122,8 @@ EXPECT=<<EOF
 0x14000960a 1 case.0x1400095b4.12
 0x140009611 1 case.0x1400095b4.13
 0x140009618 1 case.0x1400095b4.14
-0x14000961d 1 case.default.0x14000961d
-0x14000c100 1 case.default.0x14000c100
+0x14000961d 1 case.default.0x1400095b4
+0x14000c100 1 case.default.0x14000c185
 0x14000c1d0 1 case.0x14000c185.0
 0x14000c1d1 1 case.0x14000c185.2
 0x14000c1d8 1 case.0x14000c185.8

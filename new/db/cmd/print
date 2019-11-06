@@ -92,10 +92,11 @@ EXPECT=<<EOF
 0x100001121 call sym.imp.atoi
 0x10000112c call sym.imp.getuid
 0x1000011b5 switch table (72 cases) at 0x10000192c
+;-- default:                                                         ; from 0x1000011b5
 0x10000116e call sym.func.100004401
 0x100001179 str.1_ABCFGHLOPRSTUWabcdefghiklmnopqrstuvwx
 0x100001186 call sym.imp.getopt
-;-- switch.0x1000011b5:
+;-- switch
 0x100001233 str.CLICOLOR
 0x100001246 call sym.imp.setenv
 0x100001253 str.bin_ls

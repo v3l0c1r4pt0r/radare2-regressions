@@ -217,7 +217,7 @@ s sym.check
 pd 1
 '
 EXPECT=<<EOF
-            0x080484c8  check:
+            0x080484c8  ;-- check:
             0x080484c8      55             push ebp
 EOF
 RUN
