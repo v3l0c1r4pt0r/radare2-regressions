@@ -1,10 +1,10 @@
 NAME=CC-*
 FILE=../bins/mach0/FileDP
 EXPECT=<<EOF
-32
+39
 13
 0
-19
+26
 EOF
 CMDS=<<EOF
 C*~?
