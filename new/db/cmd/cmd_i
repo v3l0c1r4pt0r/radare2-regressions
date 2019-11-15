@@ -3444,7 +3444,7 @@ ARGS=-n
 CMDS='e bin.str.purge=all,!0x2fa,!0x1953
 izzj
 '
-EXPECT='[{"vaddr":762,"paddr":762,"ordinal":4,"size":5,"length":4,"section":"","type":"ascii","string":"cHV0cw=="},{"vaddr":6483,"paddr":6483,"ordinal":65,"size":18,"length":17,"section":"","type":"ascii","string":"cHV0c0BAR0xJQkNfMi4yLjU="}]'
+EXPECT='[{"vaddr":762,"paddr":762,"ordinal":4,"size":5,"length":4,"section":"","type":"ascii","string":"puts"},{"vaddr":6483,"paddr":6483,"ordinal":65,"size":18,"length":17,"section":"","type":"ascii","string":"puts@@GLIBC_2.2.5"}]'
 RUN
 
 NAME=izzj 2 (no rbin - file x86_64)
@@ -3453,7 +3453,7 @@ ARGS=
 CMDS='e bin.str.purge=all,!0x4002fa,!0x15b
 izzj
 '
-EXPECT='[{"vaddr":4195066,"paddr":762,"ordinal":4,"size":5,"length":4,"section":".dynstr","type":"ascii","string":"cHV0cw=="},{"vaddr":347,"paddr":6483,"ordinal":65,"size":18,"length":17,"section":".strtab","type":"ascii","string":"cHV0c0BAR0xJQkNfMi4yLjU="}]'
+EXPECT='[{"vaddr":4195066,"paddr":762,"ordinal":4,"size":5,"length":4,"section":".dynstr","type":"ascii","string":"puts"},{"vaddr":347,"paddr":6483,"ordinal":65,"size":18,"length":17,"section":".strtab","type":"ascii","string":"puts@@GLIBC_2.2.5"}]'
 RUN
 
 NAME=i (no rbin - file x86_64)
@@ -3623,7 +3623,7 @@ RUN
 
 NAME=izj unicode blocks
 FILE=../bins/elf/strenc
-EXPECT='[{"vaddr":4202996,"paddr":8692,"ordinal":2,"size":11,"length":10,"section":".rodata","type":"ascii","string":"ZW5fVVMudXRmOA=="},{"vaddr":4203007,"paddr":8703,"ordinal":3,"size":61,"length":54,"section":".rodata","type":"utf8","string":"dXRmOD4gXFx1MDBhMlxcdTIwYWNcXFUwMDAxMDM0OCBpbiB5ZWxsb3c6XGVbMzNtIMKi4oKs8JCNiCBcZVswbVxu","blocks":["Basic Latin","Latin-1 Supplement","Currency Symbols","Gothic"]},{"vaddr":4203208,"paddr":8904,"ordinal":8,"size":68,"length":33,"section":".rodata","type":"utf16le","string":"aXMgYSB3YWxsIHdpdGggbm8gZW1iZWRkZWQgemVyb3Ncbg=="}]'
+EXPECT='[{"vaddr":4202996,"paddr":8692,"ordinal":2,"size":11,"length":10,"section":".rodata","type":"ascii","string":"en_US.utf8"},{"vaddr":4203007,"paddr":8703,"ordinal":3,"size":61,"length":54,"section":".rodata","type":"utf8","string":"utf8> \\\\u00a2\\\\u20ac\\\\U00010348 in yellow:\\e[33m ¢€𐍈 \\e[0m\\n","blocks":["Basic Latin","Latin-1 Supplement","Currency Symbols","Gothic"]},{"vaddr":4203208,"paddr":8904,"ordinal":8,"size":68,"length":33,"section":".rodata","type":"utf16le","string":"is a wall with no embedded zeros\\n"}]'
 CMDS=<<EOF
 e bin.str.purge=all,!4202996,!4203007,!4203208
 izj
@@ -3632,7 +3632,7 @@ RUN
 
 NAME=izzj unicode blocks
 FILE=../bins/elf/strenc-guess-utf32le
-EXPECT='[{"vaddr":4195920,"paddr":1616,"ordinal":13,"size":44,"length":10,"section":".rodata","type":"utf32le","string":"YWJjZGVm8JCNiCAgZw==","blocks":["Basic Latin","Gothic"]}]'
+EXPECT='[{"vaddr":4195920,"paddr":1616,"ordinal":13,"size":44,"length":10,"section":".rodata","type":"utf32le","string":"abcdef𐍈  g","blocks":["Basic Latin","Gothic"]}]'
 CMDS=<<EOF
 e bin.str.purge=all,!4195920
 izzj
