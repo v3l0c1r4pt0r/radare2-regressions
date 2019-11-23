@@ -212,10 +212,11 @@ RUN
 
 NAME=asm.flgoff indent
 FILE=../bins/elf/crackme0x05
-CMDS='e asm.flags.offset=1
+CMDS=<<EOF
+e asm.flags.offset=1
 s sym.check
 pd 1
-'
+EOF
 EXPECT=<<EOF
             0x080484c8  ;-- check:
             0x080484c8      55             push ebp

@@ -1,11 +1,12 @@
 NAME=ac
 FILE=-
-CMDS='ac Flatline
+CMDS=<<EOF
+ac Flatline
 acll
 k anal/classes/*
 ?e -
 k anal/classes/attrs/*
-'
+EOF
 EXPECT=<<EOF
 Flatline
 Flatline=c
@@ -15,14 +16,15 @@ RUN
 
 NAME=acm
 FILE=-
-CMDS='ac Flatline
+CMDS=<<EOF
+ac Flatline
 acm Flatline PrayerPosition 0x1337 0x42
 acll
 k anal/classes/*
 ?e -
 k anal/classes/attrs/*
 f@F:classes
-'
+EOF
 EXPECT=<<EOF
 Flatline
   PrayerPosition @ 0x1337 (vtable + 0x42)
@@ -37,7 +39,8 @@ RUN
 
 NAME=acm-
 FILE=-
-CMDS='ac Flatline
+CMDS=<<EOF
+ac Flatline
 acm Flatline PrayerPosition 0x1337 0x42
 acm Flatline RemainIndoors 0xdeadbeef
 acll
@@ -59,7 +62,7 @@ k anal/classes/*
 ?e -
 k anal/classes/attrs/*
 f@F:classes
-'
+EOF
 EXPECT=<<EOF
 Flatline
   PrayerPosition @ 0x1337 (vtable + 0x42)
@@ -90,7 +93,8 @@ RUN
 
 NAME=acmn
 FILE=-
-CMDS='ac Flatline
+CMDS=<<EOF
+ac Flatline
 acm Flatline PrayerPosition 0x1337 0x42
 acll
 k anal/classes/*
@@ -104,7 +108,7 @@ k anal/classes/*
 ?e -
 k anal/classes/attrs/*
 f@F:classes
-'
+EOF
 EXPECT=<<EOF
 Flatline
   PrayerPosition @ 0x1337 (vtable + 0x42)
@@ -128,7 +132,8 @@ RUN
 
 NAME=ac-
 FILE=-
-CMDS='ac Album
+CMDS=<<EOF
+ac Album
 ac PeripheryAlbum
 acb PeripheryAlbum Album
 ac Flatline
@@ -163,7 +168,7 @@ k anal/classes/*
 ?e -
 k anal/classes/attrs/*
 f@F:classes
-'
+EOF
 EXPECT=<<EOF
 Album
 Flatline: PeripheryAlbum
@@ -229,7 +234,8 @@ RUN
 
 NAME=acb
 FILE=-
-CMDS='ac PeripherySong
+CMDS=<<EOF
+ac PeripherySong
 ac NiceSong
 ac Flatline
 acb Flatline PeripherySong
@@ -239,7 +245,7 @@ k anal/classes/*
 ?e -
 k anal/classes/attrs/*
 acb Flatline
-'
+EOF
 EXPECT=<<EOF
 Flatline: PeripherySong, NiceSong
 NiceSong
@@ -260,7 +266,8 @@ RUN
 
 NAME=acb-
 FILE=-
-CMDS='ac PeripherySong
+CMDS=<<EOF
+ac PeripherySong
 ac NiceSong
 ac Flatline
 acb Flatline PeripherySong
@@ -275,7 +282,7 @@ acb Flatline
 k anal/classes/*
 ?e -
 k anal/classes/attrs/*
-'
+EOF
 EXPECT=<<EOF
 Flatline:
      0 PeripherySong @ +0x0
@@ -303,7 +310,8 @@ RUN
 
 NAME=acv
 FILE=-
-CMDS='ac Deadwing
+CMDS=<<EOF
+ac Deadwing
 acv Deadwing 0x1337
 acv Deadwing 0xdeadbeef 0x42
 acll
@@ -311,7 +319,7 @@ k anal/classes/*
 ?e -
 k anal/classes/attrs/*
 f@F:classes
-'
+EOF
 EXPECT=<<EOF
 Deadwing
   (vtable at 0x1337)
@@ -330,7 +338,8 @@ RUN
 
 NAME=acv-
 FILE=-
-CMDS='ac Deadwing
+CMDS=<<EOF
+ac Deadwing
 acv Deadwing 0x1337
 acv Deadwing 0xdeadbeef 0x42
 acll
@@ -342,7 +351,7 @@ f@F:classes
 acv- Deadwing 0
 acll
 f@F:classes
-'
+EOF
 EXPECT=<<EOF
 Deadwing
   (vtable at 0x1337)
@@ -364,7 +373,8 @@ RUN
 
 NAME=acn
 FILE=-
-CMDS='ac Album
+CMDS=<<EOF
+ac Album
 ac PorcupineTreeAlbum
 acb PorcupineTreeAlbum Album
 ac Deadwing
@@ -383,7 +393,7 @@ k anal/classes/*
 ?e -
 k anal/classes/attrs/*
 f@F:classes
-'
+EOF
 EXPECT=<<EOF
 Album
 Deadwing: PorcupineTreeAlbum
@@ -433,7 +443,8 @@ RUN
 
 NAME=acl*
 FILE=-
-CMDS='ac Album
+CMDS=<<EOF
+ac Album
 ac PorcupineTreeAlbum
 acb PorcupineTreeAlbum Album
 ac Deadwing
@@ -441,7 +452,7 @@ acb Deadwing PorcupineTreeAlbum 0x8
 acv PorcupineTreeAlbum 0x1337 0x42
 acm PorcupineTreeAlbum Listen 0xdeadbeef
 acl*
-'
+EOF
 EXPECT=<<EOF
 ac Deadwing
 ac PorcupineTreeAlbum
@@ -455,13 +466,14 @@ RUN
 
 NAME=aclj
 FILE=-
-CMDS='ac PorcupineTreeAlbum
+CMDS=<<EOF
+ac PorcupineTreeAlbum
 ac Deadwing
 acb Deadwing PorcupineTreeAlbum 0x8
 acv PorcupineTreeAlbum 0x1337 0x42
 acm PorcupineTreeAlbum Listen 0xdeadbeef
 aclj
-'
+EOF
 EXPECT=<<EOF
 [{"name":"PorcupineTreeAlbum","bases":[],"vtables":[{"id":"0","addr":4919,"offset":66}],"methods":[{"name":"Listen","addr":3735928559}]},{"name":"Deadwing","bases":[{"id":"0","name":"PorcupineTreeAlbum","offset":8}],"vtables":[],"methods":[]}]
 EOF

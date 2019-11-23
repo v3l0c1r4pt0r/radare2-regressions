@@ -467,7 +467,9 @@ RUN
 
 NAME=tk - crash
 FILE=-
-CMDS="tk -!!!! d'B%CCCC!9!!!!_"
+CMDS=<<EOF
+tk -!!!! d'B%CCCC!9!!!!_
+EOF
 EXPECT=<<EOF
 0x0
 EOF

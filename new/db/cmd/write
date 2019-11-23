@@ -208,14 +208,15 @@ RUN
 
 NAME=endian tests: wv
 FILE=-
-CMDS="e cfg.bigendian=false
+CMDS=<<EOF
+e cfg.bigendian=false
 e asm.bits=32
 wv4 3
 p8 4
 e cfg.bigendian=true
 wv4 3
 p8 4
-"
+EOF
 EXPECT=<<EOF
 03000000
 00000003
