@@ -1,6 +1,5 @@
 NAME=Basic search for functions
 FILE=malloc://1024
-BROKEN=
 EXPECT=<<EOF
 3
 0x00000001

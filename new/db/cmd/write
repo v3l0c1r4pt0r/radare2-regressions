@@ -17,7 +17,7 @@ BROKEN=1
 CMDS=<<EOF
 e asm.arch=x86
 e asm.bits=32
-.waf ../bins/other/asm/multiline_prefix.asm
+waf ../bins/other/asm/multiline_prefix.asm
 p8 7@0
 EOF
 EXPECT=<<EOF
