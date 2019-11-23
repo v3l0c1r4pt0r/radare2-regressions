@@ -2351,9 +2351,9 @@ EXPECT=<<RUN
     "disasm": "bts dword [esp], eax",
     "bytes": "0fab0424",
     "family": "cpu",
-    "type": "null",
+    "type": "cmp",
     "reloc": false,
-    "type_num": 0,
+    "type_num": 15,
     "type2_num": 0
   }
 ]
