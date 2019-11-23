@@ -1,5 +1,6 @@
 import (
 	os
+	sync
 	time
 	term
 	filepath
@@ -10,7 +11,10 @@ struct R2R {
 mut:
 	cmd_tests []R2RTest
 //	r2 &r2.R2
+	wg sync.WaitGroup
 	failed int
+	fixed int
+	broken int
 }
 
 struct R2RTest {
@@ -25,7 +29,6 @@ mut:
 	broken bool
 	failed bool
 	fixed bool
-	times i64
 }
 
 pub fn main() {
@@ -151,7 +154,7 @@ fn (r2r R2R)run_commands(test R2RTest) string {
 }
 */
 
-fn (r2r mut R2R)run_test(test mut R2RTest) {
+fn (r2r mut R2R)run_test(test R2RTest) {
 	time_start := time.ticks()
 	tmp_dir := os.tmpdir()
 	tmp_script := filepath.join(tmp_dir, 'script.r2')
@@ -160,7 +163,7 @@ fn (r2r mut R2R)run_test(test mut R2RTest) {
 
 	os.write_file(tmp_script, test.cmds)
 	// TODO: handle timeout
-	os.system('r2 -e scr.utf8=0 -e scr.interactive=0 -e scr.color=0 -NQ -i ${tmp_script} ${test.args} ${test.file} 2> ${tmp_stderr} > ${tmp_output}')
+	os.system('radare2 -e scr.utf8=0 -e scr.interactive=0 -e scr.color=0 -NQ -i ${tmp_script} ${test.args} ${test.file} 2> ${tmp_stderr} > ${tmp_output}')
 	res := os.read_file(tmp_output) or { panic(err) }
 
 	os.rm(tmp_script)
@@ -170,7 +173,7 @@ fn (r2r mut R2R)run_test(test mut R2RTest) {
 
 	mut mark := 'OK'
 	if res.trim_space() != test.expect.trim_space() {
-		test.failed = true
+		//test.failed = true
 		r2r.failed++
 		if !test.broken {
 			println(test.file)
@@ -178,38 +181,42 @@ fn (r2r mut R2R)run_test(test mut R2RTest) {
 			println(term.fail_message(test.expect))
 			println(term.ok_message(res))
 			mark = 'XX'
+			r2r.failed++
 		} else {
 			mark = 'BR'
+			r2r.broken++
 		}
 	} else {
 		if test.broken {
-			test.fixed = true
+		//	test.fixed = true
+			r2r.fixed++
 			mark = 'FX'
 		}
 	}
 	time_end := time.ticks()
-	test.times = time_end - time_start
-	println('[${mark}] (time ${test.times}) ${test.source} : ${test.name}')
+	times := time_end - time_start
+	println('[${mark}] (time ${times}) ${test.source} : ${test.name}')
+	// count results
+	r2r.wg.done()
 }
 
 fn (r2r mut R2R)run_tests() {
 	println('Running tests')
 	// r2r.r2 = r2.new()
-	mut fixed := 0
-	mut broken := 0
+	// TODO: use lock
+	r2r.wg = sync.new_waitgroup()
+	r2r.wg.add(r2r.cmd_tests.len)
 	for t in r2r.cmd_tests {
-		r2r.run_test(mut t)
-		if t.broken {
-			broken++
-			if t.fixed {
-				fixed++
-			}
-		}
+		r2r.run_test(t)
 	}
+	println('waiting')
+	r2r.wg.wait()
+	println('waited')
+
 	println('')
 	success := r2r.cmd_tests.len - r2r.failed
-	println('Broken: ${broken} / ${r2r.cmd_tests.len}')
-	println('Fixxed: ${fixed} / ${r2r.cmd_tests.len}')
+	println('Broken: ${r2r.broken} / ${r2r.cmd_tests.len}')
+	println('Fixxed: ${r2r.fixed} / ${r2r.cmd_tests.len}')
 	println('Succes: ${success} / ${r2r.cmd_tests.len}')
 	println('Failed: ${r2r.failed} / ${r2r.cmd_tests.len}')
 }

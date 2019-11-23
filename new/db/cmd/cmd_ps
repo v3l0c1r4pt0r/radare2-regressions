@@ -52,8 +52,9 @@ RUN
 
 NAME=psj ascii (#9064)
 FILE=-
-EXPECT='{"string":"...\"..\u00ef\u00bf\u00bd\u00ef\u00bf\u00bd\u00ef","offset":0,"section":"unknown","length":13,"type":"utf"}
-'
+EXPECT=<<EOF
+{"string":"...\"..\u00ef\u00bf\u00bd\u00ef\u00bf\u00bd\u00ef","offset":0,"section":"unknown","length":13,"type":"utf"}
+EOF
 CMDS=<<EOF
 wz ..."..����...
 psj 13
