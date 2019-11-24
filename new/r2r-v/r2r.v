@@ -7,6 +7,16 @@ import (
 // 	radare.r2
 )
 
+pub fn main() {
+	println('Loading tests')
+	os.chdir('..')
+	mut r2r := R2R{}
+	r2r.load_tests()
+	r2r.run_tests()
+}
+
+/////////////////
+
 struct R2R {
 mut:
 	cmd_tests []R2RTest
@@ -29,14 +39,6 @@ mut:
 	broken bool
 	failed bool
 	fixed bool
-}
-
-pub fn main() {
-	println('Loading tests')
-	os.chdir('..')
-	mut r2r := R2R{}
-	r2r.load_tests()
-	r2r.run_tests()
 }
 
 fn (r2r mut R2R) load_cmd_test(testfile string) {
