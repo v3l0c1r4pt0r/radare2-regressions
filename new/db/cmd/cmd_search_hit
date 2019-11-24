@@ -147,6 +147,16 @@ CMDS=<<EOF
 EOF
 RUN
 
+NAME=cmd.hit for /cr
+FILE=../bins/other/rsa-private-4096.key
+EXPECT=<<EOF
+0x0000000d hit0_0 308209280201000282020100c079f24b042787e4896db411fa7647e3bb62c8
+EOF
+CMDS=<<EOF
+/cr
+EOF
+RUN
+
 NAME=cmd.hit for /h
 FILE=malloc://1024
 BROKEN=1
