@@ -767,7 +767,7 @@ NAME=prc text color
 FILE=-
 CMDS=<<EXPECT
 . ../bins/other/palette.r2
-.. ../new/scripts/prc_256.py
+.. ../bins/src/prc_256.py
 e scr.color=3
 prc 256
 EXPECT=<<RUN
