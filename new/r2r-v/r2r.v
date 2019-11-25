@@ -79,6 +79,9 @@ fn (r2r mut R2R) load_cmd_test(testfile string) {
 					} else if token.starts_with('<<') {
 						slurp_target = &test.cmds
 						slurp_token = token.substr(2, token.len)
+						if slurp_token == 'RUN' {
+							eprintln('Warning: Deprecated <<RUN, use <<EOF in ${test.source} @ ${test.name}')
+						}
 					} else {
 						test.expect = line.substr(7, line.len)
 					}
@@ -105,6 +108,9 @@ fn (r2r mut R2R) load_cmd_test(testfile string) {
 				} else if token.starts_with('<<') {
 					slurp_target = &test.expect
 					slurp_token = token.substr(2, token.len)
+					if slurp_token == 'RUN' {
+						eprintln('Warning: Deprecated <<RUN, use <<EOF in ${test.source} @ ${test.name}')
+					}
 				} else {
 					test.expect = line.substr(7, line.len)
 				}
