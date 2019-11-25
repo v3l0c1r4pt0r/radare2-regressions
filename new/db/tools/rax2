@@ -44,14 +44,16 @@ RUN
 NAME=rax2 -S hello | rax2 -s (2)
 FILE=-
 CMDS=!echo hello | rax2 -S | rax2 -s | rax2 -S | rax2 -s
-EXPECT=<<RUN
+EXPECT=<<EOF
 hello
+EOF
 RUN
 
-NAME=rax2 -E | rax2 -D
+NAME=rax2 -E | rax2 -D -E
 FILE=-
 CMDS=!echo hello | rax2 -E |rax2 -D |rax2 -E | rax2 -D  |rax2 -E|rax2 -D |rax2 -E | rax2 -D
-EXPECT='hello'
+EXPECT='hello
+'
 RUN
 
 NAME=rax2 -b 01101000011001010110110001101100011011110111011101101111011100100110110001100100
