@@ -1,8 +1,9 @@
 NAME=rax2 =10 0x46
 FILE=-
 CMDS=!rax2 =10 0x46
-EXPECT=<<RUN
+EXPECT=<<EOF
 70
+EOF
 RUN
 
 NAME=rax2 -E | rax2 -D
@@ -11,16 +12,20 @@ CMDS=!rax2 -E hello |rax2 -D |rax2 -E | rax2 -D  |rax2 -E|rax2 -D |rax2 -E | rax
 EXPECT='hello'
 RUN
 
-NAME=rax2 -E | rax2 -D
+NAME=rax2 -E | rax2 -D 2
 FILE=-
 CMDS=!rax2 -E hello |rax2 -D |rax2 -E | rax2 -D  |rax2 -E|rax2 -D |rax2 -E | rax2 -Dl
-EXPECT='hello'
+EXPECT=<<EOF
+hello
+EOF
 RUN
 
-NAME=rax2 -E | rax2 -D
+NAME=rax2 -E | rax2 -D 3
 FILE=-
 CMDS=!echo hello | rax2 -E |rax2 -D |rax2 -E | rax2 -D  |rax2 -E|rax2 -D |rax2 -E | rax2 -D
-EXPECT='hello'
+EXPECT=<<EOF
+hello
+EOF
 RUN
 
 NAME=rax2 -S hello |rax2 -s
@@ -29,10 +34,11 @@ CMDS=!rax2 -S hello |rax2 -s
 EXPECT='hello'
 RUN
 
-NAME=rax2 -S hello |rax2 -s
+NAME=rax2 -S hello |rax2 -s 2
 FILE=-
 CMDS=!echo hello | rax2 -S | rax2 -s
-EXPECT='hello'
+EXPECT='hello
+'
 RUN
 
 NAME=rax2 -S hello | rax2 -s (2)
