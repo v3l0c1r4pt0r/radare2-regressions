@@ -22,3 +22,4 @@ d "sftl ac1, #0x31, ac1" a7810131
 d "xccpart tc1" 07e4
 d "xccpart ac0 <= #0 || mov #0x0, t0" 3605a07bb000
 d "xor #0x1, ar3, ar3" c5a3230001
+d "xccpart xar12 == #0" 07cc
