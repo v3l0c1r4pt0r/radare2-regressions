@@ -1025,9 +1025,8 @@ EOF
 RUN
 
 NAME=bin.str.enc alias and error handling
-ONE_STREAM=true
 FILE=../bins/elf/strenc
-CMDS=<<EXPECT
+CMDS=<<EOF
 e asm.filter=false
 e asm.noisy=false
 e asm.bytes=false
@@ -1040,25 +1039,31 @@ e str.escbslash=true
 pd 1 @ 0x004016c0
 .(test_str.enc utf32-le)
 pd 1 @ 0x004016ed
-.(test_str.enc cat_sat_on_keyboard)
 ?e
 .(test_str.enc UTF32BE)
 .(test_str.enc UTF16-LE)
-.(test_str.enc CAT_SAT_ON_KEYBOARD)
-EXPECT=<<RUN
+?e
+e bin.str.enc=cat_sat_on_keyboard
+e bin.str.enc=CAT_SAT_ON_KEYBOARD
+e bin.str.enc
+EOF
+EXPECT=<<EOF
 guess
 utf8
 utf16le
             0x004016c0      mov edi, 0x40230c                          ; u"\u2520\u2542\u2500\u2500\u2542\u2528 is a fence with embedded zeros\n"
 utf32le
             0x004016ed      mov edi, 0x40258c                          ; U"utf32le> \\u00a2\\u20ac\\U00010348 in cyan:\x1b[36m \xa2\u20ac\U00010348 \x1b[0m\n"
-Unknown encoding: cat_sat_on_keyboard
-utf32le
 
 utf32be
 utf16le
-Unknown encoding: CAT_SAT_ON_KEYBOARD
+
 utf16le
+EOF
+EXPECT_ERR=<<EOF
+Unknown encoding: cat_sat_on_keyboard
+Unknown encoding: CAT_SAT_ON_KEYBOARD
+EOF
 RUN
 
 NAME=hide flag iff unchanged and string shown
