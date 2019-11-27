@@ -157,20 +157,6 @@ CMDS=<<EOF
 EOF
 RUN
 
-NAME=cmd.hit for /h
-FILE=malloc://1024
-BROKEN=1
-EXPECT=<<EOF
-f hash.md5.348a9791dc41b89796ec3808b5b5262f = 0x0
-00
-EOF
-CMDS=<<EOF
-e cmd.hit = p8 1
-e search.in =raw
-/h md5 348a9791dc41b89796ec3808b5b5262f
-EOF
-RUN
-
 NAME=cmd.hit for /a
 FILE=malloc://1024
 EXPECT=<<EOF
