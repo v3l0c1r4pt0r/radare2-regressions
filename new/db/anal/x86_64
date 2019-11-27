@@ -1311,9 +1311,9 @@ aeim
 td int strcmp(char *s1, char *s2);
 tk func.strcmp.cc=stdcall
 aft
-s 0x00401368
-pd 1~char *s1?
 s 0x00401370
+pd 1~char *s1?
+s 0x00401368
 pd 1~char *s2?
 EOF
 RUN
